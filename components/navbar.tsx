@@ -13,17 +13,17 @@ export default function NavBar() {
       id: 'get-involved',
       label: 'Get Involved',
       links: [
-        { href: '/partner', text: 'Partner' },
-        { href: '/volunteer', text: 'Volunteer' },
-        { href: '/donor', text: 'Donor' },
+        { href: '/get-involved/partner', text: 'Partner' },
+        { href: '/get-involved/volunteer', text: 'Volunteer' },
+        { href: '/get-involved/donor', text: 'Donor' },
       ],
     },
     {
       id: 'about-us',
       label: 'About Us',
       links: [
-        { href: '/who-we-are', text: 'Who We Are' },
-        { href: '/research', text: 'Research' },
+        { href: '/about-us/who-we-are', text: 'Who We Are' },
+        { href: '/about-us/research', text: 'Research' },
       ],
     },
   ];
