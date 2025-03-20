@@ -1,0 +1,140 @@
+'use client';
+
+import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import React, { useState, useEffect, useRef } from 'react';
+import { FormInfo } from './donationForm';
+import {
+  useStripe,
+  useElements,
+  PaymentElement,
+} from '@stripe/react-stripe-js';
+
+interface StepProps {
+  formData: FormInfo;
+  prevStep: () => void;
+  setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+}
+
+const PaymentInfo = ({ formData, prevStep, setFormData }: StepProps) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [errorMessage, setErrorMessage] = useState<string>();
+  const [clientSecret, setClientSecret] = useState('');
+  const [loading, setLoading] = useState(false);
+  const errorRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (Number(formData.amount) < 1) {
+      setClientSecret('');
+      return;
+    }
+
+    const createPaymentIntent = async () => {
+      try {
+        const response = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: convertToSubcurrency(Number(formData.amount)),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create payment intent');
+        }
+
+        const data = await response.json();
+        setClientSecret(data.clientSecret);
+      } catch (error) {
+        console.log('Error creating payment intent:', error);
+      }
+    };
+
+    createPaymentIntent();
+  }, [formData.amount]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!stripe || !elements) return;
+
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      setErrorMessage(submitError.message);
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      confirmParams: {
+        return_url: 'http://localhost:3000/',
+        receipt_email: formData.email,
+      },
+    });
+
+    if (error) {
+      setErrorMessage(error.message || 'Payment failed');
+    }
+
+    setLoading(false);
+  };
+
+  if (!clientSecret || !stripe || !elements) {
+    return (
+      <div className="flex items-center justify-center">
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-black"
+          role="status"
+        >
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="text-black w-full">
+      {clientSecret && <PaymentElement className="mb-2" />}
+      {errorMessage && (
+        <div
+          ref={errorRef}
+          className="text-red-600 font-semibold p-2 rounded-md bg-red-100"
+        >
+          {errorMessage}
+        </div>
+      )}
+      <label className="flex flex-col gap-2 text-left">
+        Leave a comment
+        <input
+          type="text"
+          value={formData.comment}
+          onChange={e => setFormData({ ...formData, comment: e.target.value })}
+          className="border mb-4"
+        />
+      </label>
+      <div>
+        <button
+          onClick={prevStep}
+          className="px-4 py-1 border rounded-lg cursor-pointer"
+        >
+          Back
+        </button>
+        <button
+          disabled={!stripe || loading || Number(formData.amount) < 1}
+          className="border disabled:opacity-50 disabled:animate-pulse"
+        >
+          {!loading ? `Donate $${formData.amount}` : 'Processing...'}
+        </button>
+      </div>
+    </form>
+  );
+};
+
+export default PaymentInfo;

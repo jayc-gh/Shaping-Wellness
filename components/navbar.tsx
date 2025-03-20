@@ -54,7 +54,7 @@ export default function NavBar() {
             onMouseEnter={() => setDropDown(id)}
             onMouseLeave={() => setDropDown(null)}
           >
-            <button className="hover:cursor-pointer">{label}</button>
+            <button className="">{label}</button>
             {dropdown === id && (
               <div className={dropdownStyles}>
                 {links.map(({ href, text }) => (
