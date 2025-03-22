@@ -11,11 +11,10 @@ import {
 
 interface StepProps {
   formData: FormInfo;
-  prevStep: () => void;
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
 }
 
-const PaymentInfo = ({ formData, prevStep, setFormData }: StepProps) => {
+const PaymentInfo = ({ formData }: StepProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -110,25 +109,10 @@ const PaymentInfo = ({ formData, prevStep, setFormData }: StepProps) => {
           {errorMessage}
         </div>
       )}
-      <label className="flex flex-col gap-2 text-left">
-        Leave a comment
-        <input
-          type="text"
-          value={formData.comment}
-          onChange={e => setFormData({ ...formData, comment: e.target.value })}
-          className="border mb-4"
-        />
-      </label>
-      <div>
-        <button
-          onClick={prevStep}
-          className="px-4 py-1 border rounded-lg cursor-pointer"
-        >
-          Back
-        </button>
+      <div className="flex justify-center w-full">
         <button
           disabled={!stripe || loading || Number(formData.amount) < 1}
-          className="border disabled:opacity-50 disabled:animate-pulse"
+          className="w-55 h-10 border rounded-full cursor-pointer"
         >
           {!loading ? `Donate $${formData.amount}` : 'Processing...'}
         </button>

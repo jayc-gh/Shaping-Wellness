@@ -18,7 +18,6 @@ export interface FormInfo {
   anonymous: boolean;
   orgDonate: boolean;
   orgName: string;
-  comment: string;
 }
 
 const stripePublicKey: string = process.env
@@ -40,50 +39,87 @@ const DonateForm = () => {
     anonymous: false,
     orgDonate: false,
     orgName: '',
-    comment: '',
   });
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
 
   return (
-    <div className="fixed flex items-center right-1/30 top-0 h-full w-5/12">
-      <div className="fixed h-3/4 w-5/12 bg-white shadow-lg p-6 flex items-center justify-center max-h-3/4 overflow-y-auto">
-        <div className="w-7/10 flex items-center justify-center">
+    <div className="fixed flex items-center top-0 h-full">
+      <div className="fixed h-3/4 w-1/3 bg-white shadow-lg flex items-center justify-center text-black flex-col">
+        {/* Back button and Progress bar */}
+        <div className="absolute top-15 w-2/3 h-10 flex items-center justify-between">
+          <div className="w-1/4">
+            {step > 1 && (
+              <button onClick={prevStep} className="cursor-pointer">
+                &lt;
+              </button>
+            )}
+          </div>
+          <div className="relative flex-1 flex items-center justify-center">
+            {/* Line */}
+            <div className="absolute inset-0 top-1/2 transform -translate-y-1/2 bg-gray-400 h-px w-full"></div>
+
+            {/* Dots */}
+            {[1, 2, 3, 4].map((dot, index) => (
+              <div
+                key={dot}
+                className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                  step >= dot
+                    ? 'bg-gray-400 border-gray-400'
+                    : 'border-gray-400 bg-white'
+                } absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2`}
+                style={{ left: `${(index / 3) * 100}%` }}
+              >
+                {dot === 4 && (
+                  <span className="text-gray-400 font-light text-xs">✔</span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="w-1/4"></div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center w-2/3">
           {step === 1 && (
-            <DonationAmt
-              formData={formData}
-              setFormData={setFormData}
-              nextStep={nextStep}
-            />
+            <div className="flex flex-col items-center justify-center w-full">
+              <h4 className="w-full text-left">SELECT AN AMOUNT</h4>
+              <DonationAmt
+                formData={formData}
+                setFormData={setFormData}
+                nextStep={nextStep}
+              />
+            </div>
           )}
           {step === 2 && (
-            <DonorInfo
-              formData={formData}
-              setFormData={setFormData}
-              nextStep={nextStep}
-              prevStep={prevStep}
-            />
+            <div className="flex flex-col items-center justify-center w-full">
+              <h4 className="w-full text-left">YOUR INFORMATION</h4>
+              <DonorInfo
+                formData={formData}
+                setFormData={setFormData}
+                nextStep={nextStep}
+              />
+            </div>
           )}
           {step === 3 && (
-            <Elements
-              stripe={stripePromise}
-              options={{
-                mode: 'payment',
-                amount: convertToSubcurrency(
-                  Number(formData.amount) < 1 || formData.amount === ''
-                    ? 1
-                    : Number(formData.amount)
-                ),
-                currency: 'usd',
-              }}
-            >
-              <PaymentInfo
-                formData={formData}
-                prevStep={prevStep}
-                setFormData={setFormData}
-              />
-            </Elements>
+            <div className="flex flex-col items-center justify-center w-full">
+              <h4 className="w-full text-left">PAYMEMT DETAILS</h4>
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: 'payment',
+                  amount: convertToSubcurrency(
+                    Number(formData.amount) < 1 || formData.amount === ''
+                      ? 1
+                      : Number(formData.amount)
+                  ),
+                  currency: 'usd',
+                }}
+              >
+                <PaymentInfo formData={formData} setFormData={setFormData} />
+              </Elements>
+            </div>
           )}
         </div>
       </div>

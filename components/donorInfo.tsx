@@ -7,14 +7,8 @@ interface StepProps {
   formData: FormInfo;
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
   nextStep: () => void;
-  prevStep: () => void;
 }
-const DonorInfo = ({
-  formData,
-  setFormData,
-  nextStep,
-  prevStep,
-}: StepProps) => {
+const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
   const formatPhoneNumber = (value: string) => {
     const cleaned = value.replace(/\D/g, '');
     if (cleaned.length <= 3) {
@@ -134,19 +128,12 @@ const DonorInfo = ({
             />
           </label>
         </div>
-        <div>
-          <button
-            type="button"
-            onClick={prevStep}
-            className="px-4 py-1 border rounded-lg cursor-pointer"
-          >
-            Back
-          </button>
+        <div className="flex justify-center w-full">
           <button
             type="submit"
-            className="px-4 py-1 border rounded-lg cursor-pointer"
+            className="w-55 h-10 border rounded-full cursor-pointer"
           >
-            Next
+            Continue
           </button>
         </div>
       </form>
