@@ -74,11 +74,11 @@ const DonationAmt = ({ formData, setFormData, nextStep }: StepProps) => {
   return (
     <main className="mx-auto w-full text-black">
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col mb-6">
-          <div className="flex justify-center">
+        <div className="flex flex-col mb-4">
+          <div className="flex justify-center mb-4">
             <div className="relative inline-block w-85 h-12 rounded-full bg-gray-300">
               <div
-                className={`absolute top-0 left-0 w-1/2 h-full bg-blue-500 rounded-full transition-all duration-300 ${
+                className={`absolute top-0 left-0 w-1/2 h-full bg-blue-500 rounded-full ${
                   formData.monthly ? 'translate-x-full' : ''
                 }`}
               ></div>
@@ -148,7 +148,7 @@ const DonationAmt = ({ formData, setFormData, nextStep }: StepProps) => {
           {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
           </div>
           )} */}
-        <div className="relative w-1/2 mb-4 mx-auto">
+        <div className="relative w-5/12 mb-35 mx-auto">
           <input
             type="text"
             value={formData.amount ? `$${formData.amount}` : ''}
