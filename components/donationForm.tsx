@@ -43,7 +43,18 @@ const DonateForm = () => {
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
-
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const donationAmount = parseFloat(formData.amount || '0');
+    if (isNaN(donationAmount) || donationAmount < 1) {
+      // setError('Minimum donation amount is $1.00.');
+      return;
+    } else if (isNaN(donationAmount) || donationAmount > 999999.99) {
+      // setError('Donation amount cannot exceed $999,999.99');
+      return;
+    }
+    nextStep();
+  };
   return (
     <main className="fixed h-full w-full flex items-center">
       <div className="fixed flex items-center justify-center h-5/6 w-1/2 right-0">
@@ -81,27 +92,33 @@ const DonateForm = () => {
             <div className="w-1/4"></div>
           </div>
 
-          <div className="w-2/3 absolute top-30">
-            {step === 1 && (
-              <div className="flex flex-col items-center justify-center w-full">
-                <h4 className="w-full text-left mb-4">SELECT AN AMOUNT</h4>
-                <DonationAmt
-                  formData={formData}
-                  setFormData={setFormData}
-                  nextStep={nextStep}
-                />
-              </div>
-            )}
-            {step === 2 && (
-              <div className="flex flex-col items-center justify-center w-full">
-                <h4 className="w-full text-left mb-4">YOUR INFORMATION</h4>
-                <DonorInfo
-                  formData={formData}
-                  setFormData={setFormData}
-                  nextStep={nextStep}
-                />
-              </div>
-            )}
+          <div className="w-2/3 absolute top-30 h-3/4">
+            <form onSubmit={handleSubmit}>
+              {step === 1 && (
+                <div className="flex flex-col items-center justify-center w-full">
+                  <h4 className="w-full text-left mb-4">SELECT AN AMOUNT</h4>
+                  <DonationAmt formData={formData} setFormData={setFormData} />
+                </div>
+              )}
+              {step === 2 && (
+                <div className="flex flex-col items-center justify-center w-full">
+                  <h4 className="w-full text-left mb-4">YOUR INFORMATION</h4>
+                  <DonorInfo formData={formData} setFormData={setFormData} />
+                </div>
+              )}
+              {step < 3 && (
+                <div className="absolute flex justify-center w-full bottom-10">
+                  <button
+                    type="submit"
+                    className="w-55 h-10 border rounded-full cursor-pointer"
+                  >
+                    Continue
+                  </button>
+                </div>
+              )}
+            </form>
+
+            {/* step 3 has its own form/submission logic for payment */}
             {step === 3 && (
               <div className="flex flex-col items-center justify-center w-full">
                 <h4 className="w-full text-left mb-4">PAYMEMT DETAILS</h4>
