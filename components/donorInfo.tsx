@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FormInfo } from './donationForm';
 
 interface StepProps {
@@ -8,6 +8,13 @@ interface StepProps {
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
 }
 const DonorInfo = ({ formData, setFormData }: StepProps) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const validateEmailFormat = (email: string) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
   const formatPhoneNumber = (value: string) => {
     const cleaned = value.replace(/\D/g, '');
     if (cleaned.length <= 3) {
@@ -20,6 +27,10 @@ const DonorInfo = ({ formData, setFormData }: StepProps) => {
         10
       )}`;
     }
+  };
+
+  const handleBlur = () => {
+    setIsFocused(!isFocused);
   };
 
   return (
@@ -76,25 +87,30 @@ const DonorInfo = ({ formData, setFormData }: StepProps) => {
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
+            id="anonymous-checkbox"
             checked={formData.anonymous}
             onChange={() =>
               setFormData({ ...formData, anonymous: !formData.anonymous })
             }
           />
-          Hide my name from the public
+          <label htmlFor="anonymous-checkbox">
+            Hide my name from the public
+          </label>
         </label>
 
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
+            id="orgDonate-checkbox"
             checked={formData.orgDonate}
             onChange={() =>
               setFormData({ ...formData, orgDonate: !formData.orgDonate })
             }
           />
-          Donate as an organization
+          <label htmlFor="orgDonate-checkbox">Donate as an organization</label>
         </label>
       </div>
+
       {formData.orgDonate && (
         <div className="flex gap-4 mb-2">
           <label className="flex flex-col gap-2 text-left flex-1">
@@ -138,9 +154,18 @@ const DonorInfo = ({ formData, setFormData }: StepProps) => {
             onChange={e => {
               setFormData({ ...formData, email: e.target.value });
             }}
+            onBlur={handleBlur}
+            onFocus={handleBlur}
             required
             className="border"
           />
+          {!isFocused &&
+            !validateEmailFormat(formData.email) &&
+            formData.email && (
+              <span className="text-red-500 text-xs">
+                Please enter in the format: email@domain.com
+              </span>
+            )}
         </label>
         <label className="flex flex-col gap-2 text-left">
           {formData.orgDonate ? (

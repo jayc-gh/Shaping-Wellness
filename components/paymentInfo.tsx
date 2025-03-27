@@ -7,6 +7,7 @@ import {
   useStripe,
   useElements,
   PaymentElement,
+  PaymentElementProps,
 } from '@stripe/react-stripe-js';
 
 interface StepProps {
@@ -21,6 +22,14 @@ const PaymentInfo = ({ formData }: StepProps) => {
   const [clientSecret, setClientSecret] = useState('');
   const [loading, setLoading] = useState(false);
   const errorRef = useRef<HTMLDivElement | null>(null);
+
+  const paymentElementOptions: PaymentElementProps['options'] = {
+    fields: {
+      billingDetails: {
+        // address: 'never',
+      },
+    },
+  };
 
   useEffect(() => {
     if (Number(formData.amount) < 1) {
@@ -98,7 +107,9 @@ const PaymentInfo = ({ formData }: StepProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="text-black w-full">
-      {clientSecret && <PaymentElement className="mb-2" />}
+      {clientSecret && (
+        <PaymentElement options={paymentElementOptions} className="mb-2" />
+      )}
       {errorMessage && (
         <div
           ref={errorRef}

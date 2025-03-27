@@ -14,6 +14,9 @@ export interface FormInfo {
   firstName: string;
   lastName: string;
   email: string;
+  address: string;
+  country: string;
+  zipcode: string;
   phone: string;
   anonymous: boolean;
   orgDonate: boolean;
@@ -35,6 +38,9 @@ const DonateForm = () => {
     firstName: '',
     lastName: '',
     email: '',
+    address: '',
+    country: '',
+    zipcode: '',
     phone: '',
     anonymous: false,
     orgDonate: false,
@@ -43,18 +49,27 @@ const DonateForm = () => {
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const donationAmount = parseFloat(formData.amount || '0');
-    if (isNaN(donationAmount) || donationAmount < 1) {
-      // setError('Minimum donation amount is $1.00.');
-      return;
-    } else if (isNaN(donationAmount) || donationAmount > 999999.99) {
-      // setError('Donation amount cannot exceed $999,999.99');
-      return;
+    if (step === 1) {
+      const donationAmount = parseFloat(formData.amount || '0');
+      if (
+        isNaN(donationAmount) ||
+        donationAmount < 1 ||
+        donationAmount > 999999.99
+      ) {
+        return;
+      }
+    } else if (step === 2) {
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!regex.test(formData.email)) {
+        return;
+      }
     }
     nextStep();
   };
+
   return (
     <main className="fixed h-full w-full flex items-center">
       <div className="fixed flex items-center justify-center h-5/6 w-1/2 right-0">
@@ -102,6 +117,16 @@ const DonateForm = () => {
               )}
               {step === 2 && (
                 <div className="flex flex-col items-center justify-center w-full">
+                  <div className="flex mb-4">
+                    <p className="pr-2">You are donating: ${formData.amount}</p>
+                    <button
+                      className="underline italic text-xs cursor-pointer"
+                      onClick={() => setStep(1)}
+                      type="button"
+                    >
+                      change
+                    </button>
+                  </div>
                   <h4 className="w-full text-left mb-4">YOUR INFORMATION</h4>
                   <DonorInfo formData={formData} setFormData={setFormData} />
                 </div>
@@ -121,6 +146,15 @@ const DonateForm = () => {
             {/* step 3 has its own form/submission logic for payment */}
             {step === 3 && (
               <div className="flex flex-col items-center justify-center w-full">
+                <div className="flex mb-4">
+                  <p className="pr-2">You are donating: ${formData.amount}</p>
+                  <button
+                    className="underline italic text-xs cursor-pointer"
+                    onClick={() => setStep(1)}
+                  >
+                    change
+                  </button>
+                </div>
                 <h4 className="w-full text-left mb-4">PAYMEMT DETAILS</h4>
                 <Elements
                   stripe={stripePromise}

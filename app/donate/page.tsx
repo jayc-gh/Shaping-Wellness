@@ -5,3 +5,5 @@ export default function DonatePage() {
 }
 
 // make new component for successful donation (step 4)
+// look into customizing stripe elements
+// sending form elements/variables into excel
