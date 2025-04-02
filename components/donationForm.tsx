@@ -14,8 +14,11 @@ export interface FormInfo {
   firstName: string;
   lastName: string;
   email: string;
-  address: string;
+  address1: string;
+  address2: string;
   country: string;
+  state: string;
+  city: string;
   zipcode: string;
   phone: string;
   anonymous: boolean;
@@ -38,8 +41,11 @@ const DonateForm = () => {
     firstName: '',
     lastName: '',
     email: '',
-    address: '',
+    address1: '',
+    address2: '',
     country: '',
+    state: '',
+    city: '',
     zipcode: '',
     phone: '',
     anonymous: false,
@@ -49,26 +55,6 @@ const DonateForm = () => {
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (step === 1) {
-      const donationAmount = parseFloat(formData.amount || '0');
-      if (
-        isNaN(donationAmount) ||
-        donationAmount < 1 ||
-        donationAmount > 999999.99
-      ) {
-        return;
-      }
-    } else if (step === 2) {
-      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!regex.test(formData.email)) {
-        return;
-      }
-    }
-    nextStep();
-  };
 
   return (
     <main className="fixed h-full w-full flex items-center">
@@ -108,40 +94,33 @@ const DonateForm = () => {
           </div>
 
           <div className="w-2/3 absolute top-30 h-3/4">
-            <form onSubmit={handleSubmit}>
-              {step === 1 && (
-                <div className="flex flex-col items-center justify-center w-full">
-                  <h4 className="w-full text-left mb-4">SELECT AN AMOUNT</h4>
-                  <DonationAmt formData={formData} setFormData={setFormData} />
-                </div>
-              )}
-              {step === 2 && (
-                <div className="flex flex-col items-center justify-center w-full">
-                  <div className="flex mb-4">
-                    <p className="pr-2">You are donating: ${formData.amount}</p>
-                    <button
-                      className="underline italic text-xs cursor-pointer"
-                      onClick={() => setStep(1)}
-                      type="button"
-                    >
-                      change
-                    </button>
-                  </div>
-                  <h4 className="w-full text-left mb-4">YOUR INFORMATION</h4>
-                  <DonorInfo formData={formData} setFormData={setFormData} />
-                </div>
-              )}
-              {step < 3 && (
-                <div className="absolute flex justify-center w-full bottom-10">
+            {step === 1 && (
+              <DonationAmt
+                formData={formData}
+                setFormData={setFormData}
+                nextStep={nextStep}
+              />
+            )}
+
+            {step === 2 && (
+              <div className="flex flex-col items-center justify-center w-full">
+                <div className="flex mb-4">
+                  <p className="pr-2">You are donating: ${formData.amount}</p>
                   <button
-                    type="submit"
-                    className="w-55 h-10 border rounded-full cursor-pointer"
+                    className="underline italic text-xs cursor-pointer"
+                    onClick={() => setStep(1)}
+                    type="button"
                   >
-                    Continue
+                    change
                   </button>
                 </div>
-              )}
-            </form>
+                <DonorInfo
+                  formData={formData}
+                  setFormData={setFormData}
+                  nextStep={nextStep}
+                />
+              </div>
+            )}
 
             {/* step 3 has its own form/submission logic for payment */}
             {step === 3 && (
@@ -155,7 +134,6 @@ const DonateForm = () => {
                     change
                   </button>
                 </div>
-                <h4 className="w-full text-left mb-4">PAYMEMT DETAILS</h4>
                 <Elements
                   stripe={stripePromise}
                   options={{

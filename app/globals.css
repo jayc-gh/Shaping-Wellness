@@ -35,3 +35,33 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+@layer utilities {
+  /* WebKit-based browsers (Chrome, Safari, Edge) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Fixed scrollbar width */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar color */
+    border-radius: 4px; /* Smooth edges */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #666; /* Darker on hover */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Invisible track */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-button {
+    display: none; /* Remove scrollbar arrows */
+  }
+
+  /* Firefox scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin; /* Makes scrollbar thinner */
+    scrollbar-color: #888 transparent; /* Thumb (foreground) | Track (background) */
+  }
+}

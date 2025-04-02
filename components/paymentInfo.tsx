@@ -26,7 +26,7 @@ const PaymentInfo = ({ formData }: StepProps) => {
   const paymentElementOptions: PaymentElementProps['options'] = {
     fields: {
       billingDetails: {
-        // address: 'never',
+        address: 'never',
       },
     },
   };
@@ -107,6 +107,7 @@ const PaymentInfo = ({ formData }: StepProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="text-black w-full">
+      <h4 className="w-full text-left mb-4">PAYMEMT DETAILS</h4>
       {clientSecret && (
         <PaymentElement options={paymentElementOptions} className="mb-2" />
       )}

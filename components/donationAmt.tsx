@@ -5,9 +5,10 @@ import { FormInfo } from './donationForm';
 interface StepProps {
   formData: FormInfo;
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+  nextStep: () => void;
 }
 
-const DonationAmt = ({ formData, setFormData }: StepProps) => {
+const DonationAmt = ({ formData, setFormData, nextStep }: StepProps) => {
   // const [isCustom, setIsCustom] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
@@ -57,8 +58,22 @@ const DonationAmt = ({ formData, setFormData }: StepProps) => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const donationAmount = parseFloat(formData.amount || '0');
+    if (
+      isNaN(donationAmount) ||
+      donationAmount < 1 ||
+      donationAmount > 999999.99
+    ) {
+      return;
+    }
+    nextStep();
+  };
+
   return (
-    <main className="mx-auto w-full text-black">
+    <form onSubmit={handleSubmit} className="mx-auto w-full text-black">
+      <h4 className="w-full text-left mb-4">SELECT AN AMOUNT</h4>
       <div className="flex flex-col mb-4">
         <div className="flex justify-center mb-4">
           <div className="relative inline-block w-85 h-12 rounded-full bg-gray-300">
@@ -148,7 +163,15 @@ const DonationAmt = ({ formData, setFormData }: StepProps) => {
       <div className="flex justify-center">
         {error && <p className="text-red-500 text-xs">{error}</p>}
       </div>
-    </main>
+      <div className="absolute flex justify-center w-full bottom-10">
+        <button
+          type="submit"
+          className="w-55 h-10 border rounded-md cursor-pointer"
+        >
+          Continue
+        </button>
+      </div>
+    </form>
   );
 };
 
