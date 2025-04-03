@@ -2,32 +2,28 @@
 
 import React, { useState } from 'react';
 import { FormInfo } from './donationForm';
+import { formatPhoneNumber, validateEmailFormat } from '@/lib/functions';
+import { Country, State, IState } from 'country-state-city';
 
 interface StepProps {
   formData: FormInfo;
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
   nextStep: () => void;
 }
-const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
+
+export default function DonorInfo({
+  formData,
+  setFormData,
+  nextStep,
+}: StepProps) {
   const [isFocused, setIsFocused] = useState(false);
-
-  const validateEmailFormat = (email: string) => {
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(email);
-  };
-
-  const formatPhoneNumber = (value: string) => {
-    const cleaned = value.replace(/\D/g, '');
-    if (cleaned.length <= 3) {
-      return cleaned;
-    } else if (cleaned.length <= 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
-    } else {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
-        6,
-        10
-      )}`;
-    }
+  const [states, setStates] = useState<IState[]>(
+    State.getStatesOfCountry(formData.country)
+  );
+  const countries = Country.getAllCountries();
+  const handleCountryChange = (country: string) => {
+    setStates(State.getStatesOfCountry(country));
+    setFormData({ ...formData, country: country, state: '' });
   };
 
   const handleBlur = () => {
@@ -37,11 +33,9 @@ const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!regex.test(formData.email)) {
+    if (!validateEmailFormat(formData.email)) {
       return;
     }
-
     nextStep();
   };
 
@@ -134,7 +128,7 @@ const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
         {formData.orgDonate ? (
           <span>Organization Address 1 *</span>
         ) : (
-          <span>Address 1 *</span>
+          <span>Address *</span>
         )}
         <input
           type="address1"
@@ -153,13 +147,74 @@ const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
           onChange={e => {
             setFormData({ ...formData, address2: e.target.value });
           }}
-          required
-          placeholder="Address 2 (optional)"
+          placeholder="Address 2 (apt, suite, etc)"
           className="border"
         />
       </label>
 
       <div className="flex gap-4 mb-2">
+        <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
+          <select
+            className="border"
+            value={formData.country}
+            onChange={e => handleCountryChange(e.target.value)}
+          >
+            {countries.map(country => (
+              <option key={country.isoCode} value={country.isoCode}>
+                {country.name} ({country.isoCode})
+              </option>
+            ))}
+          </select>
+        </label>
+        {formData.country === 'US' ? (
+          <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
+            <select
+              className="border"
+              value={formData.state}
+              required
+              onChange={e =>
+                setFormData({ ...formData, state: e.target.value })
+              }
+            >
+              <option value="" disabled={formData.state !== ''}>
+                State
+              </option>{' '}
+              {states.map(state => (
+                <option key={state.isoCode} value={state.isoCode}>
+                  {state.name} ({state.isoCode})
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
+            <input
+              type="text"
+              value={formData.state}
+              required
+              onChange={e =>
+                setFormData({ ...formData, state: e.target.value })
+              }
+              placeholder="State/Province/Region"
+              className="border"
+            />
+          </label>
+        )}
+      </div>
+
+      <div className="flex gap-4 mb-2">
+        <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
+          <input
+            type="text"
+            value={formData.postalCode}
+            onChange={e =>
+              setFormData({ ...formData, postalCode: e.target.value })
+            }
+            required
+            placeholder="Zip/Postal Code"
+            className="border"
+          />
+        </label>
         <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
           <input
             type="text"
@@ -167,45 +222,6 @@ const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
             onChange={e => setFormData({ ...formData, city: e.target.value })}
             required
             placeholder="City"
-            className="border"
-          />
-        </label>
-
-        <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
-          <input
-            type="text"
-            value={formData.state}
-            onChange={e => setFormData({ ...formData, state: e.target.value })}
-            required
-            placeholder="State / Province"
-            className="border"
-          />
-        </label>
-      </div>
-
-      <div className="flex gap-4 mb-2">
-        <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
-          <input
-            type="text"
-            value={formData.zipcode}
-            onChange={e =>
-              setFormData({ ...formData, zipcode: e.target.value })
-            }
-            required
-            placeholder="Postal / Zip Code"
-            className="border"
-          />
-        </label>
-
-        <label className="flex flex-col gap-2 text-left flex-1 min-w-0">
-          <input
-            type="text"
-            value={formData.country}
-            onChange={e =>
-              setFormData({ ...formData, country: e.target.value })
-            }
-            required
-            placeholder="Country"
             className="border"
           />
         </label>
@@ -298,6 +314,4 @@ const DonorInfo = ({ formData, setFormData, nextStep }: StepProps) => {
       </div>
     </form>
   );
-};
-
-export default DonorInfo;
+}

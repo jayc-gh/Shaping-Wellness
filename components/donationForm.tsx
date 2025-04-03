@@ -19,7 +19,7 @@ export interface FormInfo {
   country: string;
   state: string;
   city: string;
-  zipcode: string;
+  postalCode: string;
   phone: string;
   anonymous: boolean;
   orgDonate: boolean;
@@ -33,7 +33,7 @@ if (!stripePublicKey) {
 }
 const stripePromise = loadStripe(stripePublicKey);
 
-const DonateForm = () => {
+export default function DonateForm() {
   const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormInfo>({
     amount: '75',
@@ -43,10 +43,10 @@ const DonateForm = () => {
     email: '',
     address1: '',
     address2: '',
-    country: '',
+    country: 'US',
     state: '',
     city: '',
-    zipcode: '',
+    postalCode: '',
     phone: '',
     anonymous: false,
     orgDonate: false,
@@ -146,7 +146,7 @@ const DonateForm = () => {
                     currency: 'usd',
                   }}
                 >
-                  <PaymentInfo formData={formData} setFormData={setFormData} />
+                  <PaymentInfo formData={formData} />
                 </Elements>
               </div>
             )}
@@ -155,6 +155,4 @@ const DonateForm = () => {
       </div>
     </main>
   );
-};
-
-export default DonateForm;
+}

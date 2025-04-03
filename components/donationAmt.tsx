@@ -8,7 +8,11 @@ interface StepProps {
   nextStep: () => void;
 }
 
-const DonationAmt = ({ formData, setFormData, nextStep }: StepProps) => {
+export default function DonationAmt({
+  formData,
+  setFormData,
+  nextStep,
+}: StepProps) {
   // const [isCustom, setIsCustom] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
@@ -173,6 +177,4 @@ const DonationAmt = ({ formData, setFormData, nextStep }: StepProps) => {
       </div>
     </form>
   );
-};
-
-export default DonationAmt;
+}

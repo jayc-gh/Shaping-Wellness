@@ -12,10 +12,9 @@ import {
 
 interface StepProps {
   formData: FormInfo;
-  setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
 }
 
-const PaymentInfo = ({ formData }: StepProps) => {
+export default function PaymentInfo({ formData }: StepProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -32,11 +31,6 @@ const PaymentInfo = ({ formData }: StepProps) => {
   };
 
   useEffect(() => {
-    if (Number(formData.amount) < 1) {
-      setClientSecret('');
-      return;
-    }
-
     const createPaymentIntent = async () => {
       try {
         const response = await fetch('/api/create-payment-intent', {
@@ -57,6 +51,7 @@ const PaymentInfo = ({ formData }: StepProps) => {
         setClientSecret(data.clientSecret);
       } catch (error) {
         console.log('Error creating payment intent:', error);
+        setErrorMessage('There was an error creating the payment intent.');
       }
     };
 
@@ -80,8 +75,20 @@ const PaymentInfo = ({ formData }: StepProps) => {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: 'http://localhost:3000/',
+        return_url: `http://localhost:3000/payment-success?amount=${formData.amount}`,
         receipt_email: formData.email,
+        payment_method_data: {
+          billing_details: {
+            address: {
+              country: formData.country,
+              line1: formData.address1,
+              line2: formData.address2,
+              state: formData.state,
+              city: formData.city,
+              postal_code: formData.postalCode,
+            },
+          },
+        },
       },
     });
 
@@ -112,23 +119,18 @@ const PaymentInfo = ({ formData }: StepProps) => {
         <PaymentElement options={paymentElementOptions} className="mb-2" />
       )}
       {errorMessage && (
-        <div
-          ref={errorRef}
-          className="text-red-600 font-semibold p-2 rounded-md bg-red-100"
-        >
+        <div ref={errorRef} className="text-red-600 p-2 rounded-md bg-red-100">
           {errorMessage}
         </div>
       )}
-      <div className="flex justify-center w-full">
+      <div className="absolute flex justify-center w-full bottom-10">
         <button
           disabled={!stripe || loading || Number(formData.amount) < 1}
-          className="w-55 h-10 border rounded-full cursor-pointer"
+          className="w-55 h-10 border rounded-md cursor-pointer"
         >
           {!loading ? `Donate $${formData.amount}` : 'Processing...'}
         </button>
       </div>
     </form>
   );
-};
-
-export default PaymentInfo;
+}

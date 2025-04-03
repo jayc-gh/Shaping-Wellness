@@ -6,6 +6,5 @@ export default function DonatePage() {
 
 // make new component for successful donation (step 4)
 // sending form elements/variables into excel
-// countries and states dropdown
 
 // autofill address later
