@@ -99,6 +99,7 @@ export default function PaymentInfo({ formData }: StepProps) {
     setLoading(false);
   };
 
+  // if (true) {
   if (!clientSecret || !stripe || !elements) {
     return (
       <div
@@ -113,7 +114,7 @@ export default function PaymentInfo({ formData }: StepProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="text-black w-full">
+    <form onSubmit={handleSubmit} className="relative text-black w-full h-full">
       <h4 className="w-full text-left mb-4">PAYMEMT DETAILS</h4>
       {clientSecret && (
         <PaymentElement options={paymentElementOptions} className="mb-2" />
@@ -123,7 +124,7 @@ export default function PaymentInfo({ formData }: StepProps) {
           {errorMessage}
         </div>
       )}
-      <div className="absolute flex justify-center w-full bottom-10">
+      <div className="flex justify-center w-full absolute bottom-0">
         <button
           disabled={!stripe || loading || Number(formData.amount) < 1}
           className="w-55 h-10 border rounded-md cursor-pointer"

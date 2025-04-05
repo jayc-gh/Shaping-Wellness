@@ -1,3 +1,3 @@
 export default function WhoWeAre() {
-  return <div>hello</div>;
+  return <div className=""></div>;
 }

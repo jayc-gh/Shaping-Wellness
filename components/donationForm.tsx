@@ -57,11 +57,12 @@ export default function DonateForm() {
   const prevStep = () => setStep(prev => prev - 1);
 
   return (
-    <main className="fixed h-full w-full flex items-center">
-      <div className="fixed flex items-center justify-center h-5/6 w-1/2 right-0">
-        <div className="fixed h-3/4 w-1/3 shadow-lg flex items-center bg-white text-black flex-col rounded-xl">
+    <main className="flex h-full">
+      <div className="w-1/2"></div>
+      <div className="flex justify-center items-center w-1/2">
+        <div className="shadow-xl flex items-center bg-white text-black flex-col rounded-xl pt-15 w-150 h-175">
           {/* Back button and Progress bar */}
-          <div className="absolute top-15 w-2/3 h-10 flex items-center justify-between">
+          <div className="top-15 w-2/3 h-10 flex items-center justify-between">
             <div className="w-1/4">
               {step > 1 && (
                 <button onClick={prevStep} className="cursor-pointer">
@@ -93,7 +94,7 @@ export default function DonateForm() {
             <div className="w-1/4"></div>
           </div>
 
-          <div className="w-2/3 absolute top-30 h-3/4">
+          <div className="w-2/3 top-30 h-3/4">
             {step === 1 && (
               <DonationAmt
                 formData={formData}
@@ -103,8 +104,8 @@ export default function DonateForm() {
             )}
 
             {step === 2 && (
-              <div className="flex flex-col items-center justify-center w-full">
-                <div className="flex mb-4">
+              <div className="flex flex-col items-center w-full h-full">
+                <div className="flex">
                   <p className="pr-2">You are donating: ${formData.amount}</p>
                   <button
                     className="underline italic text-xs cursor-pointer"
@@ -124,7 +125,7 @@ export default function DonateForm() {
 
             {/* step 3 has its own form/submission logic for payment */}
             {step === 3 && (
-              <div className="flex flex-col items-center justify-center w-full">
+              <div className="flex flex-col items-center w-full h-full">
                 <div className="flex mb-4">
                   <p className="pr-2">You are donating: ${formData.amount}</p>
                   <button

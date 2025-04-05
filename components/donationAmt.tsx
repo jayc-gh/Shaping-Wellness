@@ -76,7 +76,10 @@ export default function DonationAmt({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto w-full text-black">
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto w-full text-black relative h-full"
+    >
       <h4 className="w-full text-left mb-4">SELECT AN AMOUNT</h4>
       <div className="flex flex-col mb-4">
         <div className="flex justify-center mb-4">
@@ -167,7 +170,7 @@ export default function DonationAmt({
       <div className="flex justify-center">
         {error && <p className="text-red-500 text-xs">{error}</p>}
       </div>
-      <div className="absolute flex justify-center w-full bottom-10">
+      <div className="flex justify-center w-full absolute bottom-0">
         <button
           type="submit"
           className="w-55 h-10 border rounded-md cursor-pointer"

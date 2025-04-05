@@ -42,7 +42,7 @@ export default function DonorInfo({
   return (
     <form
       onSubmit={handleSubmit}
-      className="text-black w-full max-h-95 overflow-y-auto custom-scrollbar p-4"
+      className="text-black w-full max-h-120 overflow-y-auto custom-scrollbar p-4"
     >
       <h4 className="w-full text-left mb-4">YOUR INFORMATION</h4>
       {/* First name last name / org name */}
@@ -257,8 +257,8 @@ export default function DonorInfo({
         </div>
       )}
 
-      {/* email */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 mb-6">
+        {/* email */}
         <label className="flex flex-col gap-2 text-left">
           {formData.orgDonate ? (
             <span>Contact Email *</span>
