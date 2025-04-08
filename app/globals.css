@@ -2,6 +2,7 @@
 
 :root {
   --background: #ffffff;
+  --navbar-height: 5rem;
   /* --foreground: #171717; */
 }
 
@@ -63,5 +64,27 @@ input[type='number'] {
   .custom-scrollbar {
     scrollbar-width: thin; /* Makes scrollbar thinner */
     scrollbar-color: #888 transparent; /* Thumb (foreground) | Track (background) */
+  }
+}
+
+.navbar-h {
+  height: var(--navbar-height);
+}
+
+.big-section-h {
+  height: calc(90dvh - var(--navbar-height));
+}
+
+.sm-section-h {
+  height: 20rem;
+}
+
+@layer base {
+  h1 {
+    @apply text-6xl font-bold;
+  }
+
+  h4 {
+    @apply text-xl;
   }
 }
