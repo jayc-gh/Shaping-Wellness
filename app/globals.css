@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --navbar-height: 5rem;
+  --primary-color: #fde047;
   /* --foreground: #171717; */
 }
 
@@ -16,7 +17,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* --background: #0a0a0a; */
-    --foreground: #ededed;
+    --foreground: black;
   }
 }
 
@@ -71,12 +72,32 @@ input[type='number'] {
   height: var(--navbar-height);
 }
 
-.big-section-h {
-  height: calc(90dvh - var(--navbar-height));
+.big-section {
+  height: calc(80dvh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  gap: 2.5rem;
 }
 
-.sm-section-h {
+.sm-section {
   height: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-card {
+  @apply flex flex-col items-center justify-center w-110 px-10 py-10 cursor-pointer rounded-xl gap-8;
+}
+
+.group-card:hover {
+  background-color: var(--primary-color);
+}
+
+.center-all {
+  @apply flex items-center justify-center;
 }
 
 @layer base {
@@ -85,6 +106,18 @@ input[type='number'] {
   }
 
   h4 {
-    @apply text-xl;
+    @apply text-[24px];
+  }
+
+  h3 {
+    @apply text-[32px] font-semibold;
+  }
+
+  h5 {
+    @apply text-[20px];
+  }
+
+  h6 {
+    @apply text-[18px];
   }
 }
