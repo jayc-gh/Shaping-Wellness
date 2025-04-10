@@ -1,0 +1,46 @@
+0000000000000000000000000000000000000000 95a539ab0ab905c0b6e46c528b2de11c7dbbe4dd Jay Cho <jaycho1017@gmail.com> 1741486944 -0600	commit (initial): Initial commit from Create Next App
+95a539ab0ab905c0b6e46c528b2de11c7dbbe4dd 95a539ab0ab905c0b6e46c528b2de11c7dbbe4dd Jay Cho <jaycho1017@gmail.com> 1741561182 -0500	checkout: moving from main to dev
+95a539ab0ab905c0b6e46c528b2de11c7dbbe4dd cbf418c3be41b6e5343df4112e38b6b04ceca8f9 Jay Cho <jaycho1017@gmail.com> 1741574141 -0500	commit: first commit
+cbf418c3be41b6e5343df4112e38b6b04ceca8f9 cbf418c3be41b6e5343df4112e38b6b04ceca8f9 Jay Cho <jaycho1017@gmail.com> 1741574177 -0500	checkout: moving from dev to navbar
+cbf418c3be41b6e5343df4112e38b6b04ceca8f9 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741574703 -0500	commit: navbar branch
+038b69db76de451a22eb25c176a535cede4e1a0a 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741574745 -0500	checkout: moving from navbar to api
+038b69db76de451a22eb25c176a535cede4e1a0a 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741574964 -0500	checkout: moving from api to pages
+038b69db76de451a22eb25c176a535cede4e1a0a 0000000000000000000000000000000000000000 Jay Cho <jaycho1017@gmail.com> 1741575300 -0500	Branch: renamed refs/heads/pages to refs/heads/sections
+0000000000000000000000000000000000000000 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741575300 -0500	Branch: renamed refs/heads/pages to refs/heads/sections
+038b69db76de451a22eb25c176a535cede4e1a0a 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741575317 -0500	checkout: moving from sections to api
+038b69db76de451a22eb25c176a535cede4e1a0a 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741575328 -0500	checkout: moving from api to sections
+038b69db76de451a22eb25c176a535cede4e1a0a 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741575363 -0500	checkout: moving from sections to api
+038b69db76de451a22eb25c176a535cede4e1a0a 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741575512 -0500	checkout: moving from api to sections
+038b69db76de451a22eb25c176a535cede4e1a0a 04abde84b11025225f11ebd5e43efa0439c1f5fc Jay Cho <jaycho1017@gmail.com> 1741582525 -0500	commit: sections initial commit
+04abde84b11025225f11ebd5e43efa0439c1f5fc 0000000000000000000000000000000000000000 Jay Cho <jaycho1017@gmail.com> 1741752452 -0500	Branch: renamed refs/heads/sections to refs/heads/pages
+0000000000000000000000000000000000000000 04abde84b11025225f11ebd5e43efa0439c1f5fc Jay Cho <jaycho1017@gmail.com> 1741752452 -0500	Branch: renamed refs/heads/sections to refs/heads/pages
+04abde84b11025225f11ebd5e43efa0439c1f5fc 2b01a0a3dbacfc139786d8b94529742fa6fc0aa2 Jay Cho <jaycho1017@gmail.com> 1741853532 -0500	commit: navbar dropdown and page routing
+2b01a0a3dbacfc139786d8b94529742fa6fc0aa2 038b69db76de451a22eb25c176a535cede4e1a0a Jay Cho <jaycho1017@gmail.com> 1741853656 -0500	checkout: moving from pages to navbar
+038b69db76de451a22eb25c176a535cede4e1a0a 2b01a0a3dbacfc139786d8b94529742fa6fc0aa2 Jay Cho <jaycho1017@gmail.com> 1741853664 -0500	merge pages: Fast-forward
+2b01a0a3dbacfc139786d8b94529742fa6fc0aa2 2b01a0a3dbacfc139786d8b94529742fa6fc0aa2 Jay Cho <jaycho1017@gmail.com> 1741853707 -0500	checkout: moving from navbar to pages
+2b01a0a3dbacfc139786d8b94529742fa6fc0aa2 9d2666fe89acf671be57eddd339413ddbbd3259c Jay Cho <jaycho1017@gmail.com> 1742266977 -0500	commit: started on stripe integration - making a new donation branch
+9d2666fe89acf671be57eddd339413ddbbd3259c 9d2666fe89acf671be57eddd339413ddbbd3259c Jay Cho <jaycho1017@gmail.com> 1742267010 -0500	checkout: moving from pages to donate
+9d2666fe89acf671be57eddd339413ddbbd3259c 528690651ef07f3bae66b82a394f3c7519bdf639 Jay Cho <jaycho1017@gmail.com> 1742271984 -0500	commit: created donate branch. started integrating stripe
+528690651ef07f3bae66b82a394f3c7519bdf639 4797713cc00c4c5010a252e589b797861bceaff0 Jay Cho <jaycho1017@gmail.com> 1742364852 -0500	commit: added custom fields to donation form
+4797713cc00c4c5010a252e589b797861bceaff0 e9dd7bb6187a40573acafd194a318122b877d3aa Jay Cho <jaycho1017@gmail.com> 1742461103 -0500	commit: split donation form into components
+e9dd7bb6187a40573acafd194a318122b877d3aa 104cecb80c2aad6774352df3239d4ab4f650e530 Jay Cho <jaycho1017@gmail.com> 1742619502 -0500	commit: fixed positioning and sizing of elements and added progress bar
+104cecb80c2aad6774352df3239d4ab4f650e530 62d04cbe3094732c9a0e9b02682ab80618df349f Jay Cho <jaycho1017@gmail.com> 1742873366 -0500	commit: touched up styling on first donation component
+62d04cbe3094732c9a0e9b02682ab80618df349f 5e70e054e6f4ec2e6fa75216f9f4e184ef44fdf3 Jay Cho <jaycho1017@gmail.com> 1742949182 -0500	commit: updated checkbox logic, modularized continue button, updated some positioning of elements
+5e70e054e6f4ec2e6fa75216f9f4e184ef44fdf3 c0b10cf3e12963c3c4b7121e69b81cd79f587983 Jay Cho <jaycho1017@gmail.com> 1743061787 -0500	commit: cleaned up donation page
+c0b10cf3e12963c3c4b7121e69b81cd79f587983 a9681022735696a8877534c59e2f6f76269716a7 Jay Cho <jaycho1017@gmail.com> 1743578889 -0500	commit: updated donate step 2 to include address and overflow/scroll
+a9681022735696a8877534c59e2f6f76269716a7 4b91097733504d5c7944df8e35b1559518505832 Jay Cho <jaycho1017@gmail.com> 1743664215 -0500	commit: finished address fields, started on payment success page
+4b91097733504d5c7944df8e35b1559518505832 4b91097733504d5c7944df8e35b1559518505832 Jay Cho <jaycho1017@gmail.com> 1743810985 -0500	checkout: moving from donate to footer
+4b91097733504d5c7944df8e35b1559518505832 b222c3c7b55e029d7500ab3d953a5d6eef234204 Jay Cho <jaycho1017@gmail.com> 1743811931 -0500	commit: footer branch
+b222c3c7b55e029d7500ab3d953a5d6eef234204 9d2666fe89acf671be57eddd339413ddbbd3259c Jay Cho <jaycho1017@gmail.com> 1743811938 -0500	checkout: moving from footer to pages
+9d2666fe89acf671be57eddd339413ddbbd3259c cbf418c3be41b6e5343df4112e38b6b04ceca8f9 Jay Cho <jaycho1017@gmail.com> 1743812198 -0500	checkout: moving from pages to dev
+cbf418c3be41b6e5343df4112e38b6b04ceca8f9 09030bf06241058337a7c421773ed37a178145d6 Jay Cho <jaycho1017@gmail.com> 1743812259 -0500	pull origin dev: Fast-forward
+09030bf06241058337a7c421773ed37a178145d6 9d2666fe89acf671be57eddd339413ddbbd3259c Jay Cho <jaycho1017@gmail.com> 1743812276 -0500	checkout: moving from dev to pages
+9d2666fe89acf671be57eddd339413ddbbd3259c 09030bf06241058337a7c421773ed37a178145d6 Jay Cho <jaycho1017@gmail.com> 1743812323 -0500	merge dev: Fast-forward
+09030bf06241058337a7c421773ed37a178145d6 c0b496c077b49209362192cf3a5e6b5e172a0698 Jay Cho <jaycho1017@gmail.com> 1743819051 -0500	commit: added footer and updated donation components position logic
+c0b496c077b49209362192cf3a5e6b5e172a0698 b222c3c7b55e029d7500ab3d953a5d6eef234204 Jay Cho <jaycho1017@gmail.com> 1743819065 -0500	checkout: moving from pages to footer
+b222c3c7b55e029d7500ab3d953a5d6eef234204 c0b496c077b49209362192cf3a5e6b5e172a0698 Jay Cho <jaycho1017@gmail.com> 1744061514 -0500	checkout: moving from footer to pages
+c0b496c077b49209362192cf3a5e6b5e172a0698 b222c3c7b55e029d7500ab3d953a5d6eef234204 Jay Cho <jaycho1017@gmail.com> 1744061538 -0500	checkout: moving from pages to footer
+b222c3c7b55e029d7500ab3d953a5d6eef234204 c0b496c077b49209362192cf3a5e6b5e172a0698 Jay Cho <jaycho1017@gmail.com> 1744061570 -0500	merge pages: Fast-forward
+c0b496c077b49209362192cf3a5e6b5e172a0698 c0b496c077b49209362192cf3a5e6b5e172a0698 Jay Cho <jaycho1017@gmail.com> 1744061606 -0500	checkout: moving from footer to pages
+c0b496c077b49209362192cf3a5e6b5e172a0698 03c7a35018752bb3f0e37bd56c708d109fb6b114 Jay Cho <jaycho1017@gmail.com> 1744081855 -0500	commit: added homepage layout
+03c7a35018752bb3f0e37bd56c708d109fb6b114 cf4bc0e67698cd4beb597c1001172de12cbf4e23 Jay Cho <jaycho1017@gmail.com> 1744097874 -0500	commit: home page layout complete and cleaned up styling/made it more modular
