@@ -73,7 +73,11 @@ input[type='number'] {
 }
 
 .big-section {
+<<<<<<< HEAD
   height: calc(90dvh - var(--navbar-height));
+=======
+  height: calc(80dvh - var(--navbar-height));
+>>>>>>> cf4bc0e67698cd4beb597c1001172de12cbf4e23
   display: flex;
   align-items: center;
   justify-content: center;

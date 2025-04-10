@@ -4,14 +4,10 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       {/* big section with 1 column */}
-      <section className="big-section !justify-start relative">
-        <div className="absolute inset-0 bg-[url('/images/Home_Header1.jpg')] bg-cover bg-center z-0">
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-
-        <div className="flex flex-col items-start pl-60 w-222 text-white z-10">
+      <section className="big-section !justify-start">
+        <div className="flex flex-col items-start pl-60 w-222">
           <h1 className="space-y-5 mb-8">
-            <span className="">Healthy Futures,</span>
+            <span>Healthy Futures,</span>
             <br />
             <span>
               <span className="text-orange-400">Stronger</span> Communities
