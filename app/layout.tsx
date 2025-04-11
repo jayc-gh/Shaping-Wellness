@@ -1,16 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Figtree } from 'next/font/google';
 import './globals.css';
 import NavBar from '@/components/navbar';
 import Footer from '@/components/footer';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const figtree = Figtree({
   subsets: ['latin'],
 });
 
@@ -27,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen`}
+        className={`${figtree.className} antialiased flex flex-col h-screen`}
       >
         <NavBar />
         <div className="flex-1">{children}</div>

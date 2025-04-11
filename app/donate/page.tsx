@@ -1,5 +1,7 @@
 'use client';
 import DonateForm from '@/components/donationForm';
+import './donate.css';
+
 export default function DonatePage() {
   return <DonateForm />;
 }

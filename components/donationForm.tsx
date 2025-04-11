@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import DonationAmt from '@/components/donationAmt';
 import DonorInfo from '@/components/donorInfo';
 import PaymentInfo from '@/components/paymentInfo';
@@ -57,44 +57,85 @@ export default function DonateForm() {
   const prevStep = () => setStep(prev => prev - 1);
 
   return (
-    <main className="flex h-full">
-      <div className="w-1/2"></div>
-      <div className="flex justify-center items-center w-1/2">
-        <div className="shadow-xl flex items-center bg-white text-black flex-col rounded-xl pt-15 w-150 h-175">
-          {/* Back button and Progress bar */}
-          <div className="top-15 w-2/3 h-10 flex items-center justify-between">
-            <div className="w-1/4">
-              {step > 1 && (
-                <button onClick={prevStep} className="cursor-pointer">
-                  &lt;
-                </button>
-              )}
-            </div>
-            <div className="relative flex-1 flex items-center justify-center">
-              {/* Line */}
-              <div className="absolute inset-0 top-1/2 transform -translate-y-1/2 bg-gray-400 h-px w-full"></div>
-
-              {/* Dots */}
-              {[1, 2, 3, 4].map((dot, index) => (
-                <div
-                  key={dot}
-                  className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                    step >= dot
-                      ? 'bg-gray-400 border-gray-400'
-                      : 'border-gray-400 bg-white'
-                  } absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2`}
-                  style={{ left: `${(index / 3) * 100}%` }}
-                >
-                  {dot === 4 && (
-                    <span className="text-gray-400 font-thin text-xs">✔</span>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="w-1/4"></div>
+    <main className="main-container !bg-cover !bg-center !bg-[url('/images/DonationForm.webp')]">
+      <div className="content-container">
+        <div className="summary-container">
+          <div className="flag">
+            <h4>DONATE</h4>
           </div>
-
-          <div className="w-2/3 top-30 h-3/4">
+          <h3 className="text-white">Every dollar makes a difference</h3>
+          <p className="p3 !text-white">
+            Millions of young girls lack access to resources that support their
+            health and well-being. Your support helps provide fitness programs,
+            educational workshops, and safe spaces where they can thrive.
+          </p>
+        </div>
+        <div className="form-box">
+          <div className="form-container">
+            {/* Back button and Progress bar */}
+            <div className="back-and-progress-bar-container">
+              <div
+                className={`w-[24px] h-[24px] ${step > 1 && 'cursor-pointer'}`}
+                onClick={step > 1 ? prevStep : undefined}
+              >
+                {step > 1 && (
+                  <svg
+                    width="12"
+                    height="20"
+                    viewBox="0 0 12 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.7227 19.2317C10.3322 19.6223 9.69904 19.6223 9.30852 19.2317L0.722731 10.6459C0.332207 10.2554 0.332208 9.62226 0.722732 9.23174L9.30852 0.645949C9.69904 0.255425 10.3322 0.255425 10.7227 0.645949L11.0835 1.00674C11.474 1.39726 11.474 2.03043 11.0835 2.42095L4.27273 9.23174C3.88221 9.62226 3.88221 10.2554 4.27273 10.6459L11.0835 17.4567C11.474 17.8473 11.474 18.4804 11.0835 18.871L10.7227 19.2317Z"
+                      className="check"
+                    />
+                  </svg>
+                )}
+              </div>
+              {/* Dots + lines */}
+              <div className="progress-bar-container">
+                {[1, 2, 3].map(dot => (
+                  <React.Fragment key={dot}>
+                    <svg
+                      width="17"
+                      height="16"
+                      viewBox="0 0 17 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      key={dot}
+                    >
+                      <circle
+                        cx="8.5"
+                        cy="8"
+                        r="7.5"
+                        className={`dot ${step >= dot ? 'filled' : ''}`}
+                      />
+                    </svg>
+                    <div key={dot} className="line"></div>
+                  </React.Fragment>
+                ))}
+                <svg
+                  width="17"
+                  height="16"
+                  viewBox="0 0 17 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="8.5"
+                    cy="8"
+                    r="7.5"
+                    className={`dot ${step >= 4 ? 'filled' : ''}`}
+                  />
+                  <path
+                    d="M7.62526 10.946C7.3192 11.252 6.82298 11.252 6.51693 10.946L4.16172 8.59074C3.93218 8.3612 3.93218 7.98904 4.16172 7.75949C4.39126 7.52995 4.76343 7.52995 4.99297 7.75949L7.07109 9.83762L12.0076 4.90116C12.2371 4.67162 12.6093 4.67162 12.8388 4.90116C13.0683 5.1307 13.0683 5.50287 12.8388 5.73241L7.62526 10.946Z"
+                    className={`check ${step >= 4 ? 'filled' : ''}`}
+                  />
+                </svg>
+              </div>
+              <div className="w-[24px] h-[24px]"></div>
+            </div>
             {step === 1 && (
               <DonationAmt
                 formData={formData}
@@ -102,6 +143,11 @@ export default function DonateForm() {
                 nextStep={nextStep}
               />
             )}
+            <div className="continue-container">
+              <button className="continue-btn">
+                <p className="btn">Continue</p>
+              </button>
+            </div>
 
             {step === 2 && (
               <div className="flex flex-col items-center w-full h-full">

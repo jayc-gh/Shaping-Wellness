@@ -1,17 +1,28 @@
 @import 'tailwindcss';
 
 :root {
+  --primary-color: #d9764e;
+  --Primary-Coral: #dd6d5c;
+  --hover-color: #f4a488;
+  --Soft-Coral: #ffece4;
+  --Secondary-Coral: #b1574a;
+  --button-color: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
+  --primary-text-color: #2f2f2f;
+  --Field-line: rgba(47, 47, 47, 0.3);
+  --secondary-text-color: #6b6461;
+  --cards-color: #f6e7e1;
   --background: #ffffff;
+<<<<<<< HEAD
   --navbar-height: 5rem;
   --primary-color: #fde047;
   /* --foreground: #171717; */
+=======
+>>>>>>> donate
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,8 +34,7 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-text-color);
 }
 
 input[type='number']::-webkit-inner-spin-button,
@@ -66,6 +76,54 @@ input[type='number'] {
     scrollbar-width: thin; /* Makes scrollbar thinner */
     scrollbar-color: #888 transparent; /* Thumb (foreground) | Track (background) */
   }
+
+  .flag {
+    display: flex;
+    padding: 4px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 0px 10px;
+    background: var(--Primary-Coral);
+    color: var(--background);
+  }
+
+  .p3 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 33.6px */
+  }
+
+  .btn {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+}
+
+h3 {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 44.8px */
+}
+
+h4 {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.required {
+  color: var(--primary-color);
+  font-family: Figtree;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .navbar-h {
