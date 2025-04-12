@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import DonationAmt from '@/components/donationAmt';
 import DonorInfo from '@/components/donorInfo';
 import PaymentInfo from '@/components/paymentInfo';
+import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import { validateEmailFormat } from '@/lib/functions';
 
 export interface FormInfo {
   amount: string;
@@ -56,6 +58,26 @@ export default function DonateForm() {
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => prev - 1);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (step === 1) {
+      const donationAmount = parseFloat(formData.amount || '0');
+      if (
+        isNaN(donationAmount) ||
+        donationAmount < 1 ||
+        donationAmount > 999999.99
+      ) {
+        return;
+      }
+    } else if (step === 2) {
+      if (!validateEmailFormat(formData.email)) {
+        return;
+      }
+    }
+    nextStep();
+  };
+
   return (
     <main className="main-container !bg-cover !bg-center !bg-[url('/images/DonationForm.webp')]">
       <div className="content-container">
@@ -70,135 +92,50 @@ export default function DonateForm() {
             educational workshops, and safe spaces where they can thrive.
           </p>
         </div>
-        <div className="form-box">
+
+        {/* turn form-box into form */}
+        <form className="form-box" onSubmit={handleSubmit}>
           <div className="form-container">
             {/* Back button and Progress bar */}
-            <div className="back-and-progress-bar-container">
-              <div
-                className={`w-[24px] h-[24px] ${step > 1 && 'cursor-pointer'}`}
-                onClick={step > 1 ? prevStep : undefined}
-              >
-                {step > 1 && (
-                  <svg
-                    width="12"
-                    height="20"
-                    viewBox="0 0 12 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10.7227 19.2317C10.3322 19.6223 9.69904 19.6223 9.30852 19.2317L0.722731 10.6459C0.332207 10.2554 0.332208 9.62226 0.722732 9.23174L9.30852 0.645949C9.69904 0.255425 10.3322 0.255425 10.7227 0.645949L11.0835 1.00674C11.474 1.39726 11.474 2.03043 11.0835 2.42095L4.27273 9.23174C3.88221 9.62226 3.88221 10.2554 4.27273 10.6459L11.0835 17.4567C11.474 17.8473 11.474 18.4804 11.0835 18.871L10.7227 19.2317Z"
-                      className="check"
-                    />
-                  </svg>
-                )}
-              </div>
-              {/* Dots + lines */}
-              <div className="progress-bar-container">
-                {[1, 2, 3].map(dot => (
-                  <React.Fragment key={dot}>
-                    <svg
-                      width="17"
-                      height="16"
-                      viewBox="0 0 17 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      key={dot}
-                    >
-                      <circle
-                        cx="8.5"
-                        cy="8"
-                        r="7.5"
-                        className={`dot ${step >= dot ? 'filled' : ''}`}
-                      />
-                    </svg>
-                    <div key={dot} className="line"></div>
-                  </React.Fragment>
-                ))}
-                <svg
-                  width="17"
-                  height="16"
-                  viewBox="0 0 17 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="8.5"
-                    cy="8"
-                    r="7.5"
-                    className={`dot ${step >= 4 ? 'filled' : ''}`}
-                  />
-                  <path
-                    d="M7.62526 10.946C7.3192 11.252 6.82298 11.252 6.51693 10.946L4.16172 8.59074C3.93218 8.3612 3.93218 7.98904 4.16172 7.75949C4.39126 7.52995 4.76343 7.52995 4.99297 7.75949L7.07109 9.83762L12.0076 4.90116C12.2371 4.67162 12.6093 4.67162 12.8388 4.90116C13.0683 5.1307 13.0683 5.50287 12.8388 5.73241L7.62526 10.946Z"
-                    className={`check ${step >= 4 ? 'filled' : ''}`}
-                  />
-                </svg>
-              </div>
-              <div className="w-[24px] h-[24px]"></div>
-            </div>
+            <ProgressBar step={step} prevStep={prevStep} />
+
             {step === 1 && (
-              <DonationAmt
-                formData={formData}
-                setFormData={setFormData}
-                nextStep={nextStep}
-              />
+              <DonationAmt formData={formData} setFormData={setFormData} />
             )}
-            <div className="continue-container">
-              <button className="continue-btn">
-                <p className="btn">Continue</p>
-              </button>
-            </div>
 
             {step === 2 && (
-              <div className="flex flex-col items-center w-full h-full">
-                <div className="flex">
-                  <p className="pr-2">You are donating: ${formData.amount}</p>
-                  <button
-                    className="underline italic text-xs cursor-pointer"
-                    onClick={() => setStep(1)}
-                    type="button"
-                  >
-                    change
-                  </button>
-                </div>
-                <DonorInfo
-                  formData={formData}
-                  setFormData={setFormData}
-                  nextStep={nextStep}
-                />
-              </div>
+              <DonorInfo
+                formData={formData}
+                setFormData={setFormData}
+                setStep={setStep}
+              />
             )}
 
             {/* step 3 has its own form/submission logic for payment */}
             {step === 3 && (
-              <div className="flex flex-col items-center w-full h-full">
-                <div className="flex mb-4">
-                  <p className="pr-2">You are donating: ${formData.amount}</p>
-                  <button
-                    className="underline italic text-xs cursor-pointer"
-                    onClick={() => setStep(1)}
-                  >
-                    change
-                  </button>
-                </div>
-                <Elements
-                  stripe={stripePromise}
-                  options={{
-                    mode: 'payment',
-                    amount: convertToSubcurrency(
-                      Number(formData.amount) < 1 || formData.amount === ''
-                        ? 1
-                        : Number(formData.amount)
-                    ),
-                    currency: 'usd',
-                  }}
-                >
-                  <PaymentInfo formData={formData} />
-                </Elements>
-              </div>
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: 'payment',
+                  amount: convertToSubcurrency(
+                    Number(formData.amount) < 1 || formData.amount === ''
+                      ? 1
+                      : Number(formData.amount)
+                  ),
+                  currency: 'usd',
+                }}
+              >
+                <PaymentInfo formData={formData} />
+              </Elements>
             )}
           </div>
-        </div>
+
+          <div className="continue-container">
+            <button className="continue-btn" type="submit">
+              <p className="btn">Continue</p>
+            </button>
+          </div>
+        </form>
       </div>
     </main>
   );

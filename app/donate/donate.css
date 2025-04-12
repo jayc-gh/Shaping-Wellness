@@ -4,7 +4,7 @@
   .main-container {
     display: flex;
     padding: 40px 108px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex: 1 0 0;
     align-self: stretch;
@@ -60,7 +60,6 @@
 
   .form-content-container {
     display: flex;
-    padding-top: 8px;
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
@@ -204,7 +203,6 @@
     align-items: center;
     border-radius: 10px;
     border: 1px solid var(--Field-line);
-    align-self: center;
   }
 
   .donation-input-text {
@@ -255,5 +253,103 @@
 
   .continue-btn:hover {
     cursor: pointer;
+  }
+
+  .custom-text-2 {
+    color: var(--Secondary-Coral);
+    font-family: Figtree;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .custom-text-3 {
+    color: var(--Primary-Neutral);
+    font-family: Figtree;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+  }
+
+  .input-sub-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .input-field {
+    display: flex;
+    height: 44px;
+    padding: 8px 12px;
+    align-items: center;
+    gap: 4px;
+    align-self: stretch;
+    border-radius: 6px;
+    border: 1px solid var(--Field-line);
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.5);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 125% */
+  }
+
+  .form-sub-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+  }
+
+  .checkbox-container {
+    display: flex;
+    height: 28px;
+    padding: 6px 12px 6px 0px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+  }
+
+  .checkbox {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+
+  .custom-text-4 {
+    color: var(--Primary-Neutral);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
   }
 }

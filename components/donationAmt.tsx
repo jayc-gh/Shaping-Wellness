@@ -5,14 +5,9 @@ import { FormInfo } from './donationForm';
 interface StepProps {
   formData: FormInfo;
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
-  nextStep: () => void;
 }
 
-export default function DonationAmt({
-  formData,
-  setFormData,
-  nextStep,
-}: StepProps) {
+export default function DonationAmt({ formData, setFormData }: StepProps) {
   // const [isCustom, setIsCustom] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
@@ -22,13 +17,6 @@ export default function DonationAmt({
 
   const handleAmountSelection = (value: string | 'custom'): void => {
     setFormData({ ...formData, amount: value });
-    // if (value !== 'custom') {
-    //   setIsCustom(false);
-    //   setFormData({ ...formData, amount: value });
-    // } else {
-    //   setIsCustom(true);
-    //   setFormData({ ...formData, amount: '' });
-    // }
   };
 
   const handleCustomAmountChange = (
@@ -62,52 +50,8 @@ export default function DonationAmt({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const donationAmount = parseFloat(formData.amount || '0');
-    if (
-      isNaN(donationAmount) ||
-      donationAmount < 1 ||
-      donationAmount > 999999.99
-    ) {
-      return;
-    }
-    nextStep();
-  };
-
   return (
-<<<<<<< HEAD
-    <form
-      onSubmit={handleSubmit}
-      className="mx-auto w-full text-black relative h-full"
-    >
-      <h4 className="w-full text-left mb-4">SELECT AN AMOUNT</h4>
-      <div className="flex flex-col mb-4">
-        <div className="flex justify-center mb-4">
-          <div className="relative inline-block w-85 h-12 rounded-full bg-gray-300">
-            <div
-              className={`absolute top-0 left-0 w-1/2 h-full bg-blue-500 rounded-full ${
-                formData.monthly ? 'translate-x-full' : ''
-              }`}
-            ></div>
-            <div
-              onClick={() => toggleDonationType('one-time')}
-              className={`absolute top-0 left-0 w-1/2 h-full text-white flex justify-center items-center cursor-pointer rounded-full ${
-                !formData.monthly ? 'bg-blue-500' : 'bg-gray-300'
-              }`}
-            >
-              One-time
-            </div>
-            <div
-              onClick={() => toggleDonationType('monthly')}
-              className={`absolute top-0 right-0 w-1/2 h-full text-white flex justify-center items-center cursor-pointer rounded-full ${
-                formData.monthly ? 'bg-blue-500' : 'bg-gray-300'
-              }`}
-            >
-              Monthly
-            </div>
-=======
-    <form onSubmit={handleSubmit} className="form-content-container">
+    <div className="form-content-container">
       <h4>SELECT AN AMOUNT</h4>
       <div className="toggle-container">
         <div className="toggle-btn-container">
@@ -122,7 +66,6 @@ export default function DonationAmt({
             className={`toggle-btn ${formData.monthly && 'filled'} btn `}
           >
             Monthly
->>>>>>> donate
           </div>
         </div>
       </div>
@@ -149,35 +92,25 @@ export default function DonationAmt({
             </button>
           ))}
         </div>
-
-        <div className="donation-amt-input-container">
-          <span className="donation-input-text pr-[10px] !select-none">$</span>
-          <input
-            type="text"
-            value={formData.amount ? `${formData.amount}` : ''}
-            onChange={handleCustomAmountChange}
-            placeholder="Minimum $1.00"
-            className="donation-input-text"
-          />
-          <span className="donation-input-text !select-none">USD</span>
+        <div className="flex flex-col gap-[4px] self-center">
+          <div className="donation-amt-input-container">
+            <span className="donation-input-text pr-[10px] !select-none">
+              $
+            </span>
+            <input
+              type="text"
+              value={formData.amount ? `${formData.amount}` : ''}
+              onChange={handleCustomAmountChange}
+              placeholder="Minimum $1.00"
+              className="donation-input-text"
+            />
+            <span className="donation-input-text !select-none">USD</span>
+          </div>
+          <div className="flex justify-center self-center">
+            {error && <p className="text-red-500 text-xs">{error}</p>}
+          </div>
         </div>
       </div>
-
-      <div className="flex justify-center">
-        {error && <p className="text-red-500 text-xs">{error}</p>}
-      </div>
-<<<<<<< HEAD
-      <div className="flex justify-center w-full absolute bottom-0">
-=======
-      {/* <div className="absolute flex justify-center w-full bottom-10">
->>>>>>> donate
-        <button
-          type="submit"
-          className="w-55 h-10 border rounded-md cursor-pointer"
-        >
-          Continue
-        </button>
-      </div> */}
-    </form>
+    </div>
   );
 }
