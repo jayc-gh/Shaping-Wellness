@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
   --primary-color: #d9764e;
@@ -7,6 +8,7 @@
   --Soft-Coral: #ffece4;
   --Secondary-Coral: #b1574a;
   --Primary-Neutral: #2f2f2f;
+  --Secondary-Neutral: #6b6461;
   --button-color: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
   --primary-text-color: #2f2f2f;
   --Field-line: rgba(47, 47, 47, 0.3);
@@ -17,7 +19,7 @@
 
 select,
 option {
-  font-family: 'Figtree', sans-serif !important;
+  font-family: 'Figtree', 'Comic Sans MS';
 }
 
 @theme inline {

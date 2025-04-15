@@ -5,18 +5,13 @@
     display: flex;
     padding: 40px 108px;
     justify-content: center;
-    align-items: center;
     flex: 1 0 0;
     align-self: stretch;
-    /* background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.2) 100%
-      ),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      url(<path-to-image>) lightgray 50% / cover no-repeat; */
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url('../../public/images/DonationForm.webp') lightgray;
+    background-size: cover, cover;
+    background-repeat: no-repeat;
+    background-position: center top, center -50px;
   }
 
   .content-container {
@@ -32,10 +27,10 @@
     display: flex;
     width: 496px;
     height: 788px;
-    padding: 80px 0px;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    align-self: flex-start;
     gap: 24px;
   }
 
@@ -231,7 +226,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
     align-self: stretch;
   }
 
@@ -255,6 +249,11 @@
 
   .continue-btn:hover {
     cursor: pointer;
+  }
+
+  .continue-btn:disabled {
+    background: var(--Secondary-Neutral);
+    cursor: not-allowed;
   }
 
   .custom-text-2 {
@@ -329,7 +328,6 @@
   .checkbox-container {
     display: flex;
     height: 28px;
-    padding: 6px 12px 6px 0px;
     align-items: center;
     gap: 8px;
     border-radius: 4px;
@@ -353,5 +351,29 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px; /* 142.857% */
+  }
+
+  .terms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .terms-text {
+    color: var(--Secondary-Neutral);
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 16.8px */
+  }
+
+  .error-text {
+    color: red;
+    padding: 8px 12px 8px 12px;
+    border-radius: 8px;
+    background-color: #ffe2e2;
+    align-self: center;
   }
 }

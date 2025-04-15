@@ -6,12 +6,13 @@ import DonorInfo from '@/components/donation-page/donorInfo';
 import PaymentInfo from '@/components/donation-page/paymentInfo';
 import ProgressBar from './progressBar';
 import { Elements, useElements } from '@stripe/react-stripe-js';
-import { loadStripe, Stripe } from '@stripe/stripe-js';
-import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import { loadStripe, Stripe, Appearance } from '@stripe/stripe-js';
 import { validateEmailFormat } from '@/lib/functions';
 import StripeHandler from './stripeHandler';
 import PaymentIntentHandler from './paymentIntentHandler';
 import Spinner from '../spinner';
+import Unchecked from '../../app/icons/check_box.svg';
+import Checked from '../../app/icons/checked=yes.svg';
 
 export interface FormInfo {
   amount: string;
@@ -63,6 +64,7 @@ export default function DonateForm() {
     orgName: '',
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [coverFee, setCoverFee] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
@@ -70,6 +72,22 @@ export default function DonateForm() {
     elements: null,
   });
   const { stripe, elements } = stripeCtx;
+  const appearance: Appearance = {
+    theme: 'stripe',
+    variables: {
+      // borderRadius: '6px',
+      fontFamily: 'Figtree',
+    },
+    rules: {
+      '.Input--selected': {},
+    },
+  };
+  const fonts = [
+    {
+      cssSrc:
+        'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap',
+    },
+  ];
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => {
@@ -139,7 +157,7 @@ export default function DonateForm() {
   };
 
   return (
-    <main className="main-container !bg-cover !bg-center !bg-[url('/images/DonationForm.webp')]">
+    <main className="main-container">
       <div className="content-container">
         <div className="summary-container">
           <div className="flag">
@@ -162,32 +180,29 @@ export default function DonateForm() {
             {step === 1 ? (
               <DonationAmt formData={formData} setFormData={setFormData} />
             ) : step === 2 ? (
-              <DonorInfo
-                formData={formData}
-                setFormData={setFormData}
-                setStep={setStep}
-              />
+              <>
+                <DonorInfo
+                  formData={formData}
+                  setFormData={setFormData}
+                  setStep={setStep}
+                />
+                <PaymentIntentHandler
+                  formData={formData}
+                  setClientSecret={setClientSecret}
+                  setErrorMessage={setErrorMessage}
+                />
+              </>
             ) : (
               step === 3 && (
                 <Elements
                   stripe={stripePromise}
                   options={{
-                    mode: 'payment',
-                    amount: convertToSubcurrency(
-                      Number(formData.amount) < 1 || formData.amount === ''
-                        ? 1
-                        : Number(formData.amount)
-                    ),
-                    currency: 'usd',
+                    clientSecret: clientSecret,
+                    appearance: appearance,
+                    fonts: fonts,
                   }}
                 >
                   <StripeHandler setStripeCtx={setStripeCtx} />
-                  <PaymentIntentHandler
-                    formData={formData}
-                    setClientSecret={setClientSecret}
-                    setErrorMessage={setErrorMessage}
-                  />
-
                   {!clientSecret || !stripe || !elements ? (
                     <Spinner />
                   ) : (
@@ -210,17 +225,46 @@ export default function DonateForm() {
               </button>
             </div>
           ) : (
-            step === 3 && (
-              <div className="continue-container">
-                <button
-                  disabled={!stripe || loading || Number(formData.amount) < 1}
-                  className="continue-btn"
-                  type="submit"
-                >
-                  <p className="btn">
-                    {!loading ? `Donate $${formData.amount}` : 'Processing....'}
-                  </p>
-                </button>
+            step === 3 &&
+            clientSecret && (
+              <div className="terms-container">
+                <label className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    id="cover-fee-checkbox"
+                    className="checkbox"
+                    checked={coverFee}
+                    onChange={() => setCoverFee(!coverFee)}
+                  />
+
+                  {!coverFee && <Unchecked />}
+                  {coverFee && <Checked />}
+
+                  <label
+                    htmlFor="cover-fee-checkbox"
+                    className="custom-text-4 !text-[#6B6461]"
+                  >
+                    I&apos;d like to cover the 3% transaction fee for this
+                    donation
+                  </label>
+                </label>
+                <div className="continue-container">
+                  <button
+                    disabled={!stripe || loading || Number(formData.amount) < 1}
+                    className="continue-btn"
+                    type="submit"
+                  >
+                    <p className="btn">
+                      {!loading
+                        ? `Donate $${formData.amount}`
+                        : 'Processing....'}
+                    </p>
+                  </button>
+                </div>
+                <p className="terms-text">
+                  By clicking Donate, I agree to receive communications from
+                  Shaping Wellness Foundation and their Privacy Policy.
+                </p>
               </div>
             )
           )}

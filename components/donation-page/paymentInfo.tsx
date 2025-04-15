@@ -28,7 +28,7 @@ export default function PaymentInfo({
   };
 
   return (
-    <form className="relative text-black w-full h-full">
+    <div className="form-content-container">
       <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
         <h4>You are donating:</h4>
         <p className="custom-text-2">${formData.amount}</p>
@@ -41,15 +41,19 @@ export default function PaymentInfo({
         </button>
       </div>
 
-      <h4 className="w-full text-left mb-4">PAYMEMT DETAILS</h4>
-      {clientSecret && (
-        <PaymentElement options={paymentElementOptions} className="mb-2" />
-      )}
-      {errorMessage && (
-        <div ref={errorRef} className="text-red-600 p-2 rounded-md bg-red-100">
-          {errorMessage}
-        </div>
-      )}
-    </form>
+      <div className="form-sub-container">
+        <h4>PAYMENT DETAILS</h4>
+        {clientSecret && (
+          <div className="w-full">
+            <PaymentElement options={paymentElementOptions} />
+          </div>
+        )}
+        {errorMessage && (
+          <div ref={errorRef} className="error-text">
+            {errorMessage}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
