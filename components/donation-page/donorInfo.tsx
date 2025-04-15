@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import { FormInfo } from './donationForm';
 import { formatPhoneNumber, validateEmailFormat } from '@/lib/functions';
 import { Country, State, IState } from 'country-state-city';
-import Unchecked from '../app/icons/check_box.svg';
-import Checked from '../app/icons/checked=yes.svg';
-import Help from '../app/icons/help.svg';
+import Unchecked from '../../app/icons/check_box.svg';
+import Checked from '../../app/icons/checked=yes.svg';
+import Help from '../../app/icons/help.svg';
 
 interface StepProps {
   formData: FormInfo;

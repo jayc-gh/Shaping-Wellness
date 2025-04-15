@@ -1,5 +1,5 @@
 'use client';
-import DonateForm from '@/components/donationForm';
+import DonateForm from '@/components/donation-page/donationForm';
 import './donate.css';
 
 export default function DonatePage() {
