@@ -22,7 +22,9 @@ export default function RootLayout({
     <html lang="en" className={figtree.className}>
       <body className={`antialiased flex flex-col h-screen`}>
         <NavBar />
-        <div className="flex-1">{children}</div>
+        <div className="flex flex-1 justify-center items-center">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>
