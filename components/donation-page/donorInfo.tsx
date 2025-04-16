@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import { FormInfo } from './donationForm';
 import { formatPhoneNumber, validateEmailFormat } from '@/lib/functions';
 import { Country, State, IState } from 'country-state-city';
-import Unchecked from '../../app/icons/check_box.svg';
+import Unchecked from '../../app/icons/checked=no.svg';
 import Checked from '../../app/icons/checked=yes.svg';
 import Help from '../../app/icons/help.svg';
+import ArrowDown from '../../app/icons/Arrow-down.svg';
 
 interface StepProps {
   formData: FormInfo;
@@ -167,62 +168,70 @@ export default function DonorInfo({
                   Address <span className="required">*</span>
                 </p>
               )}
-              <input
-                type="address1"
-                value={formData.address1}
-                onChange={e => {
-                  setFormData({ ...formData, address1: e.target.value });
-                }}
-                required
-                placeholder="Address 1"
-                className="input-field"
-              />
+              <div className="flex flex-col w-full gap-[8px]">
+                <input
+                  type="address1"
+                  value={formData.address1}
+                  onChange={e => {
+                    setFormData({ ...formData, address1: e.target.value });
+                  }}
+                  required
+                  placeholder="Address 1"
+                  className="input-field"
+                />
 
-              <input
-                type="address2"
-                value={formData.address2}
-                onChange={e => {
-                  setFormData({ ...formData, address2: e.target.value });
-                }}
-                placeholder="Address 2 (apt, suite, etc)"
-                className="input-field"
-              />
+                <input
+                  type="address2"
+                  value={formData.address2}
+                  onChange={e => {
+                    setFormData({ ...formData, address2: e.target.value });
+                  }}
+                  placeholder="Address 2 (apt, suite, etc)"
+                  className="input-field"
+                />
+              </div>
             </label>
           </div>
 
           <div className="input-container">
             <label className="input-sub-container">
-              <select
-                className="input-field"
-                value={formData.country}
-                onChange={e => handleCountryChange(e.target.value)}
-              >
-                {countries.map(country => (
-                  <option key={country.isoCode} value={country.isoCode}>
-                    {country.name} ({country.isoCode})
-                  </option>
-                ))}
-              </select>
-            </label>
-            {formData.country === 'US' ? (
-              <label className="input-sub-container">
+              <div className="relative w-full">
                 <select
-                  className="input-field"
-                  value={formData.state}
-                  required
-                  onChange={e =>
-                    setFormData({ ...formData, state: e.target.value })
-                  }
+                  className="input-field !pr-8"
+                  value={formData.country}
+                  onChange={e => handleCountryChange(e.target.value)}
                 >
-                  <option value="" disabled={formData.state !== ''}>
-                    State
-                  </option>{' '}
-                  {states.map(state => (
-                    <option key={state.isoCode} value={state.isoCode}>
-                      {state.name} ({state.isoCode})
+                  {countries.map(country => (
+                    <option key={country.isoCode} value={country.isoCode}>
+                      {country.name} ({country.isoCode})
                     </option>
                   ))}
                 </select>
+                <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+              </div>
+            </label>
+            {formData.country === 'US' ? (
+              <label className="input-sub-container">
+                <div className="relative w-full">
+                  <select
+                    className="input-field !pr-8"
+                    value={formData.state}
+                    required
+                    onChange={e =>
+                      setFormData({ ...formData, state: e.target.value })
+                    }
+                  >
+                    <option value="" disabled={formData.state !== ''}>
+                      State
+                    </option>
+                    {states.map(state => (
+                      <option key={state.isoCode} value={state.isoCode}>
+                        {state.name} ({state.isoCode})
+                      </option>
+                    ))}
+                  </select>
+                  <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+                </div>
               </label>
             ) : (
               <label className="input-sub-container">
@@ -234,7 +243,7 @@ export default function DonorInfo({
                     setFormData({ ...formData, state: e.target.value })
                   }
                   placeholder="State/Province/Region"
-                  className="border"
+                  className="input-field"
                 />
               </label>
             )}

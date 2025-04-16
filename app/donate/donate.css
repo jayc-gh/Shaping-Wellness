@@ -284,8 +284,8 @@
   .input-container {
     display: flex;
     align-items: flex-start;
-    gap: 24px;
-    align-self: stretch;
+    gap: 8px;
+    width: 100%;
   }
 
   .input-sub-container {
@@ -293,7 +293,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 8px;
+    gap: 4px;
     flex: 1 0 0;
     min-width: 0;
   }
@@ -304,7 +304,7 @@
     padding: 8px 12px;
     align-items: center;
     gap: 4px;
-    align-self: stretch;
+    width: 100%;
     border-radius: 6px;
     border: 1px solid var(--Field-line);
     overflow: hidden;
@@ -317,12 +317,16 @@
     line-height: 20px; /* 125% */
   }
 
+  .input-field:focus {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
+  }
+
   .form-sub-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 12px;
+    gap: 8px;
     align-self: stretch;
   }
 
@@ -371,10 +375,9 @@
   }
 
   .error-text {
-    color: red;
-    padding: 8px 12px 8px 12px;
-    border-radius: 8px;
-    background-color: #ffe2e2;
+    color: var(--danger-color);
     align-self: center;
+    justify-self: center;
+    font-size: 14px;
   }
 }

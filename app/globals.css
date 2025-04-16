@@ -15,11 +15,15 @@
   --secondary-text-color: #6b6461;
   --cards-color: #f6e7e1;
   --background: #ffffff;
+  --danger-color: #da1e28;
+  --input-highlight: #4573d4;
 }
 
 select,
 option {
-  font-family: 'Figtree', 'Comic Sans MS';
+  /* font-family: 'Figtree', 'Comic Sans MS'; */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
 }
 
 @theme inline {

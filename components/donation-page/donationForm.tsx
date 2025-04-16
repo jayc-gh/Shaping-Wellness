@@ -11,7 +11,7 @@ import { validateEmailFormat } from '@/lib/functions';
 import StripeHandler from './stripeHandler';
 import PaymentIntentHandler from './paymentIntentHandler';
 import Spinner from '../spinner';
-import Unchecked from '../../app/icons/check_box.svg';
+import Unchecked from '../../app/icons/checked=no.svg';
 import Checked from '../../app/icons/checked=yes.svg';
 
 export interface FormInfo {
@@ -75,11 +75,24 @@ export default function DonateForm() {
   const appearance: Appearance = {
     theme: 'stripe',
     variables: {
-      // borderRadius: '6px',
+      borderRadius: '6px',
       fontFamily: 'Figtree',
+      colorText: '#2f2f2f',
+      fontLineHeight: '20px',
+      colorPrimary: '#4573d4',
+      colorDanger: '#da1e28',
     },
     rules: {
-      '.Input--selected': {},
+      '.Input': {
+        border: '1px solid rgba(47, 47, 47, 0.3)',
+        padding: '11px 12px',
+        height: '44px',
+        lineHeight: '20px',
+      },
+      '.Input:focus': {
+        // border: '1px solid rgba(47, 47, 47, 0.3)',
+        // boxShadow: 'none',
+      },
     },
   };
   const fonts = [

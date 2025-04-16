@@ -92,7 +92,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
             </button>
           ))}
         </div>
-        <div className="flex flex-col gap-[4px] self-center">
+        <div className="flex flex-col gap-[4px] self-center items-center">
           <div className="donation-amt-input-container">
             <span className="donation-input-text pr-[10px] !select-none">
               $
@@ -106,8 +106,8 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
             />
             <span className="donation-input-text !select-none">USD</span>
           </div>
-          <div className="flex justify-center self-center">
-            {error && <p className="text-red-500 text-xs">{error}</p>}
+          <div className="flex justify-center self-center mt-[4px]">
+            {error && <p className="error-text">{error}</p>}
           </div>
         </div>
       </div>

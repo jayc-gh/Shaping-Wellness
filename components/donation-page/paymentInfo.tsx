@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { PaymentElement, PaymentElementProps } from '@stripe/react-stripe-js';
 import { FormInfo } from './donationForm';
 
@@ -12,13 +12,10 @@ interface StepProps {
 }
 
 export default function PaymentInfo({
-  errorMessage,
   clientSecret,
   formData,
   setStep,
 }: StepProps) {
-  const errorRef = useRef<HTMLDivElement | null>(null);
-
   const paymentElementOptions: PaymentElementProps['options'] = {
     fields: {
       billingDetails: {
@@ -46,11 +43,6 @@ export default function PaymentInfo({
         {clientSecret && (
           <div className="w-full">
             <PaymentElement options={paymentElementOptions} />
-          </div>
-        )}
-        {errorMessage && (
-          <div ref={errorRef} className="error-text">
-            {errorMessage}
           </div>
         )}
       </div>
