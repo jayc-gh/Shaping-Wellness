@@ -19,7 +19,6 @@ export default function PaymentIntentHandler({
 
   useEffect(() => {
     const amount = Number(formData.amount);
-    console.log(lastAmountRef.current);
     if (step !== 3 || !amount || lastAmountRef.current === amount) return;
 
     const createPaymentIntent = async () => {
@@ -34,16 +33,21 @@ export default function PaymentIntentHandler({
           }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error('Failed to create payment intent');
+          const errorMsg = data?.message || 'Failed to create payment intent.';
+          throw new Error(errorMsg);
         }
 
-        const data = await response.json();
         setClientSecret(data.clientSecret);
         lastAmountRef.current = amount;
       } catch (error) {
-        console.log('Error creating payment intent:', error);
-        setErrorMessage('There was an error creating the payment intent.');
+        setErrorMessage(
+          `${
+            error instanceof Error ? error.message : String(error)
+          } Please contact us if this error persists.`
+        );
       }
     };
 

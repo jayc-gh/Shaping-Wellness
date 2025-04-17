@@ -5,7 +5,6 @@ import { PaymentElement, PaymentElementProps } from '@stripe/react-stripe-js';
 import { FormInfo } from '@/declarations';
 
 interface StepProps {
-  errorMessage: string | undefined;
   clientSecret: string;
   formData: FormInfo;
   setStep: React.Dispatch<React.SetStateAction<number>>;

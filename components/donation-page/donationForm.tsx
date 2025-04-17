@@ -14,6 +14,7 @@ import Unchecked from '../../app/icons/checked=no.svg';
 import Checked from '../../app/icons/checked=yes.svg';
 import { handleSubmit } from '@/lib/functions';
 import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
+import Summary from './summary';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -82,19 +83,7 @@ export default function DonateForm() {
   return (
     <main className="main-container">
       <div className="content-container">
-        <div className="summary-container">
-          <div className="flag">
-            <h4>DONATE</h4>
-          </div>
-          <h3 className="text-white">Every dollar makes a difference</h3>
-          <p className="p3 !text-white">
-            Millions of young girls lack access to resources that support their
-            health and well-being. Your support helps provide fitness programs,
-            educational workshops, and safe spaces where they can thrive.
-          </p>
-        </div>
-
-        {/* turn form-box into form */}
+        <Summary />
         <form
           className="form-box"
           onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
@@ -123,8 +112,13 @@ export default function DonateForm() {
             )}
             {step === 3 && (
               <>
-                {(!clientSecret || !stripe || !elements) && <Spinner />}
-                {clientSecret && (
+                {(!clientSecret || !stripe || !elements) && !errorMessage && (
+                  <Spinner />
+                )}
+                {errorMessage && (
+                  <div className="error-text">{errorMessage}</div>
+                )}
+                {clientSecret && !errorMessage && (
                   <Elements
                     stripe={stripePromise}
                     options={{
@@ -136,7 +130,6 @@ export default function DonateForm() {
                     <StripeHandler setStripeCtx={setStripeCtx} />
 
                     <PaymentInfo
-                      errorMessage={errorMessage}
                       clientSecret={clientSecret}
                       formData={formData}
                       setStep={setStep}

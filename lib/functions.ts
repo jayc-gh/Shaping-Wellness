@@ -118,12 +118,16 @@ export async function handleSubmit({
 
     const { error: submitError } = await elements.submit();
     if (submitError) {
-      setErrorMessage(submitError.message);
+      console.error('Stripe elements.submit() error: ', submitError);
+      setErrorMessage(
+        `${submitError.message}` ||
+          'There was an issue submitting your payment details. Please try again.'
+      );
       setLoading(false);
       return;
     }
 
-    const { error } = await stripe.confirmPayment({
+    const { error: confirmError } = await stripe.confirmPayment({
       elements,
       clientSecret,
       confirmParams: {
@@ -144,11 +148,21 @@ export async function handleSubmit({
       },
     });
 
-    if (error) {
-      setErrorMessage(error.message || 'Payment failed');
-    }
+    if (confirmError) {
+      console.error('Stripe confirmPayment error:', {
+        message: confirmError.message,
+        type: confirmError.type,
+        code: confirmError.code,
+        payment_intent: confirmError.payment_intent,
+      });
 
-    setLoading(false);
+      setErrorMessage(
+        `${confirmError.message}` ||
+          'There was an issue processing your payment. Please try again.'
+      );
+      setLoading(false);
+      return;
+    }
   }
   nextStep();
 }
