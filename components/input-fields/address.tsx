@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { FormInfo, ErrorMap } from '@/declarations';
 import { Country, State, IState } from 'country-state-city';
-import ArrowDown from '../../../app/icons/Arrow-down.svg';
+import ArrowDown from '../../app/icons/Arrow-down.svg';
 
 interface StepProps {
   formData: FormInfo;
@@ -30,6 +30,7 @@ export default function Address({
       state: '',
     }));
   };
+
   return (
     <div className="form-sub-container">
       <div className="input-container">
@@ -152,7 +153,7 @@ export default function Address({
                     }));
                   }}
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="" disabled hidden>
                     Select a State
                   </option>
                   {states.map(state => (
