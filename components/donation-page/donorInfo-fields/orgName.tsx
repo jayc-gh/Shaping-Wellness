@@ -1,4 +1,4 @@
-import { FormInfo, ErrorMap } from '../donationForm';
+import { FormInfo, ErrorMap } from '@/declarations';
 
 interface StepProps {
   formData: FormInfo;

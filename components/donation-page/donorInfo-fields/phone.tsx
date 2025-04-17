@@ -1,4 +1,4 @@
-import { FormInfo } from '../donationForm';
+import { FormInfo } from '@/declarations';
 import { formatPhoneNumber } from '@/lib/functions';
 
 interface StepProps {

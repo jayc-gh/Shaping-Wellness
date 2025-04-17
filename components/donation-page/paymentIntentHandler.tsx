@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import convertToSubcurrency from '@/lib/convertToSubcurrency';
-import { FormInfo } from './donationForm';
+import { FormInfo } from '@/declarations';
 
 interface StepProps {
   formData: FormInfo;

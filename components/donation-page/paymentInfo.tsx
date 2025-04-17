@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PaymentElement, PaymentElementProps } from '@stripe/react-stripe-js';
-import { FormInfo } from './donationForm';
+import { FormInfo } from '@/declarations';
 
 interface StepProps {
   errorMessage: string | undefined;

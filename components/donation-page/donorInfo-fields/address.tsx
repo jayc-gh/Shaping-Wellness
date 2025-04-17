@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FormInfo, ErrorMap } from '../donationForm';
+import { FormInfo, ErrorMap } from '@/declarations';
 import { Country, State, IState } from 'country-state-city';
 import ArrowDown from '../../../app/icons/Arrow-down.svg';
 
