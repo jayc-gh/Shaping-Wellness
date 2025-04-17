@@ -5,37 +5,15 @@ import DonationAmt from '@/components/donation-page/donationAmt';
 import DonorInfo from '@/components/donation-page/donorInfo';
 import PaymentInfo from '@/components/donation-page/paymentInfo';
 import ProgressBar from './progressBar';
-import { Elements, useElements } from '@stripe/react-stripe-js';
-import { loadStripe, Stripe, Appearance } from '@stripe/stripe-js';
-import { validateEmailFormat } from '@/lib/functions';
-import StripeHandler from './stripeHandler';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import StripeHandler, { appearance, fonts } from './stripeHandler';
 import PaymentIntentHandler from './paymentIntentHandler';
 import Spinner from '../spinner';
 import Unchecked from '../../app/icons/checked=no.svg';
 import Checked from '../../app/icons/checked=yes.svg';
-
-export interface FormInfo {
-  amount: string;
-  monthly: boolean;
-  firstName: string;
-  lastName: string;
-  email: string;
-  address1: string;
-  address2: string;
-  country: string;
-  state: string;
-  city: string;
-  postalCode: string;
-  phone: string;
-  anonymous: boolean;
-  orgDonate: boolean;
-  orgName: string;
-}
-
-export type StripeCtx = {
-  stripe: Stripe | null;
-  elements: ReturnType<typeof useElements> | null;
-};
+import { handleSubmit } from '@/lib/functions';
+import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -67,40 +45,22 @@ export default function DonateForm() {
   const [coverFee, setCoverFee] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [showErrors, setShowErrors] = useState<ErrorMap>({
+    email: false,
+    orgName: false,
+    address1: false,
+    state: false,
+    country: false,
+    postalCode: false,
+    city: false,
+    firstName: false,
+    lastName: false,
+  });
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
     stripe: null,
     elements: null,
   });
   const { stripe, elements } = stripeCtx;
-  const appearance: Appearance = {
-    theme: 'stripe',
-    variables: {
-      borderRadius: '6px',
-      fontFamily: 'Figtree',
-      colorText: '#2f2f2f',
-      fontLineHeight: '20px',
-      colorPrimary: '#4573d4',
-      colorDanger: '#da1e28',
-    },
-    rules: {
-      '.Input': {
-        border: '1px solid rgba(47, 47, 47, 0.3)',
-        padding: '11px 12px',
-        height: '44px',
-        lineHeight: '20px',
-      },
-      '.Input:focus': {
-        // border: '1px solid rgba(47, 47, 47, 0.3)',
-        // boxShadow: 'none',
-      },
-    },
-  };
-  const fonts = [
-    {
-      cssSrc:
-        'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap',
-    },
-  ];
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => {
@@ -108,65 +68,15 @@ export default function DonateForm() {
     setErrorMessage(undefined);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (step === 1) {
-      const donationAmount = parseFloat(formData.amount || '0');
-      if (
-        isNaN(donationAmount) ||
-        donationAmount < 1 ||
-        donationAmount > 999999.99
-      ) {
-        return;
-      }
-    } else if (step === 2) {
-      if (!validateEmailFormat(formData.email)) {
-        return;
-      }
-    } else if (step === 3) {
-      setLoading(true);
-
-      if (!stripe || !elements) {
-        console.warn('Stripe not ready');
-        return;
-      }
-
-      const { error: submitError } = await elements.submit();
-      if (submitError) {
-        setErrorMessage(submitError.message);
-        setLoading(false);
-        return;
-      }
-
-      const { error } = await stripe.confirmPayment({
-        elements,
-        clientSecret,
-        confirmParams: {
-          return_url: `http://localhost:3000/payment-success?amount=${formData.amount}`,
-          receipt_email: formData.email,
-          payment_method_data: {
-            billing_details: {
-              address: {
-                country: formData.country,
-                line1: formData.address1,
-                line2: formData.address2,
-                state: formData.state,
-                city: formData.city,
-                postal_code: formData.postalCode,
-              },
-            },
-          },
-        },
-      });
-
-      if (error) {
-        setErrorMessage(error.message || 'Payment failed');
-      }
-
-      setLoading(false);
-    }
-    nextStep();
+  const handleSubmitParams = {
+    step,
+    formData,
+    stripeCtx,
+    clientSecret,
+    setShowErrors,
+    nextStep,
+    setLoading,
+    setErrorMessage,
   };
 
   return (
@@ -185,7 +95,10 @@ export default function DonateForm() {
         </div>
 
         {/* turn form-box into form */}
-        <form className="form-box" onSubmit={handleSubmit}>
+        <form
+          className="form-box"
+          onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
+        >
           <div className="form-container">
             {/* Back button and Progress bar */}
             <ProgressBar step={step} prevStep={prevStep} />
@@ -198,6 +111,8 @@ export default function DonateForm() {
                   formData={formData}
                   setFormData={setFormData}
                   setStep={setStep}
+                  showErrors={showErrors}
+                  setShowErrors={setShowErrors}
                 />
                 <PaymentIntentHandler
                   formData={formData}

@@ -45,7 +45,6 @@
     border-radius: 10px;
     background: #fff;
     gap: 24px;
-    max-height: 930px;
   }
 
   .form-container {
@@ -315,10 +314,27 @@
     font-style: normal;
     font-weight: 400;
     line-height: 20px; /* 125% */
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
+    transition: border 0.15s ease, box-shadow 0.15s ease;
   }
 
   .input-field:focus {
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
+    box-shadow: var(--focus-box-shadow);
+    border-color: var(--focus-highlight);
+    outline: none;
+  }
+
+  .input-field.show-invalid {
+    color: var(--danger-color);
+    border-color: var(--danger-color);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02),
+      0 0 0 1px var(--danger-color);
+  }
+
+  .input-field.show-invalid:focus {
+    box-shadow: var(--focus-box-shadow);
+    border-color: var(--focus-highlight);
+    outline: none;
   }
 
   .form-sub-container {
@@ -376,8 +392,21 @@
 
   .error-text {
     color: var(--danger-color);
-    align-self: center;
+    align-self: flex-start;
     justify-self: center;
     font-size: 14px;
+    margin-top: 0.25rem;
+  }
+
+  .error-text-container {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+  }
+
+  .error-text-container.transition {
+    max-height: 30px;
+    opacity: 1;
   }
 }

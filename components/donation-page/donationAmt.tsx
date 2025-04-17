@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import { FormInfo } from './donationForm';
+import React from 'react';
+import { FormInfo } from '@/declarations';
 
 interface StepProps {
   formData: FormInfo;
@@ -8,9 +8,6 @@ interface StepProps {
 }
 
 export default function DonationAmt({ formData, setFormData }: StepProps) {
-  // const [isCustom, setIsCustom] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-
   const toggleDonationType = (type: string) => {
     setFormData({ ...formData, monthly: type === 'monthly' });
   };
@@ -42,12 +39,6 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
     if (numericValue > 999999.99) return;
 
     setFormData({ ...formData, amount: value });
-
-    if (numericValue < 1) {
-      setError('Minimum donation amount is $1.00.');
-    } else {
-      setError('');
-    }
   };
 
   return (
@@ -82,7 +73,6 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
               key={value}
               onClick={() => {
                 handleAmountSelection(String(value));
-                setError('');
               }}
               className={`donation-amt-btn !cursor-pointer ${
                 formData.amount === String(value) && 'filled'
@@ -92,7 +82,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
             </button>
           ))}
         </div>
-        <div className="flex flex-col gap-[4px] self-center items-center">
+        <div className="flex flex-col self-center items-center">
           <div className="donation-amt-input-container">
             <span className="donation-input-text pr-[10px] !select-none">
               $
@@ -106,8 +96,12 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
             />
             <span className="donation-input-text !select-none">USD</span>
           </div>
-          <div className="flex justify-center self-center mt-[4px]">
-            {error && <p className="error-text">{error}</p>}
+          <div
+            className={`flex justify-center self-center error-text-container ${
+              Number(formData.amount) < 1 ? 'transition' : ''
+            }`}
+          >
+            <p className="error-text">Minimum donation amount is $1.00</p>
           </div>
         </div>
       </div>
