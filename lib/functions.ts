@@ -66,7 +66,6 @@ export async function handleSubmit({
   step,
   formData,
   stripeCtx,
-  clientSecret,
   setShowErrors,
   nextStep,
   setLoading,
@@ -76,11 +75,10 @@ export async function handleSubmit({
   step: number;
   formData: FormInfo;
   stripeCtx: StripeCtx;
-  clientSecret: string;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
   nextStep: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   e.preventDefault();
   const { stripe, elements } = stripeCtx;
@@ -116,6 +114,7 @@ export async function handleSubmit({
       return;
     }
 
+    // handling errors during submission (missing fields)
     const { error: submitError } = await elements.submit();
     if (submitError) {
       console.error('Stripe elements.submit() error: ', submitError);
@@ -127,11 +126,12 @@ export async function handleSubmit({
       return;
     }
 
+    // session storage to prevent going to payment-success through url
+    sessionStorage.setItem('paymentInProgress', 'true');
     const { error: confirmError } = await stripe.confirmPayment({
       elements,
-      clientSecret,
       confirmParams: {
-        return_url: `http://localhost:3000/payment-success?amount=${formData.amount}`,
+        return_url: `${window.location.origin}/donate/payment-success?amount=${formData.amount}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {
@@ -148,6 +148,7 @@ export async function handleSubmit({
       },
     });
 
+    // handling errors after submission during confirmation (valid card)
     if (confirmError) {
       console.error('Stripe confirmPayment error:', {
         message: confirmError.message,

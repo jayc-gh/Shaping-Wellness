@@ -15,6 +15,7 @@ import Checked from '../../app/icons/checked=yes.svg';
 import { handleSubmit } from '@/lib/functions';
 import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
 import Summary from './summary';
+import LoadingDots from '../loadingDots';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -45,7 +46,7 @@ export default function DonateForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [coverFee, setCoverFee] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({
     email: false,
     orgName: false,
@@ -66,14 +67,13 @@ export default function DonateForm() {
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => {
     setStep(prev => prev - 1);
-    setErrorMessage(undefined);
+    setErrorMessage('');
   };
 
   const handleSubmitParams = {
     step,
     formData,
     stripeCtx,
-    clientSecret,
     setShowErrors,
     nextStep,
     setLoading,
@@ -116,7 +116,9 @@ export default function DonateForm() {
                   <Spinner />
                 )}
                 {errorMessage && (
-                  <div className="error-text">{errorMessage}</div>
+                  <div className="error-text text-center w-full">
+                    {errorMessage}
+                  </div>
                 )}
                 {clientSecret && !errorMessage && (
                   <Elements
@@ -147,7 +149,7 @@ export default function DonateForm() {
               </button>
             </div>
           )}
-          {step === 3 && (
+          {step === 3 && !errorMessage && clientSecret && (
             <div className="terms-container">
               <label className="checkbox-container">
                 <input
@@ -168,12 +170,26 @@ export default function DonateForm() {
               </label>
               <div className="continue-container">
                 <button
-                  disabled={!stripe || loading || Number(formData.amount) < 1}
+                  disabled={
+                    !stripe ||
+                    loading ||
+                    Number(formData.amount) < 1 ||
+                    errorMessage !== ''
+                  }
                   className="continue-btn"
                   type="submit"
                 >
-                  <span className="btn">
-                    {!loading ? `Donate $${formData.amount}` : 'Processing....'}
+                  <span className="btn flex items-center justify-center w-full gap-1">
+                    {loading ? (
+                      <>
+                        Processing
+                        <span className="translate-y-[8px]">
+                          <LoadingDots />
+                        </span>
+                      </>
+                    ) : (
+                      `Donate $${formData.amount}`
+                    )}
                   </span>
                 </button>
               </div>

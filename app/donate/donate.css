@@ -409,4 +409,12 @@
     max-height: 30px;
     opacity: 1;
   }
+
+  .thank-you-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+  }
 }

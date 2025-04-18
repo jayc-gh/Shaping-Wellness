@@ -11,6 +11,7 @@
   --Secondary-Neutral: #6b6461;
   --button-color: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
   --primary-text-color: #2f2f2f;
+  --Primary-2: #3c3c3c;
   --Field-line: rgba(47, 47, 47, 0.3);
   --secondary-text-color: #6b6461;
   --cards-color: #f6e7e1;
@@ -100,6 +101,14 @@ h4 {
     font-style: normal;
     font-weight: 500;
     line-height: 140%; /* 33.6px */
+  }
+
+  .p4 {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    color: var(--Primary-2);
   }
 
   .btn {

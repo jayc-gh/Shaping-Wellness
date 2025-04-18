@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     let message = 'Something went wrong while creating the payment intent.';
 
+    // backend error log
     console.error('Stripe error', {
       error: error instanceof Error ? error.stack : error,
       context: { endpoint: '/api/create-payment-intent', amount },

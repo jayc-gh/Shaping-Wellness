@@ -81,10 +81,7 @@ export default function DonorInfo({
                 Hide my name from the public
               </label>
             </label>
-            <Help
-              className="flex cursor-pointer"
-              onClick={() => console.log(showErrors.firstName)}
-            />
+            <Help className="flex cursor-pointer" />
           </div>
 
           <div className="checkbox-container">

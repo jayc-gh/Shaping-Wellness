@@ -6,7 +6,7 @@ interface StepProps {
   step: number;
   formData: FormInfo;
   setClientSecret: React.Dispatch<React.SetStateAction<string>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function PaymentIntentHandler({
@@ -43,6 +43,7 @@ export default function PaymentIntentHandler({
         setClientSecret(data.clientSecret);
         lastAmountRef.current = amount;
       } catch (error) {
+        // user facing error message
         setErrorMessage(
           `${
             error instanceof Error ? error.message : String(error)
