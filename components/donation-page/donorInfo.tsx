@@ -70,7 +70,10 @@ export default function DonorInfo({
                 className="checkbox"
                 checked={formData.anonymous}
                 onChange={() =>
-                  setFormData({ ...formData, anonymous: !formData.anonymous })
+                  setFormData(prev => ({
+                    ...prev,
+                    anonymous: !formData.anonymous,
+                  }))
                 }
               />
 
@@ -92,9 +95,13 @@ export default function DonorInfo({
                 className="checkbox"
                 checked={formData.orgDonate}
                 onChange={() =>
-                  setFormData({ ...formData, orgDonate: !formData.orgDonate })
+                  setFormData(prev => ({
+                    ...prev,
+                    orgDonate: !formData.orgDonate,
+                  }))
                 }
               />
+
               {!formData.orgDonate && <Unchecked />}
               {formData.orgDonate && <Checked />}
               <label htmlFor="orgDonate-checkbox" className="custom-text-4">

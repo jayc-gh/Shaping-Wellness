@@ -5,24 +5,44 @@ import { FormInfo } from '@/declarations';
 interface StepProps {
   formData: FormInfo;
   setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+  setCoverFee: React.Dispatch<React.SetStateAction<boolean>>;
+  coverFee: boolean;
 }
 
-export default function DonationAmt({ formData, setFormData }: StepProps) {
+export default function DonationAmt({
+  formData,
+  setFormData,
+  setCoverFee,
+}: StepProps) {
   const toggleDonationType = (type: string) => {
-    setFormData({ ...formData, monthly: type === 'monthly' });
+    setCoverFee(false);
+    setFormData(prev => ({
+      ...prev,
+      monthly: type === 'monthly',
+    }));
   };
 
   const handleAmountSelection = (value: string | 'custom'): void => {
-    setFormData({ ...formData, amount: value });
+    setCoverFee(false);
+    setFormData(prev => ({
+      ...prev,
+      amount: value,
+    }));
   };
 
   const handleCustomAmountChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
+    setCoverFee(false);
     // auto add 0 if starting with .
     let value = e.target.value;
     if (value.startsWith('.')) {
       value = '0' + value;
+    }
+
+    // auto add . if starting with 0
+    if (/^0\d{1,2}$/.test(value)) {
+      value = `0.${value.slice(1)}`;
     }
 
     // remove $ sign
@@ -35,10 +55,13 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
 
     const numericValue = parseFloat(value);
 
-    // Enforce max value of 999999.99
+    // max value of 999999.99
     if (numericValue > 999999.99) return;
 
-    setFormData({ ...formData, amount: value });
+    setFormData(prev => ({
+      ...prev,
+      amount: value,
+    }));
   };
 
   return (

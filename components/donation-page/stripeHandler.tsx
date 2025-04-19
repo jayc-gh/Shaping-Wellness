@@ -25,7 +25,7 @@ export const appearance: Appearance = {
     fontFamily: 'Figtree',
     colorText: '#2f2f2f',
     fontLineHeight: '20px',
-    colorPrimary: '#4573d4',
+    colorPrimary: '#66afe9',
     colorDanger: '#da1e28',
     fontSizeSm: '14px',
   },
@@ -35,6 +35,10 @@ export const appearance: Appearance = {
       padding: '11px 12px',
       height: '44px',
       lineHeight: '20px',
+    },
+    '.Input:focus': {
+      border: '1px solid #66afe9',
+      boxShadow: '0px 0px 6px 0px rgba(56, 167, 255, 0.80)',
     },
   },
 };

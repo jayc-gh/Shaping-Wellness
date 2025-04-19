@@ -167,3 +167,5 @@ export async function handleSubmit({
   }
   nextStep();
 }
+
+export function UpdateCoverFee() {}

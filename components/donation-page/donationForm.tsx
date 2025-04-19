@@ -69,6 +69,7 @@ export default function DonateForm() {
     setStep(prev => prev - 1);
     setErrorMessage('');
   };
+  const multiplier: number = 1.03;
 
   const handleSubmitParams = {
     step,
@@ -99,7 +100,50 @@ export default function DonateForm() {
             <ProgressBar step={step} prevStep={prevStep} />
 
             {step === 1 && (
-              <DonationAmt formData={formData} setFormData={setFormData} />
+              <>
+                <DonationAmt
+                  formData={formData}
+                  setFormData={setFormData}
+                  setCoverFee={setCoverFee}
+                  coverFee={coverFee}
+                />
+                <label className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    id="cover-fee-checkbox"
+                    className="checkbox"
+                    checked={coverFee}
+                    onChange={() => {
+                      const newCoverFee = !coverFee;
+                      setCoverFee(newCoverFee);
+
+                      setFormData(prev => {
+                        if (prev.amount === '') return prev;
+
+                        const newAmount = !newCoverFee
+                          ? Math.round(
+                              (Number(prev.amount) / multiplier) * 100
+                            ) / 100
+                          : Math.round(Number(prev.amount) * multiplier * 100) /
+                            100;
+
+                        return {
+                          ...prev,
+                          amount: String(Math.min(newAmount, 999999.99)),
+                        };
+                      });
+                    }}
+                  />
+
+                  {!coverFee && <Unchecked />}
+                  {coverFee && <Checked />}
+
+                  <span className="custom-text-4 !text-[#6B6461]">
+                    I&apos;d like to cover the 3% transaction fee for this
+                    donation
+                  </span>
+                </label>
+              </>
             )}
             {step === 2 && (
               <DonorInfo
@@ -129,6 +173,17 @@ export default function DonateForm() {
                       fonts: fonts,
                     }}
                   >
+                    {/* <Elements
+                    stripe={stripePromise}
+                    options={{
+                      mode: 'payment',
+                      amount: convertToSubcurrency(amount),
+                      currency: 'usd',
+                      appearance: appearance,
+                      fonts: fonts,
+                    }}
+                  >
+                    </Elements> */}
                     <StripeHandler setStripeCtx={setStripeCtx} />
 
                     <PaymentInfo
@@ -141,7 +196,6 @@ export default function DonateForm() {
               </>
             )}
           </div>
-
           {step < 3 && (
             <div className="continue-container">
               <button className="continue-btn" type="submit">
@@ -151,23 +205,6 @@ export default function DonateForm() {
           )}
           {step === 3 && !errorMessage && clientSecret && (
             <div className="terms-container">
-              <label className="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="cover-fee-checkbox"
-                  className="checkbox"
-                  checked={coverFee}
-                  onChange={() => setCoverFee(!coverFee)}
-                />
-
-                {!coverFee && <Unchecked />}
-                {coverFee && <Checked />}
-
-                <span className="custom-text-4 !text-[#6B6461]">
-                  I&apos;d like to cover the 3% transaction fee for this
-                  donation
-                </span>
-              </label>
               <div className="continue-container">
                 <button
                   disabled={
