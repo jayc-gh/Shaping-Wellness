@@ -1,4 +1,6 @@
 import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
+import { supabaseClient } from '@/lib/supabaseClient';
+import crypto from 'crypto';
 
 export const formatPhoneNumber = (value: string) => {
   const cleaned = value.replace(/\D/g, '');
@@ -126,12 +128,27 @@ export async function handleSubmit({
       return;
     }
 
-    // session storage to prevent going to payment-success through url
-    sessionStorage.setItem('paymentInProgress', 'true');
+    // temporary token
+    const tempToken = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date();
+    // token expiration after 15 minutes
+    expiresAt.setHours(expiresAt.getMinutes() + 15);
+
+    // insert token into supabase
+    const { data, error } = await supabaseClient
+      .from('temp_tokens')
+      .insert([{ token: tempToken, expires_at: expiresAt.toISOString() }])
+      .single();
+
+    if (error) {
+      throw new Error('Failed to store temporary token in Supabase.');
+    }
+    console.log('Inserted token data:', data);
+
     const { error: confirmError } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/payment-success?amount=${formData.amount}`,
+        return_url: `${window.location.origin}/donate/payment-success?amount=${formData.amount}&token=${tempToken}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {

@@ -173,17 +173,6 @@ export default function DonateForm() {
                       fonts: fonts,
                     }}
                   >
-                    {/* <Elements
-                    stripe={stripePromise}
-                    options={{
-                      mode: 'payment',
-                      amount: convertToSubcurrency(amount),
-                      currency: 'usd',
-                      appearance: appearance,
-                      fonts: fonts,
-                    }}
-                  >
-                    </Elements> */}
                     <StripeHandler setStripeCtx={setStripeCtx} />
 
                     <PaymentInfo

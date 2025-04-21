@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export async function POST(request: NextRequest) {
@@ -17,6 +18,7 @@ export async function POST(request: NextRequest) {
       currency: 'usd',
       automatic_payment_methods: { enabled: true },
     });
+
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
     let message = 'Something went wrong while creating the payment intent.';

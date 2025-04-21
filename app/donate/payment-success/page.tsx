@@ -20,14 +20,24 @@ export default function PaymentSuccess() {
 
   // prevent going to payment-success through url
   useEffect(() => {
-    const inProgress = sessionStorage.getItem('paymentInProgress');
+    const token = searchParams.get('token');
 
-    if (inProgress) {
-      sessionStorage.removeItem('paymentInProgress');
-      setValid(true);
-    } else {
-      router.push('/');
-    }
+    const verifyToken = async () => {
+      const res = await fetch('/api/verify-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
+
+      const { valid } = await res.json();
+      if (valid) {
+        setValid(true);
+      } else {
+        router.push('/');
+      }
+    };
+
+    verifyToken();
   }, [router, searchParams]);
 
   return (
