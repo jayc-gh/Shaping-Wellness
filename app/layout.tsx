@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import './globals.css';
-import NavBar from '@/components/navbar';
+import NavBar from '@/components/navbar/navbar';
 import Footer from '@/components/footer';
 
 const figtree = Figtree({

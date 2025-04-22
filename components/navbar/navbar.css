@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+@layer utilities {
+  .navbar-container {
+    display: flex;
+    padding: 18px 108px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbar-content-container {
+    display: flex;
+    max-width: 1224px;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 0 0;
+  }
+
+  .links-container {
+    display: flex;
+    height: 50px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+  }
+}
