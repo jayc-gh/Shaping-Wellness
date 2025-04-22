@@ -1,12 +1,11 @@
 @import 'tailwindcss';
 
 @layer utilities {
-  .main-container {
+  .background {
     display: flex;
-    padding: 80px 108px;
-    justify-content: center;
-    flex: 1 0 0;
-    align-self: stretch;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url('../../public/images/DonationForm.webp') lightgray;
     background-size: cover, cover;
@@ -14,13 +13,19 @@
     background-position: center top, center top;
   }
 
+  .main-container {
+    display: flex;
+    padding: 80px 108px;
+    width: 1440px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
   .content-container {
     display: flex;
-    min-height: 708px;
-    max-width: 1224px;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
-    gap: 129px;
   }
 
   .summary-container {
