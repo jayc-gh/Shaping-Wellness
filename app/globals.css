@@ -1,26 +1,121 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
+  --primary-color: #d9764e;
+  --Primary-Coral: #dd6d5c;
+  --hover-color: #f4a488;
+  --Soft-Coral: #ffece4;
+  --Secondary-Coral: #b1574a;
+  --Primary-Neutral: #2f2f2f;
+  --Secondary-Neutral: #6b6461;
+  --button-color: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
+  --primary-text-color: #2f2f2f;
+  --Primary-2: #3c3c3c;
+  --Field-line: rgba(47, 47, 47, 0.3);
+  --secondary-text-color: #6b6461;
+  --cards-color: #f6e7e1;
   --background: #ffffff;
-  --foreground: #171717;
+  --danger-color: #da1e28;
+  --focus-highlight: #66afe9;
+  --focus-box-shadow: 0px 0px 6px 0px rgba(56, 167, 255, 0.8);
+  /* --focus-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03),
+    0px 3px 6px rgba(0, 0, 0, 0.02), 0 0 0 3px hsla(221, 62%, 55%, 25%),
+    0 1px 1px 0 rgba(0, 0, 0, 0.08); */
+}
+
+select,
+option {
+  /* font-family: 'Figtree', 'Comic Sans MS'; */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* --background: #0a0a0a; */
+    --foreground: black;
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-text-color);
+  line-height: 1.15;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove number input arrows in Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+h3 {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%;
+}
+
+h4 {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@layer components {
+  .flag {
+    display: flex;
+    padding: 4px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 0px 10px;
+    background: var(--Primary-Coral);
+    color: var(--background);
+  }
+
+  .required {
+    color: var(--primary-color);
+    font-family: Figtree;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+@layer utilities {
+  .p3 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 33.6px */
+  }
+
+  .p4 {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+    color: var(--Primary-2);
+  }
+
+  .btn {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
 }

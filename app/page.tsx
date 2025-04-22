@@ -1,101 +1,152 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="flex flex-col">
+      {/* big section with 1 column */}
+      <section className="big-section !justify-start relative">
+        <div className="absolute inset-0 bg-[url('/images/Home_Header1.jpg')] bg-cover bg-center z-0">
+          <div className="absolute inset-0 bg-black/50" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <div className="flex flex-col items-start pl-60 w-222 text-white z-10">
+          <h1 className="space-y-5 mb-8">
+            <span className="">Healthy Futures,</span>
+            <br />
+            <span>
+              <span className="text-orange-400">Stronger</span> Communities
+            </span>
+          </h1>
+          <h4 className="mb-5">
+            Join us in creating opportunities for girls to grow stronger, more
+            confident, and healthier. Partner today and be part of the change.
+          </h4>
+          <button className="border rounded-xl px-5 py-2 cursor-pointer">
+            <h5 className="font-bold">Become a partner</h5>
+          </button>
+        </div>
+      </section>
+
+      {/* small section with just text */}
+      <section className="sm-section">
+        <div className="center-all flex-col w-220">
+          <h6 className="mb-6">OUR MISSION</h6>
+          <h4 className="text-center text-black">
+            At Shaping Wellness, our mission is to cultivate a generation of
+            resilient and confident young women equipped with the tools and
+            knowledge to prioritize their health and well-being, ultimately
+            building stronger, healthier communities.
+          </h4>
+        </div>
+      </section>
+
+      {/* big section no content */}
+      <section className="big-section"></section>
+
+      {/* small section with just text */}
+      <section className="sm-section">
+        <div className="center-all flex-col w-215">
+          <h6 className="mb-6">PROGRAMS</h6>
+          <h4 className="text-center text-black mb-6">
+            We offer dynamic programs that promote physical activity, mental
+            wellness, and self-care, equipping girls with the knowledge and
+            support they need to lead healthy lives.
+          </h4>
+          <button className="border rounded-xl px-5 py-2 cursor-pointer">
+            <h5 className="font-bold">Learn more</h5>
+          </button>
+        </div>
+      </section>
+
+      {/* big section 2 columns - text right side */}
+      <section className="big-section">
+        <div className="w-140 h-140 bg-gray-200 border-2 border-dashed border-gray-400 rounded-tl-[6rem] rounded-br-[6rem] flex items-center justify-center text-gray-500"></div>
+        <div className="flex flex-col justify-start w-120 gap-4">
+          <h6 className="text-black">FITNESS PROGRAMS</h6>
+          <h3>Staying active and strong</h3>
+          <h4 className="text-black">
+            We provide accessible and engaging fitness opportunities that
+            encourage movement, build strength, and promote overall well-being.
+          </h4>
+        </div>
+      </section>
+
+      {/* big section 2 columns - text right side */}
+      <section className="big-section">
+        <div className="flex flex-col justify-start w-120 gap-4">
+          <h6 className="text-black">WORKSHOPS</h6>
+          <h3>Inspiring healthy choices</h3>
+          <h4 className="text-black">
+            Our health education workshops equip girls with essential knowledge
+            on nutrition, mental wellness, self-care, and overall well-being.
+          </h4>
+        </div>
+        <div className="w-140 h-140 bg-gray-200 border-2 border-dashed border-gray-400 rounded-tl-[6rem] rounded-br-[6rem] flex items-center justify-center text-gray-500"></div>
+      </section>
+
+      {/* big section 2 columns - text left side */}
+      <section className="big-section">
+        <div className="w-140 h-140 bg-gray-200 border-2 border-dashed border-gray-400 rounded-tl-[6rem] rounded-br-[6rem] flex items-center justify-center text-gray-500"></div>
+        <div className="flex flex-col justify-start w-120 gap-4">
+          <h6 className="text-black">MENTORSHIPS</h6>
+          <h3>Guiding girls to thrive</h3>
+          <h4 className="text-black">
+            Our mentorship program connects girls with positive female role
+            models who provide guidance, support, and encouragement in their
+            health and wellness journey.
+          </h4>
+        </div>
+      </section>
+
+      {/* big section no content */}
+      <section className="big-section"></section>
+
+      {/* big section 3 columns */}
+      <section className="big-section !flex-col !bg-white">
+        <h6 className="mb-5">GET INVOLVED</h6>
+        <div className="center-all gap-10">
+          <div className="group group-card">
+            <div className="w-40 h-40 bg-gray-200 border-2 border-dashed border-gray-400 flex center-all text-gray-500"></div>
+            <h3 className="group-hover:text-black">Partner</h3>
+            <h4 className="text-center">
+              Help bring fitness, wellness, and mentorship programs to your
+              school.
+            </h4>
+          </div>
+          <div className="group group-card">
+            <div className="w-40 h-40 bg-gray-200 border-2 border-dashed border-gray-400 flex center-all text-gray-500"></div>
+            <h3 className="group-hover:text-black">Donate</h3>
+            <h4 className="text-center">
+              Your support gives girls the tools to build confidence and
+              lifelong well-being.
+            </h4>
+          </div>
+          <div className="group group-card">
+            <div className="w-40 h-40 bg-gray-200 border-2 border-dashed border-gray-400 flex items-center justify-center text-gray-500"></div>
+            <h3 className="group-hover:text-black">Volunteer</h3>
+            <h4 className="text-center">
+              From mentoring to leading workshops, there’s a role for everyone
+              to make a difference.
+            </h4>
+          </div>
+        </div>
+      </section>
+
+      {/* big section no content */}
+      <section className="big-section"></section>
+
+      {/* small section with just text */}
+      <section className="sm-section">
+        <div className="flex flex-col items-center justify-center w-180">
+          <h6 className="mb-8">CONTACT US</h6>
+          <h4 className="text-center text-black mb-8">
+            Have questions or want to get involved? We're here to help!
+          </h4>
+          <button className="border rounded-xl px-5 py-2 cursor-pointer">
+            <h5 className="font-bold">Send a message</h5>
+          </button>
+        </div>
+      </section>
+    </main>
   );
 }
