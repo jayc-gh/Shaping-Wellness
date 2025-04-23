@@ -23,9 +23,6 @@ export default function NavBar() {
     },
   ];
 
-  const dropdownStyles = 'absolute left-0 bg-white shadow-md rounded-md';
-  const linkStyles = 'block px-4 py-2 hover:bg-gray-100 hover:rounded-md w-35';
-
   return (
     <nav className="navbar-container">
       <div className="navbar-content-container">
@@ -36,26 +33,30 @@ export default function NavBar() {
 
         {/* right/links side of navbar */}
         <div className="links-container">
-          {/* map through dropdown items */}
           {dropdownItems.map(({ id, label, links }) => (
-            <span
+            <div
               key={id}
-              className="relative"
+              className="dropdown-wrapper"
               onMouseEnter={() => setDropDown(id)}
               onMouseLeave={() => setDropDown(null)}
             >
-              <button className="">{label}</button>
+              <div className="dropdown-container">
+                {label}
+                <ArrowDown alt="Arrow Down" />
+              </div>
+
               {dropdown === id && (
-                <div className={dropdownStyles}>
+                <div className="dropdown-items-container">
                   {links.map(({ href, text }) => (
-                    <Link key={href} href={href} className={linkStyles}>
+                    <Link key={href} href={href} className="dropdown-item">
                       {text}
                     </Link>
                   ))}
                 </div>
               )}
-            </span>
+            </div>
           ))}
+
           <Link href="/who-we-are">Who We Are</Link>
           <Link href="/programs">Programs</Link>
           <Link href="/contact">Contact</Link>
