@@ -5,11 +5,22 @@ import './navbar.css';
 import Link from 'next/link';
 import LogoSvg from '../../app/icons/LogoSVG.svg';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
+import ArrowUp from '../../app/icons/Arrow-up.svg';
 
 export default function NavBar() {
   const [dropdown, setDropDown] = useState<string | null>(null);
-  const [clicked, setClicked] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -18,7 +29,6 @@ export default function NavBar() {
         !dropdownRef.current.contains(e.target as Node)
       ) {
         setDropDown(null);
-        setClicked(false);
       }
     };
 
@@ -42,12 +52,10 @@ export default function NavBar() {
   ];
 
   const handleClick = (id: string) => {
-    if (dropdown === id && clicked) {
+    if (dropdown === id) {
       setDropDown(null);
-      setClicked(false);
     } else {
       setDropDown(id);
-      setClicked(true);
     }
   };
 
@@ -64,35 +72,36 @@ export default function NavBar() {
           {dropdownItems.map(({ id, label, links }) => (
             <div
               key={id}
-              className="dropdown-wrapper"
+              className={`dropdown-wrapper ${dropdown === id ? 'active' : ''}`}
               ref={dropdownRef}
-              onClick={() => handleClick(id)}
+              onClick={() => {
+                if (isMobile) handleClick(id);
+              }}
             >
               <div className="dropdown-container">
                 {label}
-                <ArrowDown alt="Arrow Down" />
+                {!dropdown ? <ArrowDown /> : <ArrowUp />}
               </div>
 
-              {dropdown === id && (
-                <div
-                  className="dropdown-items-container"
-                  onClick={e => e.stopPropagation()}
-                >
-                  {links.map(({ href, text }) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      className="dropdown-item"
-                      onClick={() => {
-                        setDropDown(null);
-                        setClicked(false);
-                      }}
-                    >
-                      {text}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <div
+                className={`dropdown-items-container ${
+                  isMobile && dropdown === id ? 'mobile-visible' : ''
+                }`}
+                onClick={e => e.stopPropagation()}
+              >
+                {links.map(({ href, text }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="dropdown-item"
+                    onClick={() => {
+                      setDropDown(null);
+                    }}
+                  >
+                    {text}
+                  </Link>
+                ))}
+              </div>
             </div>
           ))}
 

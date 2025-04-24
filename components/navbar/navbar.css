@@ -1,4 +1,34 @@
 @import 'tailwindcss';
+
+@media (max-width: 768px) {
+  .dropdown-wrapper .dropdown-items-container {
+    display: none;
+  }
+
+  .dropdown-wrapper.active .dropdown-items-container {
+    display: block;
+    transform: translateX(-23px) translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-visible {
+    display: block;
+    transform: translateX(-23px) translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .dropdown-wrapper:hover .dropdown-items-container {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
 @layer utilities {
   .navbar-container {
     display: flex;
@@ -27,6 +57,8 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    padding-bottom: 31px;
+    margin-top: 31px;
   }
 
   .dropdown-container {
@@ -37,21 +69,33 @@
     align-items: center;
     flex-shrink: 0;
     gap: 2px;
-    cursor: pointer;
+    cursor: default;
   }
 
   .dropdown-items-container {
     position: absolute;
     display: flex;
-    width: 210px;
-    padding: 10px 0px;
     flex-direction: column;
     align-items: flex-start;
-    border-radius: 0px 0px 10px 10px;
+    width: 210px;
+    padding: 10px 0;
+    border-radius: 0 0 10px 10px;
     background: #fff;
-    box-shadow: 0px 4px 6px 0px rgba(243, 1, 1, 0.1);
-    transform: translateX(-23px);
-    top: calc(100% + 31px);
+    box-shadow: 0px 4px 6px rgba(243, 1, 1, 0.1);
+    top: 100%;
+    transform: translateX(-23px) translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .dropdown-wrapper:hover .dropdown-items-container {
+    transform: translateX(-23px) translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .dropdown-item {
