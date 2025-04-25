@@ -98,15 +98,38 @@ h4 {
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
-    line-height: 140%; /* 33.6px */
+    line-height: 140%;
   }
 
   .p4 {
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    line-height: 140%; /* 22.4px */
+    line-height: 140%;
     color: var(--Primary-2);
+  }
+
+  .p5 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .p5.bolded {
+    font-weight: 700;
+  }
+
+  .p6 {
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .p6.thin {
+    font-weight: 400;
   }
 
   .btn {

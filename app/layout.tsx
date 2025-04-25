@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import './globals.css';
 import NavBar from '@/components/navbar/navbar';
-import Footer from '@/components/footer';
+import FooterB from '@/components/footer/bottom-footer/footerB';
+import ConditionalFooter from '@/components/footer/top-footer/conditionalFooter';
 
 const figtree = Figtree({
   subsets: ['latin'],
@@ -21,9 +22,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={figtree.className}>
       <body className={`antialiased flex flex-col h-screen`}>
-        <NavBar />
+        <nav>
+          <NavBar />
+        </nav>
         <div className="flex flex-col flex-1 items-center">{children}</div>
-        <Footer />
+        <footer>
+          <ConditionalFooter />
+          <FooterB />
+        </footer>
       </body>
     </html>
   );

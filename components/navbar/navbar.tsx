@@ -107,7 +107,7 @@ export default function NavBar() {
 
           <Link href="/who-we-are">Who We Are</Link>
           <Link href="/programs">Programs</Link>
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact-us">Contact</Link>
           <Link href="/donate">
             <button className="donate-btn">
               <span className="btn text-white">Donate</span>
