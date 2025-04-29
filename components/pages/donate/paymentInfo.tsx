@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { PaymentElement, PaymentElementProps } from '@stripe/react-stripe-js';
 import { FormInfo } from '@/declarations';

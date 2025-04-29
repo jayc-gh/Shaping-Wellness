@@ -1,9 +1,9 @@
 import React from 'react';
-import Dot from '../../app/icons/dot.svg';
-import DotFilled from '../../app/icons/dotfilled.svg';
-import DotCheck from '../../app/icons/dotcheck.svg';
-import Back from '../../app/icons/back.svg';
-import DotCheckFilled from '../../app/icons/dot-check-filled.svg';
+import Dot from '../../../app/icons/dot.svg';
+import DotFilled from '../../../app/icons/dotfilled.svg';
+import DotCheck from '../../../app/icons/dotcheck.svg';
+import Back from '../../../app/icons/back.svg';
+import DotCheckFilled from '../../../app/icons/dot-check-filled.svg';
 
 interface StepProps {
   step: number;

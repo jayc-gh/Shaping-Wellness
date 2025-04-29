@@ -1,14 +1,12 @@
-'use client';
-
 import React from 'react';
-import Unchecked from '../../app/icons/checked=no.svg';
-import Checked from '../../app/icons/checked=yes.svg';
-import Help from '../../app/icons/help.svg';
-import Name from '../input-fields/name';
-import OrgName from '../input-fields/orgName';
-import Address from '../input-fields/address';
-import Email from '../input-fields/email';
-import Phone from '../input-fields/phone';
+import Unchecked from '../../../app/icons/checked=no.svg';
+import Checked from '../../../app/icons/checked=yes.svg';
+import Help from '../../../app/icons/help.svg';
+import Name from '../../input-fields/name';
+import OrgName from '../../input-fields/orgName';
+import Address from '../../input-fields/address';
+import Email from '../../input-fields/email';
+import Phone from '../../input-fields/phone';
 import { FormInfo, ErrorMap } from '@/declarations';
 
 interface StepProps {

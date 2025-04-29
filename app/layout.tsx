@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import './globals.css';
+import '../components/pages/pages.css';
 import NavBar from '@/components/navbar/navbar';
 import FooterB from '@/components/footer/bottom-footer/footerB';
 import ConditionalFooter from '@/components/footer/top-footer/conditionalFooter';

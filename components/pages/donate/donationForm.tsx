@@ -1,21 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
-import DonationAmt from '@/components/donation-page/donationAmt';
-import DonorInfo from '@/components/donation-page/donorInfo';
-import PaymentInfo from '@/components/donation-page/paymentInfo';
+import DonationAmt from '@/components/pages/donate/donationAmt';
+import DonorInfo from '@/components/pages/donate/donorInfo';
+import PaymentInfo from '@/components/pages/donate/paymentInfo';
 import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeHandler, { appearance, fonts } from './stripeHandler';
 import PaymentIntentHandler from './paymentIntentHandler';
-import Spinner from '../spinner';
-import Unchecked from '../../app/icons/checked=no.svg';
-import Checked from '../../app/icons/checked=yes.svg';
+import Spinner from '../../spinner';
+import Unchecked from '../../../app/icons/checked=no.svg';
+import Checked from '../../../app/icons/checked=yes.svg';
 import { handleSubmit } from '@/lib/functions';
 import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
 import Summary from './summary';
-import LoadingDots from '../loadingDots';
+import LoadingDots from '../../loadingDots';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -141,8 +141,7 @@ export default function DonateForm() {
                     {coverFee && <Checked />}
 
                     <span className="custom-text-4 !text-[#6B6461]">
-                      I&apos;d like to cover the 3% transaction fee for this
-                      donation
+                      I’d like to cover the 3% transaction fee for this donation
                     </span>
                   </label>
                 </>

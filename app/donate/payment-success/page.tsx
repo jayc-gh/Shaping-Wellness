@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import ProgressBar from '@/components/donation-page/progressBar';
-import Summary from '@/components/donation-page/summary';
+import ProgressBar from '@/components/pages/donate/progressBar';
+import Summary from '@/components/pages/donate/summary';
 import '../donate.css';
 
 const stripePublicKey: string = process.env
@@ -56,8 +56,8 @@ export default function PaymentSuccess() {
                 </p>
                 <p className="text-center p4">
                   Your support is helping girls build confidence, develop
-                  healthy habits, and create brighter futures. We&apos;re
-                  incredibly grateful for your contribution.
+                  healthy habits, and create brighter futures. We’re incredibly
+                  grateful for your contribution.
                 </p>
               </div>
             </div>

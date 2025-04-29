@@ -19,6 +19,7 @@ export default function FooterT() {
           <div className="top-footer-contacts">
             <p className="p5">info@shapingwellness.com</p>
             <p className="p5">123-456-7890</p>
+            <p className="p5">EIN: 33-3441832</p>
           </div>
         </div>
         <div className="top-footer-right-container">
