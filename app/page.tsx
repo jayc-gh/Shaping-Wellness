@@ -5,6 +5,7 @@ import Divider from '../app/icons/divider-line.svg';
 import HandHeart from '../app/icons/hand-heart.svg';
 import Users from '../app/icons/users-heart.svg';
 import Handshake from '../app/icons/handshake.svg';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -20,9 +21,9 @@ export default function Home() {
               Join us in creating opportunities for girls to grow stronger, more
               confident, and healthier. Partner today and be part of the change.
             </p>
-            <button className="filled-btn">
+            <Link href="/get-involved/partner" className="filled-btn">
               <p className="btn">Become a partner</p>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -42,12 +43,12 @@ export default function Home() {
             girls develop confidence, stay active, and make informed choices for
             lifelong wellness.
           </p>
-          <button className="link-btn">
+          <Link href="who-we-are" className="link-btn">
             <h4 className="p3 link-btn-text text-[#B1574A] !font-semibold">
               LEARN MORE ABOUT OUR MISSION
             </h4>
             <RightArrow />
-          </button>
+          </Link>
         </div>
       </div>
       <div className="p-section">
@@ -116,12 +117,12 @@ export default function Home() {
         </div>
       </div>
       <div className="link-button-section">
-        <button className="link-btn">
+        <Link href="programs" className="link-btn">
           <p className="p3 link-btn-text text-[#B1574A] !font-semibold">
             LEARN MORE ABOUT OUR PROGRAMS
           </p>
           <RightArrow />
-        </button>
+        </Link>
       </div>
       <div className="three-col-section">
         <div className="three-col-section-content">
@@ -138,12 +139,12 @@ export default function Home() {
                 </p>
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
-                    <button className="link-btn">
+                    <Link href="/get-involved/partner" className="link-btn">
                       <p className="p5 link-btn-text text-[#B1574A]">
                         LEARN MORE
                       </p>
                       <RightArrow />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -158,12 +159,12 @@ export default function Home() {
                 </p>
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
-                    <button className="link-btn">
+                    <Link href="/get-involved/donor" className="link-btn">
                       <p className="p5 link-btn-text text-[#B1574A]">
                         LEARN MORE
                       </p>
                       <RightArrow />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -177,12 +178,12 @@ export default function Home() {
                 </p>
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
-                    <button className="link-btn">
+                    <Link href="/get-involved/volunteer" className="link-btn">
                       <p className="p5 link-btn-text text-[#B1574A]">
                         LEARN MORE
                       </p>
                       <RightArrow />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -196,9 +197,9 @@ export default function Home() {
           <p className="p1 text-[#49241e]">
             Have questions or want to get involved? We’re here to help!
           </p>
-          <button className="filled-btn w-[184px]">
+          <Link href="/contact-us" className="filled-btn w-[184px]">
             <p className="btn text-[#fff]">Send a message</p>
-          </button>
+          </Link>
         </div>
       </div>
     </main>
