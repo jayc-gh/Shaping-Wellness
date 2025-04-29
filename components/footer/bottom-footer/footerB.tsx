@@ -9,7 +9,7 @@ export default function FooterB() {
           Wellness Foundation is a 501(c)(3) tax-exempt nonprofit organization.
         </p>
         <div className="bot-footer-right-container">
-          <p className="p6 thin">Privacy Policy</p>
+          <p className="p6 thin underline cursor-pointer">Privacy Policy</p>
           <p className="p6 thin">|</p>
           <p className="p6 thin">
             Images by{' '}

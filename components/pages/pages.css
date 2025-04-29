@@ -13,28 +13,45 @@
     cursor: pointer;
   }
 
-  .filled-btn {
-    display: flex;
-    width: 184px;
-    height: 50px;
-    padding: 16px 20px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--primary-color);
-    background: var(--button-color);
-    cursor: pointer;
+  .hollow-btn:hover {
+    border: 1px solid var(--Gradient, #d9764e);
+    background: var(
+      --Gradient,
+      linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%)
+    );
   }
 
   .link-btn {
-    display: flex;
+    display: inline-flex;
     height: 50px;
     padding: 16px 20px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    text-decoration: none;
+  }
+
+  .link-btn-text {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-btn-text::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #b1574a;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  .link-btn:hover .link-btn-text::after {
+    transform: scaleX(1);
   }
 }
 
@@ -104,6 +121,7 @@
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    text-align: center;
   }
 
   .divider-section {
@@ -188,7 +206,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 0px;
+    padding-top: 0px;
+    padding-bottom: 40px;
   }
 
   .three-col-section {
@@ -220,8 +239,9 @@
 
   .three-col-section-boxes-container {
     display: flex;
+    flex: 1;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 24px;
     align-self: stretch;
   }
@@ -234,14 +254,19 @@
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #efefef;
+    background: #fff;
+    box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.04);
   }
 
   .three-col-section-link-box-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 32px;
     align-self: stretch;
+    text-align: center;
   }
 
   .three-col-section-link-container {

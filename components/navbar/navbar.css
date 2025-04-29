@@ -22,7 +22,7 @@
   }
 
   .dropdown-wrapper:hover .dropdown-items-container {
-    transform: none;
+    transform: translateX(-23px) translateY(0);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -112,16 +112,34 @@
     background: var(--hover-color);
   }
 
-  .donate-btn {
-    display: flex;
-    height: 50px;
-    padding: 16px 20px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--button-color);
-    background: var(--Primary-Orange, #d9764e);
-    cursor: pointer;
+  .links {
+    display: inline-block;
+    position: relative;
+    color: inherit;
+  }
+
+  .links:hover,
+  .dropdown-wrapper:hover .links,
+  .dropdown-wrapper.active .links {
+    color: #b1574a;
+  }
+
+  .links::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #b1574a;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  .links:hover::after,
+  .dropdown-wrapper:hover .links::after,
+  .dropdown-wrapper.active .links::after {
+    transform: scaleX(1);
   }
 }

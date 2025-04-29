@@ -104,6 +104,40 @@ h4 {
     font-weight: 400;
     line-height: 20px;
   }
+
+  .filled-btn {
+    display: flex;
+    height: 50px;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+    background: var(--button-color);
+    cursor: pointer;
+  }
+
+  .filled-btn:hover {
+    border: 1px solid #d9764e;
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.1) 100%
+      ),
+      linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
+  }
+
+  .filled-btn:disabled {
+    border: 1px solid #d9764e;
+    opacity: 0.7;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.2) 100%
+      ),
+      linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
+  }
 }
 
 @layer utilities {
@@ -119,7 +153,7 @@ h4 {
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
-    line-height: 140%;
+    line-height: 160%;
   }
 
   .p4 {
@@ -130,10 +164,18 @@ h4 {
     color: var(--Primary-2);
   }
 
+  .p4-primary {
+    color: var(--Primary-Neutral);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
   .p5 {
     font-size: 14px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: normal;
   }
 

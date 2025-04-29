@@ -20,7 +20,7 @@ export default function Home() {
               Join us in creating opportunities for girls to grow stronger, more
               confident, and healthier. Partner today and be part of the change.
             </p>
-            <button className="hollow-btn">
+            <button className="filled-btn">
               <p className="btn">Become a partner</p>
             </button>
           </div>
@@ -43,7 +43,9 @@ export default function Home() {
             lifelong wellness.
           </p>
           <button className="link-btn">
-            <p className="p3 text-[#B1574A]">LEARN MORE ABOUT OUR MISSION</p>
+            <h4 className="p3 link-btn-text text-[#B1574A] !font-semibold">
+              LEARN MORE ABOUT OUR MISSION
+            </h4>
             <RightArrow />
           </button>
         </div>
@@ -115,7 +117,9 @@ export default function Home() {
       </div>
       <div className="link-button-section">
         <button className="link-btn">
-          <p className="p3 text-[#B1574A]">LEARN MORE ABOUT OUR PROGRAMS</p>
+          <p className="p3 link-btn-text text-[#B1574A] !font-semibold">
+            LEARN MORE ABOUT OUR PROGRAMS
+          </p>
           <RightArrow />
         </button>
       </div>
@@ -135,7 +139,9 @@ export default function Home() {
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
                     <button className="link-btn">
-                      <p className="p5 text-[#B1574A]">LEARN MORE</p>
+                      <p className="p5 link-btn-text text-[#B1574A]">
+                        LEARN MORE
+                      </p>
                       <RightArrow />
                     </button>
                   </div>
@@ -153,7 +159,9 @@ export default function Home() {
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
                     <button className="link-btn">
-                      <p className="p5 text-[#B1574A]">LEARN MORE</p>
+                      <p className="p5 link-btn-text text-[#B1574A]">
+                        LEARN MORE
+                      </p>
                       <RightArrow />
                     </button>
                   </div>
@@ -170,7 +178,9 @@ export default function Home() {
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
                     <button className="link-btn">
-                      <p className="p5 text-[#B1574A]">LEARN MORE</p>
+                      <p className="p5 link-btn-text text-[#B1574A]">
+                        LEARN MORE
+                      </p>
                       <RightArrow />
                     </button>
                   </div>
@@ -186,7 +196,7 @@ export default function Home() {
           <p className="p1 text-[#49241e]">
             Have questions or want to get involved? We’re here to help!
           </p>
-          <button className="filled-btn">
+          <button className="filled-btn w-[184px]">
             <p className="btn text-[#fff]">Send a message</p>
           </button>
         </div>
