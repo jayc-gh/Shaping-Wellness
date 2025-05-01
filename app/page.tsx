@@ -6,13 +6,21 @@ import HandHeart from '../app/icons/hand-heart.svg';
 import Users from '../app/icons/users-heart.svg';
 import Handshake from '../app/icons/handshake.svg';
 import Link from 'next/link';
+import React from 'react';
 
 export default function Home() {
   return (
     <main className="flex flex-col w-full">
-      <div className="home-main-section">
-        <div className="home-main-section-wrapper">
-          <div className="home-main-section-content">
+      <div
+        className="main-section !h-[600px]"
+        style={
+          {
+            '--bg-image': 'url("/images/DonationForm.webp")',
+          } as React.CSSProperties
+        }
+      >
+        <div className="main-section-wrapper">
+          <div className="main-section-content">
             <h1>
               Healthy Futures, <span className="text-[#d9764e]">Stronger </span>
               Communities
