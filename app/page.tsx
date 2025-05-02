@@ -7,6 +7,8 @@ import Users from '../app/icons/users-heart.svg';
 import Handshake from '../app/icons/handshake.svg';
 import Link from 'next/link';
 import React from 'react';
+import BottomCurveWhite from '../app/icons/bottom-curve-white.svg';
+import TopCurveWhite from '../app/icons/top-curve-white.svg';
 
 export default function Home() {
   return (
@@ -20,7 +22,7 @@ export default function Home() {
         }
       >
         <div className="main-section-wrapper">
-          <div className="main-section-content">
+          <div className="main-section-content w-[550px]">
             <h1>
               Healthy Futures, <span className="text-[#d9764e]">Stronger </span>
               Communities
@@ -59,6 +61,19 @@ export default function Home() {
           </Link>
         </div>
       </div>
+      <div
+        className="picture-section"
+        style={
+          {
+            '--bg-image': 'url("/images/DonationForm.webp")',
+          } as React.CSSProperties
+        }
+      >
+        <div className="picture-section-blank"></div>
+        <div className="picture-section-curve">
+          <BottomCurveWhite />
+        </div>
+      </div>
       <div className="p-section">
         <div className="p-section-content">
           <h4 className="text-[#B1574A]">PROGRAMS</h4>
@@ -76,7 +91,14 @@ export default function Home() {
       </div>
       <div className="two-col-section">
         <div className="two-col-section-content">
-          <div className="two-col-section-img img1"></div>
+          <div
+            className="two-col-section-img !h-[350px]"
+            style={
+              {
+                '--bg-image': 'url("/images/DonationForm.webp")',
+              } as React.CSSProperties
+            }
+          ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
               <h4 className="text-[#2F2F2F]">FITNESS PROGRAMS</h4>
@@ -105,10 +127,24 @@ export default function Home() {
               aligned with age-appropriate wellness standards.
             </p>
           </div>
-          <div className="two-col-section-img img2"></div>
+          <div
+            className="two-col-section-img !h-[350px]"
+            style={
+              {
+                '--bg-image': 'url("/images/DonationForm.webp")',
+              } as React.CSSProperties
+            }
+          ></div>{' '}
         </div>
         <div className="two-col-section-content">
-          <div className="two-col-section-img img3"></div>
+          <div
+            className="two-col-section-img !h-[350px]"
+            style={
+              {
+                '--bg-image': 'url("/images/DonationForm.webp")',
+              } as React.CSSProperties
+            }
+          ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
               <h4 className="text-[#2F2F2F]">MENTORSHIPS</h4>
@@ -131,6 +167,19 @@ export default function Home() {
           </p>
           <RightArrow />
         </Link>
+      </div>
+      <div
+        className="picture-section"
+        style={
+          {
+            '--bg-image': 'url("/images/DonationForm.webp")',
+          } as React.CSSProperties
+        }
+      >
+        <div className="picture-section-curve">
+          <TopCurveWhite />
+        </div>
+        <div className="picture-section-blank"></div>
       </div>
       <div className="three-col-section">
         <div className="three-col-section-content">

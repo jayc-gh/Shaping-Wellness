@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
 
 export default function FooterB() {
   return (
