@@ -94,7 +94,9 @@ export default function WhoWeAre() {
           </div>
         </div>
       </div>
-      <TopCurveColor />
+      <div className="relative top-[1px]">
+        <TopCurveColor />
+      </div>
       <div className="four-col-section">
         <div className="four-col-section-content">
           <div className="four-col-section-desc">
@@ -139,7 +141,9 @@ export default function WhoWeAre() {
           </div>
         </div>
       </div>
-      <BotCurveColor />
+      <div className="relative bottom-[1px]">
+        <BotCurveColor />
+      </div>
       <div className="two-col-section">
         <div className="two-col-section-content !items-start">
           <div className="two-col-section-subtitle-container w-[600px]">

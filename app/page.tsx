@@ -22,7 +22,7 @@ export default function Home() {
         }
       >
         <div className="main-section-wrapper">
-          <div className="main-section-content w-[550px]">
+          <div className="main-section-content !w-[550px]">
             <h1>
               Healthy Futures, <span className="text-[#d9764e]">Stronger </span>
               Communities
@@ -70,7 +70,7 @@ export default function Home() {
         }
       >
         <div className="picture-section-blank"></div>
-        <div className="picture-section-curve">
+        <div className="picture-section-curve top-[1px]">
           <BottomCurveWhite />
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function Home() {
           } as React.CSSProperties
         }
       >
-        <div className="picture-section-curve">
+        <div className="picture-section-curve bottom-[1px]">
           <TopCurveWhite />
         </div>
         <div className="picture-section-blank"></div>
