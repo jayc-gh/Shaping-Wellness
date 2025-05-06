@@ -7,6 +7,7 @@ import LogoSvg from '../../app/icons/LogoSVG.svg';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
 import ArrowUpColor from '../../app/icons/Arrow-up-color.svg';
 import ArrowDownColor from '../../app/icons/Arrow-down-color.svg';
+import { useOutsideClick } from '@/lib/functions';
 
 export default function NavBar() {
   const [dropdown, setDropDown] = useState<string | null>(null);
@@ -24,21 +25,7 @@ export default function NavBar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setDropDown(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, () => setDropDown(null));
 
   // dropdown items array for future if we need to add more dropdowns
   const dropdownItems = [

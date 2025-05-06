@@ -9,8 +9,18 @@ import EarthHeart from '../../app/icons/earth-heart.svg';
 import HeartShake from '../../app/icons/heart-shake.svg';
 import Improvement from '../../app/icons/improvement.svg';
 import MeetOurFounder from '@/components/pages/who-we-are/meet-our-founder';
+import { useState, useRef } from 'react';
+import { useOutsideClick, useStopScroll } from '@/lib/functions';
 
 export default function WhoWeAre() {
+  const [popup, setPopup] = useState<boolean>(false);
+  const popupRef = useRef<HTMLDivElement | null>(null);
+
+  useOutsideClick(popupRef, () => setPopup(false));
+
+  // page fixed (not scrollable) when popup is open
+  useStopScroll(popup);
+
   return (
     <main className="flex flex-col w-full">
       <div
@@ -192,7 +202,7 @@ export default function WhoWeAre() {
               education, and build self-confidence through fitness programs,
               mentorship, and community support.
             </p>
-            <button className="link-btn !pl-0">
+            <button className="link-btn !pl-0" onClick={() => setPopup(!popup)}>
               <span className="p5 text-[#b1574a]">READ MORE</span>
             </button>
           </div>
@@ -209,6 +219,13 @@ export default function WhoWeAre() {
           </Link>
         </div>
       </div>
+      {popup ? (
+        <div className="popup-bg">
+          <div ref={popupRef}>
+            <MeetOurFounder setPopup={setPopup} />
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }

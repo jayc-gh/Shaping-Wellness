@@ -1,7 +1,19 @@
+'use client';
+
 import Link from 'next/link';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
+import { useOutsideClick, useStopScroll } from '@/lib/functions';
+import { useState, useRef } from 'react';
 
 export default function FooterB() {
+  const [popup, setPopup] = useState<boolean>(false);
+  const popupRef = useRef<HTMLDivElement | null>(null);
+
+  useOutsideClick(popupRef, () => setPopup(false));
+
+  // page fixed (not scrollable) when popup is open
+  useStopScroll(popup);
+
   return (
     <div className="bot-footer-container">
       <div className="bot-footer-content-container">
@@ -10,7 +22,11 @@ export default function FooterB() {
           Wellness Foundation is a 501(c)(3) tax-exempt nonprofit organization.
         </p>
         <div className="bot-footer-right-container">
-          <p className="p6 thin underline cursor-pointer">Privacy Policy</p>
+          <button onClick={() => setPopup(!popup)}>
+            <span className="p6 thin underline cursor-pointer">
+              Privacy Policy
+            </span>
+          </button>
           <p className="p6 thin">|</p>
           <p className="p6 thin">
             Images by{' '}
@@ -37,6 +53,13 @@ export default function FooterB() {
           </p>
         </div>
       </div>
+      {popup ? (
+        <div className="popup-bg">
+          <div ref={popupRef}>
+            <PrivacyPolicy setPopup={setPopup} />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
