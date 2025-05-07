@@ -7,6 +7,7 @@ import BotCurveColor from '../../app/icons/bottom-curve-color.svg';
 import Empowerment from '../../app/icons/empowerment.svg';
 import Knowledge from '../../app/icons/knowledge.svg';
 import Support from '../../app/icons/support.svg';
+import GradientRectangle from '../../app/icons/gradient-rectangle.svg';
 
 export default function Programs() {
   return (
@@ -81,49 +82,50 @@ export default function Programs() {
       <div className="divider-section">
         <Divider />
       </div>
-      <div>
-        <div className="p-section">
-          <div className="p-section-content">
-            <h4 className="text-[#B1574A]">OUR MISSION</h4>
-            <p className="p3">
-              We strive to cultivate a generation of resilient and confident
-              young women equipped with the tools and knowledge to prioritize
-              their health and well-being, ultimately building stronger,
-              healthier communities.
-            </p>
-          </div>
+      <div className="three-col-section">
+        <div className="three-col-section-p-container">
+          <h4 className="text-[#B1574A]">OUR MISSION</h4>
+          <p className="p3">
+            We strive to cultivate a generation of resilient and confident young
+            women equipped with the tools and knowledge to prioritize their
+            health and well-being, ultimately building stronger, healthier
+            communities.
+          </p>
         </div>
-        <div className="three-col-section">
-          <div className="three-col-section-content">
-            <div className="three-col-section-p-container">
-              <h4 className="text-[#B1574A]">GET INVOLVED</h4>
-            </div>
-            <div className="three-col-section-boxes-container">
-              <div className="three-col-section-box-wrapper">
+        <div className="three-col-section-content">
+          <div className="three-col-section-boxes-container">
+            <div className="three-col-section-box-wrapper">
+              <Empowerment className="absolute" />
+              <div className="three-col-section-box">
+                <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content">
-                  <Empowerment />
                   <h3 className="text-[#B1574A]">Partner with us</h3>
                   <p className="p3">
                     Help bring fitness, wellness, and mentorship to more girls.
                   </p>
                 </div>
               </div>
-              <div className="three-col-section-box-wrapper">
+            </div>
+            <div className="three-col-section-box-wrapper">
+              <Knowledge className="absolute" />
+              <div className="three-col-section-box">
+                <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content">
-                  <Knowledge />
-                  <h3 className="text-[#B1574A]">Become a donor</h3>
+                  <h3 className="text-[#B1574A]">Partner with us</h3>
                   <p className="p3">
-                    Your support helps girls build confidence and lifelong
-                    well-being.
+                    Help bring fitness, wellness, and mentorship to more girls.
                   </p>
                 </div>
               </div>
-              <div className="three-col-section-box-wrapper">
+            </div>
+            <div className="three-col-section-box-wrapper">
+              <Support className="absolute" />
+              <div className="three-col-section-box">
+                <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content">
-                  <Support />
-                  <h3 className="text-[#B1574A]">Volunteer your time</h3>
+                  <h3 className="text-[#B1574A]">Partner with us</h3>
                   <p className="p3">
-                    From mentoring to workshops, everyone can make a difference.
+                    Help bring fitness, wellness, and mentorship to more girls.
                   </p>
                 </div>
               </div>
