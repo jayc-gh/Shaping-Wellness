@@ -82,19 +82,23 @@ export default function WhoWeAre() {
             </p>
             <br />
             <br />
-            <p className="p3">Our vision is grounded in long-term impact:</p>
-            <ul className="list-disc pl-6">
-              <li className="p3 pl-1">
-                Girls gaining the confidence to stay active and healthy
-              </li>
-              <li className="p3 pl-1">
-                Communities seeing improved health outcomes over time
-              </li>
-              <li className="p3 pl-1">
-                Future leaders emerging with the resilience and self-awareness
-                to uplift others
-              </li>
-            </ul>
+            <p className="p3">
+              Our vision is grounded in long-term impact:
+              <br />
+              <ul className="list-disc pl-6">
+                <li className="p3 pl-1">
+                  Girls gaining the confidence to stay active and healthy
+                </li>
+                <li className="p3 pl-1">
+                  Communities seeing improved health outcomes over time
+                </li>
+                <li className="p3 pl-1">
+                  Future leaders emerging with the resilience and self-awareness
+                  to uplift others
+                </li>
+              </ul>
+            </p>
+
             <br />
             <p className="p3">
               Through evidence-informed programming, cross-sector collaboration,

@@ -23,12 +23,12 @@ export default function Programs() {
         <div className="main-section-wrapper">
           <div className="main-section-content">
             <div className="flag">
-              <h4>WHO WE ARE</h4>
+              <h4>PROGRAMS</h4>
             </div>
-            <h2>Transforming lives, one girl at a time.</h2>
+            <h2>Inspiring girls to build healthy, confident futures.</h2>
             <p className="p3">
-              We are dedicated to fostering the health, well-being, and
-              empowerment of young girls in underserved communities.
+              If your organization is dedicated to giving girls the tools to
+              lead healthier, more confident lives, we’re here to help.
             </p>
           </div>
         </div>
@@ -36,7 +36,7 @@ export default function Programs() {
       <div className="two-col-section">
         <div className="two-col-section-content">
           <div
-            className="two-col-section-img"
+            className="two-col-section-img !h-[350px]"
             style={
               {
                 '--bg-image': 'url("/images/DonationForm.webp")',
@@ -45,36 +45,20 @@ export default function Programs() {
           ></div>
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">OUR VISION</h4>
+              <h4 className="text-[#2F2F2F]">WELLNESS STARTS HERE</h4>
               <h3 className="text-[#B1574A]">
-                Empowering girls, shaping futures
+                Giving girls the tools to succeed
               </h3>
             </div>
             <p className="p3">
-              We envision a Houston where every girl has the knowledge,
-              confidence, and opportunities to build a strong foundation for
-              lifelong health.
-            </p>
-            <br />
-            <br />
-            <p className="p3">Our vision is grounded in long-term impact:</p>
-            <ul className="list-disc pl-6">
-              <li className="p3 pl-1">
-                Girls gaining the confidence to stay active and healthy
-              </li>
-              <li className="p3 pl-1">
-                Communities seeing improved health outcomes over time
-              </li>
-              <li className="p3 pl-1">
-                Future leaders emerging with the resilience and self-awareness
-                to uplift others
-              </li>
-            </ul>
-            <br />
-            <p className="p3">
-              Through evidence-informed programming, cross-sector collaboration,
-              and inclusive design, we’re laying the groundwork for generational
-              change in health equity, starting right here in Houston.
+              Girls from underserved communities are at a higher risk of
+              obesity, chronic illness, and limited access to preventive
+              healthcare, leading to long-term health disparities in adulthood.
+              <br />
+              <br />
+              We help bridge this gap by empowering girls to build healthy
+              habits, improve well-being, and create a foundation for lifelong
+              wellness.
             </p>
           </div>
         </div>
@@ -84,12 +68,13 @@ export default function Programs() {
       </div>
       <div className="three-col-section">
         <div className="three-col-section-p-container">
-          <h4 className="text-[#B1574A]">OUR MISSION</h4>
+          <h4 className="text-[#B1574A]">GOALS</h4>
           <p className="p3">
-            We strive to cultivate a generation of resilient and confident young
-            women equipped with the tools and knowledge to prioritize their
-            health and well-being, ultimately building stronger, healthier
-            communities.
+            Lifelong wellness starts with access to knowledge, support, and
+            opportunities for movement. Healthy habits lead to greater
+            confidence, improved physical and mental well-being, and a stronger
+            foundation for success. So how do we ensure girls develop these
+            habits in the schools and communities that need them most?
           </p>
         </div>
         <div className="three-col-section-content">
@@ -99,9 +84,10 @@ export default function Programs() {
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content">
-                  <h3 className="text-[#B1574A]">Partner with us</h3>
+                  <h3 className="text-[#B1574A]">Empowerment</h3>
                   <p className="p3">
-                    Help bring fitness, wellness, and mentorship to more girls.
+                    Empowering girls to stay active and build lifelong fitness
+                    habits.
                   </p>
                 </div>
               </div>
@@ -111,9 +97,9 @@ export default function Programs() {
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content">
-                  <h3 className="text-[#B1574A]">Partner with us</h3>
+                  <h3 className="text-[#B1574A]">Knowledge</h3>
                   <p className="p3">
-                    Help bring fitness, wellness, and mentorship to more girls.
+                    Providing the knowledge to make informed health choices.
                   </p>
                 </div>
               </div>
@@ -123,9 +109,9 @@ export default function Programs() {
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content">
-                  <h3 className="text-[#B1574A]">Partner with us</h3>
+                  <h3 className="text-[#B1574A]">Support</h3>
                   <p className="p3">
-                    Help bring fitness, wellness, and mentorship to more girls.
+                    Mentorship and guidance to inspire confidence and growth.
                   </p>
                 </div>
               </div>
@@ -139,23 +125,26 @@ export default function Programs() {
       <div className="two-col-section !bg-[#ffece4]">
         <div className="two-col-section-content !items-start">
           <div className="two-col-section-subtitle-container w-[600px]">
-            <h4 className="text-[#2F2F2F]">OUR COMMITMENT</h4>
-            <h3 className="text-[#B1574A]">
-              We’re starting small, but we’re thinking big.
+            <h4 className="text-[#2F2F2F]">OUR PROGRAMS</h4>
+            <h3 className="text-[#B1574A] w-[500px]">
+              Building confidence, resilience, and lifelong wellness one girl at
+              a time.
             </h3>
           </div>
           <div className="two-col-section-text-container">
             <p className="p3">
-              As a new nonprofit, we know that trust is earned. That’s why we
-              lead with transparency, research, and community input at every
-              step. <br />
-              <br />
-              Our promise is to show up with purpose, measure what matters, and
-              keep refining our approach so we can truly meet the needs of the
-              girls we serve. Together, we can build a future where every girl
-              grows up with the strength, support, and confidence to lead and
-              inspire the next generation to do the same.
+              We aim to reach 300 girls in our first year with evidence-informed
+              health and wellness programming. Each pilot is designed with input
+              from educators, youth development professionals, and community
+              leaders to foster sustainable, measurable impact. We’ll track
+              outcomes such as self-reported confidence, nutrition literacy, and
+              engagement in healthy routines.
             </p>
+            <button className="cursor-pointer">
+              <span className="p5 bolded text-[#B1574A]">
+                VIEW OUR 2025 PILOT PROGRAMS OVERVIEW (PDF)
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -165,7 +154,7 @@ export default function Programs() {
       <div className="two-col-section">
         <div className="two-col-section-content">
           <div
-            className="two-col-section-img !h-[350px]"
+            className="two-col-section-img"
             style={
               {
                 '--bg-image': 'url("/images/DonationForm.webp")',
@@ -175,33 +164,70 @@ export default function Programs() {
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
               <h4 className="text-[#2F2F2F]">FITNESS PROGRAMS</h4>
-              <h3 className="text-[#B1574A]">Staying active and strong</h3>
+              <h3 className="text-[#B1574A]">
+                Strength, confidence, healthy habits
+              </h3>
             </div>
             <p className="p3">
-              We’re designing accessible and engaging fitness sessions tailored
-              to middle and high school girls, with a focus on movement,
-              strength-building, and positive body image. These sessions will be
-              led by certified instructors and adapted to different skill
-              levels.
+              Our fitness pilot introduces a variety of movement-based
+              activities adapted to be welcoming, non-competitive, and fun,
+              including strength circuits, yoga, dance, Pilates, and
+              sports-inspired workouts. Sessions are designed to meet girls
+              where they are, with low-barrier access and options that
+              accommodate different skill levels and interests.{' '}
+              <span className="font-bold">
+                Led by certified instructors and local volunteers,
+              </span>{' '}
+              the goal is to spark confidence and joy in movement while creating
+              space for girls to explore fitness in a supportive environment.
             </p>
+            <button className="link-btn !pl-0">
+              <p className="p5 bolded text-[#B1574A]">
+                VIEW OUR 2025 FITNESS PROGRAM PLAN (PDF)
+              </p>
+            </button>
           </div>
         </div>
         <div className="two-col-section-content">
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">WORKSHOPS</h4>
-              <h3 className="text-[#B1574A]">Inspiring healthy choices</h3>
+              <h4 className="text-[#2F2F2F]">HEALTH EDUCATION WORKSHOPS</h4>
+              <h3 className="text-[#B1574A]">
+                Supporting girls with knowledge
+              </h3>
             </div>
             <p className="p3">
-              Our upcoming workshops will cover key health topics - including
-              nutrition, mental wellness, and self-care - through interactive
-              sessions led by professionals in youth health and education. Each
-              module will be developed with input from community experts and
-              aligned with age-appropriate wellness standards.
+              Our health education workshops are grounded in{' '}
+              <span className="font-bold">
+                real-life application - teaching girls
+              </span>{' '}
+              how to nourish their bodies, support their mental health, and
+              build self-care routines they can carry into adulthood. Workshop
+              topics will include:
+              <br />
+              <ul className="list-disc pl-6">
+                <li className="p3 pl-1">
+                  Nutrition basics and meal planning on a budget
+                </li>
+                <li className="p3 pl-1">
+                  Coping with stress and understanding mental health
+                </li>
+                <li className="p3 pl-1">Sleep hygiene and energy balance</li>
+                <li className="p3 pl-1">Body image and media literacy </li>
+              </ul>
+              Each session will be{' '}
+              <span className="font-bold">interactive, age-specific,</span> and
+              co-facilitated by a mix of community health workers,
+              nutritionists, and youth mentors.
             </p>
+            <button className="link-btn !pl-0">
+              <p className="p5 bolded text-[#B1574A]">
+                VIEW OUR 2025 WORKSHOP PROGRAM PLAN (PDF)
+              </p>
+            </button>
           </div>
           <div
-            className="two-col-section-img !h-[350px]"
+            className="two-col-section-img"
             style={
               {
                 '--bg-image': 'url("/images/DonationForm.webp")',
@@ -211,7 +237,7 @@ export default function Programs() {
         </div>
         <div className="two-col-section-content">
           <div
-            className="two-col-section-img !h-[350px]"
+            className="two-col-section-img"
             style={
               {
                 '--bg-image': 'url("/images/DonationForm.webp")',
@@ -220,16 +246,28 @@ export default function Programs() {
           ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">MENTORSHIPS</h4>
-              <h3 className="text-[#B1574A]">Guiding girls to thrive</h3>
+              <h4 className="text-[#2F2F2F]">MENTORSHIP PROGRAM</h4>
+              <h3 className="text-[#B1574A]">
+                Guidance, encouragement, connection
+              </h3>
             </div>
             <p className="p3">
-              We’re building a mentorship network that will pair girls with
-              vetted female mentors from diverse backgrounds in health,
-              education, and leadership. Mentors will offer consistent guidance
-              through structured meetups, check-ins, and shared goal-setting
-              around personal wellness and growth.
+              Our mentorship pilot connects participants with{' '}
+              <span className="font-bold">
+                supportive, vetted women mentors
+              </span>{' '}
+              across fields like health, education, sports, and community
+              leadership. The program blends one-on-one check-ins with group
+              sessions focused on goal setting, identity development, and
+              confidence-building activities. We aim to create consistent,
+              trusted relationships where girls feel seen, heard, and encouraged
+              in both their personal and wellness journeys.
             </p>
+            <button className="link-btn !pl-0">
+              <p className="p5 bolded text-[#B1574A]">
+                VIEW OUR 2025 MENTOR PROGRAM PLAN (PDF)
+              </p>
+            </button>
           </div>
         </div>
       </div>
@@ -238,12 +276,14 @@ export default function Programs() {
       </div>
       <div className="p-section">
         <div className="p-section-content">
-          <h4 className="text-[#B1574A]">OUR MISSION</h4>
+          <h4 className="text-[#B1574A]">LONG TERM VISION</h4>
           <p className="p3">
-            We strive to cultivate a generation of resilient and confident young
-            women equipped with the tools and knowledge to prioritize their
-            health and well-being, ultimately building stronger, healthier
-            communities.
+            Our vision is to create a community where every girl, regardless of
+            background, has access to the tools, support, and opportunities to
+            live a healthy life. As we grow, we will expand programming into
+            more schools, build deeper partnerships with local health providers,
+            and launch community-wide wellness initiatives that center girls’
+            voices and experiences.
           </p>
         </div>
       </div>
