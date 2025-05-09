@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@layer components {
+}
+
+@layer utilities {
+  .contact-form-box {
+    display: flex;
+    width: 704px;
+    padding: 80px 104px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .contact-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+  }
+}

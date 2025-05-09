@@ -33,9 +33,9 @@ export default function NavBar() {
       id: 'get-involved',
       label: 'Get Involved',
       links: [
-        { href: '/get-involved/partner', text: 'Partner' },
         { href: '/get-involved/volunteer', text: 'Volunteer' },
-        { href: '/get-involved/donor', text: 'Donor' },
+        { href: '/get-involved/partner', text: 'Partner with us' },
+        { href: '/get-involved/donor', text: 'Become a donor' },
       ],
     },
   ];

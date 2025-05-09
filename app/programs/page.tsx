@@ -140,8 +140,8 @@ export default function Programs() {
               outcomes such as self-reported confidence, nutrition literacy, and
               engagement in healthy routines.
             </p>
-            <button className="cursor-pointer">
-              <span className="p5 bolded text-[#B1574A]">
+            <button className="link-btn !pl-0 !pt-0">
+              <span className="p5 bolded link-btn-text">
                 VIEW OUR 2025 PILOT PROGRAMS OVERVIEW (PDF)
               </span>
             </button>
@@ -182,7 +182,7 @@ export default function Programs() {
               space for girls to explore fitness in a supportive environment.
             </p>
             <button className="link-btn !pl-0">
-              <p className="p5 bolded text-[#B1574A]">
+              <p className="p5 bolded link-btn-text">
                 VIEW OUR 2025 FITNESS PROGRAM PLAN (PDF)
               </p>
             </button>
@@ -221,7 +221,7 @@ export default function Programs() {
               nutritionists, and youth mentors.
             </p>
             <button className="link-btn !pl-0">
-              <p className="p5 bolded text-[#B1574A]">
+              <p className="p5 bolded link-btn-text">
                 VIEW OUR 2025 WORKSHOP PROGRAM PLAN (PDF)
               </p>
             </button>
@@ -264,7 +264,7 @@ export default function Programs() {
               in both their personal and wellness journeys.
             </p>
             <button className="link-btn !pl-0">
-              <p className="p5 bolded text-[#B1574A]">
+              <p className="p5 bolded link-btn-text">
                 VIEW OUR 2025 MENTOR PROGRAM PLAN (PDF)
               </p>
             </button>

@@ -15,10 +15,7 @@
 
   .hollow-btn:hover {
     border: 1px solid var(--Gradient, #d9764e);
-    background: var(
-      --Gradient,
-      linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%)
-    );
+    background: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
   }
 
   .link-btn {
@@ -35,6 +32,7 @@
   .link-btn-text {
     position: relative;
     display: inline-block;
+    color: #b1574a;
   }
 
   .link-btn-text::after {
