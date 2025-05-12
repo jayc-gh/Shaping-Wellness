@@ -1,8 +1,8 @@
 'use client';
 
 import Close from '../../../app/icons/close-color.svg';
-import Email from '../../../app/icons/email-nofill-black.svg';
-import Phone from '../../../app/icons/phone-nofill-black.svg';
+import Email from '../../../app/icons/meet-our-founder/email-nofill-black.svg';
+import Phone from '../../../app/icons/meet-our-founder/phone-nofill-black.svg';
 import Image from 'next/image';
 import React from 'react';
 

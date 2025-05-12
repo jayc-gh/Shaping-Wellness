@@ -4,9 +4,9 @@ import Link from 'next/link';
 import Divider from '../../app/icons/divider-line.svg';
 import TopCurveColor from '../../app/icons/top-curve-color.svg';
 import BotCurveColor from '../../app/icons/bottom-curve-color.svg';
-import Empowerment from '../../app/icons/empowerment.svg';
-import Knowledge from '../../app/icons/knowledge.svg';
-import Support from '../../app/icons/support.svg';
+import Empowerment from '../../app/icons/programs/empowerment.svg';
+import Knowledge from '../../app/icons/programs/knowledge.svg';
+import Support from '../../app/icons/programs/support.svg';
 import GradientRectangle from '../../app/icons/gradient-rectangle.svg';
 
 export default function Programs() {

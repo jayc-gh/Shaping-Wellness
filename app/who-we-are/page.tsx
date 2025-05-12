@@ -4,10 +4,10 @@ import Divider from '../../app/icons/divider-line.svg';
 import Link from 'next/link';
 import TopCurveColor from '../../app/icons/top-curve-color.svg';
 import BotCurveColor from '../../app/icons/bottom-curve-color.svg';
-import Thumb from '../../app/icons/thumb.svg';
-import EarthHeart from '../../app/icons/earth-heart.svg';
-import HeartShake from '../../app/icons/heart-shake.svg';
-import Improvement from '../../app/icons/improvement.svg';
+import Thumb from '../../app/icons/who-we-are/thumb.svg';
+import EarthHeart from '../../app/icons/who-we-are/earth-heart.svg';
+import HeartShake from '../../app/icons/who-we-are/heart-shake.svg';
+import Improvement from '../../app/icons/who-we-are/improvement.svg';
 import MeetOurFounder from '@/components/pages/who-we-are/meet-our-founder';
 import { useState, useRef } from 'react';
 import { useOutsideClick, useStopScroll } from '@/lib/functions';
@@ -207,7 +207,7 @@ export default function WhoWeAre() {
               mentorship, and community support.
             </p>
             <button className="link-btn !pl-0" onClick={() => setPopup(!popup)}>
-              <span className="p5 text-[#b1574a]">READ MORE</span>
+              <span className="p5 text-[#b1574a] font-[600]">READ MORE</span>
             </button>
           </div>
         </div>

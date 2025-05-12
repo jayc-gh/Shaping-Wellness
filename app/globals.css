@@ -279,6 +279,26 @@ h5 {
     background-clip: border-box;
     -webkit-background-clip: border-box;
   }
+
+  .error-text {
+    color: var(--danger-color);
+    align-self: flex-start;
+    justify-self: center;
+    font-size: 14px;
+    margin-top: 0.25rem;
+  }
+
+  .error-text-container {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+  }
+
+  .error-text-container.transition {
+    max-height: 30px;
+    opacity: 1;
+  }
 }
 
 @layer utilities {
@@ -318,6 +338,26 @@ h5 {
     font-weight: 500;
     line-height: 140%;
     color: var(--Primary-2);
+  }
+
+  .faq-q {
+    overflow: hidden;
+    color: var(--Primary-Neutral);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 125% */
+  }
+
+  .faq-a {
+    color: var(--Secondary-Neutral, #6b6461);
+    /* FAQ A */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 125% */
   }
 
   .p4-primary {

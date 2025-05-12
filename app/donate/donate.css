@@ -275,26 +275,6 @@
     line-height: 140%; /* 16.8px */
   }
 
-  .error-text {
-    color: var(--danger-color);
-    align-self: flex-start;
-    justify-self: center;
-    font-size: 14px;
-    margin-top: 0.25rem;
-  }
-
-  .error-text-container {
-    max-height: 0;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    overflow: hidden;
-  }
-
-  .error-text-container.transition {
-    max-height: 30px;
-    opacity: 1;
-  }
-
   .thank-you-container {
     display: flex;
     flex-direction: column;

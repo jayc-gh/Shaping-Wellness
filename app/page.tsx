@@ -2,9 +2,9 @@
 
 import RightArrow from '../app/icons/right-arrow.svg';
 import Divider from '../app/icons/divider-line.svg';
-import HandHeart from '../app/icons/hand-heart.svg';
-import Users from '../app/icons/users-heart.svg';
-import Handshake from '../app/icons/handshake.svg';
+import HandHeart from '../app/icons/home/hand-heart.svg';
+import Users from '../app/icons/home/users-heart.svg';
+import Handshake from '../app/icons/home/handshake.svg';
 import Link from 'next/link';
 import React from 'react';
 import BottomCurveWhite from '../app/icons/bottom-curve-white.svg';
@@ -181,7 +181,7 @@ export default function Home() {
         </div>
         <div className="picture-section-blank"></div>
       </div>
-      <div className="three-col-section">
+      <div id="get-involved" className="three-col-section">
         <div className="three-col-section-content">
           <div className="three-col-section-p-container">
             <h4 className="text-[#B1574A]">GET INVOLVED</h4>
