@@ -47,7 +47,7 @@ export default function Contact() {
               <Email className="absolute" />
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content">
+                <div className="three-col-section-box-content h-[91px]">
                   <h3 className="text-[#DD6D5C]">Email</h3>
                   <p className="p3">info@shapingwellness.com</p>
                 </div>
@@ -57,7 +57,7 @@ export default function Contact() {
               <Phone className="absolute" />
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content">
+                <div className="three-col-section-box-content h-[91px]">
                   <h3 className="text-[#DD6D5C]">Phone</h3>
                   <p className="p3">555-555-5555</p>
                 </div>
@@ -67,7 +67,7 @@ export default function Contact() {
               <Globe className="absolute" />
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content">
+                <div className="three-col-section-box-content h-[91px]">
                   <h3 className="text-[#DD6D5C]">Socials</h3>
                   <div className="flex items-center">
                     <Link href="" className="cursor-pointer z-10">
@@ -101,17 +101,6 @@ export default function Contact() {
         <BotCurveColor />
       </div>
       <FAQSection />
-      <div className="last-section">
-        <div className="last-section-content">
-          <h4 className="text-[#A04E43]">CONTACT US</h4>
-          <p className="p1 text-[#49241e]">
-            Have questions or want to get involved? We’re here to help!
-          </p>
-          <Link href="/contact-us" className="filled-btn w-[184px]">
-            <p className="btn text-[#fff]">Send a message</p>
-          </Link>
-        </div>
-      </div>
     </main>
   );
 }

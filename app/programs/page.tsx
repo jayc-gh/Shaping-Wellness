@@ -67,52 +67,54 @@ export default function Programs() {
         <Divider />
       </div>
       <div className="three-col-section">
-        <div className="three-col-section-p-container">
-          <h4 className="text-[#B1574A]">GOALS</h4>
-          <p className="p3">
-            Lifelong wellness starts with access to knowledge, support, and
-            opportunities for movement. Healthy habits lead to greater
-            confidence, improved physical and mental well-being, and a stronger
-            foundation for success. So how do we ensure girls develop these
-            habits in the schools and communities that need them most?
-          </p>
-        </div>
         <div className="three-col-section-content">
-          <div className="three-col-section-boxes-container">
-            <div className="three-col-section-box-wrapper">
-              <Empowerment className="absolute" />
-              <div className="three-col-section-box">
-                <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content">
-                  <h3 className="text-[#B1574A]">Empowerment</h3>
-                  <p className="p3">
-                    Empowering girls to stay active and build lifelong fitness
-                    habits.
-                  </p>
+          <div className="three-col-section-p-container">
+            <h4 className="text-[#B1574A]">GOALS</h4>
+            <p className="p3">
+              Lifelong wellness starts with access to knowledge, support, and
+              opportunities for movement. Healthy habits lead to greater
+              confidence, improved physical and mental well-being, and a
+              stronger foundation for success. So how do we ensure girls develop
+              these habits in the schools and communities that need them most?
+            </p>
+          </div>
+          <div className="three-col-section-content">
+            <div className="three-col-section-boxes-container">
+              <div className="three-col-section-box-wrapper">
+                <Empowerment className="absolute" />
+                <div className="three-col-section-box">
+                  <GradientRectangle className="absolute" />
+                  <div className="three-col-section-box-content">
+                    <h3 className="text-[#B1574A]">Empowerment</h3>
+                    <p className="p3">
+                      Empowering girls to stay active and build lifelong fitness
+                      habits.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="three-col-section-box-wrapper">
-              <Knowledge className="absolute" />
-              <div className="three-col-section-box">
-                <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content">
-                  <h3 className="text-[#B1574A]">Knowledge</h3>
-                  <p className="p3">
-                    Providing the knowledge to make informed health choices.
-                  </p>
+              <div className="three-col-section-box-wrapper">
+                <Knowledge className="absolute" />
+                <div className="three-col-section-box">
+                  <GradientRectangle className="absolute" />
+                  <div className="three-col-section-box-content">
+                    <h3 className="text-[#B1574A]">Knowledge</h3>
+                    <p className="p3">
+                      Providing the knowledge to make informed health choices.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="three-col-section-box-wrapper">
-              <Support className="absolute" />
-              <div className="three-col-section-box">
-                <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content">
-                  <h3 className="text-[#B1574A]">Support</h3>
-                  <p className="p3">
-                    Mentorship and guidance to inspire confidence and growth.
-                  </p>
+              <div className="three-col-section-box-wrapper">
+                <Support className="absolute" />
+                <div className="three-col-section-box">
+                  <GradientRectangle className="absolute" />
+                  <div className="three-col-section-box-content">
+                    <h3 className="text-[#B1574A]">Support</h3>
+                    <p className="p3">
+                      Mentorship and guidance to inspire confidence and growth.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

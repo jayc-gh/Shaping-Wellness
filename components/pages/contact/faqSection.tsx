@@ -110,8 +110,8 @@ export default function FAQSection() {
                 Foundation is a 501(c)3 tax-exempt organization and your
                 donation is tax-deductible within the guidelines of U.S. law. To
                 claim a donation as a deduction on your U.S. taxes, please keep
-                your email donation receipt as your official record. We'll send
-                it to you upon successful completion of your donation.
+                your email donation receipt as your official record. We&apos;ll
+                send it to you upon successful completion of your donation.
               </>
             }
           />

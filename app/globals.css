@@ -299,6 +299,62 @@ h5 {
     max-height: 30px;
     opacity: 1;
   }
+
+  .link-btn {
+    display: inline-flex;
+    height: 50px;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .link-btn-text,
+  .links {
+    position: relative;
+    display: inline-block;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+
+  .links-btn-text {
+    color: #b1574a;
+  }
+
+  .link-btn-text::after,
+  .links::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #b1574a;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .link-btn:hover .link-btn-text,
+  .links:hover,
+  .dropdown-wrapper:hover .links,
+  .dropdown-wrapper.active .links {
+    transform: scale(1.02);
+  }
+
+  .links:hover,
+  .dropdown-wrapper:hover .links,
+  .dropdown-wrapper.active .links {
+    color: #b1574a;
+  }
+
+  .link-btn:hover .link-btn-text::after,
+  .links:hover::after,
+  .dropdown-wrapper:hover .links::after,
+  .dropdown-wrapper.active .links::after {
+    opacity: 1;
+  }
 }
 
 @layer utilities {

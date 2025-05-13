@@ -207,7 +207,9 @@ export default function WhoWeAre() {
               mentorship, and community support.
             </p>
             <button className="link-btn !pl-0" onClick={() => setPopup(!popup)}>
-              <span className="p5 text-[#b1574a] font-[600]">READ MORE</span>
+              <span className="p5 text-[#b1574a] font-[600] link-btn-text">
+                READ MORE
+              </span>
             </button>
           </div>
         </div>
