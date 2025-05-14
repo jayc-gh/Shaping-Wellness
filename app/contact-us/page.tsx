@@ -39,7 +39,7 @@ export default function Contact() {
       </div>
       <div className="three-col-section">
         <div className="three-col-section-p-container">
-          <h4 className="text-[#B1574A]">GET IN TOUCH</h4>
+          <h4 className="sec-coral">GET IN TOUCH</h4>
         </div>
         <div className="three-col-section-content">
           <div className="three-col-section-boxes-container">
@@ -48,7 +48,7 @@ export default function Contact() {
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content h-[91px]">
-                  <h3 className="text-[#DD6D5C]">Email</h3>
+                  <h3 className="p-coral">Email</h3>
                   <p className="p3">info@shapingwellness.com</p>
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function Contact() {
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content h-[91px]">
-                  <h3 className="text-[#DD6D5C]">Phone</h3>
+                  <h3 className="p-coral">Phone</h3>
                   <p className="p3">555-555-5555</p>
                 </div>
               </div>
@@ -68,7 +68,7 @@ export default function Contact() {
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
                 <div className="three-col-section-box-content h-[91px]">
-                  <h3 className="text-[#DD6D5C]">Socials</h3>
+                  <h3 className="p-coral">Socials</h3>
                   <div className="flex items-center">
                     <Link href="" className="cursor-pointer z-10">
                       <Facebook />
@@ -89,7 +89,7 @@ export default function Contact() {
       <div className="relative top-[1px]">
         <TopCurveColor />
       </div>
-      <div className="two-col-section !bg-[#ffece4]">
+      <div className="two-col-section bg-soft-coral">
         <div className="two-col-section-content !items-start">
           <div className="two-col-section-text-container pt-[80px] pb-[80px] !w-[496px]">
             <p className="p0">We are looking forward to hearing from you!</p>

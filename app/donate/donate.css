@@ -228,7 +228,6 @@
   }
 
   .custom-text-2 {
-    color: var(--Secondary-Coral);
     font-family: Figtree;
     font-size: 18px;
     font-style: normal;
@@ -237,7 +236,6 @@
   }
 
   .custom-text-3 {
-    color: var(--Primary-Neutral);
     font-family: Figtree;
     font-size: 12px;
     font-style: italic;
@@ -252,7 +250,6 @@
   }
 
   .custom-text-4 {
-    color: var(--Primary-Neutral);
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

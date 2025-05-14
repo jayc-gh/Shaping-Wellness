@@ -14,7 +14,7 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
   return (
     <div className="popup-container">
       <div className="popup-header-wrapper">
-        <h5 className="!text-[#B1574A]">Luciana N Gearing</h5>
+        <h5 className="sec-coral">Luciana N Gearing</h5>
         <button className="cursor-pointer" onClick={() => setPopup(false)}>
           <Close />
         </button>

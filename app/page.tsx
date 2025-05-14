@@ -24,7 +24,7 @@ export default function Home() {
         <div className="main-section-wrapper">
           <div className="main-section-content !w-[550px]">
             <h1>
-              Healthy Futures, <span className="text-[#d9764e]">Stronger </span>
+              Healthy Futures, <span className="p-color">Stronger </span>
               Communities
             </h1>
             <p className="p3">
@@ -39,11 +39,11 @@ export default function Home() {
       </div>
       <div className="p-section">
         <div className="p-section-content">
-          <h4 className="text-[#B1574A]">WHO WE ARE</h4>
+          <h4 className="sec-coral">WHO WE ARE</h4>
           <p className="p3">
             Shaping Wellness Foundation is a new nonprofit dedicated to
             supporting the{' '}
-            <span className="text-[#8E463B]">
+            <span className="coral-4">
               health, well-being, and personal growth of young girls in
               underserved communities.
             </span>{' '}
@@ -54,7 +54,7 @@ export default function Home() {
             lifelong wellness.
           </p>
           <Link href="who-we-are" className="link-btn">
-            <h4 className="p3 link-btn-text text-[#B1574A] !font-semibold">
+            <h4 className="p3 link-btn-text sec-coral !font-semibold">
               LEARN MORE ABOUT OUR MISSION
             </h4>
             <RightArrow />
@@ -76,7 +76,7 @@ export default function Home() {
       </div>
       <div className="p-section">
         <div className="p-section-content">
-          <h4 className="text-[#B1574A]">PROGRAMS</h4>
+          <h4 className="sec-coral">PROGRAMS</h4>
           <p className="p3">
             We’re developing a year-round wellness curriculum for 6th - 12th
             grade girls in Houston, launching in Fall 2025. Our programming
@@ -89,7 +89,7 @@ export default function Home() {
       <div className="divider-section">
         <Divider />
       </div>
-      <div className="two-col-section">
+      <div className="two-col-section !py-[60px]">
         <div className="two-col-section-content">
           <div
             className="two-col-section-img !h-[350px]"
@@ -101,8 +101,8 @@ export default function Home() {
           ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">FITNESS PROGRAMS</h4>
-              <h3 className="text-[#B1574A]">Staying active and strong</h3>
+              <h4 className="p-neutral">FITNESS PROGRAMS</h4>
+              <h3 className="sec-coral">Staying active and strong</h3>
             </div>
             <p className="p3">
               We’re designing accessible and engaging fitness sessions tailored
@@ -116,8 +116,8 @@ export default function Home() {
         <div className="two-col-section-content">
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">WORKSHOPS</h4>
-              <h3 className="text-[#B1574A]">Inspiring healthy choices</h3>
+              <h4 className="p-neutral">WORKSHOPS</h4>
+              <h3 className="sec-coral">Inspiring healthy choices</h3>
             </div>
             <p className="p3">
               Our upcoming workshops will cover key health topics - including
@@ -147,8 +147,8 @@ export default function Home() {
           ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">MENTORSHIPS</h4>
-              <h3 className="text-[#B1574A]">Guiding girls to thrive</h3>
+              <h4 className="p-neutral">MENTORSHIPS</h4>
+              <h3 className="sec-coral">Guiding girls to thrive</h3>
             </div>
             <p className="p3">
               We’re building a mentorship network that will pair girls with
@@ -162,7 +162,7 @@ export default function Home() {
       </div>
       <div className="link-button-section">
         <Link href="programs" className="link-btn">
-          <p className="p3 link-btn-text text-[#B1574A] !font-semibold">
+          <p className="p3 link-btn-text sec-coral !font-semibold">
             LEARN MORE ABOUT OUR PROGRAMS
           </p>
           <RightArrow />
@@ -184,22 +184,20 @@ export default function Home() {
       <div id="get-involved" className="three-col-section">
         <div className="three-col-section-content">
           <div className="three-col-section-p-container">
-            <h4 className="text-[#B1574A]">GET INVOLVED</h4>
+            <h4 className="sec-coral">GET INVOLVED</h4>
           </div>
           <div className="three-col-section-boxes-container">
             <div className="three-col-section-link-box-wrapper">
               <div className="three-col-section-link-box-content">
                 <Handshake />
-                <h3 className="text-[#B1574A]">Partner with us</h3>
+                <h3 className="sec-coral">Partner with us</h3>
                 <p className="p3">
                   Help bring fitness, wellness, and mentorship to more girls.
                 </p>
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
                     <Link href="/get-involved/partner" className="link-btn">
-                      <p className="p5 link-btn-text text-[#B1574A]">
-                        LEARN MORE
-                      </p>
+                      <p className="p5 link-btn-text sec-coral">LEARN MORE</p>
                       <RightArrow />
                     </Link>
                   </div>
@@ -209,7 +207,7 @@ export default function Home() {
             <div className="three-col-section-link-box-wrapper">
               <div className="three-col-section-link-box-content">
                 <HandHeart />
-                <h3 className="text-[#B1574A]">Become a donor</h3>
+                <h3 className="sec-coral">Become a donor</h3>
                 <p className="p3">
                   Your support helps girls build confidence and lifelong
                   well-being.
@@ -217,9 +215,7 @@ export default function Home() {
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
                     <Link href="/get-involved/donor" className="link-btn">
-                      <p className="p5 link-btn-text text-[#B1574A]">
-                        LEARN MORE
-                      </p>
+                      <p className="p5 link-btn-text sec-coral">LEARN MORE</p>
                       <RightArrow />
                     </Link>
                   </div>
@@ -229,16 +225,14 @@ export default function Home() {
             <div className="three-col-section-link-box-wrapper">
               <div className="three-col-section-link-box-content">
                 <Users />
-                <h3 className="text-[#B1574A]">Volunteer your time</h3>
+                <h3 className="sec-coral">Volunteer your time</h3>
                 <p className="p3">
                   From mentoring to workshops, everyone can make a difference.
                 </p>
                 <div className="three-col-section-link-container">
                   <div className="three-col-section-link-wrapper">
                     <Link href="/get-involved/volunteer" className="link-btn">
-                      <p className="p5 link-btn-text text-[#B1574A]">
-                        LEARN MORE
-                      </p>
+                      <p className="p5 link-btn-text sec-coral">LEARN MORE</p>
                       <RightArrow />
                     </Link>
                   </div>
@@ -250,12 +244,12 @@ export default function Home() {
       </div>
       <div className="last-section">
         <div className="last-section-content">
-          <h4 className="text-[#A04E43]">CONTACT US</h4>
-          <p className="p1 text-[#49241e]">
-            Have questions or want to get involved? We’re here to help!
+          <h4 className="coral-3">CONTACT US</h4>
+          <p className="p1 c7">
+            Have questions or want to get involved? We&apos;re here to help!
           </p>
           <Link href="/contact-us" className="filled-btn w-[184px]">
-            <p className="btn text-[#fff]">Send a message</p>
+            <p className="btn background-color">Send a message</p>
           </Link>
         </div>
       </div>

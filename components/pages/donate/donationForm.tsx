@@ -140,7 +140,7 @@ export default function DonateForm() {
                     {!coverFee && <Unchecked />}
                     {coverFee && <Checked />}
 
-                    <span className="custom-text-4 !text-[#6B6461]">
+                    <span className="custom-text-4 s-neutral">
                       I’d like to cover the 3% transaction fee for this donation
                     </span>
                   </label>

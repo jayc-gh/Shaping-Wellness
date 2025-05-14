@@ -14,13 +14,13 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
   return (
     <div className="popup-container !w-[800px]">
       <div className="popup-header-wrapper">
-        <h5 className="!text-[#B1574A]">Privacy Policy</h5>
+        <h5 className="sec-coral">Privacy Policy</h5>
         <button className="cursor-pointer" onClick={() => setPopup(false)}>
           <Close />
         </button>
       </div>
       <div className="popup-text-wrapper">
-        <p className="p4">
+        <p className="p4 primary-2">
           Shaping Wellness Foundation values the support of our donors,
           volunteers, and community members, and we are committed to protecting
           their privacy.{' '}
@@ -29,13 +29,13 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
             with outside organizations.
           </span>
         </p>
-        <p className="p4">
+        <p className="p4 primary-2">
           To safeguard your data, Shaping Wellness Foundation has implemented
           appropriate physical, electronic, and managerial procedures to prevent
           unauthorized access, maintain data accuracy, and ensure the proper use
           of the information we collect.
         </p>
-        <p className="p4">
+        <p className="p4 primary-2">
           Any credit card or personal information provided through donations or
           form submissions is used solely to process contributions or respond to
           information requests.{' '}
@@ -44,14 +44,14 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
             any third party without the donor’s explicit consent.
           </span>
         </p>
-        <p className="p4">
+        <p className="p4 primary-2">
           If you wish to stop receiving communications from Shaping Wellness
           Foundation, you may request to be removed from our mailing list at any
           time. For record-keeping purposes, your donor history will remain in
           our secure database, but you will no longer receive emails or physical
           mailings from our organization.
         </p>
-        <p className="p4 !font-bold">
+        <p className="p4 primary-2 !font-bold">
           To opt out of communications or to ask questions about our privacy
           practices, please contact us at:
         </p>
@@ -60,15 +60,15 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
         <div className="popup-contact-wrapper">
           <div className="popup-contact">
             <Email />
-            <p className="p4">Email: email@domain.com</p>
+            <p className="p4 primary-2">Email: email@domain.com</p>
           </div>
           <div className="popup-contact">
             <Phone />
-            <p className="p4">Phone: 000-000-0000</p>
+            <p className="p4 primary-2">Phone: 000-000-0000</p>
           </div>
           <div className="popup-contact">
             <Mailbox />
-            <p className="p4">P.O. Box: 123 Main St</p>
+            <p className="p4 primary-2">P.O. Box: 123 Main St</p>
           </div>
         </div>
       </div>

@@ -7,10 +7,12 @@
   --hover-color: #f4a488;
   --Soft-Coral: #ffece4;
   --Secondary-Coral: #b1574a;
+  --Coral-3: #a04e43;
+  --Coral-4: #8e463b;
+  --C7: #49241e;
   --Primary-Neutral: #2f2f2f;
   --Secondary-Neutral: #6b6461;
   --button-color: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
-  --primary-text-color: #2f2f2f;
   --Primary-2: #3c3c3c;
   --Field-line: rgba(47, 47, 47, 0.3);
   --secondary-text-color: #6b6461;
@@ -48,7 +50,7 @@ option {
 
 body {
   background: var(--background);
-  color: var(--primary-text-color);
+  color: var(--Primary-Neutral);
   line-height: 1.15;
 }
 
@@ -195,7 +197,7 @@ h5 {
     border-radius: 6px;
     border: 1px solid var(--Field-line);
     overflow: hidden;
-    color: var(--primary-text-color);
+    color: var(--Primary-Neutral);
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
@@ -393,7 +395,11 @@ h5 {
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
-    color: var(--Primary-2);
+  }
+
+  .p4 .normal {
+    font-weight: 400;
+    line-height: normal;
   }
 
   .faq-q {
@@ -414,14 +420,6 @@ h5 {
     font-style: normal;
     font-weight: 400;
     line-height: 20px; /* 125% */
-  }
-
-  .p4-primary {
-    color: var(--Primary-Neutral);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
   }
 
   .p5 {
@@ -452,5 +450,49 @@ h5 {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+  }
+
+  .coral-4 {
+    color: var(--Coral-4);
+  }
+
+  .sec-coral {
+    color: var(--Secondary-Coral);
+  }
+
+  .p-neutral {
+    color: var(--Primary-Neutral);
+  }
+
+  .p-color {
+    color: var(--primary-color);
+  }
+
+  .coral-3 {
+    color: var(--Coral-3);
+  }
+
+  .background-color {
+    color: var(--background);
+  }
+
+  .c7 {
+    color: var(--C7);
+  }
+
+  .p-coral {
+    color: var(--Primary-Coral);
+  }
+
+  .s-neutral {
+    color: var(--Secondary-Neutral);
+  }
+
+  .primary-2 {
+    color: var(--Primary-2);
+  }
+
+  .bg-soft-coral {
+    background-color: var(--Soft-Coral);
   }
 }

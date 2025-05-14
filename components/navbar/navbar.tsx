@@ -69,7 +69,7 @@ export default function NavBar() {
               onMouseEnter={() => setHovered(id)}
               onMouseLeave={() => setHovered(null)}
             >
-              <div className="dropdown-container p4-primary">
+              <div className="dropdown-container p4 normal p-neutral">
                 <p className="links">{label}</p>
                 {dropdown === id ? (
                   <ArrowUpColor />

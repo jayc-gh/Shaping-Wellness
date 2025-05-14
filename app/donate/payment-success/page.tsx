@@ -51,10 +51,10 @@ export default function PaymentSuccess() {
               <ProgressBar step={4} prevStep={() => undefined} />
               <div className="thank-you-container">
                 <h4>THANK YOU</h4>
-                <p className="text-center p4">
+                <p className="text-center p4 primary-2">
                   Thank you for your generous donation of ${amount}!
                 </p>
-                <p className="text-center p4">
+                <p className="text-center p4 primary-2">
                   Your support is helping girls build confidence, develop
                   healthy habits, and create brighter futures. We’re incredibly
                   grateful for your contribution.

@@ -28,9 +28,9 @@ export default function DonorInfo({
     <div className="form-content-container">
       <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
         <h4>You are donating:</h4>
-        <p className="custom-text-2">${formData.amount}</p>
+        <p className="custom-text-2 sec-coral">${formData.amount}</p>
         <button
-          className="custom-text-3 !cursor-pointer"
+          className="custom-text-3 p-neutral !cursor-pointer"
           onClick={() => setStep(1)}
           type="button"
         >
@@ -78,7 +78,10 @@ export default function DonorInfo({
               {!formData.anonymous && <Unchecked />}
               {formData.anonymous && <Checked />}
 
-              <label htmlFor="anonymous-checkbox" className="custom-text-4">
+              <label
+                htmlFor="anonymous-checkbox"
+                className="custom-text-4 p-neutral"
+              >
                 Hide my name from the public
               </label>
             </label>
@@ -102,7 +105,10 @@ export default function DonorInfo({
 
               {!formData.orgDonate && <Unchecked />}
               {formData.orgDonate && <Checked />}
-              <label htmlFor="orgDonate-checkbox" className="custom-text-4">
+              <label
+                htmlFor="orgDonate-checkbox"
+                className="custom-text-4 p-neutral"
+              >
                 Donate as an organization
               </label>
             </label>

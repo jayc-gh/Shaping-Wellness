@@ -45,10 +45,8 @@ export default function Programs() {
           ></div>
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">WELLNESS STARTS HERE</h4>
-              <h3 className="text-[#B1574A]">
-                Giving girls the tools to succeed
-              </h3>
+              <h4 className="p-neutral">WELLNESS STARTS HERE</h4>
+              <h3 className="sec-coral">Giving girls the tools to succeed</h3>
             </div>
             <p className="p3">
               Girls from underserved communities are at a higher risk of
@@ -69,7 +67,7 @@ export default function Programs() {
       <div className="three-col-section">
         <div className="three-col-section-content">
           <div className="three-col-section-p-container">
-            <h4 className="text-[#B1574A]">GOALS</h4>
+            <h4 className="sec-coral">GOALS</h4>
             <p className="p3">
               Lifelong wellness starts with access to knowledge, support, and
               opportunities for movement. Healthy habits lead to greater
@@ -85,7 +83,7 @@ export default function Programs() {
                 <div className="three-col-section-box">
                   <GradientRectangle className="absolute" />
                   <div className="three-col-section-box-content">
-                    <h3 className="text-[#B1574A]">Empowerment</h3>
+                    <h3 className="sec-coral">Empowerment</h3>
                     <p className="p3">
                       Empowering girls to stay active and build lifelong fitness
                       habits.
@@ -98,7 +96,7 @@ export default function Programs() {
                 <div className="three-col-section-box">
                   <GradientRectangle className="absolute" />
                   <div className="three-col-section-box-content">
-                    <h3 className="text-[#B1574A]">Knowledge</h3>
+                    <h3 className="sec-coral">Knowledge</h3>
                     <p className="p3">
                       Providing the knowledge to make informed health choices.
                     </p>
@@ -110,7 +108,7 @@ export default function Programs() {
                 <div className="three-col-section-box">
                   <GradientRectangle className="absolute" />
                   <div className="three-col-section-box-content">
-                    <h3 className="text-[#B1574A]">Support</h3>
+                    <h3 className="sec-coral">Support</h3>
                     <p className="p3">
                       Mentorship and guidance to inspire confidence and growth.
                     </p>
@@ -124,11 +122,11 @@ export default function Programs() {
       <div className="relative top-[1px]">
         <TopCurveColor />
       </div>
-      <div className="two-col-section !bg-[#ffece4]">
+      <div className="two-col-section bg-soft-coral">
         <div className="two-col-section-content !items-start">
           <div className="two-col-section-subtitle-container w-[600px]">
-            <h4 className="text-[#2F2F2F]">OUR PROGRAMS</h4>
-            <h3 className="text-[#B1574A] w-[500px]">
+            <h4 className="p-neutral">OUR PROGRAMS</h4>
+            <h3 className="sec-coral w-[500px]">
               Building confidence, resilience, and lifelong wellness one girl at
               a time.
             </h3>
@@ -153,7 +151,7 @@ export default function Programs() {
       <div className="relative bottom-[1px]">
         <BotCurveColor />
       </div>
-      <div className="two-col-section">
+      <div className="two-col-section !py-[60px]">
         <div className="two-col-section-content">
           <div
             className="two-col-section-img"
@@ -165,8 +163,8 @@ export default function Programs() {
           ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">FITNESS PROGRAMS</h4>
-              <h3 className="text-[#B1574A]">
+              <h4 className="p-neutral">FITNESS PROGRAMS</h4>
+              <h3 className="sec-coral">
                 Strength, confidence, healthy habits
               </h3>
             </div>
@@ -193,10 +191,8 @@ export default function Programs() {
         <div className="two-col-section-content">
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">HEALTH EDUCATION WORKSHOPS</h4>
-              <h3 className="text-[#B1574A]">
-                Supporting girls with knowledge
-              </h3>
+              <h4 className="p-neutral">HEALTH EDUCATION WORKSHOPS</h4>
+              <h3 className="sec-coral">Supporting girls with knowledge</h3>
             </div>
             <p className="p3">
               Our health education workshops are grounded in{' '}
@@ -248,10 +244,8 @@ export default function Programs() {
           ></div>{' '}
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">MENTORSHIP PROGRAM</h4>
-              <h3 className="text-[#B1574A]">
-                Guidance, encouragement, connection
-              </h3>
+              <h4 className="p-neutral">MENTORSHIP PROGRAM</h4>
+              <h3 className="sec-coral">Guidance, encouragement, connection</h3>
             </div>
             <p className="p3">
               Our mentorship pilot connects participants with{' '}
@@ -278,7 +272,7 @@ export default function Programs() {
       </div>
       <div className="p-section">
         <div className="p-section-content">
-          <h4 className="text-[#B1574A]">LONG TERM VISION</h4>
+          <h4 className="sec-coral">LONG TERM VISION</h4>
           <p className="p3">
             Our vision is to create a community where every girl, regardless of
             background, has access to the tools, support, and opportunities to
@@ -291,12 +285,12 @@ export default function Programs() {
       </div>
       <div className="last-section">
         <div className="last-section-content">
-          <h4 className="text-[#A04E43]">CONTACT US</h4>
-          <p className="p1 text-[#49241e]">
+          <h4 className="coral-3">CONTACT US</h4>
+          <p className="p1 c7">
             Have questions or want to get involved? We’re here to help!
           </p>
           <Link href="/contact-us" className="filled-btn w-[184px]">
-            <p className="btn text-[#fff]">Send a message</p>
+            <p className="btn background-color">Send a message</p>
           </Link>
         </div>
       </div>

@@ -46,7 +46,7 @@ export default function WhoWeAre() {
       </div>
       <div className="p-section">
         <div className="p-section-content">
-          <h4 className="text-[#B1574A]">OUR MISSION</h4>
+          <h4 className="sec-coral">OUR MISSION</h4>
           <p className="p3">
             We strive to cultivate a generation of resilient and confident young
             women equipped with the tools and knowledge to prioritize their
@@ -70,10 +70,8 @@ export default function WhoWeAre() {
           ></div>
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">OUR VISION</h4>
-              <h3 className="text-[#B1574A]">
-                Empowering girls, shaping futures
-              </h3>
+              <h4 className="p-neutral">OUR VISION</h4>
+              <h3 className="sec-coral">Empowering girls, shaping futures</h3>
             </div>
             <p className="p3">
               We envision a Houston where every girl has the knowledge,
@@ -111,10 +109,10 @@ export default function WhoWeAre() {
       <div className="relative top-[1px]">
         <TopCurveColor />
       </div>
-      <div className="four-col-section">
+      <div className="four-col-section bg-soft-coral">
         <div className="four-col-section-content">
           <div className="four-col-section-desc">
-            <h4 className="text-[#B1574A]">OUR VALUES</h4>
+            <h4 className="sec-coral">OUR VALUES</h4>
             <p className="p3 text-center">
               Our values shape how we design our programs, engage with our
               community, and show up for the girls we serve:
@@ -123,14 +121,14 @@ export default function WhoWeAre() {
           <div className="four-col-section-icons-wrapper">
             <div className="four-col-section-icon">
               <EarthHeart />
-              <h5 className="text-[#B1574A]">Inclusivity</h5>
+              <h5 className="sec-coral">Inclusivity</h5>
               <p className="p3 text-center">
                 Creating affirming spaces where identity is seen as strength.
               </p>
             </div>
             <div className="four-col-section-icon">
               <Thumb />
-              <h5 className="text-[#B1574A]">Encouragement</h5>
+              <h5 className="sec-coral">Encouragement</h5>
               <p className="p3 text-center">
                 Offering tools, guidance, and accessible opportunities unique to
                 every girl.
@@ -138,7 +136,7 @@ export default function WhoWeAre() {
             </div>
             <div className="four-col-section-icon">
               <HeartShake />
-              <h5 className="text-[#B1574A]">Collaboration</h5>
+              <h5 className="sec-coral">Collaboration</h5>
               <p className="p3 text-center">
                 Working together to build programs that reflect real needs and
                 voices.
@@ -146,7 +144,7 @@ export default function WhoWeAre() {
             </div>
             <div className="four-col-section-icon">
               <Improvement />
-              <h5 className="text-[#B1574A]">Improvement</h5>
+              <h5 className="sec-coral">Improvement</h5>
               <p className="p3 text-center">
                 We listen, learn, and improve - always evolving to better serve
                 the community.
@@ -161,8 +159,8 @@ export default function WhoWeAre() {
       <div className="two-col-section">
         <div className="two-col-section-content !items-start">
           <div className="two-col-section-subtitle-container w-[600px]">
-            <h4 className="text-[#2F2F2F]">OUR COMMITMENT</h4>
-            <h3 className="text-[#B1574A]">
+            <h4 className="p-neutral">OUR COMMITMENT</h4>
+            <h3 className="sec-coral">
               We’re starting small, but we’re thinking big.
             </h3>
           </div>
@@ -196,8 +194,8 @@ export default function WhoWeAre() {
           ></div>
           <div className="two-col-section-text-container">
             <div className="two-col-section-subtitle-container">
-              <h4 className="text-[#2F2F2F]">MEET OUR FOUNDER</h4>
-              <h3 className="text-[#B1574A]">Luciana N Gearing</h3>
+              <h4 className="p-neutral">MEET OUR FOUNDER</h4>
+              <h3 className="sec-coral">Luciana N Gearing</h3>
             </div>
             <p className="p3">
               Luciana N. Gearing is the Founder and Executive Director of
@@ -207,7 +205,7 @@ export default function WhoWeAre() {
               mentorship, and community support.
             </p>
             <button className="link-btn !pl-0" onClick={() => setPopup(!popup)}>
-              <span className="p5 text-[#b1574a] font-[600] link-btn-text">
+              <span className="p5 sec-coral font-[600] link-btn-text">
                 READ MORE
               </span>
             </button>
@@ -216,12 +214,12 @@ export default function WhoWeAre() {
       </div>
       <div className="last-section">
         <div className="last-section-content">
-          <h4 className="text-[#A04E43]">CONTACT US</h4>
-          <p className="p1 text-[#49241e]">
+          <h4 className="coral-3">CONTACT US</h4>
+          <p className="p1 c7">
             Have questions or want to get involved? We’re here to help!
           </p>
           <Link href="/contact-us" className="filled-btn w-[184px]">
-            <p className="btn text-[#fff]">Send a message</p>
+            <p className="btn background-color">Send a message</p>
           </Link>
         </div>
       </div>

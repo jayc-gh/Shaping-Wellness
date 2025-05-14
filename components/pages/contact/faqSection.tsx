@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function FAQSection() {
   return (
     <div className="faq-section">
-      <h4 className="text-[#B1574A]">FREQUENTLY ASKED QUESTIONS (FAQs)</h4>
+      <h4 className="sec-coral">FREQUENTLY ASKED QUESTIONS (FAQs)</h4>
       <div className="faq-section-content-container">
         <div className="faq-column">
           <FAQItem

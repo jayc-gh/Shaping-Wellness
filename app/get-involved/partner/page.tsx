@@ -43,10 +43,10 @@ export default function Partner() {
         </div>
       </div>
       <div className="two-col-section">
-        <div className="two-col-section-content !items-start pt-[40px] pb-[40px]">
+        <div className="two-col-section-content !items-start py-[40px]">
           <div className="two-col-section-subtitle-container w-1/2">
             <h4>WHY PARTNER WITH US?</h4>
-            <h3 className="text-[#B1574A] w-[500px]">
+            <h3 className="sec-coral w-[500px]">
               Help girls build confidence, develop healthy habits, and thrive.
             </h3>
           </div>
@@ -66,9 +66,9 @@ export default function Partner() {
       <div className="three-col-section">
         <div className="three-col-section-content">
           <div className="three-col-section-p-container">
-            <h4 className="text-[#B1574A]">WHO CAN PARTNER WITH US?</h4>
+            <h4 className="sec-coral">WHO CAN PARTNER WITH US?</h4>
             <p className="p3">
-              <span className="text-[#B1574A] italic !font-[600]">
+              <span className="coral-4 italic !font-[600]">
                 We’re currently accepting new partnership inquiries for Fall
                 2025.
               </span>{' '}
@@ -77,57 +77,57 @@ export default function Partner() {
               seeking partnerships with:
             </p>
           </div>
-          <div className="three-col-section-content">
-            <div className="three-col-section-hover-cards-container">
-              <div
-                className="three-col-section-hover-card"
-                style={
-                  {
-                    '--bg-image': 'url("/images/DonationForm.webp")',
-                  } as React.CSSProperties
-                }
-              >
-                <h3 className="text-[#fff]">Middle and High School</h3>
-                <p className="p3 hover-text">
-                  Schools looking to introduce or expand wellness initiatives.
-                </p>
-              </div>
-              <div
-                className="three-col-section-hover-card"
-                style={
-                  {
-                    '--bg-image': 'url("/images/DonationForm.webp")',
-                  } as React.CSSProperties
-                }
-              >
-                <h3 className="text-[#fff]">Youth Organizations</h3>
-                <p className="p3 hover-text">
-                  Youth Organizations committed to supporting girls&apos; health
-                  and development.
-                </p>
-              </div>
-              <div
-                className="three-col-section-hover-card"
-                style={
-                  {
-                    '--bg-image': 'url("/images/DonationForm.webp")',
-                  } as React.CSSProperties
-                }
-              >
-                <h3 className="text-[#fff]">Community Centers</h3>
-                <p className="p3 hover-text">
-                  Community Centers looking to create inclusive spaces for girls
-                  to connect and grow.
-                </p>
-              </div>
+          <div className="three-col-section-hover-cards-container">
+            <div
+              className="three-col-section-hover-card"
+              style={
+                {
+                  '--bg-image': 'url("/images/DonationForm.webp")',
+                } as React.CSSProperties
+              }
+            >
+              <h3 className="background-color">Middle and High School</h3>
+              <p className="p3 hover-text">
+                Schools looking to introduce or expand wellness initiatives.
+              </p>
+            </div>
+            <div
+              className="three-col-section-hover-card"
+              style={
+                {
+                  '--bg-image': 'url("/images/DonationForm.webp")',
+                } as React.CSSProperties
+              }
+            >
+              <h3 className="background-color">Youth Organizations</h3>
+              <p className="p3 hover-text">
+                Youth Organizations committed to supporting girls&apos; health
+                and development.
+              </p>
+            </div>
+            <div
+              className="three-col-section-hover-card"
+              style={
+                {
+                  '--bg-image': 'url("/images/DonationForm.webp")',
+                } as React.CSSProperties
+              }
+            >
+              <h3 className="background-color">Community Centers</h3>
+              <p className="p3 hover-text">
+                Community Centers looking to create inclusive spaces for girls
+                to connect and grow.
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <TopCurveColor />
-      <div className="three-col-section !bg-[#ffece4]">
+      <div className="relative top-[1px]">
+        <TopCurveColor />
+      </div>
+      <div className="three-col-section bg-soft-coral">
         <div className="three-col-section-p-container">
-          <h4 className="text-[#B1574A]">WHAT YOU&apos;LL GAIN</h4>
+          <h4 className="sec-coral">WHAT YOU&apos;LL GAIN</h4>
           <p className="p3">
             As a partner, your school or organization will receive access to our
             three pilot programs launching in 2025. All programs are
@@ -142,7 +142,7 @@ export default function Partner() {
             <div className="three-col-section-box">
               <GradientRectangle className="absolute" />
               <div className="three-col-section-box-content">
-                <h3 className="text-[#B1574A]">Fitness Sessions</h3>
+                <h3 className="sec-coral">Fitness Sessions</h3>
                 <p className="p3">
                   Group-based physical activities designed to encourage movement
                   and build confidence.
@@ -155,7 +155,7 @@ export default function Partner() {
             <div className="three-col-section-box">
               <GradientRectangle className="absolute" />
               <div className="three-col-section-box-content">
-                <h3 className="text-[#B1574A]">Empowerment</h3>
+                <h3 className="sec-coral">Empowerment</h3>
                 <p className="p3">
                   Interactive workshops covering nutrition basics, mental
                   health, body image, and self-care.
@@ -168,7 +168,7 @@ export default function Partner() {
             <div className="three-col-section-box">
               <GradientRectangle className="absolute" />
               <div className="three-col-section-box-content">
-                <h3 className="text-[#B1574A]">Empowerment</h3>
+                <h3 className="sec-coral">Empowerment</h3>
                 <p className="p3">
                   Facilitated mentor connections that pair girls with trusted
                   female role models who offer guidance.
@@ -178,17 +178,19 @@ export default function Partner() {
           </div>
         </div>
         <Link href="/programs" className="link-btn mt-[27px]">
-          <h4 className="p3 link-btn-text text-[#B1574A] !font-semibold">
+          <h4 className="p3 link-btn-text sec-coral !font-semibold">
             LEARN MORE ABOUT OUR PROGRAMS
           </h4>
           <RightArrow />
         </Link>
       </div>
-      <BotCurveColor />
+      <div className="relative bottom-[1px]">
+        <BotCurveColor />
+      </div>
       <div className="three-col-section ">
         <div className="three-col-section-content">
           <div className="three-col-section-p-container">
-            <h4 className="text-[#B1574A]">WHY IT MATTERS</h4>
+            <h4 className="sec-coral">WHY IT MATTERS</h4>
             <p className="p3">
               By integrating these programs into your organization, you can
               create a meaningful, measurable impact in the lives of the girls
@@ -221,15 +223,15 @@ export default function Partner() {
       </div>
       <div className="last-section">
         <div className="last-section-content">
-          <h4 className="text-[#A04E43]">READY TO PARTNER?</h4>
-          <p className="p1 text-[#49241e]">
+          <h4 className="coral-3">READY TO PARTNER?</h4>
+          <p className="p1 c7">
             Ready to bring wellness programs to your school or community?
           </p>
           <Link
             href="/get-involved/partner/partner-form"
             className="filled-btn"
           >
-            <p className="btn text-[#fff]">Partnership Inquiry Form</p>
+            <p className="btn background-color">Partnership Inquiry Form</p>
           </Link>
         </div>
       </div>
