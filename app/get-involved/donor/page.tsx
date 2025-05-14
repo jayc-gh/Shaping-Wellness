@@ -7,6 +7,7 @@ import Mailbox from '../../../app/icons/donate/mailbox.svg';
 import Phone from '../../../app/icons/donate/phone.svg';
 import Building from '../../../app/icons/donate/building.svg';
 import Calendar from '../../../app/icons/donate/calendar-heart.svg';
+import Graphic from '../../../app/icons/donate/Graphicnoborder.svg';
 
 export default function Donor() {
   return (
@@ -114,6 +115,9 @@ export default function Donor() {
       </div>
       <div className="relative bottom-[1px]">
         <BotCurveColor />
+      </div>
+      <div className="flex justify-center items-center py-[40px]">
+        <Graphic />
       </div>
       <div className="two-col-section bg-soft-coral">
         <div className="two-col-section-content !items-start">
