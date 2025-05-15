@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 import convertToSubcurrency from '@/lib/convertToSubcurrency';
-import { FormInfo } from '@/declarations';
+import { DonateFormData } from '@/declarations';
 
 interface StepProps {
   step: number;
-  formData: FormInfo;
+  formData: DonateFormData;
   setClientSecret: React.Dispatch<React.SetStateAction<string>>;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }

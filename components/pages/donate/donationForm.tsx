@@ -13,9 +13,9 @@ import Spinner from '../../spinner';
 import Unchecked from '../../../app/icons/checked=no.svg';
 import Checked from '../../../app/icons/checked=yes.svg';
 import { handleSubmit } from '@/lib/functions';
-import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
-import Summary from './summary';
+import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
 import LoadingDots from '../../loadingDots';
+import '../../forms/forms.css';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -26,18 +26,20 @@ const stripePromise = loadStripe(stripePublicKey);
 
 export default function DonateForm() {
   const [step, setStep] = useState<number>(1);
-  const [formData, setFormData] = useState<FormInfo>({
+  const [formData, setFormData] = useState<DonateFormData>({
     amount: '75',
     monthly: false,
     firstName: '',
     lastName: '',
     email: '',
-    address1: '',
-    address2: '',
-    country: 'US',
-    state: '',
-    city: '',
-    postalCode: '',
+    address: {
+      address1: '',
+      address2: '',
+      country: 'US',
+      state: '',
+      city: '',
+      postalCode: '',
+    },
     phone: '',
     anonymous: false,
     orgDonate: false,
@@ -85,7 +87,18 @@ export default function DonateForm() {
     <main className="background">
       <div className="main-container">
         <div className="content-container">
-          <Summary />
+          <div className="summary-container">
+            <div className="flag">
+              <h4>DONATE</h4>
+            </div>
+            <h3 className="text-white">Every dollar makes a difference</h3>
+            <p className="p3 !text-white">
+              Millions of young girls lack access to resources that support
+              their health and well-being. Your support helps provide fitness
+              programs, educational workshops, and safe spaces where they can
+              thrive.
+            </p>
+          </div>
           <form
             className="form-box"
             onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
@@ -141,7 +154,8 @@ export default function DonateForm() {
                     {coverFee && <Checked />}
 
                     <span className="custom-text-4 s-neutral">
-                      I’d like to cover the 3% transaction fee for this donation
+                      I&apos;d like to cover the 3% transaction fee for this
+                      donation
                     </span>
                   </label>
                 </>

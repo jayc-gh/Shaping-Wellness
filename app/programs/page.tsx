@@ -28,7 +28,7 @@ export default function Programs() {
             <h2>Inspiring girls to build healthy, confident futures.</h2>
             <p className="p3">
               If your organization is dedicated to giving girls the tools to
-              lead healthier, more confident lives, we’re here to help.
+              lead healthier, more confident lives, we&apos;re here to help.
             </p>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function Programs() {
               We aim to reach 300 girls in our first year with evidence-informed
               health and wellness programming. Each pilot is designed with input
               from educators, youth development professionals, and community
-              leaders to foster sustainable, measurable impact. We’ll track
+              leaders to foster sustainable, measurable impact. We&apos;ll track
               outcomes such as self-reported confidence, nutrition literacy, and
               engagement in healthy routines.
             </p>
@@ -278,8 +278,8 @@ export default function Programs() {
             background, has access to the tools, support, and opportunities to
             live a healthy life. As we grow, we will expand programming into
             more schools, build deeper partnerships with local health providers,
-            and launch community-wide wellness initiatives that center girls’
-            voices and experiences.
+            and launch community-wide wellness initiatives that center
+            girls&apos; voices and experiences.
           </p>
         </div>
       </div>
@@ -287,7 +287,7 @@ export default function Programs() {
         <div className="last-section-content">
           <h4 className="coral-3">CONTACT US</h4>
           <p className="p1 c7">
-            Have questions or want to get involved? We’re here to help!
+            Have questions or want to get involved? We&apos;re here to help!
           </p>
           <Link href="/contact-us" className="filled-btn w-[184px]">
             <p className="btn background-color">Send a message</p>

@@ -1,6 +1,7 @@
 'use client';
 
 import './contactForm.css';
+import '../../forms/forms.css';
 import { useState } from 'react';
 import { validateEmailFormat } from '@/lib/functions';
 

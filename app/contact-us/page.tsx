@@ -31,8 +31,8 @@ export default function Contact() {
             </div>
             <h2>Reach out, we&apos;re ready to help.</h2>
             <p className="p3">
-              Have a question or want to get involved? We’re here to help. Check
-              out our FAQs below or reach out directly.
+              Have a question or want to get involved? We&apos;re here to help.
+              Check out our FAQs below or reach out directly.
             </p>
           </div>
         </div>

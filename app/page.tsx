@@ -48,7 +48,7 @@ export default function Home() {
               underserved communities.
             </span>{' '}
             While our programs are still taking shape, our commitment is
-            grounded in transparency, research, and community input. We’re
+            grounded in transparency, research, and community input. We&apos;re
             focused on building inclusive, thoughtful initiatives that help
             girls develop confidence, stay active, and make informed choices for
             lifelong wellness.
@@ -78,8 +78,8 @@ export default function Home() {
         <div className="p-section-content">
           <h4 className="sec-coral">PROGRAMS</h4>
           <p className="p3">
-            We’re developing a year-round wellness curriculum for 6th - 12th
-            grade girls in Houston, launching in Fall 2025. Our programming
+            We&apos;re developing a year-round wellness curriculum for 6th -
+            12th grade girls in Houston, launching in Fall 2025. Our programming
             focuses on nutrition, self-confidence, and health education,
             equipping girls with practical tools, peer support, and guidance
             from trusted community educators to build lifelong healthy habits.
@@ -105,11 +105,11 @@ export default function Home() {
               <h3 className="sec-coral">Staying active and strong</h3>
             </div>
             <p className="p3">
-              We’re designing accessible and engaging fitness sessions tailored
-              to middle and high school girls, with a focus on movement,
-              strength-building, and positive body image. These sessions will be
-              led by certified instructors and adapted to different skill
-              levels.
+              We&apos;re designing accessible and engaging fitness sessions
+              tailored to middle and high school girls, with a focus on
+              movement, strength-building, and positive body image. These
+              sessions will be led by certified instructors and adapted to
+              different skill levels.
             </p>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function Home() {
               <h3 className="sec-coral">Guiding girls to thrive</h3>
             </div>
             <p className="p3">
-              We’re building a mentorship network that will pair girls with
+              We&apos;re building a mentorship network that will pair girls with
               vetted female mentors from diverse backgrounds in health,
               education, and leadership. Mentors will offer consistent guidance
               through structured meetups, check-ins, and shared goal-setting

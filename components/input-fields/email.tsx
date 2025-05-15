@@ -1,9 +1,9 @@
-import { FormInfo, ErrorMap } from '@/declarations';
+import { DonateFormData, ErrorMap } from '@/declarations';
 import { validateEmailFormat } from '@/lib/functions';
 
 interface StepProps {
-  formData: FormInfo;
-  setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+  formData: DonateFormData;
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
 }

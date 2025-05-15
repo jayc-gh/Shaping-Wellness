@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FormInfo, ErrorMap } from '@/declarations';
+import { DonateFormData, ErrorMap } from '@/declarations';
 import { Country, State, IState } from 'country-state-city';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
 
 interface StepProps {
-  formData: FormInfo;
-  setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+  formData: DonateFormData;
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
 }
@@ -19,7 +19,7 @@ export default function Address({
   setShowErrors,
 }: StepProps) {
   const [states, setStates] = useState<IState[]>(
-    State.getStatesOfCountry(formData.country)
+    State.getStatesOfCountry(formData.address.country)
   );
   const countries = Country.getAllCountries();
   const handleCountryChange = (country: string) => {
@@ -48,7 +48,7 @@ export default function Address({
             <div className="flex flex-col">
               <input
                 type="address1"
-                value={formData.address1}
+                value={formData.address.address1}
                 onChange={e => {
                   setFormData(prev => ({
                     ...prev,
@@ -61,14 +61,14 @@ export default function Address({
                 }}
                 placeholder="Address 1"
                 className={`input-field ${
-                  showErrors.address1 && !formData.address1.trim()
+                  showErrors.address1 && !formData.address.address1.trim()
                     ? 'show-invalid'
                     : ''
                 }`}
               />
               <div
                 className={`error-text-container ${
-                  showErrors.address1 && !formData.address1.trim()
+                  showErrors.address1 && !formData.address.address1.trim()
                     ? 'transition'
                     : ''
                 }`}
@@ -79,7 +79,7 @@ export default function Address({
 
             <input
               type="address2"
-              value={formData.address2}
+              value={formData.address.address2}
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
@@ -99,11 +99,11 @@ export default function Address({
             <div className="relative w-full">
               <select
                 className={`input-field ${
-                  showErrors.country && !formData.country.trim()
+                  showErrors.country && !formData.address.country.trim()
                     ? 'show-invalid'
                     : ''
                 } !pr-8`}
-                value={formData.country}
+                value={formData.address.country}
                 onChange={e => {
                   handleCountryChange(e.target.value);
                   setShowErrors(prev => ({
@@ -122,7 +122,7 @@ export default function Address({
             </div>
             <div
               className={`error-text-container ${
-                showErrors.country && !formData.country.trim()
+                showErrors.country && !formData.address.country.trim()
                   ? 'transition'
                   : ''
               }`}
@@ -131,17 +131,17 @@ export default function Address({
             </div>
           </div>
         </label>
-        {formData.country === 'US' ? (
+        {formData.address.country === 'US' ? (
           <label className="input-sub-container">
             <div className="flex flex-col">
               <div className="relative w-full">
                 <select
                   className={`input-field !pr-8 ${
-                    showErrors.state && !formData.state.trim()
+                    showErrors.state && !formData.address.state.trim()
                       ? 'show-invalid'
                       : ''
                   }`}
-                  value={formData.state}
+                  value={formData.address.state}
                   onChange={e => {
                     setFormData(prev => ({
                       ...prev,
@@ -166,7 +166,9 @@ export default function Address({
               </div>
               <div
                 className={`error-text-container ${
-                  showErrors.state && !formData.state.trim() ? 'transition' : ''
+                  showErrors.state && !formData.address.state.trim()
+                    ? 'transition'
+                    : ''
                 }`}
               >
                 <p className="error-text">State is required</p>
@@ -177,7 +179,7 @@ export default function Address({
           <label className="input-sub-container">
             <input
               type="text"
-              value={formData.state}
+              value={formData.address.state}
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
@@ -190,12 +192,16 @@ export default function Address({
               }}
               placeholder="State/Province/Region"
               className={`input-field ${
-                showErrors.state && !formData.state.trim() ? 'show-invalid' : ''
+                showErrors.state && !formData.address.state.trim()
+                  ? 'show-invalid'
+                  : ''
               }`}
             />
             <div
               className={`error-text-container ${
-                showErrors.state && !formData.state.trim() ? 'transition' : ''
+                showErrors.state && !formData.address.state.trim()
+                  ? 'transition'
+                  : ''
               }`}
             >
               <p className="error-text">State is required</p>
@@ -209,7 +215,7 @@ export default function Address({
           <div className="flex flex-col">
             <input
               type="text"
-              value={formData.postalCode}
+              value={formData.address.postalCode}
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
@@ -222,14 +228,14 @@ export default function Address({
               }}
               placeholder="Zip/Postal Code"
               className={`input-field ${
-                showErrors.postalCode && !formData.postalCode.trim()
+                showErrors.postalCode && !formData.address.postalCode.trim()
                   ? 'show-invalid'
                   : ''
               }`}
             />
             <div
               className={`error-text-container ${
-                showErrors.postalCode && !formData.postalCode.trim()
+                showErrors.postalCode && !formData.address.postalCode.trim()
                   ? 'transition'
                   : ''
               }`}
@@ -242,7 +248,7 @@ export default function Address({
           <div className="flex flex-col">
             <input
               type="text"
-              value={formData.city}
+              value={formData.address.city}
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
@@ -255,12 +261,16 @@ export default function Address({
               }}
               placeholder="City"
               className={`input-field ${
-                showErrors.city && !formData.city.trim() ? 'show-invalid' : ''
+                showErrors.city && !formData.address.city.trim()
+                  ? 'show-invalid'
+                  : ''
               }`}
             />
             <div
               className={`error-text-container ${
-                showErrors.city && !formData.city.trim() ? 'transition' : ''
+                showErrors.city && !formData.address.city.trim()
+                  ? 'transition'
+                  : ''
               }`}
             >
               <p className="error-text">City is required</p>

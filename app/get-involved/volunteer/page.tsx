@@ -39,9 +39,10 @@ export default function Volunteer() {
         <div className="p-section-content">
           <h4 className="sec-coral">WAYS TO GET INVOLVED</h4>
           <p className="p3">
-            We’re seeking dedicated, passionate volunteers to help bring our
-            programs to life in Fall 2025. Whether you’re a fitness enthusiast,
-            health educator, or mentor at heart - there’s a place for you here.{' '}
+            We&apos;re seeking dedicated, passionate volunteers to help bring
+            our programs to life in Fall 2025. Whether you&apos;re a fitness
+            enthusiast, health educator, or mentor at heart - there&apos;s a
+            place for you here.{' '}
             <span className="coral-4">
               Explore specific roles below and see where you can make the
               biggest impact!

@@ -131,8 +131,8 @@ export default function Donor() {
             <p className="p3">
               Explore our plan for sustainable growth through a detailed
               breakdown of projected expenses and our long-term strategy. See
-              how every dollar supports girls’ health, well-being, and future
-              success.
+              how every dollar supports girls&apos; health, well-being, and
+              future success.
             </p>
             <button className="link-btn !pl-0 !pt-0">
               <span className="p5 bolded link-btn-text sec-coral">

@@ -100,8 +100,9 @@ export default function WhoWeAre() {
             <br />
             <p className="p3">
               Through evidence-informed programming, cross-sector collaboration,
-              and inclusive design, we’re laying the groundwork for generational
-              change in health equity, starting right here in Houston.
+              and inclusive design, we&apos;re laying the groundwork for
+              generational change in health equity, starting right here in
+              Houston.
             </p>
           </div>
         </div>
@@ -161,13 +162,13 @@ export default function WhoWeAre() {
           <div className="two-col-section-subtitle-container w-[600px]">
             <h4 className="p-neutral">OUR COMMITMENT</h4>
             <h3 className="sec-coral">
-              We’re starting small, but we’re thinking big.
+              We&apos;re starting small, but we&apos;re thinking big.
             </h3>
           </div>
           <div className="two-col-section-text-container">
             <p className="p3">
-              As a new nonprofit, we know that trust is earned. That’s why we
-              lead with transparency, research, and community input at every
+              As a new nonprofit, we know that trust is earned. That&apos;s why
+              we lead with transparency, research, and community input at every
               step. <br />
               <br />
               Our promise is to show up with purpose, measure what matters, and
@@ -216,7 +217,7 @@ export default function WhoWeAre() {
         <div className="last-section-content">
           <h4 className="coral-3">CONTACT US</h4>
           <p className="p1 c7">
-            Have questions or want to get involved? We’re here to help!
+            Have questions or want to get involved? We&apos;re here to help!
           </p>
           <Link href="/contact-us" className="filled-btn w-[184px]">
             <p className="btn background-color">Send a message</p>

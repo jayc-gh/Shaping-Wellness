@@ -1,7 +1,8 @@
-import { FormInfo, ErrorMap, StripeCtx } from '@/declarations';
+import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
 import { supabaseClient } from '@/lib/supabaseClient';
 import crypto from 'crypto';
 import React, { useEffect } from 'react';
+import { ValidatorConfig } from '@/declarations';
 
 export const formatPhoneNumber = (value: string) => {
   const cleaned = value.replace(/\D/g, '');
@@ -22,47 +23,79 @@ export const validateEmailFormat = (email: string) => {
   return regex.test(email);
 };
 
-export function validateForm(formData: FormInfo) {
+// export function validateForm(formData: DonateFormData) {
+//   const errors: ErrorMap = {};
+
+//   if (!validateEmailFormat(formData.email)) {
+//     errors.email = true;
+//   }
+
+//   if (formData.orgDonate && formData.orgName.trim() === '') {
+//     errors.orgName = true;
+//   }
+
+//   if (formData.address.address1.trim() === '') {
+//     errors.address1 = true;
+//   }
+
+//   if (formData.address.state.trim() === '') {
+//     errors.state = true;
+//   }
+
+//   if (formData.address.country.trim() === '') {
+//     errors.country = true;
+//   }
+
+//   if (formData.address.postalCode.trim() === '') {
+//     errors.postalCode = true;
+//   }
+
+//   if (formData.address.city.trim() === '') {
+//     errors.city = true;
+//   }
+
+//   if (formData.firstName.trim() === '') {
+//     errors.firstName = true;
+//   }
+
+//   if (formData.lastName.trim() === '') {
+//     errors.lastName = true;
+//   }
+
+//   return errors;
+// }
+export function validateForm<T>(formData: T, config: ValidatorConfig<T>) {
   const errors: ErrorMap = {};
 
-  if (!validateEmailFormat(formData.email)) {
-    errors.email = true;
+  if (config.requiredFields) {
+    for (const key of config.requiredFields) {
+      const value = getNestedValue(formData, key.toString());
+      if (typeof value === 'string' && value.trim() === '') {
+        const fieldKey = key.toString().split('.').pop();
+        errors[fieldKey as keyof ErrorMap] = true;
+      }
+    }
   }
 
-  if (formData.orgDonate && formData.orgName.trim() === '') {
-    errors.orgName = true;
-  }
-
-  if (formData.address1.trim() === '') {
-    errors.address1 = true;
-  }
-
-  if (formData.state.trim() === '') {
-    errors.state = true;
-  }
-
-  if (formData.country.trim() === '') {
-    errors.country = true;
-  }
-
-  if (formData.postalCode.trim() === '') {
-    errors.postalCode = true;
-  }
-
-  if (formData.city.trim() === '') {
-    errors.city = true;
-  }
-
-  if (formData.firstName.trim() === '') {
-    errors.firstName = true;
-  }
-
-  if (formData.lastName.trim() === '') {
-    errors.lastName = true;
+  if (config.customValidations) {
+    for (const validateFn of config.customValidations) {
+      Object.assign(errors, validateFn(formData));
+    }
   }
 
   return errors;
 }
+
+function getNestedValue<T>(obj: T, path: string): unknown {
+  return path.split('.').reduce((acc: unknown, part) => {
+    if (acc && typeof acc === 'object' && part in acc) {
+      return (acc as Record<string, unknown>)[part];
+    }
+    return undefined;
+  }, obj);
+}
+
+export function handleSubmitBasic() {}
 
 export async function handleSubmit({
   e,
@@ -76,7 +109,7 @@ export async function handleSubmit({
 }: {
   e: React.FormEvent<HTMLFormElement>;
   step: number;
-  formData: FormInfo;
+  formData: DonateFormData;
   stripeCtx: StripeCtx;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
   nextStep: () => void;
@@ -95,7 +128,23 @@ export async function handleSubmit({
       return;
     }
   } else if (step === 2) {
-    const errors = validateForm(formData);
+    const errors = validateForm(formData, {
+      requiredFields: [
+        'firstName',
+        'lastName',
+        'address.address1',
+        'address.city',
+        'address.state',
+        'address.country',
+        'address.postalCode',
+      ],
+      customValidations: [
+        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
+        data =>
+          data.orgDonate && data.orgName.trim() === '' ? { orgName: true } : {},
+      ],
+    });
+
     // Update state with all the errors
     setShowErrors(prev => ({
       ...prev,
@@ -154,12 +203,12 @@ export async function handleSubmit({
         payment_method_data: {
           billing_details: {
             address: {
-              country: formData.country,
-              line1: formData.address1,
-              line2: formData.address2,
-              state: formData.state,
-              city: formData.city,
-              postal_code: formData.postalCode,
+              country: formData.address.country,
+              line1: formData.address.address1,
+              line2: formData.address.address2,
+              state: formData.address.state,
+              city: formData.address.city,
+              postal_code: formData.address.postalCode,
             },
           },
         },

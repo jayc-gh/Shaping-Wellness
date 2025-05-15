@@ -1,10 +1,10 @@
 import React from 'react';
 import { PaymentElement, PaymentElementProps } from '@stripe/react-stripe-js';
-import { FormInfo } from '@/declarations';
+import { DonateFormData } from '@/declarations';
 
 interface StepProps {
   clientSecret: string;
-  formData: FormInfo;
+  formData: DonateFormData;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 

@@ -11,8 +11,8 @@ export default function FAQSection() {
             question="You are a new nonprofit. How can I trust this will make an impact?"
             answer={
               <>
-                While we don’t have launched programs yet, we’ve spent the past
-                6 months developing research-backed proposals, forming
+                While we don&apos;t have launched programs yet, we&apos;ve spent
+                the past 6 months developing research-backed proposals, forming
                 partnerships, and building our foundation transparently. You can
                 view all our plans and budget breakdowns on our site.
               </>
@@ -36,8 +36,8 @@ export default function FAQSection() {
             answer={
               <>
                 Yes, our programs are offered at no cost to schools or
-                participants. We’re here to serve the community and ensure that
-                access isn’t a barrier. Visit our{' '}
+                participants. We&apos;re here to serve the community and ensure
+                that access isn&apos;t a barrier. Visit our{' '}
                 <Link href="/get-involved/partner">
                   <span className="font-bold underline">Partner</span>
                 </Link>{' '}
@@ -55,8 +55,8 @@ export default function FAQSection() {
                     Partnership Inquiry
                   </span>
                 </Link>{' '}
-                to tell us more about your needs. We’ll follow up to learn more
-                and explore how we can support your students or community.
+                to tell us more about your needs. We&apos;ll follow up to learn
+                more and explore how we can support your students or community.
               </>
             }
           />
@@ -97,7 +97,7 @@ export default function FAQSection() {
             answer={
               <>
                 Your donation helps fund our programs, community outreach, and
-                day-to-day operations. We’re committed to using every
+                day-to-day operations. We&apos;re committed to using every
                 contribution responsibly and transparently.
               </>
             }

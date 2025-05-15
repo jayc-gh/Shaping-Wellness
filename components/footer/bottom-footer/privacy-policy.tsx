@@ -41,7 +41,7 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
           information requests.{' '}
           <span className="!font-bold">
             This information will not be disclosed, sold, rented, or shared with
-            any third party without the donor’s explicit consent.
+            any third party without the donor&apos;s explicit consent.
           </span>
         </p>
         <p className="p4 primary-2">

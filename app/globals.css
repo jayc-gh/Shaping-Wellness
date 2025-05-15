@@ -160,102 +160,6 @@ h5 {
     cursor: not-allowed;
   }
 
-  .popup-container {
-    display: flex;
-    padding: 30px 48px 48px 48px;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    border-radius: 10px;
-    background: #f6e7e1;
-  }
-
-  .input-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .input-sub-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 4px;
-    flex: 1 0 0;
-    min-width: 0;
-  }
-
-  .input-field {
-    display: flex;
-    height: 44px;
-    padding: 8px 12px;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
-    border-radius: 6px;
-    border: 1px solid var(--Field-line);
-    overflow: hidden;
-    color: var(--Primary-Neutral);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px; /* 125% */
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
-    transition: border 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .input-field:focus {
-    box-shadow: var(--focus-box-shadow);
-    border-color: var(--focus-highlight);
-    outline: none;
-  }
-
-  .input-field.show-invalid {
-    color: var(--danger-color);
-    border-color: var(--danger-color);
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02),
-      0 0 0 1px var(--danger-color);
-  }
-
-  .input-field.show-invalid:focus {
-    box-shadow: var(--focus-box-shadow);
-    border-color: var(--focus-highlight);
-    outline: none;
-  }
-
-  .form-sub-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 8px;
-    align-self: stretch;
-  }
-
-  .checkbox-container {
-    display: flex;
-    height: 28px;
-    align-items: center;
-    gap: 8px;
-    border-radius: 4px;
-  }
-
-  .checkbox {
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    margin: -1px;
-    padding: 0;
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-    clip-path: inset(50%);
-    overflow: hidden;
-  }
-
   .continue-container {
     display: flex;
     justify-content: center;
@@ -282,24 +186,14 @@ h5 {
     -webkit-background-clip: border-box;
   }
 
-  .error-text {
-    color: var(--danger-color);
-    align-self: flex-start;
-    justify-self: center;
-    font-size: 14px;
-    margin-top: 0.25rem;
-  }
-
-  .error-text-container {
-    max-height: 0;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    overflow: hidden;
-  }
-
-  .error-text-container.transition {
-    max-height: 30px;
-    opacity: 1;
+  .popup-container {
+    display: flex;
+    padding: 30px 48px 48px 48px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    border-radius: 10px;
+    background: #f6e7e1;
   }
 
   .link-btn {
@@ -400,6 +294,45 @@ h5 {
   .p4 .normal {
     font-weight: 400;
     line-height: normal;
+  }
+
+  .custom-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  .custom-text-2 {
+    font-family: Figtree;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .custom-text-3 {
+    font-family: Figtree;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+  }
+
+  .custom-text-4 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
   }
 
   .faq-q {

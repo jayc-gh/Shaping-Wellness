@@ -1,9 +1,9 @@
-import { FormInfo } from '@/declarations';
+import { DonateFormData } from '@/declarations';
 import { formatPhoneNumber } from '@/lib/functions';
 
 interface StepProps {
-  formData: FormInfo;
-  setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+  formData: DonateFormData;
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
 }
 
 export default function Phone({ formData, setFormData }: StepProps) {

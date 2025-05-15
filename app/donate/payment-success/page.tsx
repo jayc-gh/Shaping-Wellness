@@ -56,8 +56,8 @@ export default function PaymentSuccess() {
                 </p>
                 <p className="text-center p4 primary-2">
                   Your support is helping girls build confidence, develop
-                  healthy habits, and create brighter futures. We’re incredibly
-                  grateful for your contribution.
+                  healthy habits, and create brighter futures. We&apos;re
+                  incredibly grateful for your contribution.
                 </p>
               </div>
             </div>

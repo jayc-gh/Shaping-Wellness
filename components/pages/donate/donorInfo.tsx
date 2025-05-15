@@ -7,11 +7,11 @@ import OrgName from '../../input-fields/orgName';
 import Address from '../../input-fields/address';
 import Email from '../../input-fields/email';
 import Phone from '../../input-fields/phone';
-import { FormInfo, ErrorMap } from '@/declarations';
+import { DonateFormData, ErrorMap } from '@/declarations';
 
 interface StepProps {
-  formData: FormInfo;
-  setFormData: React.Dispatch<React.SetStateAction<FormInfo>>;
+  formData: DonateFormData;
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;

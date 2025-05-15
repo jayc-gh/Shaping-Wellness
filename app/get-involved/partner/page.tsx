@@ -30,8 +30,8 @@ export default function Partner() {
             <h2>Unite to make a difference</h2>
             <p className="p3">
               If your school or organization is interested in hosting one of our
-              programs or collaborating on future wellness initiatives, we’d
-              love to connect.
+              programs or collaborating on future wellness initiatives,
+              we&apos;d love to connect.
             </p>
             <Link
               href="/get-involved/partner/partner-form"
@@ -54,9 +54,9 @@ export default function Partner() {
             Girls in underserved communities often face real barriers to
             accessing consistent fitness opportunities, health education, and
             positive mentorship, all of which are critical to long-term
-            wellness. By partnering with us, you’re not only supporting these
-            girls directly, but also investing in healthier, more resilient
-            communities for the future.
+            wellness. By partnering with us, you&apos;re not only supporting
+            these girls directly, but also investing in healthier, more
+            resilient communities for the future.
           </p>
         </div>
       </div>
@@ -69,12 +69,12 @@ export default function Partner() {
             <h4 className="sec-coral">WHO CAN PARTNER WITH US?</h4>
             <p className="p3">
               <span className="coral-4 italic !font-[600]">
-                We’re currently accepting new partnership inquiries for Fall
-                2025.
+                We&apos;re currently accepting new partnership inquiries for
+                Fall 2025.
               </span>{' '}
               Together, we can help girls build confidence, strengthen healthy
-              habits, and thrive in every aspect of their lives. We’re actively
-              seeking partnerships with:
+              habits, and thrive in every aspect of their lives. We&apos;re
+              actively seeking partnerships with:
             </p>
           </div>
           <div className="three-col-section-hover-cards-container">
