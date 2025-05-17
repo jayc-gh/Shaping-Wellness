@@ -57,9 +57,9 @@ export interface VolunteerFormData {
   phone: Phone;
   DOB: DOB;
   AoI: {
-    programCoord: 'yes' | 'no' | '';
-    expertWorkshop: 'yes' | 'no' | '';
-    mentor: 'yes' | 'no' | '';
+    programCoord: 'yes' | '';
+    expertWorkshop: 'yes' | '';
+    mentor: 'yes' | '';
   };
   volunteerHours: 'yes' | 'no' | '';
 }

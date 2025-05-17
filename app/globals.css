@@ -18,7 +18,9 @@
   --secondary-text-color: #6b6461;
   --cards-color: #f6e7e1;
   --background: #ffffff;
-  --danger-color: #da1e28;
+  --danger-color: #c72a2a;
+  --danger-color-border: #d74646;
+  --danger-color-shadow: rgba(169, 15, 15, 0.2);
   --focus-highlight: #66afe9;
   --focus-box-shadow: 0px 0px 6px 0px rgba(56, 167, 255, 0.8);
   --Dark-Gradient: #ffdfd1;

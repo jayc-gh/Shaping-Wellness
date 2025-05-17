@@ -63,7 +63,7 @@ export default function DOB<T extends DOBFields>({
             }}
             placeholder="DD"
             className={`input-field ${
-              showErrors.type &&
+              showErrors.day &&
               !formData.DOB.day.trim() &&
               formType !== 'donate'
                 ? 'show-invalid'
@@ -80,12 +80,12 @@ export default function DOB<T extends DOBFields>({
               }));
               setShowErrors(prev => ({
                 ...prev,
-                type: false,
+                year: false,
               }));
             }}
             placeholder="YYYY"
             className={`input-field ${
-              showErrors.type &&
+              showErrors.year &&
               !formData.DOB.year.trim() &&
               formType !== 'donate'
                 ? 'show-invalid'
@@ -96,7 +96,10 @@ export default function DOB<T extends DOBFields>({
       </div>
       <div
         className={`error-text-container ${
-          showErrors.type && !formData.DOB.year.trim() && formType !== 'donate'
+          ((showErrors.month && !formData.DOB.month.trim()) ||
+            (showErrors.day && !formData.DOB.day.trim()) ||
+            (showErrors.year && !formData.DOB.year.trim())) &&
+          formType !== 'donate'
             ? 'transition'
             : ''
         }`}

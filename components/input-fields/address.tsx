@@ -42,21 +42,21 @@ export default function Address<T extends AddressFields>({
   };
 
   return (
-    <div className="input-sub-container">
-      {formData.orgDonate &&
-      (formType === 'donate' || formType === 'partner') ? (
-        <p className="custom-text">
-          Organization Address <span className="required">*</span>
-        </p>
-      ) : (
-        <p className="custom-text">
-          Address <span className="required">*</span>
-        </p>
-      )}
-      <div className="form-sub-container">
-        <div className="input-container">
-          <div className="flex flex-col w-full gap-[8px]">
-            <div className="flex flex-col">
+    <div className="flex flex-col">
+      <div className="input-sub-container">
+        {formData.orgDonate &&
+        (formType === 'donate' || formType === 'partner') ? (
+          <p className="custom-text">
+            Organization Address <span className="required">*</span>
+          </p>
+        ) : (
+          <p className="custom-text">
+            Address <span className="required">*</span>
+          </p>
+        )}
+        <div className="form-sub-container">
+          <div className="input-container">
+            <div className="flex flex-col w-full gap-[8px]">
               <input
                 type="address1"
                 value={formData.address.address1}
@@ -77,35 +77,24 @@ export default function Address<T extends AddressFields>({
                     : ''
                 }`}
               />
-              <div
-                className={`error-text-container ${
-                  showErrors.address1 && !formData.address.address1.trim()
-                    ? 'transition'
-                    : ''
-                }`}
-              >
-                <p className="error-text">Street Address is required</p>
-              </div>
+
+              <input
+                type="address2"
+                value={formData.address.address2}
+                onChange={e => {
+                  setFormData(prev => ({
+                    ...prev,
+                    address: { ...prev.address, address2: e.target.value },
+                  }));
+                }}
+                placeholder="Address 2 (apt, suite, etc)"
+                className="input-field"
+              />
             </div>
-
-            <input
-              type="address2"
-              value={formData.address.address2}
-              onChange={e => {
-                setFormData(prev => ({
-                  ...prev,
-                  address: { ...prev.address, address2: e.target.value },
-                }));
-              }}
-              placeholder="Address 2 (apt, suite, etc)"
-              className="input-field"
-            />
           </div>
-        </div>
 
-        <div className="input-container">
-          <div className="flex flex-col w-full">
-            <div className="relative">
+          <div className="input-container">
+            <div className="relative w-full">
               <select
                 className={`input-field ${
                   showErrors.country && !formData.address.country.trim()
@@ -129,19 +118,8 @@ export default function Address<T extends AddressFields>({
               </select>
               <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
             </div>
-            <div
-              className={`error-text-container ${
-                showErrors.country && !formData.address.country.trim()
-                  ? 'transition'
-                  : ''
-              }`}
-            >
-              <p className="error-text">Country is required</p>
-            </div>
-          </div>
-          {formData.address.country === 'US' ? (
-            <div className="flex flex-col w-full">
-              <div className="relative">
+            {formData.address.country === 'US' ? (
+              <div className="relative w-full">
                 <select
                   className={`input-field !pr-8 ${
                     showErrors.state && !formData.address.state.trim()
@@ -171,19 +149,8 @@ export default function Address<T extends AddressFields>({
                 </select>
                 <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
               </div>
-              <div
-                className={`error-text-container ${
-                  showErrors.state && !formData.address.state.trim()
-                    ? 'transition'
-                    : ''
-                }`}
-              >
-                <p className="error-text">State is required</p>
-              </div>
-            </div>
-          ) : (
-            <div className="flex flex-col w-full">
-              <div className="relative">
+            ) : (
+              <div className="relative w-full">
                 <input
                   type="text"
                   value={formData.address.state}
@@ -205,21 +172,10 @@ export default function Address<T extends AddressFields>({
                   }`}
                 />
               </div>
-              <div
-                className={`error-text-container ${
-                  showErrors.state && !formData.address.state.trim()
-                    ? 'transition'
-                    : ''
-                }`}
-              >
-                <p className="error-text">State is required</p>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
 
-        <div className="input-container">
-          <div className="flex flex-col">
+          <div className="input-container">
             <input
               type="text"
               value={formData.address.postalCode}
@@ -240,17 +196,6 @@ export default function Address<T extends AddressFields>({
                   : ''
               }`}
             />
-            <div
-              className={`error-text-container ${
-                showErrors.postalCode && !formData.address.postalCode.trim()
-                  ? 'transition'
-                  : ''
-              }`}
-            >
-              <p className="error-text">Zip/Postal Code is required</p>
-            </div>
-          </div>
-          <div className="flex flex-col">
             <input
               type="text"
               value={formData.address.city}
@@ -271,17 +216,21 @@ export default function Address<T extends AddressFields>({
                   : ''
               }`}
             />
-            <div
-              className={`error-text-container ${
-                showErrors.city && !formData.address.city.trim()
-                  ? 'transition'
-                  : ''
-              }`}
-            >
-              <p className="error-text">City is required</p>
-            </div>
           </div>
         </div>
+      </div>
+      <div
+        className={`error-text-container ${
+          (showErrors.address1 && !formData.address.address1.trim()) ||
+          (showErrors.country && !formData.address.country.trim()) ||
+          (showErrors.state && !formData.address.state.trim()) ||
+          (showErrors.postalCode && !formData.address.postalCode.trim()) ||
+          (showErrors.city && !formData.address.city.trim())
+            ? 'transition'
+            : ''
+        }`}
+      >
+        <p className="error-text">Address is incomplete</p>
       </div>
     </div>
   );

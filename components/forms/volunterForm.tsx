@@ -9,6 +9,9 @@ import Phone from '../input-fields/phone';
 import Email from '../input-fields/email';
 import Address from '../input-fields/address';
 import DOB from '../input-fields/DOB';
+import Unchecked from '../../app/icons/checked=no.svg';
+import Checked from '../../app/icons/checked=yes.svg';
+import YesNo from '../input-fields/yes-no';
 
 export default function VolunteerForm() {
   const [formData, setFormData] = useState<VolunteerFormData>({
@@ -41,7 +44,7 @@ export default function VolunteerForm() {
   });
 
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
-
+  const title = 'Do you need volunteer hours?';
   return (
     <form
       className="form-box"
@@ -93,6 +96,116 @@ export default function VolunteerForm() {
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
+            formType="volunteer"
+          />
+          {/* area of interest checkboxes */}
+          <div className="input-sub-container">
+            <p className="custom-text">
+              Area of Interest <span className="required">*</span>
+            </p>
+            <div className="flex flex-col">
+              <div className="input-container">
+                <label
+                  className="checkbox-container !pr-0"
+                  htmlFor="program-coordination-checkbox"
+                >
+                  <input
+                    type="checkbox"
+                    id="program-coordination-checkbox"
+                    className="checkbox"
+                    checked={formData.AoI.programCoord === 'yes'}
+                    onChange={() => {
+                      setShowErrors(prev => ({
+                        ...prev,
+                        AoI: false,
+                      }));
+                      setFormData(prev => ({
+                        ...prev,
+                        AoI: {
+                          ...prev.AoI,
+                          programCoord:
+                            formData.AoI.programCoord === 'yes' ? '' : 'yes',
+                        },
+                      }));
+                    }}
+                  />
+                  {!formData.AoI.programCoord ? <Unchecked /> : <Checked />}
+                  <span className="custom-text-4 p-neutral">
+                    Program Coordination
+                  </span>
+                </label>
+                <label
+                  className="checkbox-container !pr-0"
+                  htmlFor="expert-workshop-checkbox"
+                >
+                  <input
+                    type="checkbox"
+                    id="expert-workshop-checkbox"
+                    className="checkbox"
+                    checked={formData.AoI.expertWorkshop === 'yes'}
+                    onChange={() => {
+                      setShowErrors(prev => ({
+                        ...prev,
+                        AoI: false,
+                      }));
+                      setFormData(prev => ({
+                        ...prev,
+                        AoI: {
+                          ...prev.AoI,
+                          expertWorkshop:
+                            formData.AoI.expertWorkshop === 'yes' ? '' : 'yes',
+                        },
+                      }));
+                    }}
+                  />
+                  {!formData.AoI.expertWorkshop ? <Unchecked /> : <Checked />}
+                  <span className="custom-text-4 p-neutral">
+                    Program Coordination
+                  </span>
+                </label>
+                <label
+                  className="checkbox-container !pr-0"
+                  htmlFor="mentor-checkbox"
+                >
+                  <input
+                    type="checkbox"
+                    id="mentor-checkbox"
+                    className="checkbox"
+                    checked={formData.AoI.mentor === 'yes'}
+                    onChange={() => {
+                      setShowErrors(prev => ({
+                        ...prev,
+                        AoI: false,
+                      }));
+                      setFormData(prev => ({
+                        ...prev,
+                        AoI: {
+                          ...prev.AoI,
+                          mentor: formData.AoI.mentor === 'yes' ? '' : 'yes',
+                        },
+                      }));
+                    }}
+                  />
+                  {!formData.AoI.mentor ? <Unchecked /> : <Checked />}
+                  <span className="custom-text-4 p-neutral">Mentor</span>
+                </label>
+              </div>
+              <div
+                className={`error-text-container mt-[-6px] ${
+                  showErrors.AoI ? 'transition' : ''
+                }`}
+              >
+                <p className="error-text">Please select an area of interest</p>
+              </div>
+            </div>
+          </div>
+
+          <YesNo
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+            title={title}
             formType="volunteer"
           />
         </div>

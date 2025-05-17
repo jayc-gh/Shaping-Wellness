@@ -144,9 +144,8 @@
 
   .input-field.show-invalid {
     color: var(--danger-color);
-    border-color: var(--danger-color);
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02),
-      0 0 0 1px var(--danger-color);
+    border-color: var(--danger-color-border);
+    box-shadow: 0px 0px 6px 0px var(--danger-color-shadow);
   }
 
   .input-field.show-invalid:focus {
@@ -179,8 +178,9 @@
     color: var(--danger-color);
     align-self: flex-start;
     justify-self: center;
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 0.25rem;
+    font-weight: 400;
   }
 
   .error-text-container {
