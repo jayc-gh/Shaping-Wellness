@@ -1,28 +1,35 @@
-import { DonateFormData, ErrorMap } from '@/declarations';
+import { ErrorMap } from '@/declarations';
 import { validateEmailFormat } from '@/lib/functions';
 
-interface StepProps {
-  formData: DonateFormData;
-  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
+type EmailFields = {
+  orgDonate?: boolean;
+  email: string;
+};
+
+interface StepProps<T extends EmailFields> {
+  formData: T;
+  setFormData: React.Dispatch<React.SetStateAction<T>>;
+  formType: string;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
 }
 
-export default function Email({
+export default function Email<T extends EmailFields>({
   formData,
   setFormData,
   showErrors,
   setShowErrors,
-}: StepProps) {
+  formType,
+}: StepProps<T>) {
   return (
     <div className="input-container">
       <label className="input-sub-container">
-        {formData.orgDonate ? (
-          <p>
+        {formData.orgDonate && formType === 'donate' ? (
+          <p className="custom-text">
             Contact Email <span className="required">*</span>
           </p>
         ) : (
-          <p>
+          <p className="custom-text">
             Email <span className="required">*</span>
           </p>
         )}
@@ -46,6 +53,11 @@ export default function Email({
                 : ''
             }`}
           />
+          {!showErrors.email && formType !== 'donate' ? (
+            <p className="p6 s-neutral !font-[400] self-start justify-center pt-[4px]">
+              We will use this email to contact you.
+            </p>
+          ) : null}
           <div
             className={`error-text-container ${
               showErrors.email && !validateEmailFormat(formData.email)

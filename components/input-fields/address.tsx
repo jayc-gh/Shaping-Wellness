@@ -1,23 +1,30 @@
 'use client';
 
 import React, { useState } from 'react';
-import { DonateFormData, ErrorMap } from '@/declarations';
+import type { ErrorMap, Address } from '@/declarations';
 import { Country, State, IState } from 'country-state-city';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
 
-interface StepProps {
-  formData: DonateFormData;
-  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
+type AddressFields = {
+  orgDonate?: boolean;
+  address: Address;
+};
+
+interface StepProps<T extends AddressFields> {
+  formData: T;
+  setFormData: React.Dispatch<React.SetStateAction<T>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
+  formType: string;
 }
 
-export default function Address({
+export default function Address<T extends AddressFields>({
   formData,
   setFormData,
   showErrors,
   setShowErrors,
-}: StepProps) {
+  formType,
+}: StepProps<T>) {
   const [states, setStates] = useState<IState[]>(
     State.getStatesOfCountry(formData.address.country)
   );
@@ -26,24 +33,28 @@ export default function Address({
     setStates(State.getStatesOfCountry(country));
     setFormData(prev => ({
       ...prev,
-      country: country,
-      state: '',
+      address: {
+        ...prev.address,
+        country: country,
+        state: '',
+      },
     }));
   };
 
   return (
-    <div className="form-sub-container">
-      <div className="input-container">
-        <label className="input-sub-container">
-          {formData.orgDonate ? (
-            <p className="custom-text">
-              Organization Address <span className="required">*</span>
-            </p>
-          ) : (
-            <p className="custom-text">
-              Address <span className="required">*</span>
-            </p>
-          )}
+    <div className="input-sub-container">
+      {formData.orgDonate &&
+      (formType === 'donate' || formType === 'partner') ? (
+        <p className="custom-text">
+          Organization Address <span className="required">*</span>
+        </p>
+      ) : (
+        <p className="custom-text">
+          Address <span className="required">*</span>
+        </p>
+      )}
+      <div className="form-sub-container">
+        <div className="input-container">
           <div className="flex flex-col w-full gap-[8px]">
             <div className="flex flex-col">
               <input
@@ -52,7 +63,7 @@ export default function Address({
                 onChange={e => {
                   setFormData(prev => ({
                     ...prev,
-                    address1: e.target.value,
+                    address: { ...prev.address, address1: e.target.value },
                   }));
                   setShowErrors(prev => ({
                     ...prev,
@@ -83,20 +94,18 @@ export default function Address({
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
-                  address2: e.target.value,
+                  address: { ...prev.address, address2: e.target.value },
                 }));
               }}
               placeholder="Address 2 (apt, suite, etc)"
               className="input-field"
             />
           </div>
-        </label>
-      </div>
+        </div>
 
-      <div className="input-container">
-        <label className="input-sub-container">
-          <div className="flex flex-col">
-            <div className="relative w-full">
+        <div className="input-container">
+          <div className="flex flex-col w-full">
+            <div className="relative">
               <select
                 className={`input-field ${
                   showErrors.country && !formData.address.country.trim()
@@ -130,11 +139,9 @@ export default function Address({
               <p className="error-text">Country is required</p>
             </div>
           </div>
-        </label>
-        {formData.address.country === 'US' ? (
-          <label className="input-sub-container">
-            <div className="flex flex-col">
-              <div className="relative w-full">
+          {formData.address.country === 'US' ? (
+            <div className="flex flex-col w-full">
+              <div className="relative">
                 <select
                   className={`input-field !pr-8 ${
                     showErrors.state && !formData.address.state.trim()
@@ -145,7 +152,7 @@ export default function Address({
                   onChange={e => {
                     setFormData(prev => ({
                       ...prev,
-                      state: e.target.value,
+                      address: { ...prev.address, state: e.target.value },
                     }));
                     setShowErrors(prev => ({
                       ...prev,
@@ -174,44 +181,44 @@ export default function Address({
                 <p className="error-text">State is required</p>
               </div>
             </div>
-          </label>
-        ) : (
-          <label className="input-sub-container">
-            <input
-              type="text"
-              value={formData.address.state}
-              onChange={e => {
-                setFormData(prev => ({
-                  ...prev,
-                  state: e.target.value,
-                }));
-                setShowErrors(prev => ({
-                  ...prev,
-                  state: false,
-                }));
-              }}
-              placeholder="State/Province/Region"
-              className={`input-field ${
-                showErrors.state && !formData.address.state.trim()
-                  ? 'show-invalid'
-                  : ''
-              }`}
-            />
-            <div
-              className={`error-text-container ${
-                showErrors.state && !formData.address.state.trim()
-                  ? 'transition'
-                  : ''
-              }`}
-            >
-              <p className="error-text">State is required</p>
+          ) : (
+            <div className="flex flex-col w-full">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={formData.address.state}
+                  onChange={e => {
+                    setFormData(prev => ({
+                      ...prev,
+                      address: { ...prev.address, state: e.target.value },
+                    }));
+                    setShowErrors(prev => ({
+                      ...prev,
+                      state: false,
+                    }));
+                  }}
+                  placeholder="State/Province/Region"
+                  className={`input-field ${
+                    showErrors.state && !formData.address.state.trim()
+                      ? 'show-invalid'
+                      : ''
+                  }`}
+                />
+              </div>
+              <div
+                className={`error-text-container ${
+                  showErrors.state && !formData.address.state.trim()
+                    ? 'transition'
+                    : ''
+                }`}
+              >
+                <p className="error-text">State is required</p>
+              </div>
             </div>
-          </label>
-        )}
-      </div>
+          )}
+        </div>
 
-      <div className="input-container">
-        <label className="input-sub-container">
+        <div className="input-container">
           <div className="flex flex-col">
             <input
               type="text"
@@ -219,7 +226,7 @@ export default function Address({
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
-                  postalCode: e.target.value,
+                  address: { ...prev.address, postalCode: e.target.value },
                 }));
                 setShowErrors(prev => ({
                   ...prev,
@@ -243,8 +250,6 @@ export default function Address({
               <p className="error-text">Zip/Postal Code is required</p>
             </div>
           </div>
-        </label>
-        <label className="input-sub-container">
           <div className="flex flex-col">
             <input
               type="text"
@@ -252,7 +257,7 @@ export default function Address({
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
-                  city: e.target.value,
+                  address: { ...prev.address, city: e.target.value },
                 }));
                 setShowErrors(prev => ({
                   ...prev,
@@ -276,7 +281,7 @@ export default function Address({
               <p className="error-text">City is required</p>
             </div>
           </div>
-        </label>
+        </div>
       </div>
     </div>
   );

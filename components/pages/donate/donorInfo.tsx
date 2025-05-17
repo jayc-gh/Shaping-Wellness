@@ -46,6 +46,7 @@ export default function DonorInfo({
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
+            formType="donate"
           />
         )}
 
@@ -125,6 +126,7 @@ export default function DonorInfo({
           setFormData={setFormData}
           showErrors={showErrors}
           setShowErrors={setShowErrors}
+          formType="donate"
         />
 
         {/* contact first/last name if donate as an org is checked */}
@@ -134,6 +136,7 @@ export default function DonorInfo({
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
+            formType="donate"
           />
         )}
 
@@ -143,10 +146,17 @@ export default function DonorInfo({
           setFormData={setFormData}
           showErrors={showErrors}
           setShowErrors={setShowErrors}
+          formType="donate"
         />
 
         {/* phone number */}
-        <Phone formData={formData} setFormData={setFormData} />
+        <Phone
+          formData={formData}
+          setFormData={setFormData}
+          showErrors={showErrors}
+          setShowErrors={setShowErrors}
+          formType={'donate'}
+        />
       </div>
     </div>
   );

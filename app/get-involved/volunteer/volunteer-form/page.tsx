@@ -1,62 +1,36 @@
 'use client';
+import VolunteerForm from '@/components/forms/volunterForm';
 
-import React, { useState } from 'react';
-import Spinner from '../../../../components/spinner';
-import Unchecked from '../../../app/icons/checked=no.svg';
-import Checked from '../../../app/icons/checked=yes.svg';
-import { handleSubmit } from '@/lib/functions';
-import { DonateFormData, ErrorMap } from '@/declarations';
-import LoadingDots from '../../../../components/loadingDots';
-
-export default function VolunteerForm() {
-  const [formData, setFormData] = useState<DonateFormData>({
-    amount: '75',
-    monthly: false,
-    firstName: '',
-    lastName: '',
-    email: '',
-    address1: '',
-    address2: '',
-    country: 'US',
-    state: '',
-    city: '',
-    postalCode: '',
-    phone: '',
-    anonymous: false,
-    orgDonate: false,
-    orgName: '',
-  });
-
-  const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [showErrors, setShowErrors] = useState<ErrorMap>({
-    email: false,
-    orgName: false,
-    address1: false,
-    state: false,
-    country: false,
-    postalCode: false,
-    city: false,
-    firstName: false,
-    lastName: false,
-  });
-
+export default function VolunteerFormPage() {
   return (
-    <main className="background">
+    <main
+      className="background"
+      style={
+        {
+          '--bg-image': 'url("/images/DonationForm.webp")',
+        } as React.CSSProperties
+      }
+    >
       <div className="main-container">
         <div className="content-container">
           <div className="summary-container">
             <div className="flag">
-              <h4>DONATE</h4>
+              <h4>VOLUNTEER</h4>
             </div>
-            <h3 className="text-white">Every dollar makes a difference</h3>
-            <p className="p3 !text-white">
-              Millions of young girls lack access to resources that support
-              their health and well-being. Your support helps provide fitness
-              programs, educational workshops, and safe spaces where they can
-              thrive.
+            <h3 className="background-color">
+              Building futures through service
+            </h3>
+            <p className="p4 background-color">
+              Thank you for your interest in volunteering with Shaping Wellness
+              Foundation! <br /> <br />
+              Your time and talents can make a meaningful impact in the lives of
+              girls who need it most. Whether you&apos;re leading a workshop,
+              mentoring a student, or helping run a program, your support helps
+              build confidence, foster lifelong healthy habits, and create
+              lasting change in our community.
             </p>
           </div>
+          <VolunteerForm />
         </div>
       </div>
     </main>

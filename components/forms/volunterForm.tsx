@@ -1,8 +1,14 @@
 'use client';
 
-import { VolunteerFormData } from '@/declarations';
+import { ErrorMap, VolunteerFormData } from '@/declarations';
+import { handleSubmitBasic } from '@/lib/functions';
 import '../forms/forms.css';
 import { useState } from 'react';
+import Name from '../input-fields/name';
+import Phone from '../input-fields/phone';
+import Email from '../input-fields/email';
+import Address from '../input-fields/address';
+import DOB from '../input-fields/DOB';
 
 export default function VolunteerForm() {
   const [formData, setFormData] = useState<VolunteerFormData>({
@@ -12,7 +18,7 @@ export default function VolunteerForm() {
     address: {
       address1: '',
       address2: '',
-      country: '',
+      country: 'US',
       state: '',
       city: '',
       postalCode: '',
@@ -23,117 +29,79 @@ export default function VolunteerForm() {
     },
     DOB: {
       month: '',
-      date: '',
+      day: '',
       year: '',
     },
     AoI: {
-      programCoord: false,
-      expertWorkshop: false,
-      mentor: false,
+      programCoord: '',
+      expertWorkshop: '',
+      mentor: '',
     },
-    volunteerHours: false,
+    volunteerHours: '',
   });
 
-  const handleSubmit = () => {};
+  const [showErrors, setShowErrors] = useState<ErrorMap>({});
 
-  <form className="form-box">
-    <div className="form-container">
-      <h4>CONTACT FORM</h4>
-      <p className="p4">
-        Have a question or need more information? Fill out the form, and our
-        team will get back to you as soon as possible.
-      </p>
-      <div className="form-sub-container">
-        <div className="input-container">
-          <label className="input-sub-container">
-            <p className="custom-text">
-              First name <span className="required">*</span>
-            </p>
-            <input
-              value={firstName}
-              className="input-field"
-              onChange={e => {
-                setFirstName(e.target.value);
-              }}
-            />
-          </label>
-          <label className="input-sub-container">
-            <p className="custom-text">
-              Last name <span className="required">*</span>
-            </p>
-            <input
-              value={lastName}
-              className="input-field"
-              onChange={e => {
-                setLastName(e.target.value);
-              }}
-            />
-          </label>
+  return (
+    <form
+      className="form-box"
+      onSubmit={e => handleSubmitBasic(e, formData, 'volunteer', setShowErrors)}
+    >
+      <div className="form-container">
+        <div className="form-desc-wrapper">
+          <h4>VOLUNTEER APPLICATION</h4>
+          <p className="p4 primary-2">
+            Please complete the form below to tell us more about yourself and
+            how you&apos;d like to get involved.
+          </p>
         </div>
-        <div className="input-container">
-          <label className="input-sub-container">
-            <p className="custom-text">
-              Email <span className="required">*</span>
-            </p>
-            <div className="flex flex-col w-full">
-              <input
-                value={email}
-                className={`input-field ${
-                  emailError && !validateEmailFormat(email) && email
-                    ? 'show-invalid'
-                    : ''
-                }`}
-                onChange={e => {
-                  setEmail(e.target.value);
-                  setEmailError(false);
-                }}
-                onBlur={() => {
-                  if (email) setEmailError(!validateEmailFormat(email));
-                }}
-              />
-              <div
-                className={`error-text-container ${
-                  emailError && !validateEmailFormat(email) ? 'transition' : ''
-                }`}
-              >
-                {email ? (
-                  <p className="error-text">
-                    Please enter in the format: email@domain.com
-                  </p>
-                ) : null}
-              </div>
-            </div>
-          </label>
+        <div className="form-sub-container">
+          <Name
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+            formType="volunteer"
+          />
+
+          <Phone
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+            formType="volunteer"
+          />
+
+          <Email
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+            formType="volunteer"
+          />
+
+          <DOB
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+            formType="volunteer"
+          />
+
+          <Address
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+            formType="volunteer"
+          />
         </div>
-        <div className="input-container">
-          <label className="input-sub-container">
-            <p className="custom-text">
-              How can we help? <span className="required">*</span>
-            </p>
-            <textarea
-              value={message}
-              className="input-field !h-[76px] resize-none !whitespace-pre-wrap !overflow-y-auto"
-              rows={3}
-              onChange={e => {
-                setMessage(e.target.value);
-              }}
-            />
-          </label>
+        <div className="continue-container">
+          <button className="continue-btn" type="submit">
+            <span className="btn">Submit</span>
+          </button>
         </div>
       </div>
-      <button
-        className="continue-btn"
-        type="submit"
-        disabled={
-          !firstName ||
-          !lastName ||
-          !email ||
-          !message ||
-          !validateEmailFormat(email)
-        }
-      >
-        <span className="btn">Send message</span>
-      </button>
-    </div>
-  </form>;
+    </form>
+  );
 }

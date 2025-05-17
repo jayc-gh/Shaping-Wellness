@@ -1,4 +1,13 @@
-import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
+import {
+  DonateFormData,
+  ErrorMap,
+  StripeCtx,
+  FormTypes,
+  FormDataMap,
+  VolunteerFormData,
+  PartnerFormData,
+  ContactFormData,
+} from '@/declarations';
 import { supabaseClient } from '@/lib/supabaseClient';
 import crypto from 'crypto';
 import React, { useEffect } from 'react';
@@ -23,47 +32,6 @@ export const validateEmailFormat = (email: string) => {
   return regex.test(email);
 };
 
-// export function validateForm(formData: DonateFormData) {
-//   const errors: ErrorMap = {};
-
-//   if (!validateEmailFormat(formData.email)) {
-//     errors.email = true;
-//   }
-
-//   if (formData.orgDonate && formData.orgName.trim() === '') {
-//     errors.orgName = true;
-//   }
-
-//   if (formData.address.address1.trim() === '') {
-//     errors.address1 = true;
-//   }
-
-//   if (formData.address.state.trim() === '') {
-//     errors.state = true;
-//   }
-
-//   if (formData.address.country.trim() === '') {
-//     errors.country = true;
-//   }
-
-//   if (formData.address.postalCode.trim() === '') {
-//     errors.postalCode = true;
-//   }
-
-//   if (formData.address.city.trim() === '') {
-//     errors.city = true;
-//   }
-
-//   if (formData.firstName.trim() === '') {
-//     errors.firstName = true;
-//   }
-
-//   if (formData.lastName.trim() === '') {
-//     errors.lastName = true;
-//   }
-
-//   return errors;
-// }
 export function validateForm<T>(formData: T, config: ValidatorConfig<T>) {
   const errors: ErrorMap = {};
 
@@ -73,6 +41,7 @@ export function validateForm<T>(formData: T, config: ValidatorConfig<T>) {
       if (typeof value === 'string' && value.trim() === '') {
         const fieldKey = key.toString().split('.').pop();
         errors[fieldKey as keyof ErrorMap] = true;
+      } else if (typeof value === 'boolean' && value === false) {
       }
     }
   }
@@ -95,7 +64,108 @@ function getNestedValue<T>(obj: T, path: string): unknown {
   }, obj);
 }
 
-export function handleSubmitBasic() {}
+export function handleSubmitBasic<T extends FormTypes>(
+  e: React.FormEvent<HTMLFormElement>,
+  formData: FormDataMap[T],
+  formType: T,
+  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
+) {
+  e.preventDefault();
+  if (formType === 'volunteer') {
+    const errors = validateForm(formData as VolunteerFormData, {
+      requiredFields: [
+        'firstName',
+        'lastName',
+        'address.address1',
+        'address.city',
+        'address.state',
+        'address.country',
+        'address.postalCode',
+        'phone.number',
+        'phone.type',
+        'DOB.month',
+        'DOB.day',
+        'DOB.year',
+        'AoI',
+        'volunteerHours',
+      ],
+      customValidations: [
+        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
+        data =>
+          data.AoI.programCoord.trim() === '' &&
+          data.AoI.expertWorkshop.trim() === '' &&
+          data.AoI.mentor.trim() === ''
+            ? { AoI: true }
+            : {},
+      ],
+    });
+
+    // Update state with all the errors
+    setShowErrors(prev => ({
+      ...prev,
+      ...errors,
+    }));
+
+    // If there are any errors, prevent submission
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+  } else if (formType === 'partner') {
+    const errors = validateForm(formData as PartnerFormData, {
+      requiredFields: [
+        'orgName',
+        'school',
+        'firstName',
+        'lastName',
+        'address.address1',
+        'address.city',
+        'address.state',
+        'address.country',
+        'address.postalCode',
+        'phone.number',
+        'phone.type',
+        'DOB.month',
+        'DOB.day',
+        'DOB.year',
+        'details',
+      ],
+      customValidations: [
+        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
+      ],
+    });
+
+    // Update state with all the errors
+    setShowErrors(prev => ({
+      ...prev,
+      ...errors,
+    }));
+
+    // If there are any errors, prevent submission
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+  } else if (formType === 'contact') {
+    const errors = validateForm(formData as ContactFormData, {
+      requiredFields: ['firstName', 'lastName', 'details'],
+      customValidations: [
+        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
+      ],
+    });
+
+    // Update state with all the errors
+    setShowErrors(prev => ({
+      ...prev,
+      ...errors,
+    }));
+
+    // If there are any errors, prevent submission
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+  }
+  // No errors - clear previous errors
+  setShowErrors({});
+}
 
 export async function handleSubmit({
   e,

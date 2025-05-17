@@ -40,7 +40,10 @@ export default function DonateForm() {
       city: '',
       postalCode: '',
     },
-    phone: '',
+    phone: {
+      number: '',
+      type: '',
+    },
     anonymous: false,
     orgDonate: false,
     orgName: '',
@@ -49,17 +52,7 @@ export default function DonateForm() {
   const [coverFee, setCoverFee] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [showErrors, setShowErrors] = useState<ErrorMap>({
-    email: false,
-    orgName: false,
-    address1: false,
-    state: false,
-    country: false,
-    postalCode: false,
-    city: false,
-    firstName: false,
-    lastName: false,
-  });
+  const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
     stripe: null,
     elements: null,
@@ -70,6 +63,7 @@ export default function DonateForm() {
   const prevStep = () => {
     setStep(prev => prev - 1);
     setErrorMessage('');
+    setShowErrors({});
   };
   const multiplier: number = 1.03;
 
@@ -84,7 +78,14 @@ export default function DonateForm() {
   };
 
   return (
-    <main className="background">
+    <main
+      className="background"
+      style={
+        {
+          '--bg-image': 'url("/images/DonationForm.webp")',
+        } as React.CSSProperties
+      }
+    >
       <div className="main-container">
         <div className="content-container">
           <div className="summary-container">
@@ -100,7 +101,7 @@ export default function DonateForm() {
             </p>
           </div>
           <form
-            className="form-box"
+            className="donate-form-box"
             onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
           >
             <PaymentIntentHandler

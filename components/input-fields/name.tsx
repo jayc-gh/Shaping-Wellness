@@ -1,23 +1,33 @@
-import { DonateFormData, ErrorMap } from '@/declarations';
+import { ErrorMap } from '@/declarations';
 
-interface StepProps {
-  formData: DonateFormData;
-  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
+type NameFields = {
+  firstName: string;
+  lastName: string;
+  orgDonate?: boolean;
+};
+
+interface StepProps<T extends NameFields> {
+  formData: T;
+  setFormData: React.Dispatch<React.SetStateAction<T>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
+  formType: string;
 }
 
-export default function Name({
+export default function Name<T extends NameFields>({
   formData,
   setFormData,
   showErrors,
   setShowErrors,
-}: StepProps) {
+  formType,
+}: StepProps<T>) {
   return (
     <div className="input-container">
       <label className="input-sub-container">
         <p className="custom-text">
-          {!formData.orgDonate ? 'First Name' : 'Contact First Name'}
+          {formType === 'donate' && formData.orgDonate
+            ? 'Contact First Name'
+            : 'First Name'}
           <span className="required">*</span>
         </p>
         <div className="flex flex-col">
@@ -54,7 +64,9 @@ export default function Name({
 
       <label className="input-sub-container">
         <p className="custom-text">
-          {!formData.orgDonate ? 'Last Name' : 'Contact Last Name'}
+          {formType === 'donate' && formData.orgDonate
+            ? 'Contact Last Name'
+            : 'Last Name'}
           <span className="required">*</span>
         </p>
         <div className="flex flex-col">
