@@ -87,7 +87,7 @@ export default function Volunteer() {
               <h4 className="p-neutral">HEALTH AND WELLNESS EDUCATION</h4>
               <h3 className="sec-coral">Workshop leaders</h3>
             </div>
-            <p className="p3">
+            <div className="p3">
               Lead interactive, age-appropriate workshops on essential topics
               like:
               <br />
@@ -103,7 +103,7 @@ export default function Volunteer() {
               <br />
               <br />
               Time Commitment: 3-4 hours/month | Sept - Nov 2025
-            </p>
+            </div>
           </div>
           <div
             className="two-col-section-img !h-[350px]"
@@ -128,7 +128,7 @@ export default function Volunteer() {
               <h4 className="p-neutral">1:1 OR SMALL GROUP SUPPORT</h4>
               <h3 className="sec-coral">Mentors</h3>
             </div>
-            <p className="p3">
+            <div className="p3">
               Provide consistent, one-on-one or small group support for girls,
               offering encouragement, listening, and life guidance in their
               health and wellness journey.
@@ -142,7 +142,7 @@ export default function Volunteer() {
               <br />
               Time Commitment: 1 hour/week | 8-10 weeks | Flexible based on
               schedule
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default function Volunteer() {
             </h3>
           </div>
           <div className="two-col-section-text-container">
-            <p className="p3">
+            <div className="p3">
               By volunteering, you&apos;re directly contributing to a healthier,
               more equitable future, helping girls in underserved communities
               gain access to wellness tools, trusted role models, and
@@ -175,7 +175,7 @@ export default function Volunteer() {
               Whether you&apos;re passionate about wellness, mentorship,
               education, or giving back - your time and talents will have a
               lasting impact.
-            </p>
+            </div>
           </div>
         </div>
       </div>

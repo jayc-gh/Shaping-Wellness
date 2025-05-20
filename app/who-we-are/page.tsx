@@ -80,7 +80,7 @@ export default function WhoWeAre() {
             </p>
             <br />
             <br />
-            <p className="p3">
+            <div className="p3">
               Our vision is grounded in long-term impact:
               <br />
               <ul className="list-disc pl-6">
@@ -95,7 +95,7 @@ export default function WhoWeAre() {
                   to uplift others
                 </li>
               </ul>
-            </p>
+            </div>
 
             <br />
             <p className="p3">

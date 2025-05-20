@@ -188,6 +188,7 @@
     opacity: 0;
     transition: max-height 0.3s ease, opacity 0.3s ease;
     overflow: hidden;
+    align-self: flex-start;
   }
 
   .error-text-container.transition {

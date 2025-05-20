@@ -30,7 +30,7 @@ export default function Name<T extends NameFields>({
             : 'First Name'}
           <span className="required">*</span>
         </p>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <input
             type="text"
             value={formData.firstName}
@@ -69,7 +69,7 @@ export default function Name<T extends NameFields>({
             : 'Last Name'}
           <span className="required">*</span>
         </p>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <input
             type="text"
             value={formData.lastName}

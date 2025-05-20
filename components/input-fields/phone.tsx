@@ -1,5 +1,6 @@
 import { formatPhoneNumber } from '@/lib/functions';
 import type { ErrorMap, Phone } from '@/declarations';
+import Dropdown from '../input-fields/dropDown';
 
 type PhoneFields = {
   orgDonate?: boolean;
@@ -21,6 +22,11 @@ export default function Phone<T extends PhoneFields>({
   showErrors,
   setShowErrors,
 }: StepProps<T>) {
+  const phoneType = [
+    { id: '1', name: 'Mobile' },
+    { id: '2', name: 'Home' },
+  ];
+
   return (
     <div className="input-container">
       <label className="input-sub-container">
@@ -34,7 +40,7 @@ export default function Phone<T extends PhoneFields>({
             )}
           </p>
         }
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <input
             type="tel"
             value={formData.phone.number}
@@ -82,28 +88,19 @@ export default function Phone<T extends PhoneFields>({
             )}
           </p>
         }
-        <div className="flex flex-col">
-          <input
-            type="tel"
-            value={formData.phone.type}
-            onChange={e => {
+        <div className="flex flex-col w-full">
+          <Dropdown
+            id="type"
+            title="Select Phone Type"
+            data={phoneType}
+            onSelect={item =>
               setFormData(prev => ({
                 ...prev,
-                phone: { ...prev.phone, type: e.target.value },
-              }));
-              setShowErrors(prev => ({
-                ...prev,
-                type: false,
-              }));
-            }}
-            placeholder="Phone Type"
-            className={`input-field ${
-              showErrors.type &&
-              !formData.phone.type.trim() &&
-              formType !== 'donate'
-                ? 'show-invalid'
-                : ''
-            }`}
+                phone: { ...prev.phone, type: item },
+              }))
+            }
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
           />
           <div
             className={`error-text-container ${

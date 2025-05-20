@@ -194,7 +194,7 @@ export default function Programs() {
               <h4 className="p-neutral">HEALTH EDUCATION WORKSHOPS</h4>
               <h3 className="sec-coral">Supporting girls with knowledge</h3>
             </div>
-            <p className="p3">
+            <div className="p3">
               Our health education workshops are grounded in{' '}
               <span className="font-bold">
                 real-life application - teaching girls
@@ -217,7 +217,7 @@ export default function Programs() {
               <span className="font-bold">interactive, age-specific,</span> and
               co-facilitated by a mix of community health workers,
               nutritionists, and youth mentors.
-            </p>
+            </div>
             <button className="link-btn !pl-0">
               <p className="p5 bolded link-btn-text">
                 VIEW OUR 2025 WORKSHOP PROGRAM PLAN (PDF)
