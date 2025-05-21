@@ -199,15 +199,16 @@ export default function VolunteerForm() {
               </div>
             </div>
           </div>
-
-          <YesNo
-            formData={formData}
-            setFormData={setFormData}
-            showErrors={showErrors}
-            setShowErrors={setShowErrors}
-            title={title}
-            formType="volunteer"
-          />
+          <div className="py-1">
+            <YesNo
+              formData={formData}
+              setFormData={setFormData}
+              showErrors={showErrors}
+              setShowErrors={setShowErrors}
+              title={title}
+              formType="volunteer"
+            />
+          </div>
         </div>
         <div className="continue-container">
           <button className="continue-btn" type="submit">

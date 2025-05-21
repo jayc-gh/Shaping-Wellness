@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import type { ErrorMap, Address } from '@/declarations';
-import { Country, State, IState } from 'country-state-city';
-import ArrowDown from '../../app/icons/Arrow-down.svg';
+import { Country, State } from 'country-state-city';
+import Dropdown from './dropDown';
 
 type AddressFields = {
   orgDonate?: boolean;
@@ -19,6 +19,15 @@ interface StepProps<T extends AddressFields> {
 }
 
 const countries = Country.getAllCountries();
+const countriesData = countries.map(country => ({
+  id: country.isoCode,
+  name: country.name,
+}));
+const UStates = State.getStatesOfCountry('US');
+const UStatesData = UStates.map(state => ({
+  id: state.isoCode,
+  name: state.name,
+}));
 
 export default function Address<T extends AddressFields>({
   formData,
@@ -27,11 +36,7 @@ export default function Address<T extends AddressFields>({
   setShowErrors,
   formType,
 }: StepProps<T>) {
-  const [states, setStates] = useState<IState[]>(
-    State.getStatesOfCountry(formData.address.country)
-  );
   const handleCountryChange = (country: string) => {
-    setStates(State.getStatesOfCountry(country));
     setFormData(prev => ({
       ...prev,
       address: {
@@ -95,7 +100,21 @@ export default function Address<T extends AddressFields>({
           </div>
 
           <div className="input-container">
-            <div className="relative w-full">
+            <Dropdown
+              id="country"
+              title="Country"
+              data={countriesData}
+              selectedId={formData.address.country}
+              onSelect={item => {
+                handleCountryChange(item);
+                setShowErrors(prev => ({
+                  ...prev,
+                  country: false,
+                }));
+              }}
+              showErrors={showErrors}
+            />
+            {/* <div className="relative w-full">
               <select
                 className={`input-field ${
                   showErrors.country && !formData.address.country.trim()
@@ -118,39 +137,55 @@ export default function Address<T extends AddressFields>({
                 ))}
               </select>
               <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
-            </div>
+            </div> */}
             {formData.address.country === 'US' ? (
-              <div className="relative w-full">
-                <select
-                  className={`input-field !pr-8 ${
-                    showErrors.state && !formData.address.state.trim()
-                      ? 'show-invalid'
-                      : ''
-                  }`}
-                  value={formData.address.state}
-                  onChange={e => {
-                    setFormData(prev => ({
-                      ...prev,
-                      address: { ...prev.address, state: e.target.value },
-                    }));
-                    setShowErrors(prev => ({
-                      ...prev,
-                      state: false,
-                    }));
-                  }}
-                >
-                  <option value="" disabled hidden>
-                    Select a State
-                  </option>
-                  {states.map(state => (
-                    <option key={state.isoCode} value={state.isoCode}>
-                      {state.name} ({state.isoCode})
-                    </option>
-                  ))}
-                </select>
-                <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
-              </div>
+              <Dropdown
+                id="state"
+                title="State"
+                data={UStatesData}
+                onSelect={item => {
+                  setFormData(prev => ({
+                    ...prev,
+                    address: { ...prev.address, state: item },
+                  }));
+                  setShowErrors(prev => ({
+                    ...prev,
+                    state: false,
+                  }));
+                }}
+                showErrors={showErrors}
+              />
             ) : (
+              // <div className="relative w-full">
+              //     <select
+              //       className={`input-field !pr-8 ${
+              //         showErrors.state && !formData.address.state.trim()
+              //           ? 'show-invalid'
+              //           : ''
+              //       }`}
+              //       value={formData.address.state}
+              //       onChange={e => {
+              //         setFormData(prev => ({
+              //           ...prev,
+              //           address: { ...prev.address, state: e.target.value },
+              //         }));
+              //         setShowErrors(prev => ({
+              //           ...prev,
+              //           state: false,
+              //         }));
+              //       }}
+              //     >
+              //       <option value="" disabled hidden>
+              //         Select a State
+              //       </option>
+              //       {states.map(state => (
+              //         <option key={state.isoCode} value={state.isoCode}>
+              //           {state.name} ({state.isoCode})
+              //         </option>
+              //       ))}
+              //     </select>
+              //     <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+              //   </div>
               <div className="relative w-full">
                 <input
                   type="text"
