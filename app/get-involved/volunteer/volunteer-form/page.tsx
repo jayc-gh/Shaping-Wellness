@@ -1,4 +1,3 @@
-'use client';
 import VolunteerForm from '@/components/forms/volunterForm';
 
 export default function VolunteerFormPage() {

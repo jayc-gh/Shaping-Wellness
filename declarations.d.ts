@@ -70,7 +70,6 @@ export interface PartnerFormData {
   address: Address;
   firstName: string;
   lastName: string;
-  title?: string;
   phone: Phone;
   email: string;
   details: string;

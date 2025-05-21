@@ -1,18 +1,23 @@
-import { DonateFormData, ErrorMap } from '@/declarations';
+import { ErrorMap } from '@/declarations';
 
-interface StepProps {
-  formData: DonateFormData;
-  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
+type OrgNameFields = {
+  orgName: string;
+};
+
+interface StepProps<T extends OrgNameFields> {
+  formData: T;
+  setFormData: React.Dispatch<React.SetStateAction<T>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
+  formType: string;
 }
 
-export default function OrgName({
+export default function OrgName<T extends OrgNameFields>({
   formData,
   setFormData,
   showErrors,
   setShowErrors,
-}: StepProps) {
+}: StepProps<T>) {
   return (
     <div className="input-container">
       <label className="input-sub-container">

@@ -44,7 +44,8 @@ export default function VolunteerForm() {
   });
 
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
-  const title = 'Do you need volunteer hours?';
+  const yesNoQ = 'Do you need volunteer hours?';
+  const formType = 'volunteer';
   return (
     <form
       className="form-box"
@@ -64,7 +65,7 @@ export default function VolunteerForm() {
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
-            formType="volunteer"
+            formType={formType}
           />
 
           <Phone
@@ -72,7 +73,7 @@ export default function VolunteerForm() {
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
-            formType="volunteer"
+            formType={formType}
           />
 
           <Email
@@ -80,7 +81,7 @@ export default function VolunteerForm() {
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
-            formType="volunteer"
+            formType={formType}
           />
 
           <DOB
@@ -88,7 +89,7 @@ export default function VolunteerForm() {
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
-            formType="volunteer"
+            formType={formType}
           />
 
           <Address
@@ -96,7 +97,7 @@ export default function VolunteerForm() {
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
-            formType="volunteer"
+            formType={formType}
           />
           {/* area of interest checkboxes */}
           <div className="input-sub-container">
@@ -205,8 +206,8 @@ export default function VolunteerForm() {
               setFormData={setFormData}
               showErrors={showErrors}
               setShowErrors={setShowErrors}
-              title={title}
-              formType="volunteer"
+              title={yesNoQ}
+              formType={formType}
             />
           </div>
         </div>
