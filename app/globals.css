@@ -236,21 +236,21 @@ h5 {
 
   .link-btn:hover .link-btn-text,
   .links:hover,
-  .dropdown-wrapper:hover .links,
-  .dropdown-wrapper.active .links {
+  .nav-dropdown-wrapper:hover .links,
+  .nav-dropdown-wrapper.active .links {
     transform: scale(1.02);
   }
 
   .links:hover,
-  .dropdown-wrapper:hover .links,
-  .dropdown-wrapper.active .links {
+  .nav-dropdown-wrapper:hover .links,
+  .nav-dropdown-wrapper.active .links {
     color: #b1574a;
   }
 
   .link-btn:hover .link-btn-text::after,
   .links:hover::after,
-  .dropdown-wrapper:hover .links::after,
-  .dropdown-wrapper.active .links::after {
+  .nav-dropdown-wrapper:hover .links::after,
+  .nav-dropdown-wrapper.active .links::after {
     opacity: 1;
   }
 }

@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
-import { useOutsideClick } from '@/lib/functions';
+import { useOutsideClick, formatDate } from '@/lib/functions';
 import { ErrorMap } from '@/declarations';
 
 interface DropdownItem {
@@ -16,7 +16,6 @@ interface DropdownProps {
   selectedId?: string;
   onSelect?: (id: string) => void;
   showErrors: ErrorMap;
-  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
 }
 
 export default function Dropdown({
@@ -27,49 +26,89 @@ export default function Dropdown({
   selectedId,
   onSelect,
   showErrors,
-  setShowErrors,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>('');
   const [selectedItem, setSelectedItem] = useState<DropdownItem | undefined>(
     selectedId ? data?.find(item => item.id === selectedId) : undefined
   );
+  useEffect(() => {
+    if (selectedItem) setInputValue(selectedItem.name);
+  }, [selectedItem]);
 
   const handleChange = (item: DropdownItem) => {
     setSelectedItem(item);
     onSelect?.(item.id);
-    setShowErrors(prev => ({
-      ...prev,
-      [id]: false,
-    }));
     setIsOpen(false);
+  };
+
+  const filteredData = useMemo(() => {
+    const query = inputValue.toLowerCase();
+    const isExactMatch = selectedItem?.name.toLowerCase() === query;
+
+    if (isExactMatch) {
+      return data;
+    }
+
+    return data.filter(item => item.name.toLowerCase().includes(query));
+  }, [inputValue, data, selectedItem]);
+
+  const autocompleteInput = () => {
+    const matched = data.find(
+      item => item.name.toLowerCase() === inputValue.toLowerCase()
+    );
+    if (matched) {
+      handleChange(matched);
+    } else if (filteredData.length > 0 && inputValue.length > 0) {
+      handleChange(filteredData[0]);
+    } else if (inputValue.length === 0 || filteredData.length === 0) {
+      handleChange({ id: '', name: '' });
+    }
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <button
+    <div className="relative w-full" ref={dropdownRef}>
+      <input
         id={id}
-        aria-label="toggle-dropdown"
-        aria-haspopup="true"
+        aria-haspopup="listbox"
         aria-expanded={isOpen}
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className={`input-field justify-between !pr-4 ${
+        type="text"
+        role="combo"
+        value={inputValue}
+        placeholder={title}
+        onChange={e => {
+          setIsOpen(true);
+          if (id === 'day' || id === 'year') {
+            const formattedDate = formatDate(id, e.target.value);
+            setInputValue(formattedDate);
+          } else {
+            setInputValue(e.target.value);
+          }
+        }}
+        onClick={() => setIsOpen(true)}
+        onBlur={() => {
+          setIsOpen(false);
+          autocompleteInput();
+        }}
+        className={`input-field justify-between ${
           showErrors[id] ? 'show-invalid' : ''
         }`}
-      >
-        <span>{selectedItem ? selectedItem.name : title}</span>
-        <ArrowDown
-          className={`transform duration-200 ease-in-out ${
-            isOpen ? '-rotate-180' : ''
-          }`}
-        />
-      </button>
+      />
+      <ArrowDown
+        className={`absolute right-3 top-1/2 -translate-y-1/2 transform duration-100 ease-in-out ${
+          isOpen ? '-rotate-180' : ''
+        }`}
+        onClick={(e: React.MouseEvent) => {
+          setIsOpen(prev => !prev);
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+      />
       {isOpen ? (
         <div
-          aria-label="dropdown-menu"
           className={`absolute bg-gray-100 w-full max-h-52 overflow-y-auto py-3 rounded shadow-md z-10 ${
             position === 'bottom-right'
               ? 'top-full right-0 '
@@ -82,27 +121,29 @@ export default function Dropdown({
               : ''
           }`}
         >
-          <ul
-            role="menu"
-            aria-labelledby={id}
-            aria-orientation="vertical"
-            className="leading-10"
-          >
-            {data?.map(item => (
-              <li
-                key={item.id}
-                onClick={e => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  handleChange(item);
-                }}
-                className={`flex items-center cursor-pointer hover:bg-gray-200 px-3 ${
-                  selectedItem?.id === item.id ? 'bg-gray-300' : ''
-                }`}
-              >
-                <span>{item.name}</span>
+          <ul role="listbox" aria-labelledby={id} className="leading-10">
+            {filteredData.length ? (
+              filteredData.map(item => (
+                <li
+                  key={item.id}
+                  role="option"
+                  aria-selected={selectedItem?.id === item.id}
+                  onMouseDown={e => {
+                    e.preventDefault();
+                    handleChange(item);
+                  }}
+                  className={`flex items-center cursor-pointer hover:bg-gray-200 px-3 ${
+                    selectedItem?.id === item.id ? 'bg-gray-300' : ''
+                  }`}
+                >
+                  {item.name}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-sm text-gray-500">
+                No results found
               </li>
-            ))}
+            )}
           </ul>
         </div>
       ) : null}

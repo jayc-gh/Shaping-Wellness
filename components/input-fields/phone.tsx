@@ -23,8 +23,8 @@ export default function Phone<T extends PhoneFields>({
   setShowErrors,
 }: StepProps<T>) {
   const phoneType = [
-    { id: '1', name: 'Mobile' },
-    { id: '2', name: 'Home' },
+    { id: 'mobile', name: 'Mobile' },
+    { id: 'home', name: 'Home' },
   ];
 
   return (
@@ -93,14 +93,17 @@ export default function Phone<T extends PhoneFields>({
             id="type"
             title="Select Phone Type"
             data={phoneType}
-            onSelect={item =>
+            onSelect={item => {
+              setShowErrors(prev => ({
+                ...prev,
+                type: false,
+              }));
               setFormData(prev => ({
                 ...prev,
                 phone: { ...prev.phone, type: item },
-              }))
-            }
+              }));
+            }}
             showErrors={showErrors}
-            setShowErrors={setShowErrors}
           />
           <div
             className={`error-text-container ${

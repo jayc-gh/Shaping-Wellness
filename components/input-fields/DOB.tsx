@@ -1,4 +1,5 @@
 import type { ErrorMap, DOB } from '@/declarations';
+import Dropdown from './dropDown';
 
 type DOBFields = {
   DOB: DOB;
@@ -11,6 +12,32 @@ interface StepProps<T extends DOBFields> {
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
   formType: string;
 }
+
+const months = [
+  { id: '1', name: 'January' },
+  { id: '2', name: 'February' },
+  { id: '3', name: 'March' },
+  { id: '4', name: 'April' },
+  { id: '5', name: 'May' },
+  { id: '6', name: 'June' },
+  { id: '7', name: 'July' },
+  { id: '8', name: 'August' },
+  { id: '9', name: 'September' },
+  { id: '10', name: 'October' },
+  { id: '11', name: 'November' },
+  { id: '12', name: 'December' },
+];
+
+const days = Array.from({ length: 31 }, (_, i) => {
+  const val = (i + 1).toString();
+  return { id: val, name: val };
+});
+
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: currentYear - 1900 + 1 }, (_, i) => {
+  const val = (1900 + i).toString();
+  return { id: val, name: val };
+});
 
 export default function DOB<T extends DOBFields>({
   formData,
@@ -26,85 +53,79 @@ export default function DOB<T extends DOBFields>({
           Date of Birth <span className="required">*</span>
         </p>
         <div className="input-container">
-          <input
-            type="text"
-            value={formData.DOB.month}
-            onChange={e => {
+          <Dropdown
+            id="month"
+            title="Month"
+            data={months}
+            onSelect={item => {
               setFormData(prev => ({
                 ...prev,
-                DOB: { ...prev.DOB, month: e.target.value },
+                DOB: { ...prev.DOB, month: item },
               }));
               setShowErrors(prev => ({
                 ...prev,
+                DOB: false,
                 month: false,
               }));
             }}
-            placeholder="Month"
-            className={`input-field ${
-              showErrors.month &&
-              !formData.DOB.month.trim() &&
-              formType !== 'donate'
-                ? 'show-invalid'
-                : ''
-            }`}
+            showErrors={showErrors}
           />
-          <input
-            type="text"
-            value={formData.DOB.day}
-            onChange={e => {
+          <Dropdown
+            id="day"
+            title="Day"
+            data={days}
+            onSelect={item => {
               setFormData(prev => ({
                 ...prev,
-                DOB: { ...prev.DOB, day: e.target.value },
+                DOB: { ...prev.DOB, day: item },
               }));
               setShowErrors(prev => ({
                 ...prev,
+                DOB: false,
                 day: false,
               }));
             }}
-            placeholder="DD"
-            className={`input-field ${
-              showErrors.day &&
-              !formData.DOB.day.trim() &&
-              formType !== 'donate'
-                ? 'show-invalid'
-                : ''
-            }`}
+            showErrors={showErrors}
           />
-          <input
-            type="text"
-            value={formData.DOB.year}
-            onChange={e => {
+          <Dropdown
+            id="year"
+            title="Year"
+            data={years}
+            onSelect={item => {
               setFormData(prev => ({
                 ...prev,
-                DOB: { ...prev.DOB, year: e.target.value },
+                DOB: { ...prev.DOB, year: item },
               }));
               setShowErrors(prev => ({
                 ...prev,
+                DOB: false,
                 year: false,
               }));
             }}
-            placeholder="YYYY"
-            className={`input-field ${
-              showErrors.year &&
-              !formData.DOB.year.trim() &&
-              formType !== 'donate'
-                ? 'show-invalid'
-                : ''
-            }`}
+            showErrors={showErrors}
           />
         </div>
       </div>
       <div
         className={`error-text-container ${
+          formType !== 'donate' &&
           ((showErrors.month && !formData.DOB.month.trim()) ||
             (showErrors.day && !formData.DOB.day.trim()) ||
-            (showErrors.year && !formData.DOB.year.trim())) &&
-          formType !== 'donate'
+            (showErrors.year && !formData.DOB.year.trim()) ||
+            showErrors.DOB)
             ? 'transition'
             : ''
         }`}
       >
-        <p className="error-text">Date of birth is incomplete</p>
+        <p className="error-text">
+          {(showErrors.month && !formData.DOB.month.trim()) ||
+          (showErrors.day && !formData.DOB.day.trim()) ||
+          (showErrors.year && !formData.DOB.year.trim())
+            ? 'Date of birth is incomplete'
+            : showErrors.DOB
+            ? 'Date of birth is invalid'
+            : ''}
+        </p>
       </div>
     </div>
   );

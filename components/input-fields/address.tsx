@@ -18,6 +18,8 @@ interface StepProps<T extends AddressFields> {
   formType: string;
 }
 
+const countries = Country.getAllCountries();
+
 export default function Address<T extends AddressFields>({
   formData,
   setFormData,
@@ -28,7 +30,6 @@ export default function Address<T extends AddressFields>({
   const [states, setStates] = useState<IState[]>(
     State.getStatesOfCountry(formData.address.country)
   );
-  const countries = Country.getAllCountries();
   const handleCountryChange = (country: string) => {
     setStates(State.getStatesOfCountry(country));
     setFormData(prev => ({

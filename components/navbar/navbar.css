@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 @media (max-width: 768px) {
-  .dropdown-wrapper .dropdown-items-container {
+  .nav-dropdown-wrapper .nav-dropdown-items-container {
     display: none;
   }
 
-  .dropdown-wrapper.active .dropdown-items-container {
+  .nav-dropdown-wrapper.active .nav-dropdown-items-container {
     display: block;
     transform: translateX(-23px) translateY(0);
     opacity: 1;
@@ -21,7 +21,7 @@
     pointer-events: auto;
   }
 
-  .dropdown-wrapper:hover .dropdown-items-container {
+  .nav-dropdown-wrapper:hover .nav-dropdown-items-container {
     transform: translateX(-23px) translateY(0);
     opacity: 1;
     visibility: visible;
@@ -53,7 +53,7 @@
     gap: 24px;
   }
 
-  .dropdown-wrapper {
+  .nav-dropdown-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -61,7 +61,7 @@
     margin-top: 31px;
   }
 
-  .dropdown-container {
+  .nav-dropdown-container {
     display: flex;
     width: 125px;
     height: 24px;
@@ -72,7 +72,7 @@
     cursor: default;
   }
 
-  .dropdown-items-container {
+  .nav-dropdown-items-container {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -91,14 +91,14 @@
     z-index: 999;
   }
 
-  .dropdown-wrapper:hover .dropdown-items-container {
+  .nav-dropdown-wrapper:hover .nav-dropdown-items-container {
     transform: translateX(-23px) translateY(0);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
 
-  .dropdown-item {
+  .nav-dropdown-item {
     display: flex;
     padding: 10px 30px;
     flex-direction: column;
@@ -108,7 +108,7 @@
     background: #fff;
   }
 
-  .dropdown-item:hover {
+  .nav-dropdown-item:hover {
     background: var(--hover-color);
   }
 }

@@ -61,7 +61,9 @@ export default function NavBar() {
           {dropdownItems.map(({ id, label, links }) => (
             <div
               key={id}
-              className={`dropdown-wrapper ${dropdown === id ? 'active' : ''}`}
+              className={`nav-dropdown-wrapper ${
+                dropdown === id ? 'active' : ''
+              }`}
               ref={dropdownRef}
               onClick={() => {
                 if (isMobile) handleClick(id);
@@ -69,7 +71,7 @@ export default function NavBar() {
               onMouseEnter={() => setHovered(id)}
               onMouseLeave={() => setHovered(null)}
             >
-              <div className="dropdown-container p4 normal p-neutral">
+              <div className="nav-dropdown-container p4 normal p-neutral">
                 <p className="links">{label}</p>
                 {dropdown === id ? (
                   <ArrowUpColor />
@@ -81,7 +83,7 @@ export default function NavBar() {
               </div>
 
               <div
-                className={`dropdown-items-container ${
+                className={`nav-dropdown-items-container ${
                   isMobile && dropdown === id ? 'mobile-visible' : ''
                 }`}
                 onClick={e => e.stopPropagation()}
@@ -90,7 +92,7 @@ export default function NavBar() {
                   <Link
                     key={href}
                     href={href}
-                    className="dropdown-item"
+                    className="nav-dropdown-item p4 normal"
                     onClick={() => {
                       setDropDown(null);
                     }}
