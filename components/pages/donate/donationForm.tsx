@@ -194,75 +194,71 @@ export default function DonateForm() {
             <div className="terms-container">
               {(step < 3 || (step === 3 && clientSecret && !errorMessage)) && (
                 <>
-                  <label className="checkbox-container">
-                    <input
-                      type="checkbox"
-                      id="cover-fee-checkbox"
-                      className="checkbox"
-                      checked={formData.feeCovered}
-                      onChange={() => {
-                        setFormData(prev => {
-                          if (prev.donationAmount === '') return prev;
-                          return {
-                            ...prev,
-                            feeCovered: !formData.feeCovered,
-                            feeAmount: String(),
-                          };
-                        });
-                      }}
-                    />
-                    {formData.feeCovered ? <Checked /> : <Unchecked />}
-                    <span className="custom-text-4 s-neutral">
-                      I&apos;d like to cover the 3% transaction fee for this
-                      donation
-                    </span>
-                  </label>
+                  {step === 3 && clientSecret && !errorMessage && (
+                    <label className="checkbox-container">
+                      <input
+                        type="checkbox"
+                        id="cover-fee-checkbox"
+                        className="checkbox"
+                        checked={formData.feeCovered}
+                        onChange={() => {
+                          setFormData(prev => {
+                            if (prev.donationAmount === '') return prev;
+                            return {
+                              ...prev,
+                              feeCovered: !formData.feeCovered,
+                              feeAmount: String(),
+                            };
+                          });
+                        }}
+                      />
+                      {formData.feeCovered ? <Checked /> : <Unchecked />}
+                      <span className="custom-text-4 s-neutral">
+                        I&apos;d like to cover the 3% transaction fee for this
+                        donation
+                      </span>
+                    </label>
+                  )}
+
                   <div className="flex flex-col gap-[10px] justify-center items-center">
-                    {step < 3 ? (
-                      <div className="continue-container">
-                        <button className="continue-btn" type="submit">
-                          <span className="btn">Continue</span>
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="continue-container">
-                        <button
-                          disabled={
-                            !stripe ||
+                    <div className="continue-container">
+                      <button
+                        className="continue-btn"
+                        type="submit"
+                        disabled={
+                          step === 3 &&
+                          (!stripe ||
                             loading ||
                             Number(formData.donationAmount) < 1 ||
-                            errorMessage !== ''
-                          }
-                          className="continue-btn"
-                          type="submit"
-                        >
-                          <span className="btn flex items-center justify-center w-full gap-1">
-                            {loading ? (
-                              <span>
-                                Processing
-                                <div className="translate-y-[8px]">
-                                  <LoadingDots />
-                                </div>
-                              </span>
-                            ) : (
-                              `Donate $${formData.donationAmount}`
-                            )}
-                          </span>
-                        </button>
-                      </div>
-                    )}
+                            errorMessage !== '')
+                        }
+                      >
+                        <span className="btn flex items-center justify-center w-full gap-1">
+                          {step === 3 && loading ? (
+                            <span>
+                              Processing
+                              <div className="translate-y-[8px]">
+                                <LoadingDots />
+                              </div>
+                            </span>
+                          ) : step === 3 ? (
+                            `Donate $${formData.donationAmount}`
+                          ) : (
+                            'Continue'
+                          )}
+                        </span>
+                      </button>
+                    </div>
 
-                    {(step < 3 ||
-                      (step === 3 && clientSecret && !errorMessage)) && (
-                      <div className="flex justify-center items-center gap-[5px]">
-                        <Lock />
-                        <p className="custom-text-3 s-neutral !font-[500] !no-underline">
-                          Your donation is secure and facilitated by Stripe.
-                        </p>
-                      </div>
-                    )}
+                    <div className="flex justify-center items-center gap-[5px]">
+                      <Lock />
+                      <p className="custom-text-3 s-neutral !font-[500] !no-underline">
+                        Your donation is secure and facilitated by Stripe.
+                      </p>
+                    </div>
                   </div>
-                  {step === 3 ? (
+
+                  {step === 3 && (
                     <p className="terms-text">
                       By clicking Donate, I agree to receive communications from
                       Shaping Wellness Foundation and their{' '}
@@ -273,7 +269,7 @@ export default function DonateForm() {
                         Privacy Policy.
                       </span>
                     </p>
-                  ) : null}
+                  )}
                 </>
               )}
             </div>
