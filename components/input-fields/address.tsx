@@ -48,7 +48,7 @@ export default function Address<T extends AddressFields>({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <div className="input-sub-container">
         {formData.orgDonate &&
         (formType === 'donate' || formType === 'partner') ? (

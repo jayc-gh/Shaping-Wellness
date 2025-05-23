@@ -12,7 +12,6 @@ import { DonateFormData, ErrorMap } from '@/declarations';
 interface StepProps {
   formData: DonateFormData;
   setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
 }
@@ -20,24 +19,11 @@ interface StepProps {
 export default function DonorInfo({
   formData,
   setFormData,
-  setStep,
   showErrors,
   setShowErrors,
 }: StepProps) {
   return (
-    <div className="form-content-container">
-      <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
-        <h4>You are donating:</h4>
-        <p className="custom-text-2 sec-coral">${formData.amount}</p>
-        <button
-          className="custom-text-3 p-neutral !cursor-pointer"
-          onClick={() => setStep(1)}
-          type="button"
-        >
-          change
-        </button>
-      </div>
-
+    <div className="donate-form-content-container">
       <div className="form-sub-container">
         <h4>YOUR INFORMATION</h4>
         {!formData.orgDonate && (
@@ -56,6 +42,7 @@ export default function DonorInfo({
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
+            formType="donate"
           />
         )}
 

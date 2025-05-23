@@ -231,7 +231,7 @@ export async function handleSubmit({
   e.preventDefault();
   const { stripe, elements } = stripeCtx;
   if (step === 1) {
-    const donationAmount = parseFloat(formData.amount || '0');
+    const donationAmount = parseFloat(formData.donationAmount || '0');
     if (
       isNaN(donationAmount) ||
       donationAmount < 1 ||
@@ -310,7 +310,7 @@ export async function handleSubmit({
     const { error: confirmError } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/payment-success?amount=${formData.amount}&token=${tempToken}`,
+        return_url: `${window.location.origin}/donate/payment-success?amount=${formData.donationAmount}&token=${tempToken}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {

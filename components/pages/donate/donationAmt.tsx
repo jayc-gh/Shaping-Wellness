@@ -1,38 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DonateFormData } from '@/declarations';
 
 interface StepProps {
   formData: DonateFormData;
   setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
-  setCoverFee: React.Dispatch<React.SetStateAction<boolean>>;
-  coverFee: boolean;
 }
 
-export default function DonationAmt({
-  formData,
-  setFormData,
-  setCoverFee,
-}: StepProps) {
+export default function DonationAmt({ formData, setFormData }: StepProps) {
+  const [customAmt, setCustomAmt] = useState<boolean>(false);
   const toggleDonationType = (type: string) => {
-    setCoverFee(false);
     setFormData(prev => ({
       ...prev,
       monthly: type === 'monthly',
+      feeCovered: false,
     }));
   };
 
   const handleAmountSelection = (value: string | 'custom'): void => {
-    setCoverFee(false);
     setFormData(prev => ({
       ...prev,
-      amount: value,
+      donationAmount: value,
+      feeCovered: false,
     }));
   };
 
   const handleCustomAmountChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setCoverFee(false);
     // auto add 0 if starting with .
     let value = e.target.value;
     if (value.startsWith('.')) {
@@ -59,12 +53,13 @@ export default function DonationAmt({
 
     setFormData(prev => ({
       ...prev,
-      amount: value,
+      donationAmount: value,
+      feeCovered: false,
     }));
   };
 
   return (
-    <div className="form-content-container">
+    <div className="donate-form-content-container">
       <h4>SELECT AN AMOUNT</h4>
       <div className="toggle-container">
         <div className="toggle-btn-container">
@@ -84,48 +79,72 @@ export default function DonationAmt({
       </div>
       <div className="donation-amt-container">
         <p className="custom-text">
-          Choose your {formData.monthly ? 'monthly' : 'one-time'} gift:{' '}
-          <span className="required">*</span>
+          Choose your{' '}
+          <span className="font-bold">
+            {formData.monthly ? 'monthly' : 'one-time'}
+          </span>{' '}
+          gift: <span className="required">*</span>
         </p>
         {/* Donation Amount Buttons */}
         <div className="donation-amt-btn-grid">
-          {[75, 100, 150, 250, 500, 1000, 1500, 2000].map(value => (
+          {[25, 50, 100, 150, 200].map(value => (
             <button
               type="button"
               key={value}
               onClick={() => {
                 handleAmountSelection(String(value));
+                setCustomAmt(false);
               }}
               className={`donation-amt-btn !cursor-pointer ${
-                formData.amount === String(value) && 'filled'
+                formData.donationAmount === String(value) && 'filled'
               }`}
             >
-              ${value}
+              <span className="p4 !font-[600]">
+                ${value}
+                {formData.monthly ? '' : ''}
+              </span>
             </button>
           ))}
-        </div>
-        <div className="flex flex-col self-center items-center">
-          <div className="donation-amt-input-container">
-            <span className="donation-input-text pr-[10px] !select-none">
-              $
-            </span>
-            <input
-              type="text"
-              value={formData.amount ? `${formData.amount}` : ''}
-              onChange={handleCustomAmountChange}
-              placeholder="Minimum $1.00"
-              className="donation-input-text"
-            />
-            <span className="donation-input-text !select-none">USD</span>
-          </div>
-          <div
-            className={`flex justify-center self-center error-text-container ${
-              Number(formData.amount) < 1 ? 'transition' : ''
+          <button
+            type="button"
+            key="custom"
+            onClick={() => {
+              setCustomAmt(true);
+              handleAmountSelection('1');
+            }}
+            className={`donation-amt-btn !cursor-pointer ${
+              customAmt ? 'filled' : ''
             }`}
           >
-            <p className="error-text">Minimum donation amount is $1.00</p>
-          </div>
+            <span className="pr !font-[600]">Other</span>
+          </button>
         </div>
+        {customAmt ? (
+          <div className="flex flex-col self-center items-start w-full">
+            <div className="donation-amt-input-container">
+              <span className="donation-input-text pr-[10px] !select-none">
+                $
+              </span>
+              <input
+                type="text"
+                value={
+                  formData.donationAmount ? `${formData.donationAmount}` : ''
+                }
+                onChange={handleCustomAmountChange}
+                placeholder="Minimum $1.00"
+                className="donation-input-text"
+              />
+              <span className="donation-input-text !select-none">USD</span>
+            </div>
+            <div
+              className={`flex justify-center self-center error-text-container ${
+                Number(formData.donationAmount) < 1 ? 'transition' : ''
+              }`}
+            >
+              <p className="error-text">Minimum donation amount is $1.00</p>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

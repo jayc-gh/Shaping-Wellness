@@ -5,7 +5,6 @@ import './navbar.css';
 import Link from 'next/link';
 import LogoSvg from '../../app/icons/LogoSVG.svg';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
-import ArrowUpColor from '../../app/icons/Arrow-up-color.svg';
 import ArrowDownColor from '../../app/icons/Arrow-down-color.svg';
 import { useOutsideClick } from '@/lib/functions';
 
@@ -73,10 +72,12 @@ export default function NavBar() {
             >
               <div className="nav-dropdown-container p4 normal p-neutral">
                 <p className="links">{label}</p>
-                {dropdown === id ? (
-                  <ArrowUpColor />
-                ) : hovered === id ? (
-                  <ArrowDownColor />
+                {hovered === id ? (
+                  <ArrowDownColor
+                    className={`transform duration-100 ease-in-out ${
+                      dropdown === id ? '-rotate-180' : ''
+                    }`}
+                  />
                 ) : (
                   <ArrowDown />
                 )}

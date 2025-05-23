@@ -50,7 +50,7 @@
 
   .toggle-btn-container {
     display: flex;
-    height: 50px;
+    height: 44px;
     align-items: center;
     border-radius: 100px;
     border: 1px solid var(--Primary-Coral);
@@ -58,7 +58,7 @@
 
   .toggle-btn {
     display: flex;
-    height: 50px;
+    height: 44px;
     min-width: 184px;
     padding: 16px 20px;
     justify-content: center;
@@ -85,30 +85,54 @@
     box-shadow: 0px 6px 7px 0px rgba(0, 0, 0, 0.07) inset;
   }
 
+  .donate-form-box {
+    display: flex;
+    width: 600px;
+    min-height: 788px;
+    padding: 40px 104px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #fff;
+    gap: 24px;
+  }
+
+  .donate-form-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+  }
+
   .donation-amt-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 24px;
+    gap: 12px;
     flex: 1 0 0;
     width: 100%;
   }
 
   .donation-amt-btn-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 12px;
+    column-gap: 24px;
     width: 100%;
   }
 
   .donation-amt-btn {
     display: flex;
-    width: 89px;
     height: 44px;
     padding: 16px 20px;
     justify-content: center;
     align-items: center;
+    gap: 24px;
+    flex: 1 0 0;
     border-radius: 10px;
     background: var(--Soft-Coral);
   }
@@ -120,7 +144,7 @@
 
   .donation-amt-input-container {
     display: flex;
-    width: 184px;
+    width: calc(65%);
     height: 44px;
     padding: 16px 20px;
     justify-content: space-between;
@@ -130,7 +154,7 @@
   }
 
   .donation-input-text {
-    color: var(--Secondary-Coral);
+    color: var(--Primary-Neutral);
     font-size: 16px;
     font-style: normal;
     font-weight: 600;

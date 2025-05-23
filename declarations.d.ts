@@ -37,7 +37,10 @@ export interface FormDataMap {
 }
 
 export interface DonateFormData {
-  amount: string;
+  donationAmount: string;
+  feeCovered: boolean;
+  feeAmount: string;
+  totalCharged: string;
   monthly: boolean;
   firstName: string;
   lastName: string;

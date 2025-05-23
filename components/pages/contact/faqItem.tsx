@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import ArrowDown from '../../../app/icons/Arrow-down.svg';
-import ArrowUp from '../../../app/icons/Arrow-up.svg';
 import './contactForm.css';
 
 interface FAQItemProps {
@@ -28,7 +27,11 @@ export default function FAQItem({ question, answer }: FAQItemProps) {
           <div className="faq-q-inner">
             <p className="faq-q">{question}</p>
           </div>
-          {isOpen ? <ArrowUp /> : <ArrowDown />}
+          <ArrowDown
+            className={`transform duration-100 ease-in-out ${
+              isOpen ? '-rotate-180' : ''
+            }`}
+          />
         </div>
         <div
           className="faq-a-container"

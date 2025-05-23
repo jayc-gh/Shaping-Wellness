@@ -18,7 +18,7 @@ export default function PaymentIntentHandler({
   const lastAmountRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const amount = Number(formData.amount);
+    const amount = Number(formData.donationAmount);
     if (step !== 3 || !amount || lastAmountRef.current === amount) return;
 
     const createPaymentIntent = async () => {
@@ -29,7 +29,7 @@ export default function PaymentIntentHandler({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            amount: convertToSubcurrency(Number(formData.amount)),
+            amount: convertToSubcurrency(Number(formData.donationAmount)),
           }),
         });
 
@@ -53,7 +53,7 @@ export default function PaymentIntentHandler({
     };
 
     createPaymentIntent();
-  }, [step, formData.amount, setClientSecret, setErrorMessage]);
+  }, [step, formData.donationAmount, setClientSecret, setErrorMessage]);
 
   return null;
 }

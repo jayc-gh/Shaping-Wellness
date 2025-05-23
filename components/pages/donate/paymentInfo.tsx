@@ -1,18 +1,11 @@
 import React from 'react';
 import { PaymentElement, PaymentElementProps } from '@stripe/react-stripe-js';
-import { DonateFormData } from '@/declarations';
 
 interface StepProps {
   clientSecret: string;
-  formData: DonateFormData;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function PaymentInfo({
-  clientSecret,
-  formData,
-  setStep,
-}: StepProps) {
+export default function PaymentInfo({ clientSecret }: StepProps) {
   const paymentElementOptions: PaymentElementProps['options'] = {
     fields: {
       billingDetails: {
@@ -22,20 +15,8 @@ export default function PaymentInfo({
   };
 
   return (
-    <div className="form-content-container">
-      <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
-        <h4>You are donating:</h4>
-        <p className="custom-text-2 sec-coral">${formData.amount}</p>
-        <button
-          className="custom-text-3 p-neutral !cursor-pointer"
-          onClick={() => setStep(1)}
-          type="button"
-        >
-          change
-        </button>
-      </div>
-
-      <div className="form-sub-container">
+    <div className="donate-form-content-container !w-full">
+      <div className="form-sub-container !w-full">
         <h4>PAYMENT DETAILS</h4>
         {clientSecret && (
           <div className="w-full">
