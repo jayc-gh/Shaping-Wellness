@@ -21,6 +21,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
       ...prev,
       donationAmount: value,
       feeCovered: false,
+      totalCharged: value,
     }));
   };
 
@@ -54,6 +55,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
     setFormData(prev => ({
       ...prev,
       donationAmount: value,
+      totalCharged: value,
       feeCovered: false,
     }));
   };

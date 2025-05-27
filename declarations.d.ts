@@ -40,6 +40,7 @@ export interface DonateFormData {
   donationAmount: string;
   feeCovered: boolean;
   feeAmount: string;
+  paymentMethod: string;
   totalCharged: string;
   monthly: boolean;
   firstName: string;

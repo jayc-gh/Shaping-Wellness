@@ -48,7 +48,7 @@ export default function DonorInfo({
 
         {/* checkboxes */}
         <div className="flex flex-col items-start gap-[4px] flex-1">
-          <div className="checkbox-container">
+          <div className="flex items-center gap-[8px]">
             <label className="checkbox-container !pr-0">
               <input
                 type="checkbox"
@@ -66,17 +66,14 @@ export default function DonorInfo({
               {!formData.anonymous && <Unchecked />}
               {formData.anonymous && <Checked />}
 
-              <label
-                htmlFor="anonymous-checkbox"
-                className="custom-text-4 p-neutral"
-              >
+              <span className="custom-text-4 p-neutral">
                 Hide my name from the public
-              </label>
+              </span>
             </label>
             <Help className="flex cursor-pointer" />
           </div>
 
-          <div className="checkbox-container">
+          <div className="flex items-center gap-[8px]">
             <label className="checkbox-container !pr-0">
               <input
                 type="checkbox"
@@ -93,12 +90,9 @@ export default function DonorInfo({
 
               {!formData.orgDonate && <Unchecked />}
               {formData.orgDonate && <Checked />}
-              <label
-                htmlFor="orgDonate-checkbox"
-                className="custom-text-4 p-neutral"
-              >
+              <span className="custom-text-4 p-neutral">
                 Donate as an organization
-              </label>
+              </span>
             </label>
             <Help
               className="flex cursor-pointer"

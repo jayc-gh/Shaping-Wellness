@@ -70,7 +70,7 @@ export default function NavBar() {
               onMouseEnter={() => setHovered(id)}
               onMouseLeave={() => setHovered(null)}
             >
-              <div className="nav-dropdown-container p4 normal p-neutral">
+              <div className="nav-dropdown-container p4 !font-[400] p-neutral">
                 <p className="links">{label}</p>
                 {hovered === id ? (
                   <ArrowDownColor
@@ -93,7 +93,7 @@ export default function NavBar() {
                   <Link
                     key={href}
                     href={href}
-                    className="nav-dropdown-item p4 normal"
+                    className="nav-dropdown-item p4 !font-[400]"
                     onClick={() => {
                       setDropDown(null);
                     }}

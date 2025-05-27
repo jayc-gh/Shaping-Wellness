@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import convertToSubcurrency from '@/lib/convertToSubcurrency';
 import { DonateFormData } from '@/declarations';
 
@@ -7,6 +7,7 @@ interface StepProps {
   formData: DonateFormData;
   setClientSecret: React.Dispatch<React.SetStateAction<string>>;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setPaymentIntentId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function PaymentIntentHandler({
@@ -14,6 +15,7 @@ export default function PaymentIntentHandler({
   formData,
   setClientSecret,
   setErrorMessage,
+  setPaymentIntentId,
 }: StepProps) {
   const lastAmountRef = useRef<number | null>(null);
 
@@ -41,6 +43,7 @@ export default function PaymentIntentHandler({
         }
 
         setClientSecret(data.clientSecret);
+        setPaymentIntentId(data.paymentIntentId);
         lastAmountRef.current = amount;
       } catch (error) {
         // user facing error message
@@ -53,7 +56,13 @@ export default function PaymentIntentHandler({
     };
 
     createPaymentIntent();
-  }, [step, formData.donationAmount, setClientSecret, setErrorMessage]);
+  }, [
+    step,
+    formData.donationAmount,
+    setClientSecret,
+    setErrorMessage,
+    setPaymentIntentId,
+  ]);
 
   return null;
 }

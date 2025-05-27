@@ -19,7 +19,7 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
           <Close />
         </button>
       </div>
-      <div className="popup-content-wrapper">
+      <div className="popup-content-wrapper p4 !font-[400] p-neutral">
         <div className="popup-image-wrapper">
           <Image
             src="/images/DonationForm.webp"
@@ -31,16 +31,16 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
           <div className="popup-contact-wrapper">
             <div className="popup-contact">
               <Email />
-              <p className="p2">Email: email@domain.com</p>
+              <p>email@domain.com</p>
             </div>
             <div className="popup-contact">
               <Phone />
-              <p className="p2">Phone: 000-000-0000</p>
+              <p className="">000-000-0000</p>
             </div>
           </div>
         </div>
-        <div className="popup-text-wrapper">
-          <p className="p3">
+        <div className="popup-text-wrapper ">
+          <p>
             <span className="!font-bold">Luciana N. Gearing</span> is the{' '}
             <span className="!font-bold">Founder and Executive Director</span>{' '}
             of Shaping Wellness Foundation, an organization dedicated to helping
@@ -48,14 +48,14 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
             education, and build self-confidence through fitness programs,
             mentorship, and community support.
           </p>
-          <p className="p3">
+          <p>
             Luciana graduated from Texas A&M University with a degree in
             Biomedical Science and has eight years of experience in healthcare.
             Throughout her career in clinical research and patient care, she has
             witnessed firsthand the health disparities affecting different
             communities, particularly in underserved populations.
           </p>
-          <p className="p3">
+          <p>
             Recognizing that many chronic illnesses and health challenges stem
             from a lack of early education, access to resources, and preventive
             care, she founded Shaping Wellness Foundation to help bridge this

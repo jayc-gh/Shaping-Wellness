@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import DonationAmt from '@/components/pages/donate/donationAmt';
 import DonorInfo from '@/components/pages/donate/donorInfo';
 import PaymentInfo from '@/components/pages/donate/paymentInfo';
+import Summary from '@/components/pages/donate/summary';
 import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -13,10 +14,15 @@ import Spinner from '../../spinner';
 import Unchecked from '../../../app/icons/checked=no.svg';
 import Checked from '../../../app/icons/checked=yes.svg';
 import Lock from '../../../app/icons/donate/lock.svg';
-import { handleSubmit, useOutsideClick, useStopScroll } from '@/lib/functions';
+import Help from '../../../app/icons/help.svg';
+import {
+  handleSubmit,
+  useOutsideClick,
+  useStopScroll,
+  calcTransactionFee,
+} from '@/lib/functions';
 import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
 import LoadingDots from '../../loadingDots';
-import Link from 'next/link';
 import '../../forms/forms.css';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
 
@@ -33,7 +39,8 @@ export default function DonateForm() {
     donationAmount: '50',
     feeCovered: false,
     feeAmount: '',
-    totalCharged: '',
+    paymentMethod: '',
+    totalCharged: '50',
     monthly: false,
     firstName: '',
     lastName: '',
@@ -56,6 +63,7 @@ export default function DonateForm() {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
+  const [paymentIntentId, setPaymentIntentId] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
@@ -73,8 +81,6 @@ export default function DonateForm() {
     setErrorMessage('');
     setShowErrors({});
   };
-  const cardFee = (amount: number) => 0.029 * amount + 0.3;
-  const directDepositFee = (amount: number) => Math.min(amount * 0.008, 5);
 
   const handleSubmitParams = {
     step,
@@ -100,27 +106,7 @@ export default function DonateForm() {
     >
       <div className="main-container">
         <div className="content-container">
-          <div className="summary-container">
-            <div className="flag">
-              <h4>DONATE</h4>
-            </div>
-            <h3 className="text-white">
-              Thank you for choosing to support Shaping Wellness Foundation.
-            </h3>
-            <p className="p4 !text-white">
-              Your donation directly funds school-based fitness programs, health
-              education workshops, and mentorship opportunities for girls in
-              underserved communities. Together, we can build a future where
-              every girl has the tools, support, and confidence to lead a
-              healthy, empowered life. <br />
-              <br />
-              Curious about the difference you&apos;re making? Visit our{' '}
-              <Link href="/get-involved/donor" className="cursor-pointer">
-                <span className="underline">Become a Donor page</span>
-              </Link>{' '}
-              to see how your support changes lives.
-            </p>
-          </div>
+          <Summary />
           <form
             className="donate-form-box"
             onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
@@ -130,6 +116,7 @@ export default function DonateForm() {
               formData={formData}
               setClientSecret={setClientSecret}
               setErrorMessage={setErrorMessage}
+              setPaymentIntentId={setPaymentIntentId}
             />
             <div className="form-container w-full">
               {/* Back button and Progress bar */}
@@ -138,13 +125,23 @@ export default function DonateForm() {
                 <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
                   <h4>You are donating:</h4>
                   <p className="custom-text-2 sec-coral">
-                    ${formData.donationAmount}
+                    ${formData.totalCharged}
                     {formData.monthly ? '/month' : ''}
                   </p>
                   {step > 1 ? (
                     <button
                       className="custom-text-3 p-neutral !cursor-pointer"
-                      onClick={() => setStep(1)}
+                      onClick={() => {
+                        setStep(1);
+                        if (formData.feeCovered) {
+                          calcTransactionFee(
+                            formData,
+                            setFormData,
+                            setErrorMessage,
+                            paymentIntentId
+                          );
+                        }
+                      }}
                       type="button"
                     >
                       change
@@ -185,7 +182,10 @@ export default function DonateForm() {
                     >
                       <StripeHandler setStripeCtx={setStripeCtx} />
 
-                      <PaymentInfo clientSecret={clientSecret} />
+                      <PaymentInfo
+                        clientSecret={clientSecret}
+                        setFormData={setFormData}
+                      />
                     </Elements>
                   )}
                 </div>
@@ -194,33 +194,37 @@ export default function DonateForm() {
             <div className="terms-container">
               {(step < 3 || (step === 3 && clientSecret && !errorMessage)) && (
                 <>
-                  {step === 3 && clientSecret && !errorMessage && (
-                    <label className="checkbox-container">
-                      <input
-                        type="checkbox"
-                        id="cover-fee-checkbox"
-                        className="checkbox"
-                        checked={formData.feeCovered}
-                        onChange={() => {
-                          setFormData(prev => {
-                            if (prev.donationAmount === '') return prev;
-                            return {
-                              ...prev,
-                              feeCovered: !formData.feeCovered,
-                              feeAmount: String(),
-                            };
-                          });
-                        }}
-                      />
-                      {formData.feeCovered ? <Checked /> : <Unchecked />}
-                      <span className="custom-text-4 s-neutral">
-                        I&apos;d like to cover the 3% transaction fee for this
-                        donation
-                      </span>
-                    </label>
-                  )}
-
                   <div className="flex flex-col gap-[10px] justify-center items-center">
+                    {step === 3 && clientSecret && !errorMessage && (
+                      <div className="flex items-center self-start gap-[8px]">
+                        <label className="checkbox-container">
+                          <input
+                            type="checkbox"
+                            id="cover-fee-checkbox"
+                            className="checkbox"
+                            checked={formData.feeCovered}
+                            onChange={() => {
+                              calcTransactionFee(
+                                formData,
+                                setFormData,
+                                setErrorMessage,
+                                paymentIntentId
+                              );
+                            }}
+                          />
+                          {formData.feeCovered ? <Checked /> : <Unchecked />}
+                          <span className="custom-text-4 s-neutral">
+                            I&apos;d like to cover the transaction fee for this
+                            donation
+                          </span>
+                        </label>
+                        <Help
+                          className="flex cursor-pointer"
+                          onClick={() => console.log('clicked')}
+                        />
+                      </div>
+                    )}
+
                     <div className="continue-container">
                       <button
                         className="continue-btn"
@@ -242,7 +246,7 @@ export default function DonateForm() {
                               </div>
                             </span>
                           ) : step === 3 ? (
-                            `Donate $${formData.donationAmount}`
+                            `Donate $${formData.totalCharged}`
                           ) : (
                             'Continue'
                           )}

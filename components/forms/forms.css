@@ -141,6 +141,7 @@
     align-items: center;
     gap: 8px;
     border-radius: 4px;
+    cursor: pointer;
   }
 
   .checkbox {

@@ -20,7 +20,7 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
         </button>
       </div>
       <div className="popup-text-wrapper">
-        <p className="p4 primary-2">
+        <p className="p4 !font-[400] p-neutral">
           Shaping Wellness Foundation values the support of our donors,
           volunteers, and community members, and we are committed to protecting
           their privacy.{' '}
@@ -60,15 +60,15 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
         <div className="popup-contact-wrapper">
           <div className="popup-contact">
             <Email />
-            <p className="p4 primary-2">Email: email@domain.com</p>
+            <p className="p4 p-neutral">Email: email@domain.com</p>
           </div>
           <div className="popup-contact">
             <Phone />
-            <p className="p4 primary-2">Phone: 000-000-0000</p>
+            <p className="p4 p-neutral">Phone: 000-000-0000</p>
           </div>
           <div className="popup-contact">
             <Mailbox />
-            <p className="p4 primary-2">P.O. Box: 123 Main St</p>
+            <p className="p4 p-neutral">P.O. Box: 123 Main St</p>
           </div>
         </div>
       </div>

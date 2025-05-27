@@ -12,6 +12,7 @@ import { supabaseClient } from '@/lib/supabaseClient';
 import crypto from 'crypto';
 import React, { useEffect } from 'react';
 import { ValidatorConfig } from '@/declarations';
+import convertToSubcurrency from '@/lib/convertToSubcurrency';
 
 export const formatPhoneNumber = (value: string) => {
   const cleaned = value.replace(/\D/g, '');
@@ -378,4 +379,63 @@ export function useStopScroll(state: boolean) {
       document.body.style.overflow = '';
     };
   }, [state]);
+}
+
+export async function calcTransactionFee(
+  formData: DonateFormData,
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>,
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
+  paymentIntentId: string
+) {
+  const { donationAmount, paymentMethod, feeCovered } = formData;
+  const cardFee = (amount: number) => (0.029 * amount + 0.3).toFixed(2);
+  const bankFee = (amount: number) => Math.min(amount * 0.008, 5).toFixed(2);
+
+  if (donationAmount === '') return;
+
+  const baseAmount = Number(donationAmount);
+  let feeAmount = 0;
+
+  if (paymentMethod === 'card') {
+    feeAmount = Number(cardFee(baseAmount));
+  } else if (paymentMethod === 'us_bank_account') {
+    feeAmount = Number(bankFee(baseAmount));
+  }
+
+  const newFeeCovered = !feeCovered;
+  const newAmount = newFeeCovered ? baseAmount + feeAmount : baseAmount;
+
+  // Update payment intent on the backend
+  try {
+    if (paymentIntentId) {
+      const res = await fetch('/api/update-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          paymentIntentId,
+          amount: convertToSubcurrency(newAmount),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const errorMsg = data?.message || 'Failed to update payment intent.';
+        throw new Error(errorMsg);
+      }
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      feeCovered: newFeeCovered,
+      feeAmount: feeAmount.toFixed(2),
+      totalCharged: String(newAmount),
+    }));
+  } catch (error) {
+    setErrorMessage(
+      `${
+        error instanceof Error ? error.message : String(error)
+      } Please contact us if this error persists.`
+    );
+  }
 }
