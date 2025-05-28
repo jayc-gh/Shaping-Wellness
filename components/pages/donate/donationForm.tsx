@@ -11,10 +11,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import StripeHandler, { appearance, fonts } from './stripeHandler';
 import PaymentIntentHandler from './paymentIntentHandler';
 import Spinner from '../../spinner';
-import Unchecked from '../../../app/icons/checked=no.svg';
-import Checked from '../../../app/icons/checked=yes.svg';
+import SmallSpinner from '../../smallSpinner';
 import Lock from '../../../app/icons/donate/lock.svg';
-import Help from '../../../app/icons/help.svg';
 import {
   handleSubmit,
   useOutsideClick,
@@ -25,6 +23,7 @@ import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
 import LoadingDots from '../../loadingDots';
 import '../../forms/forms.css';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
+import Checkbox from './donateCheckbox';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -62,6 +61,7 @@ export default function DonateForm() {
     orgName: '',
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [checkboxDisabled, setCheckboxDisabled] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [paymentIntentId, setPaymentIntentId] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -94,6 +94,20 @@ export default function DonateForm() {
 
   useOutsideClick(popupRef, () => setPopup(false));
   useStopScroll(popup);
+
+  const handleCheckboxChange = async () => {
+    setCheckboxDisabled(true);
+    try {
+      await calcTransactionFee(
+        formData,
+        setFormData,
+        setErrorMessage,
+        paymentIntentId
+      );
+    } finally {
+      setCheckboxDisabled(false);
+    }
+  };
 
   return (
     <main
@@ -128,7 +142,9 @@ export default function DonateForm() {
                     ${formData.totalCharged}
                     {formData.monthly ? '/month' : ''}
                   </p>
-                  {step > 1 ? (
+                  {step > 1 && checkboxDisabled ? (
+                    <SmallSpinner />
+                  ) : step > 1 ? (
                     <button
                       className="custom-text-3 p-neutral !cursor-pointer"
                       onClick={() => {
@@ -196,52 +212,38 @@ export default function DonateForm() {
                 <>
                   <div className="flex flex-col gap-[10px] justify-center items-center">
                     {step === 3 && clientSecret && !errorMessage && (
-                      <div className="flex items-center self-start gap-[8px]">
-                        <label className="checkbox-container">
-                          <input
-                            type="checkbox"
-                            id="cover-fee-checkbox"
-                            className="checkbox"
-                            checked={formData.feeCovered}
-                            onChange={() => {
-                              calcTransactionFee(
-                                formData,
-                                setFormData,
-                                setErrorMessage,
-                                paymentIntentId
-                              );
-                            }}
-                          />
-                          {formData.feeCovered ? <Checked /> : <Unchecked />}
-                          <span className="custom-text-4 s-neutral">
-                            I&apos;d like to cover the transaction fee for this
-                            donation
-                          </span>
-                        </label>
-                        <Help
-                          className="flex cursor-pointer"
-                          onClick={() => console.log('clicked')}
-                        />
-                      </div>
+                      <Checkbox
+                        id={'cover-fee-checkbox'}
+                        checked={formData.feeCovered}
+                        onChange={handleCheckboxChange}
+                        label={
+                          "I'd like to cover the transaction fee for this donation"
+                        }
+                        disabled={checkboxDisabled}
+                      />
                     )}
 
                     <div className="continue-container">
                       <button
                         className="continue-btn"
                         type="submit"
+                        title={
+                          step === 1 && Number(formData.donationAmount) < 1
+                            ? 'Minimum donation amount is $1.00'
+                            : undefined
+                        }
                         disabled={
-                          step === 3 &&
-                          (!stripe ||
-                            loading ||
-                            Number(formData.donationAmount) < 1 ||
-                            errorMessage !== '')
+                          (step === 3 &&
+                            (!stripe || loading || checkboxDisabled)) ||
+                          (step === 1 && Number(formData.donationAmount) < 1) ||
+                          errorMessage !== ''
                         }
                       >
-                        <span className="btn flex items-center justify-center w-full gap-1">
+                        <span className="btn flex items-center justify-center w-full">
                           {step === 3 && loading ? (
-                            <span>
+                            <span className="btn flex items-center justify-center w-full">
                               Processing
-                              <div className="translate-y-[8px]">
+                              <div className="translate-y-[8px] translate-x-[6px]">
                                 <LoadingDots />
                               </div>
                             </span>

@@ -241,16 +241,24 @@ export async function handleSubmit({
       return;
     }
   } else if (step === 2) {
+    const requiredFields = [
+      'firstName',
+      'lastName',
+      'address.address1',
+      'address.city',
+      'address.country',
+      'address.postalCode',
+    ];
+
+    if (
+      formData.address.country === 'US' ||
+      formData.address.country === 'CA'
+    ) {
+      requiredFields.push('address.state');
+    }
+
     const errors = validateForm(formData, {
-      requiredFields: [
-        'firstName',
-        'lastName',
-        'address.address1',
-        'address.city',
-        'address.state',
-        'address.country',
-        'address.postalCode',
-      ],
+      requiredFields,
       customValidations: [
         data => (!validateEmailFormat(data.email) ? { email: true } : {}),
         data =>

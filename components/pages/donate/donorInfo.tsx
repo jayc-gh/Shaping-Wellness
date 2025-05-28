@@ -1,13 +1,11 @@
 import React from 'react';
-import Unchecked from '../../../app/icons/checked=no.svg';
-import Checked from '../../../app/icons/checked=yes.svg';
-import Help from '../../../app/icons/help.svg';
 import Name from '../../input-fields/name';
 import OrgName from '../../input-fields/orgName';
 import Address from '../../input-fields/address';
 import Email from '../../input-fields/email';
 import Phone from '../../input-fields/phone';
 import { DonateFormData, ErrorMap } from '@/declarations';
+import Checkbox from './donateCheckbox';
 
 interface StepProps {
   formData: DonateFormData;
@@ -48,57 +46,28 @@ export default function DonorInfo({
 
         {/* checkboxes */}
         <div className="flex flex-col items-start gap-[4px] flex-1">
-          <div className="flex items-center gap-[8px]">
-            <label className="checkbox-container !pr-0">
-              <input
-                type="checkbox"
-                id="anonymous-checkbox"
-                className="checkbox"
-                checked={formData.anonymous}
-                onChange={() =>
-                  setFormData(prev => ({
-                    ...prev,
-                    anonymous: !formData.anonymous,
-                  }))
-                }
-              />
-
-              {!formData.anonymous && <Unchecked />}
-              {formData.anonymous && <Checked />}
-
-              <span className="custom-text-4 p-neutral">
-                Hide my name from the public
-              </span>
-            </label>
-            <Help className="flex cursor-pointer" />
-          </div>
-
-          <div className="flex items-center gap-[8px]">
-            <label className="checkbox-container !pr-0">
-              <input
-                type="checkbox"
-                id="orgDonate-checkbox"
-                className="checkbox"
-                checked={formData.orgDonate}
-                onChange={() =>
-                  setFormData(prev => ({
-                    ...prev,
-                    orgDonate: !formData.orgDonate,
-                  }))
-                }
-              />
-
-              {!formData.orgDonate && <Unchecked />}
-              {formData.orgDonate && <Checked />}
-              <span className="custom-text-4 p-neutral">
-                Donate as an organization
-              </span>
-            </label>
-            <Help
-              className="flex cursor-pointer"
-              onClick={() => console.log('clicked')}
-            />
-          </div>
+          <Checkbox
+            id={'anonymous-checkbox'}
+            checked={formData.anonymous}
+            onChange={() =>
+              setFormData(prev => ({
+                ...prev,
+                anonymous: !formData.anonymous,
+              }))
+            }
+            label={'Hide my name from the public'}
+          />
+          <Checkbox
+            id={'orgDonate-checkbox'}
+            checked={formData.orgDonate}
+            onChange={() =>
+              setFormData(prev => ({
+                ...prev,
+                orgDonate: !formData.orgDonate,
+              }))
+            }
+            label={'Donate as an organization'}
+          />
         </div>
 
         {/* address */}

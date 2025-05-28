@@ -432,4 +432,8 @@ h5 {
   .bg-soft-coral {
     background-color: var(--Soft-Coral);
   }
+
+  .field-line {
+    color: var(--Field-line);
+  }
 }

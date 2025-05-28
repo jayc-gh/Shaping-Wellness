@@ -89,7 +89,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
         </p>
         {/* Donation Amount Buttons */}
         <div className="donation-amt-btn-grid">
-          {[25, 50, 100, 150, 200].map(value => (
+          {[25, 50, 75, 100, 150, 200].map((value, i) => (
             <button
               type="button"
               key={value}
@@ -100,6 +100,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
               className={`donation-amt-btn !cursor-pointer ${
                 formData.donationAmount === String(value) && 'filled'
               }`}
+              style={{ gridArea: `btn${i + 1}` }}
             >
               <span className="p4 !font-[600]">
                 ${value}
@@ -112,18 +113,20 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
             key="custom"
             onClick={() => {
               setCustomAmt(true);
-              handleAmountSelection('1');
+              handleAmountSelection('');
             }}
             className={`donation-amt-btn !cursor-pointer ${
               customAmt ? 'filled' : ''
             }`}
+            style={{ gridArea: 'customBtn' }}
           >
-            <span className="pr !font-[600]">Other</span>
+            <span className="p4 !font-[600]">Other</span>
           </button>
-        </div>
-        {customAmt ? (
-          <div className="flex flex-col self-center items-start w-full">
-            <div className="donation-amt-input-container">
+          {customAmt ? (
+            <div
+              className="donation-amt-input-container"
+              style={{ gridArea: 'customInput' }}
+            >
               <span className="donation-input-text pr-[10px] !select-none">
                 $
               </span>
@@ -133,20 +136,17 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
                   formData.donationAmount ? `${formData.donationAmount}` : ''
                 }
                 onChange={handleCustomAmountChange}
-                placeholder="Minimum $1.00"
+                placeholder="Enter amount"
+                title="Minimum donation amount is $1.00"
                 className="donation-input-text"
               />
-              <span className="donation-input-text !select-none">USD</span>
+              <div className="flex items-center justify-end gap-[10px]">
+                <span className="field-line p4 !font-[300] select-none">|</span>
+                <span className="donation-input-text select-none">USD</span>
+              </div>
             </div>
-            <div
-              className={`flex justify-center self-center error-text-container ${
-                Number(formData.donationAmount) < 1 ? 'transition' : ''
-              }`}
-            >
-              <p className="error-text">Minimum donation amount is $1.00</p>
-            </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     </div>
   );

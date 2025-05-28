@@ -114,30 +114,6 @@ export default function Address<T extends AddressFields>({
               }}
               showErrors={showErrors}
             />
-            {/* <div className="relative w-full">
-              <select
-                className={`input-field ${
-                  showErrors.country && !formData.address.country.trim()
-                    ? 'show-invalid'
-                    : ''
-                } !pr-8`}
-                value={formData.address.country}
-                onChange={e => {
-                  handleCountryChange(e.target.value);
-                  setShowErrors(prev => ({
-                    ...prev,
-                    country: false,
-                  }));
-                }}
-              >
-                {countries.map(country => (
-                  <option key={country.isoCode} value={country.isoCode}>
-                    {country.name} ({country.isoCode})
-                  </option>
-                ))}
-              </select>
-              <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
-            </div> */}
             {formData.address.country === 'US' ? (
               <Dropdown
                 id="state"
@@ -156,36 +132,6 @@ export default function Address<T extends AddressFields>({
                 showErrors={showErrors}
               />
             ) : (
-              // <div className="relative w-full">
-              //     <select
-              //       className={`input-field !pr-8 ${
-              //         showErrors.state && !formData.address.state.trim()
-              //           ? 'show-invalid'
-              //           : ''
-              //       }`}
-              //       value={formData.address.state}
-              //       onChange={e => {
-              //         setFormData(prev => ({
-              //           ...prev,
-              //           address: { ...prev.address, state: e.target.value },
-              //         }));
-              //         setShowErrors(prev => ({
-              //           ...prev,
-              //           state: false,
-              //         }));
-              //       }}
-              //     >
-              //       <option value="" disabled hidden>
-              //         Select a State
-              //       </option>
-              //       {states.map(state => (
-              //         <option key={state.isoCode} value={state.isoCode}>
-              //           {state.name} ({state.isoCode})
-              //         </option>
-              //       ))}
-              //     </select>
-              //     <ArrowDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
-              //   </div>
               <div className="relative w-full">
                 <input
                   type="text"
@@ -202,7 +148,9 @@ export default function Address<T extends AddressFields>({
                   }}
                   placeholder="State/Province/Region"
                   className={`input-field ${
-                    showErrors.state && !formData.address.state.trim()
+                    showErrors.state &&
+                    !formData.address.state.trim() &&
+                    formData.address.country === 'CA'
                       ? 'show-invalid'
                       : ''
                   }`}
@@ -212,26 +160,6 @@ export default function Address<T extends AddressFields>({
           </div>
 
           <div className="input-container">
-            <input
-              type="text"
-              value={formData.address.postalCode}
-              onChange={e => {
-                setFormData(prev => ({
-                  ...prev,
-                  address: { ...prev.address, postalCode: e.target.value },
-                }));
-                setShowErrors(prev => ({
-                  ...prev,
-                  postalCode: false,
-                }));
-              }}
-              placeholder="Zip/Postal Code"
-              className={`input-field ${
-                showErrors.postalCode && !formData.address.postalCode.trim()
-                  ? 'show-invalid'
-                  : ''
-              }`}
-            />
             <input
               type="text"
               value={formData.address.city}
@@ -248,6 +176,29 @@ export default function Address<T extends AddressFields>({
               placeholder="City"
               className={`input-field ${
                 showErrors.city && !formData.address.city.trim()
+                  ? 'show-invalid'
+                  : ''
+              }`}
+            />
+            <input
+              type="text"
+              value={formData.address.postalCode}
+              onChange={e => {
+                setFormData(prev => ({
+                  ...prev,
+                  address: { ...prev.address, postalCode: e.target.value },
+                }));
+                setShowErrors(prev => ({
+                  ...prev,
+                  postalCode: false,
+                }));
+              }}
+              placeholder="Zip/Postal Code"
+              className={`input-field ${
+                showErrors.postalCode &&
+                !formData.address.postalCode.trim() &&
+                (formData.address.country === 'US' ||
+                  formData.address.country === 'CA')
                   ? 'show-invalid'
                   : ''
               }`}

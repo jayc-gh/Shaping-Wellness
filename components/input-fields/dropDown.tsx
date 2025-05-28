@@ -33,8 +33,10 @@ export default function Dropdown({
     selectedId ? data?.find(item => item.id === selectedId) : undefined
   );
   useEffect(() => {
-    if (selectedItem) setInputValue(selectedItem.name);
-  }, [selectedItem]);
+    if (selectedItem) {
+      setInputValue(selectedItem.name);
+    }
+  }, [selectedItem, id]);
 
   const handleChange = (item: DropdownItem) => {
     setSelectedItem(item);
@@ -44,13 +46,20 @@ export default function Dropdown({
 
   const filteredData = useMemo(() => {
     const query = inputValue.toLowerCase();
-    const isExactMatch = selectedItem?.name.toLowerCase() === query;
+
+    const isExactMatch =
+      selectedItem?.name.toLowerCase() === query ||
+      selectedItem?.id.toLowerCase() === query;
 
     if (isExactMatch) {
       return data;
     }
 
-    return data.filter(item => item.name.toLowerCase().includes(query));
+    return data.filter(
+      item =>
+        item.name.toLowerCase().includes(query) ||
+        item.id.toLowerCase().includes(query)
+    );
   }, [inputValue, data, selectedItem]);
 
   const autocompleteInput = () => {
@@ -136,7 +145,7 @@ export default function Dropdown({
                     selectedItem?.id === item.id ? 'bg-gray-300' : ''
                   }`}
                 >
-                  {item.name}
+                  {id === 'state' ? `${item.name} (${item.id})` : item.name}
                 </li>
               ))
             ) : (
