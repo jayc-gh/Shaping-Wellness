@@ -290,11 +290,11 @@ export async function handleSubmit({
     // handling errors during submission (missing fields)
     const { error: submitError } = await elements.submit();
     if (submitError) {
-      console.error('Stripe elements.submit() error: ', submitError);
-      setErrorMessage(
-        `${submitError.message}` ||
-          'There was an issue submitting your payment details. Please try again.'
-      );
+      // console.error('Stripe elements.submit() error: ', submitError);
+      // setErrorMessage(
+      //   `${submitError.message}` ||
+      //     'There was an issue submitting your payment details. Please try again.'
+      // );
       setLoading(false);
       return;
     }
