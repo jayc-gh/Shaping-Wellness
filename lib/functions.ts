@@ -319,7 +319,7 @@ export async function handleSubmit({
     const { error: confirmError } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/payment-success?amount=${formData.donationAmount}&token=${tempToken}`,
+        return_url: `${window.location.origin}/donate/payment-confirm?amount=${formData.donationAmount}&token=${tempToken}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {
@@ -404,7 +404,7 @@ export async function calcTransactionFee(
   const baseAmount = Number(donationAmount);
   let feeAmount = 0;
 
-  if (paymentMethod === 'card') {
+  if (paymentMethod === 'card' || paymentMethod === 'cashapp') {
     feeAmount = Number(cardFee(baseAmount));
   } else if (paymentMethod === 'us_bank_account') {
     feeAmount = Number(bankFee(baseAmount));
