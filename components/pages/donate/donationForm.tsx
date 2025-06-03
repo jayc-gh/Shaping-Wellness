@@ -9,7 +9,7 @@ import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeHandler, { appearance, fonts } from './stripeHandler';
-import PaymentIntentHandler from './paymentIntentHandler';
+import convertToSubcurrency from '@/lib/convertToSubcurrency';
 import Spinner from '../../spinner';
 import SmallSpinner from '../../smallSpinner';
 import Lock from '../../../app/icons/donate/lock.svg';
@@ -62,8 +62,6 @@ export default function DonateForm() {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [checkboxDisabled, setCheckboxDisabled] = useState<boolean>(false);
-  const [clientSecret, setClientSecret] = useState<string>('');
-  const [paymentIntentId, setPaymentIntentId] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
@@ -95,18 +93,9 @@ export default function DonateForm() {
   useOutsideClick(popupRef, () => setPopup(false));
   useStopScroll(popup);
 
-  const handleCheckboxChange = async () => {
+  const handleCheckboxChange = () => {
     setCheckboxDisabled(true);
-    try {
-      await calcTransactionFee(
-        formData,
-        setFormData,
-        setErrorMessage,
-        paymentIntentId
-      );
-    } finally {
-      setCheckboxDisabled(false);
-    }
+    calcTransactionFee(formData, setFormData, setCheckboxDisabled);
   };
 
   return (
@@ -125,17 +114,10 @@ export default function DonateForm() {
             className="donate-form-box"
             onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
           >
-            <PaymentIntentHandler
-              step={step}
-              formData={formData}
-              setClientSecret={setClientSecret}
-              setErrorMessage={setErrorMessage}
-              setPaymentIntentId={setPaymentIntentId}
-            />
             <div className="form-container w-full">
               {/* Back button and Progress bar */}
               <ProgressBar step={step} prevStep={prevStep} />
-              {(step < 3 || (step === 3 && clientSecret && !errorMessage)) && (
+              {(step < 3 || (step === 3 && !errorMessage)) && (
                 <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
                   <h4>You are donating:</h4>
                   <p className="custom-text-2 sec-coral">
@@ -153,8 +135,7 @@ export default function DonateForm() {
                           calcTransactionFee(
                             formData,
                             setFormData,
-                            setErrorMessage,
-                            paymentIntentId
+                            setCheckboxDisabled
                           );
                         }
                       }}
@@ -179,19 +160,21 @@ export default function DonateForm() {
               )}
               {step === 3 && (
                 <div className="w-full">
-                  {(!clientSecret || !stripe || !elements) && !errorMessage && (
-                    <Spinner />
-                  )}
+                  {(!stripe || !elements) && !errorMessage && <Spinner />}
                   {errorMessage && (
                     <div className="error-text text-center w-full">
                       {errorMessage}
                     </div>
                   )}
-                  {clientSecret && !errorMessage && (
+                  {!errorMessage && (
                     <Elements
                       stripe={stripePromise}
                       options={{
-                        clientSecret: clientSecret,
+                        mode: 'payment',
+                        amount: convertToSubcurrency(
+                          Number(formData.totalCharged)
+                        ),
+                        currency: 'usd',
                         appearance: appearance,
                         fonts: fonts,
                       }}
@@ -199,7 +182,7 @@ export default function DonateForm() {
                       <StripeHandler setStripeCtx={setStripeCtx} />
 
                       <PaymentInfo
-                        clientSecret={clientSecret}
+                        formData={formData}
                         setFormData={setFormData}
                       />
                     </Elements>
@@ -208,10 +191,10 @@ export default function DonateForm() {
               )}
             </div>
             <div className="terms-container">
-              {(step < 3 || (step === 3 && clientSecret && !errorMessage)) && (
+              {(step < 3 || (step === 3 && !errorMessage)) && (
                 <>
                   <div className="flex flex-col gap-[10px] justify-center items-center">
-                    {step === 3 && clientSecret && !errorMessage && (
+                    {step === 3 && !errorMessage && (
                       <Checkbox
                         id={'cover-fee-checkbox'}
                         checked={formData.feeCovered}

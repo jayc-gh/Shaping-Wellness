@@ -9,7 +9,6 @@ import {
   ContactFormData,
 } from '@/declarations';
 import { supabaseClient } from '@/lib/supabaseClient';
-import crypto from 'crypto';
 import React, { useEffect } from 'react';
 import { ValidatorConfig } from '@/declarations';
 import convertToSubcurrency from '@/lib/convertToSubcurrency';
@@ -299,27 +298,18 @@ export async function handleSubmit({
       return;
     }
 
-    // temporary token
-    const tempToken = crypto.randomBytes(32).toString('hex');
-    const expiresAt = new Date();
-    // token expiration after 15 minutes
-    expiresAt.setHours(expiresAt.getMinutes() + 15);
-
-    // insert token into supabase
-    const { data, error } = await supabaseClient
-      .from('temp_tokens')
-      .insert([{ token: tempToken, expires_at: expiresAt.toISOString() }])
-      .single();
-
-    if (error) {
-      throw new Error('Failed to store temporary token in Supabase.');
+    const intent = await createPaymentIntent(Number(formData.totalCharged));
+    if (intent.error) {
+      setErrorMessage(intent.error);
+      setLoading(false);
+      return;
     }
-    console.log('Inserted token data:', data);
 
-    const { error: confirmError } = await stripe.confirmPayment({
+    const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
       elements,
+      clientSecret: intent.clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/payment-confirm?amount=${formData.donationAmount}&token=${tempToken}`,
+        return_url: `${window.location.origin}/donate/payment-confirm?amount=${formData.donationAmount}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {
@@ -334,6 +324,7 @@ export async function handleSubmit({
           },
         },
       },
+      redirect: 'if_required',
     });
 
     // handling errors after submission during confirmation (valid card)
@@ -349,6 +340,10 @@ export async function handleSubmit({
         `${confirmError.message}` ||
           'There was an issue processing your payment. Please try again.'
       );
+      setLoading(false);
+      return;
+    } else if (paymentIntent) {
+      // setErrorMessage(paymentIntent.status);
       setLoading(false);
       return;
     }
@@ -389,11 +384,10 @@ export function useStopScroll(state: boolean) {
   }, [state]);
 }
 
-export async function calcTransactionFee(
+export function calcTransactionFee(
   formData: DonateFormData,
   setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>,
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
-  paymentIntentId: string
+  setCheckboxDisabled: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   const { donationAmount, paymentMethod, feeCovered } = formData;
   const cardFee = (amount: number) => (0.029 * amount + 0.3).toFixed(2);
@@ -413,37 +407,39 @@ export async function calcTransactionFee(
   const newFeeCovered = !feeCovered;
   const newAmount = newFeeCovered ? baseAmount + feeAmount : baseAmount;
 
-  // Update payment intent on the backend
-  try {
-    if (paymentIntentId) {
-      const res = await fetch('/api/update-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          paymentIntentId,
-          amount: convertToSubcurrency(newAmount),
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        const errorMsg = data?.message || 'Failed to update payment intent.';
-        throw new Error(errorMsg);
-      }
-    }
-
-    setFormData(prev => ({
-      ...prev,
-      feeCovered: newFeeCovered,
-      feeAmount: feeAmount.toFixed(2),
-      totalCharged: String(newAmount),
-    }));
-  } catch (error) {
-    setErrorMessage(
-      `${
-        error instanceof Error ? error.message : String(error)
-      } Please contact us if this error persists.`
-    );
-  }
+  setFormData(prev => ({
+    ...prev,
+    feeCovered: newFeeCovered,
+    feeAmount: feeAmount.toFixed(2),
+    totalCharged: String(newAmount),
+  }));
+  setCheckboxDisabled(false);
 }
+
+const createPaymentIntent = async (amount: number) => {
+  try {
+    const response = await fetch('/api/create-payment-intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: convertToSubcurrency(amount),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const errorMsg = data?.message || 'Failed to create payment intent.';
+      throw new Error(errorMsg);
+    }
+    return { clientSecret: data.clientSecret };
+  } catch (error) {
+    return {
+      error: `${
+        error instanceof Error ? error.message : String(error)
+      } Please contact us if this error persists.`,
+    };
+  }
+};

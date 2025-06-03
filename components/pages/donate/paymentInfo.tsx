@@ -5,9 +5,10 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import { DonateFormData } from '@/declarations';
+import convertToSubcurrency from '@/lib/convertToSubcurrency';
 
 interface StepProps {
-  clientSecret: string;
+  formData: DonateFormData;
   setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
 }
 
@@ -19,7 +20,7 @@ type PaymentElementChangeEvent = {
   };
 };
 
-export default function PaymentInfo({ clientSecret, setFormData }: StepProps) {
+export default function PaymentInfo({ formData, setFormData }: StepProps) {
   const elements = useElements();
 
   const paymentElementOptions: PaymentElementProps['options'] = {
@@ -28,10 +29,17 @@ export default function PaymentInfo({ clientSecret, setFormData }: StepProps) {
         address: 'never',
       },
     },
+    layout: {
+      type: 'tabs',
+      defaultCollapsed: false,
+    },
   };
 
   useEffect(() => {
     if (!elements) return;
+    elements.update({
+      amount: convertToSubcurrency(Number(formData.totalCharged)),
+    });
 
     const paymentElement = elements.getElement('payment');
     if (!paymentElement) return;
@@ -50,17 +58,15 @@ export default function PaymentInfo({ clientSecret, setFormData }: StepProps) {
     return () => {
       paymentElement.off('change', handleChange);
     };
-  }, [elements, setFormData]);
+  }, [elements, setFormData, formData.totalCharged]);
 
   return (
     <div className="donate-form-content-container !w-full">
       <div className="form-sub-container !w-full">
         <h4>PAYMENT DETAILS</h4>
-        {clientSecret && (
-          <div className="w-full">
-            <PaymentElement options={paymentElementOptions} />
-          </div>
-        )}
+        <div className="w-full">
+          <PaymentElement options={paymentElementOptions} />
+        </div>
       </div>
     </div>
   );
