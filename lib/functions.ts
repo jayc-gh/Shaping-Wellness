@@ -8,10 +8,12 @@ import {
   PartnerFormData,
   ContactFormData,
 } from '@/declarations';
-import { supabaseClient } from '@/lib/supabaseClient';
 import React, { useEffect } from 'react';
 import { ValidatorConfig } from '@/declarations';
 import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import { useRouter } from 'next/navigation';
+
+type Router = ReturnType<typeof useRouter>;
 
 export const formatPhoneNumber = (value: string) => {
   const cleaned = value.replace(/\D/g, '');
@@ -218,6 +220,7 @@ export async function handleSubmit({
   nextStep,
   setLoading,
   setErrorMessage,
+  router,
 }: {
   e: React.FormEvent<HTMLFormElement>;
   step: number;
@@ -227,6 +230,7 @@ export async function handleSubmit({
   nextStep: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  router: Router;
 }) {
   e.preventDefault();
   const { stripe, elements } = stripeCtx;
@@ -298,7 +302,7 @@ export async function handleSubmit({
       return;
     }
 
-    const intent = await createPaymentIntent(Number(formData.totalCharged));
+    const intent = await createPaymentIntent(formData);
     if (intent.error) {
       setErrorMessage(intent.error);
       setLoading(false);
@@ -309,7 +313,7 @@ export async function handleSubmit({
       elements,
       clientSecret: intent.clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/payment-confirm?amount=${formData.donationAmount}`,
+        return_url: `${window.location.origin}/donate/payment-confirm?donor_id=${intent.donorId}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {
@@ -343,8 +347,10 @@ export async function handleSubmit({
       setLoading(false);
       return;
     } else if (paymentIntent) {
-      // setErrorMessage(paymentIntent.status);
       setLoading(false);
+      router.push(
+        `/donate/payment-confirm?donor_id=${intent.donorId}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}`
+      );
       return;
     }
   }
@@ -416,7 +422,7 @@ export function calcTransactionFee(
   setCheckboxDisabled(false);
 }
 
-const createPaymentIntent = async (amount: number) => {
+const createPaymentIntent = async (formData: DonateFormData) => {
   try {
     const response = await fetch('/api/create-payment-intent', {
       method: 'POST',
@@ -424,7 +430,10 @@ const createPaymentIntent = async (amount: number) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: convertToSubcurrency(amount),
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        amount: convertToSubcurrency(Number(formData.totalCharged)),
       }),
     });
 
@@ -434,7 +443,7 @@ const createPaymentIntent = async (amount: number) => {
       const errorMsg = data?.message || 'Failed to create payment intent.';
       throw new Error(errorMsg);
     }
-    return { clientSecret: data.clientSecret };
+    return { clientSecret: data.clientSecret, donorId: data.donorId };
   } catch (error) {
     return {
       error: `${

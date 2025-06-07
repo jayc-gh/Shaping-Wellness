@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { supabaseServer } from '@/lib/supabaseServer';
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -9,12 +10,15 @@ export async function POST(req: Request) {
 
   let event: Stripe.Event;
 
-  async function updatePaymentStatus(
-    paymentIntentId: string,
-    status: string,
-    metadata: string
-  ) {
-    // db update logic
+  async function updatePaymentStatus(paymentIntentId: string, status: string) {
+    const { error } = await supabaseServer
+      .from(`donations_test`)
+      .update({ payment_status: status })
+      .eq('payment_intent_id', paymentIntentId);
+
+    if (error) {
+      throw new Error(error.message);
+    }
   }
 
   try {
@@ -28,19 +32,19 @@ export async function POST(req: Request) {
 
     switch (event.type) {
       case 'payment_intent.succeeded': {
-        await updatePaymentStatus(intent.id, 'succeeded', 'metadata');
+        await updatePaymentStatus(intent.id, 'succeeded');
         break;
       }
       case 'payment_intent.processing': {
-        await updatePaymentStatus(intent.id, 'processing', 'metadata');
+        await updatePaymentStatus(intent.id, 'processing');
         break;
       }
       case 'payment_intent.payment_failed': {
-        await updatePaymentStatus(intent.id, 'failed', 'metadata');
+        await updatePaymentStatus(intent.id, 'failed');
         break;
       }
       case 'payment_intent.canceled': {
-        await updatePaymentStatus(intent.id, 'canceled', 'metadata');
+        await updatePaymentStatus(intent.id, 'canceled');
         break;
       }
 

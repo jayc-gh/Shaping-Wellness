@@ -24,6 +24,7 @@ import LoadingDots from '../../loadingDots';
 import '../../forms/forms.css';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
 import Checkbox from './donateCheckbox';
+import { useRouter } from 'next/navigation';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -72,6 +73,7 @@ export default function DonateForm() {
   const popupRef = useRef<HTMLDivElement | null>(null);
 
   const { stripe, elements } = stripeCtx;
+  const router = useRouter();
 
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => {
@@ -88,6 +90,7 @@ export default function DonateForm() {
     nextStep,
     setLoading,
     setErrorMessage,
+    router,
   };
 
   useOutsideClick(popupRef, () => setPopup(false));

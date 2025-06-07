@@ -12,32 +12,32 @@ if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
 }
 
-export default function PaymentSuccess() {
+export default function PaymentConfirm() {
   const [valid, setValid] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const amount = searchParams.get('amount');
 
   // prevent going to payment-success through url
   useEffect(() => {
-    const token = searchParams.get('token');
+    const paymentId = searchParams.get('payment_intent');
 
-    const verifyToken = async () => {
-      const res = await fetch('/api/verify-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
-      });
+    const getPayment = async () => {
+      const res = await fetch(
+        `/api/payment-status?payment_intent=${paymentId}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
 
-      const { valid } = await res.json();
-      if (valid) {
+      const data = await res.json();
+      if (data) {
         setValid(true);
       } else {
         router.push('/');
       }
     };
 
-    verifyToken();
+    getPayment();
   }, [router, searchParams]);
 
   return (
