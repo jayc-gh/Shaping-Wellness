@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseClient } from '@/lib/supabaseClient';
+import { supabaseServer, donationsTable } from '@/lib/supabaseServer';
 
 export async function GET(req: NextRequest) {
-  const token = req.nextUrl.searchParams.get('token');
-  if (!token) {
-    return NextResponse.json({ error: 'Missing token' }, { status: 400 });
+  const paymentIntent = req.nextUrl.searchParams.get('payment_intent');
+  if (!paymentIntent) {
+    return NextResponse.json(
+      { error: 'Missing payment intent id' },
+      { status: 400 }
+    );
   }
 
   try {
-    const { data: donation, error } = await supabaseClient
-      .from('temp_tokens')
-      .select('status, amount')
-      .eq('token', token)
+    const { data: donation, error } = await supabaseServer
+      .from(donationsTable)
+      .select('id, charged_amount, payment_status')
+      .eq('payment_intent_id', paymentIntent)
       .single();
 
     if (error) {
@@ -20,8 +23,9 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json({
-      status: donation.status,
-      amount: donation.amount,
+      donorId: donation.id,
+      status: donation.payment_status,
+      amount: donation.charged_amount,
     });
   } catch (error) {
     console.error('Unexpected server error:', error);

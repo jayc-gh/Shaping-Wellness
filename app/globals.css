@@ -213,15 +213,12 @@ h5 {
   }
 
   .link-btn-text,
-  .links {
+  .links,
+  .icon-wrapper {
     position: relative;
     display: inline-block;
     color: inherit;
     transition: transform 0.2s ease;
-  }
-
-  .links-btn-text {
-    color: #b1574a;
   }
 
   .link-btn-text::after,

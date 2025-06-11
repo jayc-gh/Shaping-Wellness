@@ -54,9 +54,9 @@ export default function Home() {
             lifelong wellness.
           </p>
           <Link href="who-we-are" className="link-btn">
-            <h4 className="p3 link-btn-text sec-coral !font-semibold">
+            <p className="p3 link-btn-text sec-coral !font-semibold">
               LEARN MORE ABOUT OUR MISSION
-            </h4>
+            </p>
             <RightArrow />
           </Link>
         </div>

@@ -7,6 +7,7 @@ import {
   VolunteerFormData,
   PartnerFormData,
   ContactFormData,
+  DatabaseData,
 } from '@/declarations';
 import React, { useEffect } from 'react';
 import { ValidatorConfig } from '@/declarations';
@@ -290,30 +291,36 @@ export async function handleSubmit({
       return;
     }
 
-    // handling errors during submission (missing fields)
     const { error: submitError } = await elements.submit();
     if (submitError) {
-      // console.error('Stripe elements.submit() error: ', submitError);
-      // setErrorMessage(
-      //   `${submitError.message}` ||
-      //     'There was an issue submitting your payment details. Please try again.'
-      // );
       setLoading(false);
       return;
     }
 
-    const intent = await createPaymentIntent(formData);
+    const intent = await createPaymentIntent(formData.totalCharged);
     if (intent.error) {
       setErrorMessage(intent.error);
       setLoading(false);
       return;
     }
 
+    const data = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      amount: convertToSubcurrency(Number(formData.totalCharged)),
+      clientSecret: intent.clientSecret,
+      paymentIntentId: intent.paymentIntentId,
+      paymentStatus: intent.paymentStaus,
+    };
+
+    const storedData = await storeData(data);
+
     const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
       elements,
       clientSecret: intent.clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/payment-confirm?donor_id=${intent.donorId}`,
+        return_url: `${window.location.origin}/donate/payment-confirm?donorId=${storedData.donorId}&monthly=${formData.monthly}`,
         receipt_email: formData.email,
         payment_method_data: {
           billing_details: {
@@ -347,10 +354,10 @@ export async function handleSubmit({
       setLoading(false);
       return;
     } else if (paymentIntent) {
-      setLoading(false);
       router.push(
-        `/donate/payment-confirm?donor_id=${intent.donorId}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}`
+        `/donate/payment-confirm?donorId=${storedData.donorId}&monthly=${formData.monthly}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}`
       );
+      setLoading(false);
       return;
     }
   }
@@ -422,18 +429,16 @@ export function calcTransactionFee(
   setCheckboxDisabled(false);
 }
 
-const createPaymentIntent = async (formData: DonateFormData) => {
+const createPaymentIntent = async (amount: string) => {
   try {
+    const convertedAmount = convertToSubcurrency(Number(amount));
     const response = await fetch('/api/create-payment-intent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        amount: convertToSubcurrency(Number(formData.totalCharged)),
+        amount: convertedAmount,
       }),
     });
 
@@ -443,7 +448,11 @@ const createPaymentIntent = async (formData: DonateFormData) => {
       const errorMsg = data?.message || 'Failed to create payment intent.';
       throw new Error(errorMsg);
     }
-    return { clientSecret: data.clientSecret, donorId: data.donorId };
+    return {
+      paymentIntentId: data.paymentIntentId,
+      paymentStaus: data.paymentStatus,
+      clientSecret: data.clientSecret,
+    };
   } catch (error) {
     return {
       error: `${
@@ -451,4 +460,88 @@ const createPaymentIntent = async (formData: DonateFormData) => {
       } Please contact us if this error persists.`,
     };
   }
+};
+
+const storeData = async ({
+  firstName,
+  lastName,
+  email,
+  amount,
+  clientSecret,
+  paymentIntentId,
+  paymentStatus,
+}: DatabaseData) => {
+  try {
+    const response = await fetch('/api/store-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        amount,
+        clientSecret,
+        paymentIntentId,
+        paymentStatus,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const errorMsg = data?.message || 'Failed to store data.';
+      throw new Error(errorMsg);
+    }
+    return { donorId: data.donorId };
+  } catch (error) {
+    return {
+      error: `${
+        error instanceof Error ? error.message : String(error)
+      } Please contact us if this error persists.`,
+    };
+  }
+};
+
+export const fetchPaymentWithRetry = async (
+  url: string,
+  retries = 5,
+  delay = 1000
+) => {
+  let lastAttempt = { donorId: null, status: 'unknown', amount: null };
+  const terminalStatuses = ['succeeded', 'failed', 'canceled'];
+
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        lastAttempt.status = String(res.status);
+        throw new Error(`Request failed with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      const status = data.status;
+      lastAttempt = data;
+
+      if (terminalStatuses.includes(status)) {
+        return data; // immediately return if terminal status
+      }
+    } catch (err) {
+      console.error(`Error fetching payment status: ${err}`);
+      return {
+        ...lastAttempt,
+        error: `Error fetching payment status: ${err}`,
+      };
+    }
+
+    // wait before next attempt
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+
+  // return last known status
+  return lastAttempt;
 };

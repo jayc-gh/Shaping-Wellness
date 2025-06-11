@@ -98,3 +98,13 @@ export interface ValidatorConfig<T> {
   requiredFields?: (keyof T | string)[];
   customValidations?: ((data: T) => Partial<ErrorMap>)[];
 }
+
+export type DatabaseData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  amount: number;
+  clientSecret: string | null;
+  paymentIntentId: string;
+  paymentStatus: string;
+};

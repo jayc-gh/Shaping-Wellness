@@ -4,3 +4,6 @@ export const supabaseServer = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_URL as string,
   process.env.SUPABASE_SECRET_KEY as string
 );
+
+export const donationsTable =
+  process.env.NODE_ENV === 'production' ? 'donation' : 'donations_test';
