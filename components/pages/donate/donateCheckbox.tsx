@@ -3,7 +3,7 @@ import Unchecked from '../../../app/icons/checked=no.svg';
 import Checked from '../../../app/icons/checked=yes.svg';
 import Help from '../../../app/icons/help.svg';
 import SvgTooltip from './toolTip';
-import { useOutsideClick } from '@/lib/functions';
+import { useOutsideClick } from '@/lib/functions/useFunctions';
 
 type InfoType =
   | 'anonymous-checkbox'

@@ -5,7 +5,7 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import { DonateFormData } from '@/declarations';
-import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import { convertToSubcurrency } from '@/lib/functions/currencyFunctions';
 
 interface StepProps {
   formData: DonateFormData;

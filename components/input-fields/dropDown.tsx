@@ -1,6 +1,7 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
-import { useOutsideClick, formatDate } from '@/lib/functions';
+import { useOutsideClick } from '@/lib/functions/useFunctions';
+import { formatDate } from '@/lib/functions/validateFunctions';
 import { ErrorMap } from '@/declarations';
 
 interface DropdownItem {

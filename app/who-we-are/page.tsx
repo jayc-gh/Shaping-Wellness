@@ -10,7 +10,7 @@ import HeartShake from '../../app/icons/who-we-are/heart-shake.svg';
 import Improvement from '../../app/icons/who-we-are/improvement.svg';
 import MeetOurFounder from '@/components/pages/who-we-are/meet-our-founder';
 import { useState, useRef } from 'react';
-import { useOutsideClick, useStopScroll } from '@/lib/functions';
+import { useOutsideClick, useStopScroll } from '@/lib/functions/useFunctions';
 
 export default function WhoWeAre() {
   const [popup, setPopup] = useState<boolean>(false);

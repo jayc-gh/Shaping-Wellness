@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
-import { useOutsideClick, useStopScroll } from '@/lib/functions';
+import { useOutsideClick, useStopScroll } from '@/lib/functions/useFunctions';
 import { useState, useRef } from 'react';
 
 export default function FooterB() {

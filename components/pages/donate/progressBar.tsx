@@ -7,15 +7,30 @@ import DotCheckFilled from '../../../app/icons/donate/dot-check-filled.svg';
 
 interface StepProps {
   step: number;
-  prevStep: () => void;
+  prevStep?: () => void;
+  errorMessage?: string;
+  setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function ProgressBar({ step, prevStep }: StepProps) {
+export default function ProgressBar({
+  step,
+  prevStep,
+  errorMessage,
+  setErrorMessage,
+}: StepProps) {
+  const handleClick = () => {
+    if (step === 3 && errorMessage && setErrorMessage) {
+      setErrorMessage('');
+    } else if (step > 1 && step < 4 && prevStep) {
+      prevStep();
+    }
+  };
+
   return (
     <div className="back-and-progress-bar-container">
       <div
         className={`w-[24px] h-[24px] ${step > 1 && 'cursor-pointer'}`}
-        onClick={step > 1 && step < 4 ? prevStep : undefined}
+        onClick={handleClick}
       >
         {step > 1 && step < 4 && <Back className="check" />}
       </div>

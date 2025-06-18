@@ -1,5 +1,5 @@
 import { ErrorMap } from '@/declarations';
-import { validateEmailFormat } from '@/lib/functions';
+import { validateEmailFormat } from '@/lib/functions/validateFunctions';
 
 type EmailFields = {
   orgDonate?: boolean;

@@ -1,4 +1,4 @@
-import { formatPhoneNumber } from '@/lib/functions';
+import { formatPhoneNumber } from '@/lib/functions/validateFunctions';
 import type { ErrorMap, Phone } from '@/declarations';
 import Dropdown from '../input-fields/dropDown';
 

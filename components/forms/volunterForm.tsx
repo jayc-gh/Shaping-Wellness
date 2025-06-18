@@ -1,7 +1,7 @@
 'use client';
 
 import { ErrorMap, VolunteerFormData } from '@/declarations';
-import { handleSubmitBasic } from '@/lib/functions';
+import { handleSubmitBasic } from '@/lib/functions/submitFunctions';
 import '../forms/forms.css';
 import { useState } from 'react';
 import Name from '../input-fields/name';

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import { convertToSubcurrency } from '@/lib/functions/currencyFunctions';
 import { DonateFormData } from '@/declarations';
 
 interface StepProps {

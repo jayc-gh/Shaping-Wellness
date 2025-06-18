@@ -6,7 +6,7 @@ import ProgressBar from '@/components/pages/donate/progressBar';
 import Summary from '@/components/pages/donate/summary';
 import '../../donate/donate.css';
 import '../../../components/forms/forms.css';
-import { fetchPaymentWithRetry } from '@/lib/functions';
+import { fetchPaymentWithRetry } from '@/lib/functions/serverFunctions';
 import Link from 'next/link';
 import RightArrow from '../../icons/right-arrow.svg';
 

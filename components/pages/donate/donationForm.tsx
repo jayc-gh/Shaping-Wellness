@@ -9,22 +9,23 @@ import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import StripeHandler, { appearance, fonts } from './stripeHandler';
-import convertToSubcurrency from '@/lib/convertToSubcurrency';
+import {
+  convertToSubcurrency,
+  calcTransactionFee,
+} from '@/lib/functions/currencyFunctions';
 import Spinner from '../../spinner';
 import SmallSpinner from '../../smallSpinner';
-import Lock from '../../../app/icons/donate/lock.svg';
 import {
-  handleSubmit,
-  useOutsideClick,
-  useStopScroll,
-  calcTransactionFee,
-} from '@/lib/functions';
+  handleSubmitStepOne,
+  handleSubmitStepTwo,
+  handleSubmitStepThree,
+} from '@/lib/functions/submitFunctions';
+import { useOutsideClick, useStopScroll } from '@/lib/functions/useFunctions';
 import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
-import LoadingDots from '../../loadingDots';
 import '../../forms/forms.css';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
-import Checkbox from './donateCheckbox';
 import { useRouter } from 'next/navigation';
+import TermsContainer from './termsContainer';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -82,8 +83,18 @@ export default function DonateForm() {
     setShowErrors({});
   };
 
-  const handleSubmitParams = {
-    step,
+  const handleSubmitParams1 = {
+    formData,
+    nextStep,
+  };
+
+  const handleSubmitParams2 = {
+    formData,
+    setShowErrors,
+    nextStep,
+  };
+
+  const handleSubmitParams3 = {
     formData,
     stripeCtx,
     setShowErrors,
@@ -96,9 +107,14 @@ export default function DonateForm() {
   useOutsideClick(popupRef, () => setPopup(false));
   useStopScroll(popup);
 
-  const handleCheckboxChange = () => {
-    setCheckboxDisabled(true);
-    calcTransactionFee(formData, setFormData, setCheckboxDisabled);
+  const handleSubmit = (step: number) => {
+    if (step === 1) {
+      handleSubmitStepOne(handleSubmitParams1);
+    } else if (step === 2) {
+      handleSubmitStepTwo(handleSubmitParams2);
+    } else if (step === 3) {
+      handleSubmitStepThree(handleSubmitParams3);
+    }
   };
 
   return (
@@ -115,11 +131,19 @@ export default function DonateForm() {
           <Summary />
           <form
             className="donate-form-box"
-            onSubmit={e => handleSubmit({ e, ...handleSubmitParams })}
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmit(step);
+            }}
           >
             <div className="form-container w-full">
               {/* Back button and Progress bar */}
-              <ProgressBar step={step} prevStep={prevStep} />
+              <ProgressBar
+                step={step}
+                prevStep={prevStep}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+              />
               {(step < 3 || (step === 3 && !errorMessage)) && (
                 <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
                   <h4>You are donating:</h4>
@@ -193,78 +217,17 @@ export default function DonateForm() {
                 </div>
               )}
             </div>
-            <div className="terms-container">
-              {(step < 3 || (step === 3 && !errorMessage)) && (
-                <>
-                  <div className="flex flex-col gap-[10px] justify-center items-center">
-                    {step === 3 && !errorMessage && (
-                      <Checkbox
-                        id={'cover-fee-checkbox'}
-                        checked={formData.feeCovered}
-                        onChange={handleCheckboxChange}
-                        label={
-                          "I'd like to cover the transaction fee for this donation"
-                        }
-                        disabled={checkboxDisabled}
-                      />
-                    )}
-
-                    <div className="continue-container">
-                      <button
-                        className="continue-btn"
-                        type="submit"
-                        title={
-                          step === 1 && Number(formData.donationAmount) < 1
-                            ? 'Minimum donation amount is $1.00'
-                            : undefined
-                        }
-                        disabled={
-                          (step === 3 &&
-                            (!stripe || loading || checkboxDisabled)) ||
-                          (step === 1 && Number(formData.donationAmount) < 1) ||
-                          errorMessage !== ''
-                        }
-                      >
-                        <span className="btn flex items-center justify-center w-full">
-                          {step === 3 && loading ? (
-                            <span className="btn flex items-center justify-center w-full">
-                              Processing
-                              <div className="translate-y-[8px] translate-x-[6px]">
-                                <LoadingDots />
-                              </div>
-                            </span>
-                          ) : step === 3 ? (
-                            `Donate $${formData.totalCharged}`
-                          ) : (
-                            'Continue'
-                          )}
-                        </span>
-                      </button>
-                    </div>
-
-                    <div className="flex justify-center items-center gap-[5px]">
-                      <Lock />
-                      <p className="custom-text-3 s-neutral !font-[500] !no-underline">
-                        Your donation is secure and facilitated by Stripe.
-                      </p>
-                    </div>
-                  </div>
-
-                  {step === 3 && (
-                    <p className="terms-text">
-                      By clicking Donate, I agree to receive communications from
-                      Shaping Wellness Foundation and their{' '}
-                      <span
-                        className="underline cursor-pointer"
-                        onClick={() => setPopup(!popup)}
-                      >
-                        Privacy Policy.
-                      </span>
-                    </p>
-                  )}
-                </>
-              )}
-            </div>
+            <TermsContainer
+              formData={formData}
+              setFormData={setFormData}
+              checkboxDisabled={checkboxDisabled}
+              setCheckboxDisabled={setCheckboxDisabled}
+              step={step}
+              errorMessage={errorMessage}
+              loading={loading}
+              popup={popup}
+              setPopup={setPopup}
+            />
           </form>
         </div>
       </div>

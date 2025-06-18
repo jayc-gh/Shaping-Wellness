@@ -3,7 +3,7 @@
 import './contactForm.css';
 import '../../forms/forms.css';
 import { useState } from 'react';
-import { validateEmailFormat } from '@/lib/functions';
+import { validateEmailFormat } from '@/lib/functions/validateFunctions';
 
 export default function ContactForm() {
   const [firstName, setFirstName] = useState<string>('');

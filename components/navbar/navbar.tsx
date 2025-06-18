@@ -6,7 +6,7 @@ import Link from 'next/link';
 import LogoSvg from '../../app/icons/LogoSVG.svg';
 import ArrowDown from '../../app/icons/Arrow-down.svg';
 import ArrowDownColor from '../../app/icons/Arrow-down-color.svg';
-import { useOutsideClick } from '@/lib/functions';
+import { useOutsideClick } from '@/lib/functions/useFunctions';
 
 export default function NavBar() {
   const [dropdown, setDropDown] = useState<string | null>(null);
