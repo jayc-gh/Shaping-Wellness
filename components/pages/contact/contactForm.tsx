@@ -4,16 +4,22 @@ import './contactForm.css';
 import '../../forms/forms.css';
 import { useState } from 'react';
 import { validateEmailFormat } from '@/lib/functions/validateFunctions';
+import { handleSubmitContact } from '@/lib/functions/formHandleSubmit';
+import { ContactFormData } from '@/declarations';
 
 export default function ContactForm() {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [formData, setFormData] = useState<ContactFormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    details: '',
+  });
   const [emailError, setEmailError] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-
   return (
-    <form className="contact-form-box">
+    <form
+      className="contact-form-box"
+      onSubmit={e => handleSubmitContact(e, formData)}
+    >
       <div className="contact-form-wrapper">
         <h4>CONTACT FORM</h4>
         <p className="p4">
@@ -27,10 +33,13 @@ export default function ContactForm() {
                 First name <span className="required">*</span>
               </p>
               <input
-                value={firstName}
+                value={formData.firstName}
                 className="input-field"
                 onChange={e => {
-                  setFirstName(e.target.value);
+                  setFormData(prev => ({
+                    ...prev,
+                    firstName: e.target.value,
+                  }));
                 }}
               />
             </label>
@@ -39,10 +48,13 @@ export default function ContactForm() {
                 Last name <span className="required">*</span>
               </p>
               <input
-                value={lastName}
+                value={formData.lastName}
                 className="input-field"
                 onChange={e => {
-                  setLastName(e.target.value);
+                  setFormData(prev => ({
+                    ...prev,
+                    lastName: e.target.value,
+                  }));
                 }}
               />
             </label>
@@ -54,28 +66,34 @@ export default function ContactForm() {
               </p>
               <div className="flex flex-col w-full">
                 <input
-                  value={email}
+                  value={formData.email}
                   className={`input-field ${
-                    emailError && !validateEmailFormat(email) && email
+                    emailError &&
+                    !validateEmailFormat(formData.email) &&
+                    formData.email
                       ? 'show-invalid'
                       : ''
                   }`}
                   onChange={e => {
-                    setEmail(e.target.value);
+                    setFormData(prev => ({
+                      ...prev,
+                      email: e.target.value,
+                    }));
                     setEmailError(false);
                   }}
                   onBlur={() => {
-                    if (email) setEmailError(!validateEmailFormat(email));
+                    if (formData.email)
+                      setEmailError(!validateEmailFormat(formData.email));
                   }}
                 />
                 <div
                   className={`error-text-container ${
-                    emailError && !validateEmailFormat(email)
+                    emailError && !validateEmailFormat(formData.email)
                       ? 'transition'
                       : ''
                   }`}
                 >
-                  {email ? (
+                  {formData.email ? (
                     <p className="error-text">
                       Please enter in the format: email@domain.com
                     </p>
@@ -90,11 +108,14 @@ export default function ContactForm() {
                 How can we help? <span className="required">*</span>
               </p>
               <textarea
-                value={message}
+                value={formData.details}
                 className="input-field !h-[76px] resize-none !whitespace-pre-wrap !overflow-y-auto"
                 rows={3}
                 onChange={e => {
-                  setMessage(e.target.value);
+                  setFormData(prev => ({
+                    ...prev,
+                    details: e.target.value,
+                  }));
                 }}
               />
             </label>
@@ -104,11 +125,11 @@ export default function ContactForm() {
           className="continue-btn"
           type="submit"
           disabled={
-            !firstName ||
-            !lastName ||
-            !email ||
-            !message ||
-            !validateEmailFormat(email)
+            !formData.firstName ||
+            !formData.lastName ||
+            !formData.email ||
+            !formData.details ||
+            !validateEmailFormat(formData.email)
           }
         >
           <span className="btn">Send message</span>

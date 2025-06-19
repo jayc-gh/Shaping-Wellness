@@ -63,19 +63,6 @@ export default function FAQSection() {
         </div>
         <div className="faq-column">
           <FAQItem
-            question="What kind of volunteer opportunities do you offer?"
-            answer={
-              <>
-                We offer a variety of roles, from event support to
-                behind-the-scenes help. Visit our{' '}
-                <Link href="get-involved/volunteer">
-                  <span className="font-bold underline">Volunteer</span>
-                </Link>{' '}
-                page to learn more about the types of opportunities available.
-              </>
-            }
-          />
-          <FAQItem
             question="How can I donate?"
             answer={
               <>
@@ -112,6 +99,28 @@ export default function FAQSection() {
                 claim a donation as a deduction on your U.S. taxes, please keep
                 your email donation receipt as your official record. We&apos;ll
                 send it to you upon successful completion of your donation.
+              </>
+            }
+          />
+          <FAQItem
+            question="How do I cancel my recurring donation?"
+            answer={
+              <>
+                We&apos;re so grateful for your support. If you&apos;d like to
+                stop your monthly donations, you can do so at any time by
+                visiting our{' '}
+                <Link href="/">
+                  <span className="font-bold underline">
+                    Cancel Recurring Donation page.
+                  </span>
+                </Link>{' '}
+                You&apos;ll have the option to pause or adjust your gift if that
+                works better for you, or to cancel it entirely. If you need
+                help, feel free to{' '}
+                <Link href="/contact-us#contact">
+                  <span className="font-bold underline">contact us</span>
+                </Link>{' '}
+                and we&apos;ll be happy to assist.
               </>
             }
           />

@@ -106,8 +106,7 @@ export function handleSubmitPartner<T extends FormTypes>(
 
 export function handleSubmitContact<T extends FormTypes>(
   e: React.FormEvent<HTMLFormElement>,
-  formData: FormDataMap[T],
-  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
+  formData: FormDataMap[T]
 ) {
   e.preventDefault();
   const errors = validateForm(formData as ContactFormData, {
@@ -117,15 +116,7 @@ export function handleSubmitContact<T extends FormTypes>(
     ],
   });
 
-  // Update state with all the errors if errors exist
   if (Object.keys(errors).length > 0) {
-    setShowErrors(prev => ({
-      ...prev,
-      ...errors,
-    }));
     return;
   }
-
-  // Clear previous show errors if none found
-  setShowErrors({});
 }

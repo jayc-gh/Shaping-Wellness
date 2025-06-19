@@ -37,7 +37,7 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      <div className="three-col-section">
+      <div className="three-col-section" id="contact">
         <div className="three-col-section-p-container">
           <h4 className="sec-coral">GET IN TOUCH</h4>
         </div>
