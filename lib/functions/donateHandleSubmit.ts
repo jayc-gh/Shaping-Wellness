@@ -168,7 +168,6 @@ export async function handleSubmitStepThree({
     router.push(
       `/donate/payment-confirm?donorId=${storedData.donorId}&monthly=${formData.monthly}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}`
     );
-    setLoading(false);
     return;
   }
   nextStep();

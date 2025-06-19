@@ -61,7 +61,7 @@ export function handleSubmitVolunteer<T extends FormTypes>(
     return;
   }
 
-  // Clear previous errors if none found
+  // Clear previous show errors if none found
   setShowErrors({});
 }
 
@@ -100,7 +100,7 @@ export function handleSubmitPartner<T extends FormTypes>(
     return;
   }
 
-  // Clear previous errors if none found
+  // Clear previous show errors if none found
   setShowErrors({});
 }
 
@@ -126,6 +126,6 @@ export function handleSubmitContact<T extends FormTypes>(
     return;
   }
 
-  // Clear previous errors if none found
+  // Clear previous show errors if none found
   setShowErrors({});
 }
