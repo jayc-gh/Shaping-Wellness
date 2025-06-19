@@ -1,7 +1,7 @@
 'use client';
 
 import { ErrorMap, VolunteerFormData } from '@/declarations';
-import { handleSubmitBasic } from '@/lib/functions/submitFunctions';
+import { handleSubmitVolunteer } from '@/lib/functions/formHandleSubmit';
 import '../forms/forms.css';
 import { useState } from 'react';
 import Name from '../input-fields/name';
@@ -49,7 +49,7 @@ export default function VolunteerForm() {
   return (
     <form
       className="form-box"
-      onSubmit={e => handleSubmitBasic(e, formData, 'volunteer', setShowErrors)}
+      onSubmit={e => handleSubmitVolunteer(e, formData, setShowErrors)}
     >
       <div className="form-container">
         <div className="form-desc-wrapper">

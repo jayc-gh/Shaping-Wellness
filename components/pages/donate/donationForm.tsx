@@ -19,7 +19,7 @@ import {
   handleSubmitStepOne,
   handleSubmitStepTwo,
   handleSubmitStepThree,
-} from '@/lib/functions/submitFunctions';
+} from '@/lib/functions/donateHandleSubmit';
 import { useOutsideClick, useStopScroll } from '@/lib/functions/useFunctions';
 import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
 import '../../forms/forms.css';

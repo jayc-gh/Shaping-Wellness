@@ -1,22 +1,8 @@
-import {
-  DonateFormData,
-  ErrorMap,
-  StripeCtx,
-  FormTypes,
-  FormDataMap,
-  VolunteerFormData,
-  PartnerFormData,
-  ContactFormData,
-} from '@/declarations';
-import React from 'react';
+import { DonateFormData, StripeCtx, ErrorMap } from '@/declarations';
 import { convertToSubcurrency } from './currencyFunctions';
 import { useRouter } from 'next/navigation';
-import {
-  validateForm,
-  validateDate,
-  validateEmailFormat,
-} from './validateFunctions';
 import { createPaymentIntent, storeDonationData } from './serverFunctions';
+import { validateForm, validateEmailFormat } from './validateFunctions';
 
 type Router = ReturnType<typeof useRouter>;
 
@@ -40,111 +26,6 @@ type StepThreeSubmitParams = {
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
   router: Router;
 };
-
-export function handleSubmitBasic<T extends FormTypes>(
-  e: React.FormEvent<HTMLFormElement>,
-  formData: FormDataMap[T],
-  formType: T,
-  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
-) {
-  e.preventDefault();
-  if (formType === 'volunteer') {
-    const errors = validateForm(formData as VolunteerFormData, {
-      requiredFields: [
-        'firstName',
-        'lastName',
-        'address.address1',
-        'address.city',
-        'address.state',
-        'address.country',
-        'address.postalCode',
-        'phone.number',
-        'phone.type',
-        'DOB.month',
-        'DOB.day',
-        'DOB.year',
-        'AoI',
-        'volunteerHours',
-      ],
-      customValidations: [
-        data =>
-          !validateDate(data.DOB.month, data.DOB.day, data.DOB.year)
-            ? { DOB: true }
-            : {},
-        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
-        data =>
-          data.AoI.programCoord.trim() === '' &&
-          data.AoI.expertWorkshop.trim() === '' &&
-          data.AoI.mentor.trim() === ''
-            ? { AoI: true }
-            : {},
-      ],
-    });
-
-    // Update state with all the errors
-    setShowErrors(prev => ({
-      ...prev,
-      ...errors,
-    }));
-
-    // If there are any errors, prevent submission
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-  } else if (formType === 'partner') {
-    const errors = validateForm(formData as PartnerFormData, {
-      requiredFields: [
-        'orgName',
-        'school',
-        'firstName',
-        'lastName',
-        'address.address1',
-        'address.city',
-        'address.state',
-        'address.country',
-        'address.postalCode',
-        'phone.number',
-        'phone.type',
-        'details',
-      ],
-      customValidations: [
-        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
-      ],
-    });
-
-    // Update state with all the errors
-    setShowErrors(prev => ({
-      ...prev,
-      ...errors,
-    }));
-
-    // If there are any errors, prevent submission
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-  } else if (formType === 'contact') {
-    const errors = validateForm(formData as ContactFormData, {
-      requiredFields: ['firstName', 'lastName', 'details'],
-      customValidations: [
-        data => (!validateEmailFormat(data.email) ? { email: true } : {}),
-      ],
-    });
-
-    // Update state with all the errors
-    setShowErrors(prev => ({
-      ...prev,
-      ...errors,
-    }));
-
-    // If there are any errors, prevent submission
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-  }
-  // No errors - clear previous errors
-  setShowErrors({});
-}
-
 export async function handleSubmitStepOne({
   formData,
   nextStep,

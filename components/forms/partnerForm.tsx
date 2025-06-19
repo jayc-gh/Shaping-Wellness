@@ -1,7 +1,7 @@
 'use client';
 
 import { ErrorMap, PartnerFormData } from '@/declarations';
-import { handleSubmitBasic } from '@/lib/functions/submitFunctions';
+import { handleSubmitPartner } from '@/lib/functions/formHandleSubmit';
 import '../forms/forms.css';
 import { useState } from 'react';
 import Name from '../input-fields/name';
@@ -40,7 +40,7 @@ export default function PartnerForm() {
   return (
     <form
       className="form-box"
-      onSubmit={e => handleSubmitBasic(e, formData, 'partner', setShowErrors)}
+      onSubmit={e => handleSubmitPartner(e, formData, setShowErrors)}
     >
       <div className="form-container">
         <div className="form-desc-wrapper">
