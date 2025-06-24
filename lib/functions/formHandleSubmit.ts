@@ -1,7 +1,5 @@
 import {
   ErrorMap,
-  FormTypes,
-  FormDataMap,
   VolunteerFormData,
   PartnerFormData,
   ContactFormData,
@@ -14,9 +12,15 @@ import {
   validateEmailFormat,
 } from './validateFunctions';
 
-export function handleSubmitVolunteer<T extends FormTypes>(
+import {
+  storeContactData,
+  storePartnerData,
+  storeVolunteerData,
+} from './serverFunctions';
+
+export async function handleSubmitVolunteer(
   e: React.FormEvent<HTMLFormElement>,
-  formData: FormDataMap[T],
+  formData: VolunteerFormData,
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
 ) {
   e.preventDefault();
@@ -61,13 +65,25 @@ export function handleSubmitVolunteer<T extends FormTypes>(
     return;
   }
 
+  const data = {
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    phone: formData.phone,
+    email: formData.email,
+    DOB: formData.DOB,
+    address: formData.address,
+    AoI: formData.AoI,
+    volunteerHours: formData.volunteerHours,
+  };
+
   // Clear previous show errors if none found
   setShowErrors({});
+  await storeVolunteerData(data);
 }
 
-export function handleSubmitPartner<T extends FormTypes>(
+export async function handleSubmitPartner(
   e: React.FormEvent<HTMLFormElement>,
-  formData: FormDataMap[T],
+  formData: PartnerFormData,
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
 ) {
   e.preventDefault();
@@ -100,13 +116,25 @@ export function handleSubmitPartner<T extends FormTypes>(
     return;
   }
 
+  const data = {
+    orgName: formData.orgName,
+    school: formData.school,
+    address: formData.address,
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    phone: formData.phone,
+    email: formData.email,
+    details: formData.details,
+  };
+
   // Clear previous show errors if none found
   setShowErrors({});
+  await storePartnerData(data);
 }
 
-export function handleSubmitContact<T extends FormTypes>(
+export async function handleSubmitContact(
   e: React.FormEvent<HTMLFormElement>,
-  formData: FormDataMap[T]
+  formData: ContactFormData
 ) {
   e.preventDefault();
   const errors = validateForm(formData as ContactFormData, {
@@ -119,4 +147,12 @@ export function handleSubmitContact<T extends FormTypes>(
   if (Object.keys(errors).length > 0) {
     return;
   }
+  const data = {
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    details: formData.details,
+  };
+
+  await storeContactData(data);
 }

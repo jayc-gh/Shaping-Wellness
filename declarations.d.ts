@@ -99,7 +99,7 @@ export interface ValidatorConfig<T> {
   customValidations?: ((data: T) => Partial<ErrorMap>)[];
 }
 
-export type DatabaseData = {
+export type DatabaseDonationData = {
   firstName: string;
   lastName: string;
   email: string;

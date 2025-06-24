@@ -6,4 +6,13 @@ export const supabaseServer = createClient(
 );
 
 export const donationsTable =
-  process.env.NODE_ENV === 'production' ? 'donation' : 'donations_test';
+  process.env.NODE_ENV === 'production' ? 'donations' : 'donations_test';
+
+export const messagesTable =
+  process.env.NODE_ENV === 'production' ? 'messages' : 'messages_test';
+
+export const volunteersTable =
+  process.env.NODE_ENV === 'production' ? 'volunteers' : 'volunteers_test';
+
+export const partnersTable =
+  process.env.NODE_ENV === 'production' ? 'partners' : 'partners_test';

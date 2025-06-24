@@ -161,7 +161,7 @@ export default function VolunteerForm() {
                   />
                   {!formData.AoI.expertWorkshop ? <Unchecked /> : <Checked />}
                   <span className="custom-text-4 p-neutral">
-                    Program Coordination
+                    Expert Workshop
                   </span>
                 </label>
                 <label
