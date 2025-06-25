@@ -21,7 +21,8 @@ import {
 export async function handleSubmitVolunteer(
   e: React.FormEvent<HTMLFormElement>,
   formData: VolunteerFormData,
-  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
+  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   e.preventDefault();
   const errors = validateForm(formData as VolunteerFormData, {
@@ -78,13 +79,16 @@ export async function handleSubmitVolunteer(
 
   // Clear previous show errors if none found
   setShowErrors({});
-  await storeVolunteerData(data);
+  setLoading(true);
+  const volunteerData = await storeVolunteerData(data);
+  return volunteerData; // either volunterFormId or error
 }
 
 export async function handleSubmitPartner(
   e: React.FormEvent<HTMLFormElement>,
   formData: PartnerFormData,
-  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>
+  setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   e.preventDefault();
   const errors = validateForm(formData as PartnerFormData, {
@@ -129,12 +133,15 @@ export async function handleSubmitPartner(
 
   // Clear previous show errors if none found
   setShowErrors({});
-  await storePartnerData(data);
+  setLoading(true);
+  const partnerData = await storePartnerData(data);
+  return partnerData;
 }
 
 export async function handleSubmitContact(
   e: React.FormEvent<HTMLFormElement>,
-  formData: ContactFormData
+  formData: ContactFormData,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   e.preventDefault();
   const errors = validateForm(formData as ContactFormData, {
@@ -153,6 +160,7 @@ export async function handleSubmitContact(
     email: formData.email,
     details: formData.details,
   };
-
-  await storeContactData(data);
+  setLoading(true);
+  const contactData = await storeContactData(data);
+  return contactData;
 }

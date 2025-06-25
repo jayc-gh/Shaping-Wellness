@@ -12,6 +12,8 @@ import DOB from '../input-fields/DOB';
 import Unchecked from '../../app/icons/checked=no.svg';
 import Checked from '../../app/icons/checked=yes.svg';
 import YesNo from '../input-fields/yes-no';
+import FormConfirm from './formConfirm';
+import LoadingDots from '../loadingDots';
 
 export default function VolunteerForm() {
   const [formData, setFormData] = useState<VolunteerFormData>({
@@ -42,181 +44,217 @@ export default function VolunteerForm() {
     },
     volunteerHours: '',
   });
-
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
+  const [loading, setLoading] = useState<boolean>(false);
   const yesNoQ = 'Do you need volunteer hours?';
   const formType = 'volunteer';
   return (
     <form
       className="form-box"
-      onSubmit={e => handleSubmitVolunteer(e, formData, setShowErrors)}
+      onSubmit={async e => {
+        const volunteerData = await handleSubmitVolunteer(
+          e,
+          formData,
+          setShowErrors,
+          setLoading
+        );
+        if (!volunteerData) return;
+        if (volunteerData.error) {
+          setErrorMessage(volunteerData.error);
+        } else if (volunteerData.volunteerFormId) {
+          setConfirm(true);
+        }
+      }}
     >
-      <div className="form-container">
-        <div className="form-desc-wrapper">
-          <h4>VOLUNTEER APPLICATION</h4>
-          <p className="p4 primary-2">
-            Please complete the form below to tell us more about yourself and
-            how you&apos;d like to get involved.
-          </p>
-        </div>
-        <div className="form-sub-container">
-          <Name
-            formData={formData}
-            setFormData={setFormData}
-            showErrors={showErrors}
-            setShowErrors={setShowErrors}
-            formType={formType}
-          />
-
-          <Phone
-            formData={formData}
-            setFormData={setFormData}
-            showErrors={showErrors}
-            setShowErrors={setShowErrors}
-            formType={formType}
-          />
-
-          <Email
-            formData={formData}
-            setFormData={setFormData}
-            showErrors={showErrors}
-            setShowErrors={setShowErrors}
-            formType={formType}
-          />
-
-          <DOB
-            formData={formData}
-            setFormData={setFormData}
-            showErrors={showErrors}
-            setShowErrors={setShowErrors}
-            formType={formType}
-          />
-
-          <Address
-            formData={formData}
-            setFormData={setFormData}
-            showErrors={showErrors}
-            setShowErrors={setShowErrors}
-            formType={formType}
-          />
-          {/* area of interest checkboxes */}
-          <div className="input-sub-container">
-            <p className="custom-text">
-              Area of Interest <span className="required">*</span>
+      {!confirm && !errorMessage && (
+        <div className="form-container">
+          <div className="form-desc-wrapper">
+            <h4>VOLUNTEER APPLICATION</h4>
+            <p className="p4 primary-2">
+              Please complete the form below to tell us more about yourself and
+              how you&apos;d like to get involved.
             </p>
-            <div className="flex flex-col">
-              <div className="input-container">
-                <label
-                  className="checkbox-container !pr-0"
-                  htmlFor="program-coordination-checkbox"
-                >
-                  <input
-                    type="checkbox"
-                    id="program-coordination-checkbox"
-                    className="checkbox"
-                    checked={formData.AoI.programCoord === 'yes'}
-                    onChange={() => {
-                      setShowErrors(prev => ({
-                        ...prev,
-                        AoI: false,
-                      }));
-                      setFormData(prev => ({
-                        ...prev,
-                        AoI: {
-                          ...prev.AoI,
-                          programCoord:
-                            formData.AoI.programCoord === 'yes' ? '' : 'yes',
-                        },
-                      }));
-                    }}
-                  />
-                  {!formData.AoI.programCoord ? <Unchecked /> : <Checked />}
-                  <span className="custom-text-4 p-neutral">
-                    Program Coordination
-                  </span>
-                </label>
-                <label
-                  className="checkbox-container !pr-0"
-                  htmlFor="expert-workshop-checkbox"
-                >
-                  <input
-                    type="checkbox"
-                    id="expert-workshop-checkbox"
-                    className="checkbox"
-                    checked={formData.AoI.expertWorkshop === 'yes'}
-                    onChange={() => {
-                      setShowErrors(prev => ({
-                        ...prev,
-                        AoI: false,
-                      }));
-                      setFormData(prev => ({
-                        ...prev,
-                        AoI: {
-                          ...prev.AoI,
-                          expertWorkshop:
-                            formData.AoI.expertWorkshop === 'yes' ? '' : 'yes',
-                        },
-                      }));
-                    }}
-                  />
-                  {!formData.AoI.expertWorkshop ? <Unchecked /> : <Checked />}
-                  <span className="custom-text-4 p-neutral">
-                    Expert Workshop
-                  </span>
-                </label>
-                <label
-                  className="checkbox-container !pr-0"
-                  htmlFor="mentor-checkbox"
-                >
-                  <input
-                    type="checkbox"
-                    id="mentor-checkbox"
-                    className="checkbox"
-                    checked={formData.AoI.mentor === 'yes'}
-                    onChange={() => {
-                      setShowErrors(prev => ({
-                        ...prev,
-                        AoI: false,
-                      }));
-                      setFormData(prev => ({
-                        ...prev,
-                        AoI: {
-                          ...prev.AoI,
-                          mentor: formData.AoI.mentor === 'yes' ? '' : 'yes',
-                        },
-                      }));
-                    }}
-                  />
-                  {!formData.AoI.mentor ? <Unchecked /> : <Checked />}
-                  <span className="custom-text-4 p-neutral">Mentor</span>
-                </label>
-              </div>
-              <div
-                className={`error-text-container mt-[-6px] ${
-                  showErrors.AoI ? 'transition' : ''
-                }`}
-              >
-                <p className="error-text">Please select an area of interest</p>
-              </div>
-            </div>
           </div>
-          <div className="py-1">
-            <YesNo
+          <div className="form-sub-container">
+            <Name
               formData={formData}
               setFormData={setFormData}
               showErrors={showErrors}
               setShowErrors={setShowErrors}
-              title={yesNoQ}
               formType={formType}
             />
+
+            <Phone
+              formData={formData}
+              setFormData={setFormData}
+              showErrors={showErrors}
+              setShowErrors={setShowErrors}
+              formType={formType}
+            />
+
+            <Email
+              formData={formData}
+              setFormData={setFormData}
+              showErrors={showErrors}
+              setShowErrors={setShowErrors}
+              formType={formType}
+            />
+
+            <DOB
+              formData={formData}
+              setFormData={setFormData}
+              showErrors={showErrors}
+              setShowErrors={setShowErrors}
+              formType={formType}
+            />
+
+            <Address
+              formData={formData}
+              setFormData={setFormData}
+              showErrors={showErrors}
+              setShowErrors={setShowErrors}
+              formType={formType}
+            />
+            {/* area of interest checkboxes */}
+            <div className="input-sub-container">
+              <p className="custom-text">
+                Area of Interest <span className="required">*</span>
+              </p>
+              <div className="flex flex-col">
+                <div className="input-container">
+                  <label
+                    className="checkbox-container !pr-0"
+                    htmlFor="program-coordination-checkbox"
+                  >
+                    <input
+                      type="checkbox"
+                      id="program-coordination-checkbox"
+                      className="checkbox"
+                      checked={formData.AoI.programCoord === 'yes'}
+                      onChange={() => {
+                        setShowErrors(prev => ({
+                          ...prev,
+                          AoI: false,
+                        }));
+                        setFormData(prev => ({
+                          ...prev,
+                          AoI: {
+                            ...prev.AoI,
+                            programCoord:
+                              formData.AoI.programCoord === 'yes' ? '' : 'yes',
+                          },
+                        }));
+                      }}
+                    />
+                    {!formData.AoI.programCoord ? <Unchecked /> : <Checked />}
+                    <span className="custom-text-4 p-neutral">
+                      Program Coordination
+                    </span>
+                  </label>
+                  <label
+                    className="checkbox-container !pr-0"
+                    htmlFor="expert-workshop-checkbox"
+                  >
+                    <input
+                      type="checkbox"
+                      id="expert-workshop-checkbox"
+                      className="checkbox"
+                      checked={formData.AoI.expertWorkshop === 'yes'}
+                      onChange={() => {
+                        setShowErrors(prev => ({
+                          ...prev,
+                          AoI: false,
+                        }));
+                        setFormData(prev => ({
+                          ...prev,
+                          AoI: {
+                            ...prev.AoI,
+                            expertWorkshop:
+                              formData.AoI.expertWorkshop === 'yes'
+                                ? ''
+                                : 'yes',
+                          },
+                        }));
+                      }}
+                    />
+                    {!formData.AoI.expertWorkshop ? <Unchecked /> : <Checked />}
+                    <span className="custom-text-4 p-neutral">
+                      Expert Workshop
+                    </span>
+                  </label>
+                  <label
+                    className="checkbox-container !pr-0"
+                    htmlFor="mentor-checkbox"
+                  >
+                    <input
+                      type="checkbox"
+                      id="mentor-checkbox"
+                      className="checkbox"
+                      checked={formData.AoI.mentor === 'yes'}
+                      onChange={() => {
+                        setShowErrors(prev => ({
+                          ...prev,
+                          AoI: false,
+                        }));
+                        setFormData(prev => ({
+                          ...prev,
+                          AoI: {
+                            ...prev.AoI,
+                            mentor: formData.AoI.mentor === 'yes' ? '' : 'yes',
+                          },
+                        }));
+                      }}
+                    />
+                    {!formData.AoI.mentor ? <Unchecked /> : <Checked />}
+                    <span className="custom-text-4 p-neutral">Mentor</span>
+                  </label>
+                </div>
+                <div
+                  className={`error-text-container mt-[-6px] ${
+                    showErrors.AoI ? 'transition' : ''
+                  }`}
+                >
+                  <p className="error-text">
+                    Please select an area of interest
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="py-1">
+              <YesNo
+                formData={formData}
+                setFormData={setFormData}
+                showErrors={showErrors}
+                setShowErrors={setShowErrors}
+                title={yesNoQ}
+                formType={formType}
+              />
+            </div>
+          </div>
+          <div className="continue-container">
+            <button className="continue-btn" type="submit" disabled={loading}>
+              <span className="btn flex items-center justify-center w-full">
+                {loading ? (
+                  <span className="btn flex items-center justify-center w-full">
+                    Processing
+                    <div className="translate-y-[8px] translate-x-[6px]">
+                      <LoadingDots />
+                    </div>
+                  </span>
+                ) : (
+                  'Submit'
+                )}
+              </span>{' '}
+            </button>
           </div>
         </div>
-        <div className="continue-container">
-          <button className="continue-btn" type="submit">
-            <span className="btn">Submit</span>
-          </button>
-        </div>
-      </div>
+      )}
+      {confirm && <FormConfirm formType={formType} />}
+      {errorMessage && (
+        <div className="error-text text-center w-full">{errorMessage}</div>
+      )}
     </form>
   );
 }
