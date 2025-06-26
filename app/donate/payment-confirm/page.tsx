@@ -31,7 +31,7 @@ export default function PaymentConfirm() {
     amount: null,
     error: null,
   });
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [message, setMessage] = useState<string>('');
   const router = useRouter();
   const searchParams = useSearchParams();

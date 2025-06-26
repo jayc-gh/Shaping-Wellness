@@ -45,7 +45,7 @@ export default function VolunteerForm() {
     volunteerHours: '',
   });
   const [confirm, setConfirm] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [loading, setLoading] = useState<boolean>(false);
   const yesNoQ = 'Do you need volunteer hours?';

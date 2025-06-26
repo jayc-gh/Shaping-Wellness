@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       paymentIntentId: paymentIntent.id,
-      paymentStatus: paymentIntent.status,
+      status: paymentIntent.status,
       clientSecret,
     });
   } catch (error) {

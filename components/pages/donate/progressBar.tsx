@@ -9,7 +9,7 @@ interface StepProps {
   step: number;
   prevStep?: () => void;
   errorMessage?: string;
-  setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
+  setErrorMessage?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export default function ProgressBar({

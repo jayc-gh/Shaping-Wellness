@@ -1,7 +1,11 @@
 import { DonateFormData, StripeCtx, ErrorMap } from '@/declarations';
 import { convertToSubcurrency } from './currencyFunctions';
 import { useRouter } from 'next/navigation';
-import { createPaymentIntent, storeDonationData } from './serverFunctions';
+import {
+  createPaymentIntent,
+  createSubscription,
+  storeDonationData,
+} from './serverFunctions';
 import { validateForm, validateEmailFormat } from './validateFunctions';
 
 type Router = ReturnType<typeof useRouter>;
@@ -23,7 +27,7 @@ type StepThreeSubmitParams = {
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
   nextStep: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
   router: Router;
 };
 export async function handleSubmitStepOne({
@@ -108,30 +112,58 @@ export async function handleSubmitStepThree({
     return;
   }
 
-  const intent = await createPaymentIntent(formData.totalCharged);
-  if (intent.error) {
-    setErrorMessage(intent.error);
+  let oneTimeIntent;
+  let subscriptionIntent;
+  if (!formData.monthly) {
+    oneTimeIntent = await createPaymentIntent(formData.totalCharged);
+  } else if (formData.monthly) {
+    subscriptionIntent = await createSubscription(
+      formData.totalCharged,
+      formData.email
+    );
+  }
+
+  if (oneTimeIntent?.error || subscriptionIntent?.error) {
+    setErrorMessage(oneTimeIntent?.error || subscriptionIntent?.error);
     setLoading(false);
     return;
   }
 
-  const data = {
+  const oneTimeDonationData = {
     firstName: formData.firstName,
     lastName: formData.lastName,
     email: formData.email,
     amount: convertToSubcurrency(Number(formData.totalCharged)),
-    clientSecret: intent.clientSecret,
-    paymentIntentId: intent.paymentIntentId,
-    paymentStatus: intent.paymentStaus,
+    clientSecret: oneTimeIntent?.clientSecret,
+    paymentIntentId: oneTimeIntent?.paymentIntentId,
+    paymentStatus: oneTimeIntent?.status,
   };
 
-  const storedData = await storeDonationData(data);
+  const subscriptionData = {
+    subscriptionId: subscriptionIntent?.subscriptionId,
+    customerId: subscriptionIntent?.customerId,
+    email: formData.email,
+    paymentIntentId: subscriptionIntent?.paymentIntentId,
+    amount: convertToSubcurrency(Number(formData.totalCharged)),
+    status: subscriptionIntent?.status,
+    cancellationDate: null,
+    receiptSent: false,
+    updatedAt: null,
+  };
+
+  let autoReturnUrl;
+  if (!formData.monthly) {
+    const storedData = await storeDonationData(oneTimeDonationData);
+    autoReturnUrl = `${window.location.origin}/donate/payment-confirm?donorId=${storedData?.donorId}&monthly=${formData.monthly}`;
+  } else if (formData.monthly) {
+    // const storedData = await
+  }
 
   const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
     elements,
-    clientSecret: intent.clientSecret,
+    clientSecret: oneTimeIntent?.clientSecret,
     confirmParams: {
-      return_url: `${window.location.origin}/donate/payment-confirm?donorId=${storedData.donorId}&monthly=${formData.monthly}`,
+      return_url: autoReturnUrl,
       receipt_email: formData.email,
       payment_method_data: {
         billing_details: {
@@ -166,7 +198,7 @@ export async function handleSubmitStepThree({
     return;
   } else if (paymentIntent) {
     router.push(
-      `/donate/payment-confirm?donorId=${storedData.donorId}&monthly=${formData.monthly}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}`
+      `${autoReturnUrl}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}`
     );
     return;
   }

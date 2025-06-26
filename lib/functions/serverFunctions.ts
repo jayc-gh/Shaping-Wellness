@@ -27,8 +27,44 @@ export const createPaymentIntent = async (amount: string) => {
     }
     return {
       paymentIntentId: data.paymentIntentId,
-      paymentStaus: data.paymentStatus,
+      status: data.status,
       clientSecret: data.clientSecret,
+    };
+  } catch (error) {
+    return {
+      error: `${
+        error instanceof Error ? error.message : String(error)
+      } Please contact us if this error persists.`,
+    };
+  }
+};
+
+export const createSubscription = async (amount: string, email: string) => {
+  try {
+    const convertedAmount = convertToSubcurrency(Number(amount));
+    const response = await fetch('/api/create-subscription', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: convertedAmount,
+        email,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const errorMsg = data?.message || 'Failed to create subscription.';
+      throw new Error(errorMsg);
+    }
+    return {
+      paymentIntentId: data.paymentIntent,
+      clientSecret: data.clientSecret,
+      customerId: data.customerId,
+      subscriptionId: data.subscriptionId,
+      status: data.status,
     };
   } catch (error) {
     return {

@@ -16,3 +16,8 @@ export const volunteersTable =
 
 export const partnersTable =
   process.env.NODE_ENV === 'production' ? 'partners' : 'partners_test';
+
+export const subscriptionPricesTable =
+  process.env.NODE_ENV === 'production'
+    ? 'subscription_prices'
+    : 'subscription_prices_test';

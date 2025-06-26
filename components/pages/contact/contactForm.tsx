@@ -18,7 +18,7 @@ export default function ContactForm() {
   });
   const [emailError, setEmailError] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [loading, setLoading] = useState<boolean>(false);
   const formType = 'contact';
 

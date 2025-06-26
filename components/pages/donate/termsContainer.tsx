@@ -10,7 +10,7 @@ interface StepProps {
   checkboxDisabled: boolean;
   setCheckboxDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   step: number;
-  errorMessage: string;
+  errorMessage: string | undefined;
   loading: boolean;
   popup: boolean;
   setPopup: React.Dispatch<React.SetStateAction<boolean>>;

@@ -64,7 +64,7 @@ export default function DonateForm() {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [checkboxDisabled, setCheckboxDisabled] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
     stripe: null,

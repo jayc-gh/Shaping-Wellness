@@ -37,7 +37,7 @@ export default function PartnerForm() {
 
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [confirm, setConfirm] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [loading, setLoading] = useState<boolean>(false);
   const yesNoQ = 'Is this organization a school?';
   const formType = 'partner';
