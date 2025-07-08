@@ -21,3 +21,8 @@ export const subscriptionPricesTable =
   process.env.NODE_ENV === 'production'
     ? 'subscription_prices'
     : 'subscription_prices_test';
+
+export const subscriptionInfoTable =
+  process.env.NODE_ENV === 'production'
+    ? 'subscription_info'
+    : 'subscription_info_test';

@@ -83,6 +83,7 @@ export const storeDonationData = async ({
   clientSecret,
   paymentIntentId,
   paymentStatus,
+  subscriptionId,
 }: DatabaseDonationData) => {
   try {
     const response = await fetch('/api/store-data/donation', {
@@ -98,6 +99,7 @@ export const storeDonationData = async ({
         clientSecret,
         paymentIntentId,
         paymentStatus,
+        subscriptionId,
       }),
     });
 

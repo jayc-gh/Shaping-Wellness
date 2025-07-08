@@ -107,4 +107,17 @@ export type DatabaseDonationData = {
   clientSecret: string | null;
   paymentIntentId: string;
   paymentStatus: string;
+  subscriptionId: string;
+};
+
+export type SubscriptionData = {
+  subscriptionId: string;
+  customerId: string;
+  email: string;
+  paymentIntentId: string;
+  amount: number;
+  status: string;
+  periodStart: Date;
+  periodEnd: Date;
+  cycleAnchor: Date;
 };

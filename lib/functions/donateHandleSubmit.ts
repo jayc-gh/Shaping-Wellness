@@ -129,7 +129,7 @@ export async function handleSubmitStepThree({
     return;
   }
 
-  const oneTimeDonationData = {
+  const donationData = {
     firstName: formData.firstName,
     lastName: formData.lastName,
     email: formData.email,
@@ -137,26 +137,16 @@ export async function handleSubmitStepThree({
     clientSecret: oneTimeIntent?.clientSecret,
     paymentIntentId: oneTimeIntent?.paymentIntentId,
     paymentStatus: oneTimeIntent?.status,
-  };
-
-  const subscriptionData = {
-    subscriptionId: subscriptionIntent?.subscriptionId,
-    customerId: subscriptionIntent?.customerId,
-    email: formData.email,
-    paymentIntentId: subscriptionIntent?.paymentIntentId,
-    amount: convertToSubcurrency(Number(formData.totalCharged)),
-    status: subscriptionIntent?.status,
-    cancellationDate: null,
     receiptSent: false,
-    updatedAt: null,
+    subscriptionId: formData.monthly ? subscriptionIntent?.subscriptionId : '',
   };
 
   let autoReturnUrl;
   if (!formData.monthly) {
-    const storedData = await storeDonationData(oneTimeDonationData);
+    const storedData = await storeDonationData(donationData);
     autoReturnUrl = `${window.location.origin}/donate/payment-confirm?donorId=${storedData?.donorId}&monthly=${formData.monthly}`;
   } else if (formData.monthly) {
-    // const storedData = await
+    autoReturnUrl = `${window.location.origin}/donate/payment-confirm?subscriptionId=${subscriptionIntent?.subscriptionId}&monthly=${formData.monthly}`;
   }
 
   const { error: confirmError, paymentIntent } = await stripe.confirmPayment({

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseServer, donationsTable } from '@/lib/supabaseServer';
-import { DatabaseData } from '@/declarations';
+import { DatabaseDonationData } from '@/declarations';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,9 +14,10 @@ export async function POST(request: NextRequest) {
       clientSecret,
       paymentIntentId,
       paymentStatus,
+      subscriptionId,
     } = body;
 
-    const formData: DatabaseData = {
+    const formData: DatabaseDonationData = {
       firstName,
       lastName,
       email,
@@ -24,6 +25,7 @@ export async function POST(request: NextRequest) {
       clientSecret,
       paymentIntentId,
       paymentStatus,
+      subscriptionId,
     };
 
     const donorId = await storeData(formData);
@@ -48,7 +50,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-const storeData = async (formData: DatabaseData) => {
+const storeData = async (formData: DatabaseDonationData) => {
   const { data, error } = await supabaseServer
     .from(donationsTable)
     .insert({
@@ -59,6 +61,7 @@ const storeData = async (formData: DatabaseData) => {
       payment_intent_client_secret: formData.clientSecret,
       charged_amount: formData.amount,
       payment_status: formData.paymentStatus,
+      subscription_id: formData.subscriptionId,
     })
     .select('id')
     .single();

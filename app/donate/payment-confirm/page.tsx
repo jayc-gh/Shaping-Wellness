@@ -16,31 +16,25 @@ if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
 }
 
-type DonationInfo = {
-  donorId: string | null;
-  status: string | null;
-  amount: number | null;
-  error?: string | null;
-};
-
 export default function PaymentConfirm() {
   const [valid, setValid] = useState<boolean>(false);
-  const [donationInfo, setDonationInfo] = useState<DonationInfo>({
-    donorId: null,
-    status: null,
-    amount: null,
-    error: null,
-  });
   const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [message, setMessage] = useState<string>('');
+  const [monthly, setMonthly] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // run conditional useEffect based on monthly
+  // set up check subscription endpoint
+  // if monthly query above endpoint to get subscription info
+  // else run the existing useEffect
 
   // prevent going to confirmation page without existing payment intent
   // also getting payment status and info
   useEffect(() => {
     const paymentId = searchParams.get('payment_intent');
-    const monthly = searchParams.get('monthly');
+    const monthlyUrl = searchParams.get('monthly');
+    setMonthly(monthlyUrl === 'true' ? true : false);
     const fetchUrl = `/api/payment-status?payment_intent=${paymentId}`;
     if (!paymentId) {
       router.push('/donate');
@@ -49,21 +43,21 @@ export default function PaymentConfirm() {
 
     const fetchData = async () => {
       const donation = await fetchPaymentWithRetry(fetchUrl);
-      setDonationInfo(donation);
-
       switch (donation.status) {
         case 'succeeded':
           setValid(true);
           setMessage(
             `We've received your gift of $${(donation.amount / 100).toFixed(
               2
-            )}!`
+            )}. Thank you for your generosity! You should receive an email receipt shortly.`
           );
           break;
         case 'processing':
           setValid(true);
           setMessage(
-            `Your gift of $${(donation.amount / 100).toFixed(2)} is on its way!`
+            `Your donation of $${(donation.amount / 100).toFixed(
+              2
+            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. Once it's done, we'll email you a receipt.`
           );
           break;
         // if payment intent is missing or not found redirect to donate page
@@ -104,22 +98,14 @@ export default function PaymentConfirm() {
                 <div className="!gap-[32px] form-container">
                   {/* Back button and Progress bar */}
                   <ProgressBar step={4} prevStep={() => undefined} />
-                  <h4 className="self-center">{message}</h4>
+                  <h4 className="self-center">Thank you for your donation!</h4>
                   <div className="thank-you-container">
                     <div className="text-center p4 primary-2 gap-[24px] flex flex-col">
-                      <p>
-                        Thank you for your generosity. A cofirmation receipt
-                        will be sent to the email address you provided (bank
-                        payments typically take 3-5 business days).
-                      </p>
+                      <p>{message}</p>
                       <p>
                         Because of you, more girls will have access to the
                         resources they need to grow up strong, healthy, and
                         confident. You&apos;ve truly made a difference.
-                      </p>
-                      <p>
-                        Your donor ID is: {donationInfo.donorId} <br />
-                        Please save this ID for future reference.
                       </p>
                     </div>
                   </div>
