@@ -102,6 +102,9 @@ export interface ValidatorConfig<T> {
 export type DatabaseDonationData = {
   firstName: string;
   lastName: string;
+  orgName: string;
+  phoneNum: string;
+  phoneType: string;
   email: string;
   amount: number;
   clientSecret: string | null;

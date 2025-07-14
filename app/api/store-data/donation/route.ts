@@ -9,6 +9,9 @@ export async function POST(request: NextRequest) {
     const {
       firstName,
       lastName,
+      orgName,
+      phoneNum,
+      phoneType,
       email,
       amount,
       clientSecret,
@@ -20,7 +23,10 @@ export async function POST(request: NextRequest) {
     const formData: DatabaseDonationData = {
       firstName,
       lastName,
+      orgName,
       email,
+      phoneNum,
+      phoneType,
       amount,
       clientSecret,
       paymentIntentId,
@@ -62,6 +68,9 @@ const storeData = async (formData: DatabaseDonationData) => {
       charged_amount: formData.amount,
       payment_status: formData.paymentStatus,
       subscription_id: formData.subscriptionId,
+      organization_name: formData.orgName,
+      phone_number: formData.phoneNum,
+      phone_type: formData.phoneType,
     })
     .select('id')
     .single();

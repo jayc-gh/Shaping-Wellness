@@ -197,7 +197,7 @@ export default function DonateForm() {
                     <Elements
                       stripe={stripePromise}
                       options={{
-                        mode: 'payment',
+                        mode: formData.monthly ? 'subscription' : 'payment',
                         amount: convertToSubcurrency(
                           Number(formData.totalCharged)
                         ),

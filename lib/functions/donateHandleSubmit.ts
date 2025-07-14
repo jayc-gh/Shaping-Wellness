@@ -132,7 +132,10 @@ export async function handleSubmitStepThree({
   const donationData = {
     firstName: formData.firstName,
     lastName: formData.lastName,
+    orgName: formData.orgName,
     email: formData.email,
+    phoneNum: formData.phone.number,
+    phoneType: formData.phone.type,
     amount: convertToSubcurrency(Number(formData.totalCharged)),
     clientSecret: oneTimeIntent?.clientSecret,
     paymentIntentId: oneTimeIntent?.paymentIntentId,
@@ -140,6 +143,7 @@ export async function handleSubmitStepThree({
     receiptSent: false,
     subscriptionId: formData.monthly ? subscriptionIntent?.subscriptionId : '',
   };
+  console.log('secret', subscriptionIntent?.clientSecret);
 
   let autoReturnUrl;
   if (!formData.monthly) {
@@ -148,10 +152,11 @@ export async function handleSubmitStepThree({
   } else if (formData.monthly) {
     autoReturnUrl = `${window.location.origin}/donate/payment-confirm?subscriptionId=${subscriptionIntent?.subscriptionId}&monthly=${formData.monthly}`;
   }
-
   const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
     elements,
-    clientSecret: oneTimeIntent?.clientSecret,
+    clientSecret: formData.monthly
+      ? subscriptionIntent?.clientSecret
+      : oneTimeIntent?.clientSecret,
     confirmParams: {
       return_url: autoReturnUrl,
       receipt_email: formData.email,

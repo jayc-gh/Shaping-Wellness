@@ -52,9 +52,8 @@ export async function POST(req: NextRequest) {
         periodEnd,
         cycleAnchor,
       };
-
       const subscriptionId = storeData(formData);
-
+      console.log(clientSecret);
       return NextResponse.json({
         clientSecret,
         paymentIntent,
@@ -64,7 +63,7 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch (error) {
-    let message = 'Something went wrong while creating the subscription.';
+    let message = 'Something went wrong while creating your subscription.';
 
     // backend error log
     console.error('Error', {

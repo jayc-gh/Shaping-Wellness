@@ -78,6 +78,9 @@ export const createSubscription = async (amount: string, email: string) => {
 export const storeDonationData = async ({
   firstName,
   lastName,
+  orgName,
+  phoneNum,
+  phoneType,
   email,
   amount,
   clientSecret,
@@ -94,6 +97,9 @@ export const storeDonationData = async ({
       body: JSON.stringify({
         firstName,
         lastName,
+        orgName,
+        phoneNum,
+        phoneType,
         email,
         amount,
         clientSecret,
@@ -274,6 +280,56 @@ export const fetchPaymentWithRetry = async (
       return {
         ...lastAttempt,
         error: `Error fetching payment status: ${err}`,
+      };
+    }
+
+    // wait before next attempt
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+
+  // return last known status
+  return lastAttempt;
+};
+
+export const fetchSubscriptionWithRetry = async (
+  url: string,
+  retries = 5,
+  delay = 1000
+) => {
+  let lastAttempt = {
+    subscriptionId: null,
+    status: 'unknown',
+    amount: null,
+    customerId: null,
+    billingCycleAnchor: null,
+    currentPeriodStart: null,
+    currentPeriodEnd: null,
+  };
+  const terminalStatuses = ['active', 'canceled', 'incomplete_expired'];
+
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        lastAttempt.status = String(res.status);
+        throw new Error(`Request failed with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      const status = data.status;
+      lastAttempt = data;
+
+      if (terminalStatuses.includes(status)) {
+        return data; // immediately return if terminal status
+      }
+    } catch (err) {
+      console.error(`Error fetching subscription status: ${err}`);
+      return {
+        ...lastAttempt,
+        error: `Error fetching subscription status: ${err}`,
       };
     }
 

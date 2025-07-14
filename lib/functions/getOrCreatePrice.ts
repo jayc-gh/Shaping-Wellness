@@ -8,7 +8,7 @@ export async function getOrCreateRecurringPrice(
   const { data, error } = await supabaseServer
     .from(subscriptionPricesTable)
     .select('stripe_price_id')
-    .eq('amount_cents', amountInCents)
+    .eq('amount', amountInCents)
     .eq('currency', 'usd')
     .eq('interval', 'month')
     .limit(1)
@@ -33,7 +33,7 @@ export async function getOrCreateRecurringPrice(
     .from(subscriptionPricesTable)
     .insert([
       {
-        amount_cents: amountInCents,
+        amount: amountInCents,
         currency: 'usd',
         interval: 'month',
         stripe_price_id: price.id,
