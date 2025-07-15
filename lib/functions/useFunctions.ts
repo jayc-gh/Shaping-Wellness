@@ -124,7 +124,7 @@ export function useSubscription(
               subscription.amount / 100
             ).toFixed(
               2
-            )} is active. Thank you for your generosity! You should receive an email receipt shortly.`
+            )} is now active. Thank you for your generosity! You should receive an email receipt shortly.`
           );
           break;
         case 'incomplete':

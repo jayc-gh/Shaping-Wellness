@@ -27,13 +27,6 @@ export default function PaymentConfirm() {
   const searchParams = useSearchParams();
   const monthlyUrl = searchParams.get('monthly');
 
-  // run conditional useEffect based on monthly
-  // set up check subscription endpoint
-  // if monthly query above endpoint to get subscription info
-  // else run the existing useEffect
-
-  // prevent going to confirmation page without existing payment intent
-  // also getting payment status and info
   useSubscription(setValid, setMessage, setErrorMessage, monthlyUrl);
   useOneTimePayment(setValid, setMessage, setErrorMessage, monthlyUrl);
 

@@ -6,16 +6,36 @@ import { supabaseServer, subscriptionInfoTable } from '@/lib/supabaseServer';
 import { SubscriptionData } from '@/declarations';
 
 export async function POST(req: NextRequest) {
-  const { email, amount } = await req.json();
+  const {
+    email,
+    amount,
+    firstName,
+    lastName,
+    orgName,
+    phoneNumber,
+    phoneType,
+  } = await req.json();
 
-  if (!email || !amount)
+  if (!email || !amount || !firstName || !lastName) {
     return NextResponse.json(
       { message: 'Invalid request data.' },
       { status: 400 }
     );
+  }
 
   try {
-    const customer = await stripe.customers.create({ email });
+    const customer = await stripe.customers.create({
+      email,
+      name: orgName ? orgName : `${firstName} ${lastName}`,
+      phone: phoneNumber,
+      metadata: {
+        firstName,
+        lastName,
+        orgName,
+        phoneNumber,
+        phoneType,
+      },
+    });
     const priceId = await getOrCreateRecurringPrice(amount);
 
     const subscription = await stripe.subscriptions.create({
@@ -43,22 +63,25 @@ export async function POST(req: NextRequest) {
 
       const formData: SubscriptionData = {
         subscriptionId: subscription.id,
-        customerId: customer.id,
+        firstName,
+        lastName,
+        orgName,
+        phoneNumber,
+        phoneType,
         email: email,
-        paymentIntentId: paymentIntent.id,
         amount: amount,
         status: paymentIntent.status,
         periodStart,
         periodEnd,
         cycleAnchor,
+        invoiceId: subscription.latest_invoice.id,
       };
-      const subscriptionId = storeData(formData);
-      console.log(clientSecret);
+      await storeData(formData);
       return NextResponse.json({
         clientSecret,
         paymentIntent,
         customerId: customer.id,
-        subscriptionId,
+        subscriptionId: subscription.id,
         status: subscription.status,
       });
     }
@@ -79,15 +102,27 @@ export async function POST(req: NextRequest) {
 }
 
 const storeData = async (formData: SubscriptionData) => {
-  const { subscriptionId, customerId, email, paymentIntentId, amount, status } =
-    formData;
+  const {
+    subscriptionId,
+    firstName,
+    lastName,
+    orgName,
+    phoneNumber,
+    phoneType,
+    email,
+    amount,
+    status,
+  } = formData;
   const { data, error } = await supabaseServer
     .from(subscriptionInfoTable)
     .insert({
       subscription_id: subscriptionId,
-      customer_id: customerId,
+      first_name: firstName,
+      last_name: lastName,
+      org_name: orgName,
+      phone_number: phoneNumber,
+      phone_type: phoneType,
       email: email,
-      payment_intent_id: paymentIntentId,
       amount: amount,
       status: status,
       billing_cycle_anchor: formData.cycleAnchor,

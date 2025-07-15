@@ -115,12 +115,16 @@ export type DatabaseDonationData = {
 
 export type SubscriptionData = {
   subscriptionId: string;
-  customerId: string;
+  firstName: string;
+  lastName: string;
+  orgName: string;
   email: string;
-  paymentIntentId: string;
+  phoneNumber: string;
+  phoneType: string;
   amount: number;
   status: string;
   periodStart: Date;
   periodEnd: Date;
   cycleAnchor: Date;
+  invoiceId: string;
 };

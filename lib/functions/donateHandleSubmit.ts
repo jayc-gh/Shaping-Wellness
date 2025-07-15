@@ -119,7 +119,12 @@ export async function handleSubmitStepThree({
   } else if (formData.monthly) {
     subscriptionIntent = await createSubscription(
       formData.totalCharged,
-      formData.email
+      formData.email,
+      formData.firstName,
+      formData.lastName,
+      formData.orgName,
+      formData.phone.number,
+      formData.phone.type
     );
   }
 
@@ -142,8 +147,8 @@ export async function handleSubmitStepThree({
     paymentStatus: oneTimeIntent?.status,
     receiptSent: false,
     subscriptionId: formData.monthly ? subscriptionIntent?.subscriptionId : '',
+    invoiceId: formData.monthly ? subscriptionIntent?.invoiceId : '',
   };
-  console.log('secret', subscriptionIntent?.clientSecret);
 
   let autoReturnUrl;
   if (!formData.monthly) {

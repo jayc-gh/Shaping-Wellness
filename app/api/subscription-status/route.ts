@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const { data: subscription, error } = await supabaseServer
       .from(subscriptionInfoTable)
       .select(
-        'subscription_id, customer_id, amount, status, billing_cycle_anchor, current_period_start, current_period_end'
+        'subscription_id, amount, status, billing_cycle_anchor, current_period_start, current_period_end'
       )
       .eq('subscription_id', subscriptionId)
       .single();
@@ -28,7 +28,6 @@ export async function GET(req: NextRequest) {
       subscriptionId: subscription.subscription_id,
       status: subscription.status,
       amount: subscription.amount,
-      customerId: subscription.customer_id,
       billingCycleAnchor: subscription.billing_cycle_anchor,
       currentPeriodStart: subscription.current_period_start,
       currentPeriodEnd: subscription.current_period_end,

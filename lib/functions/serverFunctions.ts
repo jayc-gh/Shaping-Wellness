@@ -39,7 +39,15 @@ export const createPaymentIntent = async (amount: string) => {
   }
 };
 
-export const createSubscription = async (amount: string, email: string) => {
+export const createSubscription = async (
+  amount: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+  orgName: string,
+  phoneNumber: string,
+  phoneType: string
+) => {
   try {
     const convertedAmount = convertToSubcurrency(Number(amount));
     const response = await fetch('/api/create-subscription', {
@@ -50,6 +58,11 @@ export const createSubscription = async (amount: string, email: string) => {
       body: JSON.stringify({
         amount: convertedAmount,
         email,
+        firstName,
+        lastName,
+        orgName,
+        phoneNumber,
+        phoneType,
       }),
     });
 
@@ -65,6 +78,7 @@ export const createSubscription = async (amount: string, email: string) => {
       customerId: data.customerId,
       subscriptionId: data.subscriptionId,
       status: data.status,
+      invoiceId: data.invoiceId,
     };
   } catch (error) {
     return {
