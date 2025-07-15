@@ -61,21 +61,13 @@ async function processEvent(event: Stripe.Event) {
     }
     case 'invoice.created': {
       const invoice = event.data.object as Stripe.Invoice;
-
-      const paymentIntentId =
-        typeof invoice.payment_intent === 'string'
-          ? invoice.payment_intent
-          : invoice.payment_intent?.id;
-
       const subscriptionId =
         typeof invoice.subscription === 'string'
           ? invoice.subscription
           : invoice.subscription?.id;
 
-      if (!subscriptionId || !paymentIntentId) {
-        throw new Error(
-          `Invoice ${invoice.id} has no subscription ID or payment intent ID.`
-        );
+      if (!subscriptionId) {
+        throw new Error(`Invoice ${invoice.id} has no subscription ID.`);
       }
       const customer = await stripe.customers.retrieve(
         invoice.customer as string
@@ -84,7 +76,7 @@ async function processEvent(event: Stripe.Event) {
       if (customer.deleted) {
         throw new Error(`Customer ${invoice.customer} was deleted`);
       }
-
+      console.log('invoice created');
       await createSubscriptionPayment(
         // Pull data from customer metadata
         customer.metadata.firstName || '',
@@ -93,7 +85,6 @@ async function processEvent(event: Stripe.Event) {
         customer.email || invoice.customer_email || '',
         customer.metadata.phoneNumber || '',
         customer.metadata.phoneType || '',
-        paymentIntentId,
         invoice.amount_due,
         subscriptionId,
         invoice.id,
@@ -101,6 +92,7 @@ async function processEvent(event: Stripe.Event) {
       );
       break;
     }
+    case 'invoice.paid':
     case 'invoice.payment_succeeded': {
       const invoice = event.data.object as Stripe.Invoice;
       await updatePaymentStatus(invoice.id, 'succeeded');
