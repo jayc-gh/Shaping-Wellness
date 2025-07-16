@@ -1,34 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseServer, donationsTable } from '@/lib/supabaseServer';
+import { stripe } from '@/lib/stripe';
 
 export async function GET(req: NextRequest) {
-  const paymentIntent = req.nextUrl.searchParams.get('payment_intent');
-  if (!paymentIntent) {
+  const paymentIntentId = req.nextUrl.searchParams.get('payment_intent');
+  if (!paymentIntentId) {
     return NextResponse.json(
-      { error: 'Missing payment intent id' },
+      { error: 'Missing payment intent' },
       { status: 400 }
     );
   }
 
   try {
-    const { data: donation, error } = await supabaseServer
-      .from(donationsTable)
-      .select('id, charged_amount, payment_status')
-      .eq('payment_intent_id', paymentIntent)
-      .single();
-
-    if (error) {
-      console.error('Supabase query error:', error);
-      return NextResponse.json({ error: 'Not found' }, { status: 404 });
-    }
+    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
     return NextResponse.json({
-      donorId: donation.id,
-      status: donation.payment_status,
-      amount: donation.charged_amount,
+      status: paymentIntent.status,
+      amount: paymentIntent.amount,
+      last_payment_error: paymentIntent.last_payment_error,
     });
   } catch (error) {
-    console.error('Unexpected server error:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    console.error('Error fetching PaymentIntent:', error);
+    return NextResponse.json(
+      { error: 'PaymentIntent not found' },
+      { status: 404 }
+    );
   }
 }

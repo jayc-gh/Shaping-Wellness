@@ -95,6 +95,8 @@ export async function POST(req: NextRequest) {
     });
     if (error instanceof Stripe.errors.StripeError) {
       message = error.message;
+    } else if (error instanceof Error) {
+      message = error.message;
     }
 
     return NextResponse.json({ message }, { status: 500 });
@@ -133,6 +135,10 @@ const storeData = async (formData: SubscriptionData) => {
     .single();
 
   if (error) {
+    // duplicate unique violation - only one subscription per email
+    if (error.code === '23505') {
+      throw new Error('A subscription with this email already exists.');
+    }
     throw new Error(error.message);
   } else {
     return data.subscription_id;

@@ -3,33 +3,51 @@ import {
   donationsTable,
   subscriptionInfoTable,
 } from '@/lib/supabaseServer';
+import Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
 
-export async function updatePaymentStatus(
-  paymentIntentId: string,
-  status: string
-) {
+export async function updatePaymentStatus(invoiceId: string, status: string) {
+  const column = invoiceId.startsWith('pi_')
+    ? 'payment_intent_id'
+    : 'invoice_id';
   const { error } = await supabaseServer
     .from(donationsTable)
     .update({ payment_status: status, updated_at: new Date() })
-    .eq('payment_intent_id', paymentIntentId);
+    .eq(column, invoiceId);
 
   if (error) {
     throw new Error(error.message);
   }
 }
 
-export async function updateSubscription(
-  subscriptionId: string,
-  status: string,
-  cancel: boolean
-) {
+export async function updateSubscription(subscription: Stripe.Subscription) {
+  const subscriptionId = subscription.id;
+  const customer = await stripe.customers.retrieve(
+    subscription.customer as string
+  );
+  if (customer.deleted) {
+    throw new Error(`Customer ${subscription.customer} was deleted`);
+  }
+  const { firstName, lastName, orgName, phoneNumber, phoneType } =
+    customer.metadata;
   const now = new Date();
   const { error } = await supabaseServer
     .from(subscriptionInfoTable)
     .update({
-      status: status,
-      cancellation_date: cancel ? now : null,
+      status: subscription.status,
+      cancellation_date: subscription.canceled_at
+        ? new Date(subscription.canceled_at * 1000)
+        : null,
       updated_at: now,
+      amount: subscription.items.data[0].price.unit_amount,
+      first_name: firstName?.toLowerCase(),
+      last_name: lastName?.toLowerCase(),
+      org_name: orgName?.toLowerCase(),
+      phone_number: phoneNumber?.toLowerCase(),
+      phone_type: phoneType?.toLowerCase(),
+      current_period_start: new Date(subscription.current_period_start * 1000),
+      current_period_end: new Date(subscription.current_period_end * 1000),
+      email: customer.email?.toLowerCase(),
     })
     .eq('subscription_id', subscriptionId);
 

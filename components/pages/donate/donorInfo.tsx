@@ -97,6 +97,7 @@ export default function DonorInfo({
           showErrors={showErrors}
           setShowErrors={setShowErrors}
           formType="donate"
+          emailUsed={formData.emailUsed}
         />
 
         {/* phone number */}

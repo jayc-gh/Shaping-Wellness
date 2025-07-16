@@ -51,6 +51,7 @@ export interface DonateFormData {
   anonymous: boolean;
   orgDonate: boolean;
   orgName: string;
+  emailUsed: boolean;
 }
 
 export interface VolunteerFormData {

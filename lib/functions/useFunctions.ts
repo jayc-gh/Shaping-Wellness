@@ -1,8 +1,5 @@
 import { useEffect } from 'react';
-import {
-  fetchPaymentWithRetry,
-  fetchSubscriptionWithRetry,
-} from './serverFunctions';
+import { fetchPayment, fetchSubscription } from './serverFunctions';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export function useOutsideClick(
@@ -57,8 +54,17 @@ export function useOneTimePayment(
     }
 
     const fetchData = async () => {
-      const donation = await fetchPaymentWithRetry(fetchUrl);
+      const donation = await fetchPayment(fetchUrl);
       switch (donation.status) {
+        case 'requires_payment_method': {
+          if (donation.last_payment_error) {
+            setValid(false);
+            setErrorMessage(
+              'Your payment was unsuccessful. Please try again with a different payment method.'
+            );
+          }
+          break;
+        }
         case 'succeeded':
           setValid(true);
           setMessage(
@@ -115,7 +121,7 @@ export function useSubscription(
     }
 
     const fetchData = async () => {
-      const subscription = await fetchSubscriptionWithRetry(fetchUrl);
+      const subscription = await fetchSubscription(fetchUrl);
       switch (subscription.status) {
         case 'active':
           setValid(true);

@@ -46,6 +46,7 @@ export default function DonateForm() {
     firstName: '',
     lastName: '',
     email: '',
+    emailUsed: false,
     address: {
       address1: '',
       address2: '',

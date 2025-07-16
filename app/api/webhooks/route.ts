@@ -41,24 +41,38 @@ export async function POST(req: Request) {
 
 async function processEvent(event: Stripe.Event) {
   switch (event.type) {
-    case 'customer.subscription.deleted': {
-      const subscription = event.data.object as Stripe.Subscription;
-      await updateSubscription(subscription.id, subscription.status, true);
-      break;
-    }
+    case 'customer.subscription.deleted':
     case 'customer.subscription.updated': {
+      console.log('Subscription updated');
       const subscription = event.data.object as Stripe.Subscription;
-      await updateSubscription(subscription.id, subscription.status, false);
+      await updateSubscription(subscription);
       break;
     }
-    case 'payment_intent.succeeded':
-    case 'payment_intent.processing':
-    case 'payment_intent.payment_failed':
-    case 'payment_intent.canceled': {
+    case 'payment_intent.succeeded': {
+      console.log('Payment intent succeeded');
       const intent = event.data.object as Stripe.PaymentIntent;
-      await updatePaymentStatus(intent.id, intent.status);
+      await updatePaymentStatus(intent.id, 'succeeded');
       break;
     }
+    case 'payment_intent.processing': {
+      console.log('Payment intent processing');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'processing');
+      break;
+    }
+    case 'payment_intent.payment_failed': {
+      console.log('Payment intent failed');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'failed');
+      break;
+    }
+    case 'payment_intent.canceled': {
+      console.log('Payment intent canceled');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'canceled');
+      break;
+    }
+
     case 'invoice.created': {
       const invoice = event.data.object as Stripe.Invoice;
       const subscriptionId =
@@ -76,7 +90,7 @@ async function processEvent(event: Stripe.Event) {
       if (customer.deleted) {
         throw new Error(`Customer ${invoice.customer} was deleted`);
       }
-      console.log('invoice created');
+      console.log('Invoice created');
       await createSubscriptionPayment(
         // Pull data from customer metadata
         customer.metadata.firstName || '',
@@ -92,13 +106,15 @@ async function processEvent(event: Stripe.Event) {
       );
       break;
     }
-    case 'invoice.paid':
+    // case 'invoice.paid':
     case 'invoice.payment_succeeded': {
+      console.log('Invoice paid');
       const invoice = event.data.object as Stripe.Invoice;
       await updatePaymentStatus(invoice.id, 'succeeded');
       break;
     }
     case 'invoice.payment_failed': {
+      console.log('Invoice payment failed');
       const invoice = event.data.object as Stripe.Invoice;
       await updatePaymentStatus(invoice.id, 'failed');
       break;
