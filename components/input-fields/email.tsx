@@ -4,7 +4,6 @@ import { validateEmailFormat } from '@/lib/functions/validateFunctions';
 type EmailFields = {
   orgDonate?: boolean;
   email: string;
-  emailUsed?: boolean;
 };
 
 interface StepProps<T extends EmailFields> {
@@ -13,7 +12,6 @@ interface StepProps<T extends EmailFields> {
   formType: string;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
-  emailUsed?: boolean;
 }
 
 export default function Email<T extends EmailFields>({
@@ -50,7 +48,8 @@ export default function Email<T extends EmailFields>({
               }));
             }}
             className={`input-field ${
-              (showErrors.email || showErrors.emailCheckFailed) && !validateEmailFormat(formData.email)
+              (showErrors.email || showErrors.emailCheckFailed) &&
+              !validateEmailFormat(formData.email)
                 ? 'show-invalid'
                 : ''
             }`}
@@ -62,7 +61,8 @@ export default function Email<T extends EmailFields>({
           ) : null}
           <div
             className={`error-text-container ${
-              (showErrors.email || showErrors.emailCheckFailed) && !validateEmailFormat(formData.email)
+              (showErrors.email || showErrors.emailCheckFailed) &&
+              !validateEmailFormat(formData.email)
                 ? 'transition'
                 : ''
             }`}
@@ -73,15 +73,6 @@ export default function Email<T extends EmailFields>({
               </p>
             ) : !formData.email ? (
               <p className="error-text">Email is required</p>
-            ) : formData.emailUsed && formData.email ? (
-              <p className="error-text">
-                A recurring donation with this email already exists.
-              </p>
-            ) : showErrors.emailCheckFailed ? (
-              <p className="error-text">
-                There was an error while checking your email. Please try again
-                and contact us if this error persists.
-              </p>
             ) : null}
           </div>
         </div>
