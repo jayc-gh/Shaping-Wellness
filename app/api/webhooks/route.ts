@@ -1,4 +1,4 @@
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -41,13 +41,16 @@ export async function POST(req: Request) {
 
 async function processEvent(event: Stripe.Event) {
   switch (event.type) {
+    // first time subscription webhooks
     case 'customer.subscription.deleted':
     case 'customer.subscription.updated': {
       console.log('Subscription updated');
       const subscription = event.data.object as Stripe.Subscription;
-      await updateSubscription(subscription);
+      await updateSubscription(subscription, stripe);
       break;
     }
+
+    // one time payment webhooks
     case 'payment_intent.succeeded': {
       console.log('Payment intent succeeded');
       const intent = event.data.object as Stripe.PaymentIntent;
@@ -73,6 +76,7 @@ async function processEvent(event: Stripe.Event) {
       break;
     }
 
+    // recurring subscription webhooks
     case 'invoice.created': {
       const invoice = event.data.object as Stripe.Invoice;
       const subscriptionId =
@@ -87,6 +91,9 @@ async function processEvent(event: Stripe.Event) {
         invoice.customer as string
       );
 
+      const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+      const { donation_amount, charged_amount } = subscription.metadata ?? {};
+
       if (customer.deleted) {
         throw new Error(`Customer ${invoice.customer} was deleted`);
       }
@@ -99,7 +106,8 @@ async function processEvent(event: Stripe.Event) {
         customer.email || invoice.customer_email || '',
         customer.metadata.phoneNumber || '',
         customer.metadata.phoneType || '',
-        invoice.amount_due,
+        Number(charged_amount),
+        Number(donation_amount),
         subscriptionId,
         invoice.id,
         invoice.status ?? 'pending'

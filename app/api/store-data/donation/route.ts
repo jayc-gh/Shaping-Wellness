@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import { supabaseServer, donationsTable } from '@/lib/supabaseServer';
 import { DatabaseDonationData } from '@/declarations';
 
@@ -13,7 +12,8 @@ export async function POST(request: NextRequest) {
       phoneNum,
       phoneType,
       email,
-      amount,
+      charged_amount,
+      donation_amount,
       clientSecret,
       paymentIntentId,
       paymentStatus,
@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
       email,
       phoneNum,
       phoneType,
-      amount,
+      charged_amount,
+      donation_amount,
       clientSecret,
       paymentIntentId,
       paymentStatus,
@@ -48,8 +49,15 @@ export async function POST(request: NextRequest) {
       error: error instanceof Error ? error.stack : error,
       context: { endpoint: '/api/store-data' },
     });
-    if (error instanceof Stripe.errors.StripeError) {
+    if (error && typeof error === 'object' && 'type' in error) {
+      // Stripe-specific error
+      const stripeError = error as { message?: string; type?: string };
+      message = stripeError.message || 'There was a problem with your payment.';
+    } else if (error instanceof Error) {
+      // Generic JS error
       message = error.message;
+    } else {
+      message = 'Unknown error occurred.';
     }
 
     return NextResponse.json({ message }, { status: 500 });
@@ -65,7 +73,8 @@ const storeData = async (formData: DatabaseDonationData) => {
       donor_email: formData.email.toLowerCase(),
       payment_intent_id: formData.paymentIntentId,
       payment_intent_client_secret: formData.clientSecret,
-      charged_amount: formData.amount,
+      charged_amount: formData.charged_amount,
+      donation_amount: formData.donation_amount,
       payment_status: formData.paymentStatus,
       subscription_id: formData.subscriptionId,
       organization_name: formData.orgName,

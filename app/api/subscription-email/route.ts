@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import { supabaseServer, subscriptionInfoTable } from '@/lib/supabaseServer';
 
 export async function POST(req: NextRequest) {
@@ -26,10 +25,15 @@ export async function POST(req: NextRequest) {
       error: error instanceof Error ? error.stack : error,
       context: { endpoint: '/api/subscription-email' },
     });
-    if (error instanceof Stripe.errors.StripeError) {
-      message = error.message;
+    if (error && typeof error === 'object' && 'type' in error) {
+      // Stripe-specific error
+      const stripeError = error as { message?: string; type?: string };
+      message = stripeError.message || 'There was a problem with your payment.';
     } else if (error instanceof Error) {
+      // Generic JS error
       message = error.message;
+    } else {
+      message = 'Unknown error occurred.';
     }
 
     return NextResponse.json({ message }, { status: 500 });

@@ -115,10 +115,11 @@ export async function handleSubmitStepThree({
   let oneTimeIntent;
   let subscriptionIntent;
   if (!formData.monthly) {
-    oneTimeIntent = await createPaymentIntent(formData.totalCharged);
+    oneTimeIntent = await createPaymentIntent(formData);
   } else if (formData.monthly) {
     subscriptionIntent = await createSubscription(
       formData.totalCharged,
+      formData.donationAmount,
       formData.email,
       formData.firstName,
       formData.lastName,
@@ -141,7 +142,8 @@ export async function handleSubmitStepThree({
     email: formData.email,
     phoneNum: formData.phone.number,
     phoneType: formData.phone.type,
-    amount: convertToSubcurrency(Number(formData.totalCharged)),
+    charged_amount: convertToSubcurrency(Number(formData.totalCharged)),
+    donation_amount: convertToSubcurrency(Number(formData.donationAmount)),
     clientSecret: oneTimeIntent?.clientSecret,
     paymentIntentId: oneTimeIntent?.paymentIntentId,
     paymentStatus: oneTimeIntent?.status,

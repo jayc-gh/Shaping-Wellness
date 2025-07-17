@@ -3,19 +3,28 @@ import {
   ContactFormData,
   VolunteerFormData,
   PartnerFormData,
+  DonateFormData,
 } from '@/declarations';
 import { convertToSubcurrency } from './currencyFunctions';
 
-export const createPaymentIntent = async (amount: string) => {
+export const createPaymentIntent = async (formData: DonateFormData) => {
   try {
-    const convertedAmount = convertToSubcurrency(Number(amount));
+    const convertedChargedAmount = convertToSubcurrency(
+      Number(formData.totalCharged)
+    );
     const response = await fetch('/api/create-payment-intent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: convertedAmount,
+        charged_amount: convertedChargedAmount,
+        email: formData.email.toLowerCase(),
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        orgName: formData.orgName,
+        phoneNumber: formData.phone.number,
+        phoneType: formData.phone.type,
       }),
     });
 
@@ -40,7 +49,8 @@ export const createPaymentIntent = async (amount: string) => {
 };
 
 export const createSubscription = async (
-  amount: string,
+  charged_amount: string,
+  donation_amount: string,
   email: string,
   firstName: string,
   lastName: string,
@@ -49,14 +59,18 @@ export const createSubscription = async (
   phoneType: string
 ) => {
   try {
-    const convertedAmount = convertToSubcurrency(Number(amount));
+    const convertedChargedAmount = convertToSubcurrency(Number(charged_amount));
+    const convertedDoantionAmount = convertToSubcurrency(
+      Number(donation_amount)
+    );
     const response = await fetch('/api/create-subscription', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: convertedAmount,
+        charged_amount: convertedChargedAmount,
+        donation_amount: convertedDoantionAmount,
         email,
         firstName,
         lastName,
@@ -96,7 +110,8 @@ export const storeDonationData = async ({
   phoneNum,
   phoneType,
   email,
-  amount,
+  charged_amount,
+  donation_amount,
   clientSecret,
   paymentIntentId,
   paymentStatus,
@@ -115,7 +130,8 @@ export const storeDonationData = async ({
         phoneNum,
         phoneType,
         email,
-        amount,
+        charged_amount,
+        donation_amount,
         clientSecret,
         paymentIntentId,
         paymentStatus,

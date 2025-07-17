@@ -1,8 +1,11 @@
-import { supabaseServer, subscriptionPricesTable } from '../supabaseServer';
-import { stripe } from '@/lib/stripe';
+import { subscriptionPricesTable } from '../supabaseServer';
+import type Stripe from 'stripe';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 export async function getOrCreateRecurringPrice(
-  amountInCents: number
+  amountInCents: number,
+  stripe: Stripe,
+  supabaseServer: SupabaseClient
 ): Promise<string> {
   // check if the price already exists in your DB
   const { data, error } = await supabaseServer

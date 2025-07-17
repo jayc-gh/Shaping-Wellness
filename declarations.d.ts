@@ -106,7 +106,8 @@ export type DatabaseDonationData = {
   phoneNum: string;
   phoneType: string;
   email: string;
-  amount: number;
+  charged_amount: number;
+  donation_amount: number;
   clientSecret: string | null;
   paymentIntentId: string;
   paymentStatus: string;
@@ -121,7 +122,8 @@ export type SubscriptionData = {
   email: string;
   phoneNumber: string;
   phoneType: string;
-  amount: number;
+  charged_amount: number;
+  donation_amount: number;
   status: string;
   periodStart: Date;
   periodEnd: Date;

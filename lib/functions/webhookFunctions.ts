@@ -3,8 +3,7 @@ import {
   donationsTable,
   subscriptionInfoTable,
 } from '@/lib/supabaseServer';
-import Stripe from 'stripe';
-import { stripe } from '@/lib/stripe';
+import type Stripe from 'stripe';
 
 export async function updatePaymentStatus(invoiceId: string, status: string) {
   const column = invoiceId.startsWith('pi_')
@@ -20,7 +19,10 @@ export async function updatePaymentStatus(invoiceId: string, status: string) {
   }
 }
 
-export async function updateSubscription(subscription: Stripe.Subscription) {
+export async function updateSubscription(
+  subscription: Stripe.Subscription,
+  stripe: Stripe
+) {
   const subscriptionId = subscription.id;
   const customer = await stripe.customers.retrieve(
     subscription.customer as string
@@ -39,7 +41,8 @@ export async function updateSubscription(subscription: Stripe.Subscription) {
         ? new Date(subscription.canceled_at * 1000)
         : null,
       updated_at: now,
-      amount: subscription.items.data[0].price.unit_amount,
+      charged_amount: subscription.items.data[0].price.unit_amount,
+      donation_amount: subscription.metadata.donation_amount,
       first_name: firstName?.toLowerCase(),
       last_name: lastName?.toLowerCase(),
       org_name: orgName?.toLowerCase(),
@@ -60,7 +63,7 @@ export async function getDonorInfo(subscriptionId: string) {
   const { data, error } = await supabaseServer
     .from(subscriptionInfoTable)
     .select(
-      'email, amount, first_name, last_name, org_name, phone_number, phone_type'
+      'email, charged_amount, donation_amount, first_name, last_name, org_name, phone_number, phone_type'
     )
     .eq('subscription_id', subscriptionId)
     .single();
@@ -78,7 +81,8 @@ export async function createSubscriptionPayment(
   email: string,
   phoneNum: string,
   phoneType: string,
-  amount: number,
+  charged_amount: number,
+  donation_amount: number,
   subscriptionId: string,
   invoiceId: string,
   paymentStatus: string
@@ -89,7 +93,8 @@ export async function createSubscriptionPayment(
       donor_first_name: firstName.toLowerCase(),
       donor_last_name: lastName.toLowerCase(),
       donor_email: email.toLowerCase(),
-      charged_amount: amount,
+      charged_amount: charged_amount,
+      donation_amount: donation_amount,
       payment_status: paymentStatus,
       subscription_id: subscriptionId,
       organization_name: orgName,

@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { getOrCreateRecurringPrice } from '@/lib/functions/getOrCreatePrice';
 import { supabaseServer, subscriptionInfoTable } from '@/lib/supabaseServer';
 import { SubscriptionData } from '@/declarations';
+import type Stripe from 'stripe';
 
 export async function POST(req: NextRequest) {
   const {
     email,
-    amount,
+    charged_amount,
+    donation_amount,
     firstName,
     lastName,
     orgName,
@@ -16,7 +17,23 @@ export async function POST(req: NextRequest) {
     phoneType,
   } = await req.json();
 
-  if (!email || !amount || !firstName || !lastName) {
+  if (
+    !email ||
+    !charged_amount ||
+    !donation_amount ||
+    !firstName ||
+    !lastName
+  ) {
+    console.error('Invalid request data', {
+      email,
+      charged_amount,
+      donation_amount,
+      firstName,
+      lastName,
+      orgName,
+      phoneNumber,
+      phoneType,
+    });
     return NextResponse.json(
       { message: 'Invalid request data.' },
       { status: 400 }
@@ -36,7 +53,11 @@ export async function POST(req: NextRequest) {
         phoneType,
       },
     });
-    const priceId = await getOrCreateRecurringPrice(amount);
+    const priceId = await getOrCreateRecurringPrice(
+      charged_amount,
+      stripe,
+      supabaseServer
+    );
 
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
@@ -47,6 +68,10 @@ export async function POST(req: NextRequest) {
         save_default_payment_method: 'on_subscription',
       },
       expand: ['latest_invoice.payment_intent'],
+      metadata: {
+        charged_amount: charged_amount,
+        donation_amount: donation_amount,
+      },
     });
     const periodStart = new Date(subscription.current_period_start * 1000);
     const periodEnd = new Date(subscription.current_period_end * 1000);
@@ -69,7 +94,8 @@ export async function POST(req: NextRequest) {
         phoneNumber,
         phoneType,
         email: email,
-        amount: amount,
+        charged_amount: charged_amount,
+        donation_amount: donation_amount,
         status: paymentIntent.status,
         periodStart,
         periodEnd,
@@ -93,10 +119,16 @@ export async function POST(req: NextRequest) {
       error: error instanceof Error ? error.stack : error,
       context: { endpoint: '/api/create-subscription' },
     });
-    if (error instanceof Stripe.errors.StripeError) {
-      message = error.message;
+
+    if (error && typeof error === 'object' && 'type' in error) {
+      // Stripe-specific error
+      const stripeError = error as { message?: string; type?: string };
+      message = stripeError.message || 'There was a problem with your payment.';
     } else if (error instanceof Error) {
+      // Generic JS error
       message = error.message;
+    } else {
+      message = 'Unknown error occurred.';
     }
 
     return NextResponse.json({ message }, { status: 500 });
@@ -112,7 +144,8 @@ const storeData = async (formData: SubscriptionData) => {
     phoneNumber,
     phoneType,
     email,
-    amount,
+    charged_amount,
+    donation_amount,
     status,
   } = formData;
   const { data, error } = await supabaseServer
@@ -125,7 +158,8 @@ const storeData = async (formData: SubscriptionData) => {
       phone_number: phoneNumber,
       phone_type: phoneType,
       email: email,
-      amount: amount,
+      charged_amount: charged_amount,
+      donation_amount: donation_amount,
       status: status,
       billing_cycle_anchor: formData.cycleAnchor,
       current_period_start: formData.periodStart,
