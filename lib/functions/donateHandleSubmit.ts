@@ -166,7 +166,6 @@ export async function handleSubmitStepThree({
       : oneTimeIntent?.clientSecret,
     confirmParams: {
       return_url: autoReturnUrl,
-      receipt_email: formData.email,
       payment_method_data: {
         billing_details: {
           address: {
