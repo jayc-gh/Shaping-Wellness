@@ -55,8 +55,14 @@ export function useOneTimePayment(
 
     const fetchData = async () => {
       const donation = await fetchPayment(fetchUrl);
+      // if payment intent is missing or not found redirect to donate page
+      if (donation.error) {
+        router.push('/donate');
+        return;
+      }
       switch (donation.status) {
         case 'requires_payment_method': {
+          // If the payment intent requires a payment method, it means the payment failed or was canceled
           if (donation.last_payment_error) {
             setValid(false);
             setErrorMessage(
@@ -78,14 +84,9 @@ export function useOneTimePayment(
           setMessage(
             `Your donation of $${(donation.amount / 100).toFixed(
               2
-            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. Once it's done, we'll email you a receipt.`
+            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. If it's successful, we'll email you a receipt.`
           );
           break;
-        // if payment intent is missing or not found redirect to donate page
-        case '404':
-        case '400':
-          router.push('/donate');
-          return;
         case 'canceled':
           setValid(false);
           setErrorMessage('Your payment was canceled or timed out.');
@@ -122,8 +123,25 @@ export function useSubscription(
 
     const fetchData = async () => {
       const subscription = await fetchSubscription(fetchUrl);
-      switch (subscription.status) {
-        case 'active':
+      // if payment intent is missing or not found redirect to donate page
+      if (subscription.error) {
+        router.push('/donate');
+        return;
+      }
+      const status = subscription.status;
+
+      switch (status) {
+        case 'requires_payment_method': {
+          // If the payment intent requires a payment method, it means the payment failed or was canceled
+          if (subscription.last_payment_error) {
+            setValid(false);
+            setErrorMessage(
+              'Your payment was unsuccessful. Please try again with a different payment method.'
+            );
+          }
+          break;
+        }
+        case 'succeeded':
           setValid(true);
           setMessage(
             `Your recurring monthly donation of $${(
@@ -133,25 +151,19 @@ export function useSubscription(
             )} is now active. Thank you for your generosity! You should receive an email receipt shortly.`
           );
           break;
-        case 'incomplete':
+        case 'processing':
           setValid(true);
           setMessage(
             `Your recurring monthly donation of $${(
               subscription.amount / 100
             ).toFixed(
               2
-            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. Once it's done, we'll email you a receipt.`
+            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. If it's successful, we'll email you a receipt.`
           );
           break;
-        // if payment intent is missing or not found redirect to donate page
-        case '404':
-        case '400':
-          router.push('/donate');
-          return;
         case 'canceled':
-        case 'incomplete_expired':
           setValid(false);
-          setErrorMessage('Your payment was canceled or timed out.');
+          setErrorMessage('Your payment was canceled.');
           break;
         default:
           setValid(false);

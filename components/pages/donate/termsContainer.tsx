@@ -7,8 +7,6 @@ import { calcTransactionFee } from '@/lib/functions/currencyFunctions';
 interface StepProps {
   formData: DonateFormData;
   setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
-  checkboxDisabled: boolean;
-  setCheckboxDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   step: number;
   errorMessage: string | undefined;
   loading: boolean;
@@ -19,8 +17,6 @@ interface StepProps {
 export default function TermsContainer({
   formData,
   setFormData,
-  checkboxDisabled,
-  setCheckboxDisabled,
   step,
   errorMessage,
   loading,
@@ -28,13 +24,12 @@ export default function TermsContainer({
   popup,
 }: StepProps) {
   const handleCheckboxChange = () => {
-    setCheckboxDisabled(true);
-    calcTransactionFee(formData, setFormData, setCheckboxDisabled);
+    calcTransactionFee(formData, setFormData);
   };
 
   return (
     <div className="terms-container">
-      {(step < 3 || (step === 3 && !errorMessage)) && (
+      {(step < 4 || (step === 4 && !errorMessage)) && (
         <>
           <div className="flex flex-col gap-[10px] justify-center items-center">
             {step === 3 && !errorMessage && (
@@ -45,7 +40,7 @@ export default function TermsContainer({
                 label={
                   "I'd like to cover the transaction fee for this donation"
                 }
-                disabled={checkboxDisabled}
+                disabled={loading}
               />
             )}
 
@@ -59,20 +54,22 @@ export default function TermsContainer({
                     : undefined
                 }
                 disabled={
-                  (step === 3 && (loading || checkboxDisabled)) ||
+                  (step === 4 && loading) ||
                   (step === 1 && Number(formData.donationAmount) < 1) ||
-                  errorMessage !== ''
+                  errorMessage !== '' ||
+                  (step === 3 && !formData.paymentReady) ||
+                  (step === 4 && !formData.paymentReady)
                 }
               >
                 <span className="btn flex items-center justify-center w-full">
-                  {step === 3 && loading ? (
+                  {step === 4 && loading ? (
                     <span className="btn flex items-center justify-center w-full">
                       Processing
                       <div className="translate-y-[8px] translate-x-[6px]">
                         <LoadingDots />
                       </div>
                     </span>
-                  ) : step === 3 ? (
+                  ) : step === 4 ? (
                     `Donate $${formData.totalCharged}`
                   ) : (
                     'Continue'
@@ -89,7 +86,7 @@ export default function TermsContainer({
             </div>
           </div>
 
-          {step === 3 && (
+          {step === 4 && (
             <p className="terms-text">
               By clicking Donate, I agree to receive communications from Shaping
               Wellness Foundation and their{' '}

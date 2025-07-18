@@ -56,7 +56,14 @@ export const createSubscription = async (
   lastName: string,
   orgName: string,
   phoneNumber: string,
-  phoneType: string
+  phoneType: string,
+  address1: string,
+  address2: string | undefined,
+  country: string,
+  state: string,
+  city: string,
+  postalCode: string,
+  anonymous: boolean
 ) => {
   try {
     const convertedChargedAmount = convertToSubcurrency(Number(charged_amount));
@@ -77,6 +84,13 @@ export const createSubscription = async (
         orgName,
         phoneNumber,
         phoneType,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        postalCode,
+        anonymous,
       }),
     });
 
@@ -116,6 +130,12 @@ export const storeDonationData = async ({
   paymentIntentId,
   paymentStatus,
   subscriptionId,
+  address1,
+  address2,
+  country,
+  state,
+  city,
+  postalCode,
 }: DatabaseDonationData) => {
   try {
     const response = await fetch('/api/store-data/donation', {
@@ -136,6 +156,12 @@ export const storeDonationData = async ({
         paymentIntentId,
         paymentStatus,
         subscriptionId,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        postalCode,
       }),
     });
 

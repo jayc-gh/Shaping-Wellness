@@ -41,6 +41,7 @@ export interface DonateFormData {
   feeCovered: boolean;
   feeAmount: string;
   paymentMethod: string;
+  paymentReady: boolean;
   totalCharged: string;
   monthly: boolean;
   firstName: string;
@@ -112,6 +113,13 @@ export type DatabaseDonationData = {
   paymentIntentId: string;
   paymentStatus: string;
   subscriptionId: string;
+  address1: string;
+  address2?: string | undefined;
+  country: string;
+  state: string;
+  city: string;
+  postalCode: string;
+  anonymous: boolean;
 };
 
 export type SubscriptionData = {
@@ -129,4 +137,11 @@ export type SubscriptionData = {
   periodEnd: Date;
   cycleAnchor: Date;
   invoiceId: string;
+  address1: string;
+  address2?: string | undefined;
+  country: string;
+  state: string;
+  city: string;
+  postalCode: string;
+  anonymous: boolean;
 };

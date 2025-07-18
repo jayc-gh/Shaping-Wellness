@@ -50,6 +50,7 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
         setFormData(prev => ({
           ...prev,
           paymentMethod: selectedType,
+          paymentReady: event.complete,
         }));
       }
     };

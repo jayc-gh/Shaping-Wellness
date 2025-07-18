@@ -23,6 +23,11 @@ type StepTwoSubmitParams = {
 
 type StepThreeSubmitParams = {
   formData: DonateFormData;
+  nextStep: () => void;
+};
+
+type StepFourSubmitParams = {
+  formData: DonateFormData;
   stripeCtx: StripeCtx;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
   nextStep: () => void;
@@ -90,14 +95,26 @@ export async function handleSubmitStepTwo({
   return;
 }
 
-export async function handleSubmitStepThree({
+export function handleSubmitStepThree({
+  formData,
+  nextStep,
+}: StepThreeSubmitParams) {
+  if (!formData.paymentReady) {
+    console.warn('Payment not ready');
+    return;
+  }
+  nextStep();
+  return;
+}
+
+export async function handleSubmitStepFour({
   formData,
   stripeCtx,
   nextStep,
   setLoading,
   setErrorMessage,
   router,
-}: StepThreeSubmitParams) {
+}: StepFourSubmitParams) {
   setLoading(true);
   const { stripe, elements } = stripeCtx;
 
@@ -125,7 +142,14 @@ export async function handleSubmitStepThree({
       formData.lastName,
       formData.orgName,
       formData.phone.number,
-      formData.phone.type
+      formData.phone.type,
+      formData.address.address1,
+      formData.address.address2,
+      formData.address.country,
+      formData.address.state,
+      formData.address.city,
+      formData.address.postalCode,
+      formData.anonymous
     );
   }
 
@@ -150,6 +174,13 @@ export async function handleSubmitStepThree({
     receiptSent: false,
     subscriptionId: formData.monthly ? subscriptionIntent?.subscriptionId : '',
     invoiceId: formData.monthly ? subscriptionIntent?.invoiceId : '',
+    address1: formData.address.address1,
+    address2: formData.address.address2,
+    country: formData.address.country,
+    state: formData.address.state,
+    city: formData.address.city,
+    postalCode: formData.address.postalCode,
+    anonymous: formData.anonymous,
   };
 
   let autoReturnUrl;

@@ -47,7 +47,7 @@ export default function PaymentConfirm() {
               <>
                 <div className="!gap-[32px] form-container">
                   {/* Back button and Progress bar */}
-                  <ProgressBar step={4} prevStep={() => undefined} />
+                  <ProgressBar step={5} prevStep={() => undefined} />
                   <h4 className="self-center">Thank you for your donation!</h4>
                   <div className="thank-you-container">
                     <div className="text-left p4 primary-2 gap-[24px] flex flex-col">

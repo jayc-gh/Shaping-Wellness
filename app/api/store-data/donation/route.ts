@@ -18,6 +18,13 @@ export async function POST(request: NextRequest) {
       paymentIntentId,
       paymentStatus,
       subscriptionId,
+      address1,
+      address2,
+      country,
+      state,
+      city,
+      postalCode,
+      anonymous,
     } = body;
 
     const formData: DatabaseDonationData = {
@@ -33,6 +40,13 @@ export async function POST(request: NextRequest) {
       paymentIntentId,
       paymentStatus,
       subscriptionId,
+      address1,
+      address2,
+      country,
+      state,
+      city,
+      postalCode,
+      anonymous,
     };
 
     const donorId = await storeData(formData);
@@ -80,6 +94,13 @@ const storeData = async (formData: DatabaseDonationData) => {
       organization_name: formData.orgName,
       phone_number: formData.phoneNum,
       phone_type: formData.phoneType,
+      address1: formData.address1,
+      address2: formData.address2,
+      country: formData.country,
+      state: formData.state,
+      city: formData.city,
+      postal_code: formData.postalCode,
+      anonymous: formData.anonymous,
     })
     .select('id')
     .single();

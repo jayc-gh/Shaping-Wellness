@@ -64,6 +64,7 @@ export default function DonorInfo({
               setFormData(prev => ({
                 ...prev,
                 orgDonate: !formData.orgDonate,
+                orgName: '',
               }))
             }
             label={'Donate as an organization'}

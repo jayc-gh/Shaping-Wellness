@@ -114,11 +114,14 @@ export default function NavBar() {
           <Link href="/contact-us" className="links">
             Contact
           </Link>
-          <Link href="/donate">
-            <button className="filled-btn">
-              <span className="btn text-white">Donate</span>
-            </button>
-          </Link>
+          <button
+            className="filled-btn"
+            onClick={() => {
+              window.location.href = '/donate';
+            }}
+          >
+            <span className="btn text-white">Donate</span>
+          </button>
         </div>
       </div>
     </nav>

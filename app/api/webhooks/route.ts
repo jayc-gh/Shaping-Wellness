@@ -46,6 +46,15 @@ async function processEvent(event: Stripe.Event) {
     case 'customer.subscription.updated': {
       console.log('Subscription updated');
       const subscription = event.data.object as Stripe.Subscription;
+      if (
+        typeof subscription.latest_invoice === 'object' &&
+        subscription.latest_invoice?.payment_intent &&
+        typeof subscription.latest_invoice.payment_intent === 'object'
+      ) {
+        const paymentIntent = subscription.latest_invoice
+          .payment_intent as Stripe.PaymentIntent;
+        console.log(paymentIntent.status);
+      }
       await updateSubscription(subscription, stripe);
       break;
     }
@@ -110,7 +119,14 @@ async function processEvent(event: Stripe.Event) {
         Number(donation_amount),
         subscriptionId,
         invoice.id,
-        invoice.status ?? 'pending'
+        invoice.status ?? 'pending',
+        customer.address?.line1,
+        customer.address?.line2,
+        customer.address?.country,
+        customer.address?.state,
+        customer.address?.city,
+        customer.address?.postal_code,
+        customer.metadata.anonymous === 'true'
       );
       break;
     }

@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       automatic_payment_methods: { enabled: true },
       receipt_email: email,
       customer: customer.id,
-      description: `One-Time Donation - $${charged_amount / 100}`,
+      description: `One-Time Donation`,
     });
 
     const clientSecret = paymentIntent.client_secret;

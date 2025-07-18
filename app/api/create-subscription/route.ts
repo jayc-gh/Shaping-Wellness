@@ -15,6 +15,13 @@ export async function POST(req: NextRequest) {
     orgName,
     phoneNumber,
     phoneType,
+    address1,
+    address2,
+    country,
+    state,
+    city,
+    postalCode,
+    anonymous,
   } = await req.json();
 
   if (
@@ -33,6 +40,13 @@ export async function POST(req: NextRequest) {
       orgName,
       phoneNumber,
       phoneType,
+      address1,
+      address2,
+      country,
+      state,
+      city,
+      postalCode,
+      anonymous,
     });
     return NextResponse.json(
       { message: 'Invalid request data.' },
@@ -45,12 +59,21 @@ export async function POST(req: NextRequest) {
       email: email.toLowerCase(),
       name: orgName ? orgName : `${firstName} ${lastName}`,
       phone: phoneNumber,
+      address: {
+        line1: address1,
+        line2: address2,
+        country: country,
+        state: state,
+        city: city,
+        postal_code: postalCode,
+      },
       metadata: {
         firstName,
         lastName,
         orgName,
         phoneNumber,
         phoneType,
+        anonymous: String(anonymous).toLocaleLowerCase(),
       },
     });
     const priceId = await getOrCreateRecurringPrice(
@@ -101,6 +124,13 @@ export async function POST(req: NextRequest) {
         periodEnd,
         cycleAnchor,
         invoiceId: subscription.latest_invoice.id,
+        address1,
+        address2,
+        country,
+        state,
+        city,
+        postalCode,
+        anonymous,
       };
       await storeData(formData);
       return NextResponse.json({
@@ -147,6 +177,13 @@ const storeData = async (formData: SubscriptionData) => {
     charged_amount,
     donation_amount,
     status,
+    address1,
+    address2,
+    country,
+    state,
+    city,
+    postalCode,
+    anonymous,
   } = formData;
   const { data, error } = await supabaseServer
     .from(subscriptionInfoTable)
@@ -164,6 +201,13 @@ const storeData = async (formData: SubscriptionData) => {
       billing_cycle_anchor: formData.cycleAnchor,
       current_period_start: formData.periodStart,
       current_period_end: formData.periodEnd,
+      address1: address1,
+      address2: address2,
+      country: country,
+      state: state,
+      city: city,
+      postal_code: postalCode,
+      anonymous: anonymous,
     })
     .select('subscription_id')
     .single();

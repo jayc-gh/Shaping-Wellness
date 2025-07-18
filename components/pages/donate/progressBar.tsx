@@ -19,9 +19,9 @@ export default function ProgressBar({
   setErrorMessage,
 }: StepProps) {
   const handleClick = () => {
-    if (step === 3 && errorMessage && setErrorMessage) {
+    if (step === 4 && errorMessage && setErrorMessage) {
       setErrorMessage('');
-    } else if (step > 1 && step < 4 && prevStep) {
+    } else if (step > 1 && step < 5 && prevStep) {
       prevStep();
     }
   };
@@ -32,18 +32,18 @@ export default function ProgressBar({
         className={`w-[24px] h-[24px] ${step > 1 && 'cursor-pointer'}`}
         onClick={handleClick}
       >
-        {step > 1 && step < 4 && <Back className="check" />}
+        {step > 1 && step < 5 && <Back className="check" />}
       </div>
       {/* Dots + lines */}
       <div className="progress-bar-container">
-        {[1, 2, 3].map(dot => (
+        {[1, 2, 3, 4].map(dot => (
           <React.Fragment key={dot}>
             {step >= dot ? <DotFilled /> : <Dot />}
             {/* <Dot className={`dot ${step >= dot ? 'filled' : ''}`} /> */}
             <div key={dot} className="line"></div>
           </React.Fragment>
         ))}
-        {step >= 4 ? <DotCheckFilled /> : <DotCheck />}
+        {step >= 5 ? <DotCheckFilled /> : <DotCheck />}
         {/* <DotCheck className={`dot ${step >= 4 ? 'filled' : ''}`} /> */}
       </div>
       <div className="w-[24px] h-[24px]"></div>

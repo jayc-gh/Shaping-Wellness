@@ -85,7 +85,14 @@ export async function createSubscriptionPayment(
   donation_amount: number,
   subscriptionId: string,
   invoiceId: string,
-  paymentStatus: string
+  paymentStatus: string,
+  address1: string | undefined | null,
+  address2: string | undefined | null,
+  country: string | undefined | null,
+  state: string | undefined | null,
+  city: string | undefined | null,
+  postalCode: string | undefined | null,
+  anonymous: boolean
 ) {
   const { data, error } = await supabaseServer
     .from(donationsTable)
@@ -101,6 +108,13 @@ export async function createSubscriptionPayment(
       phone_number: phoneNum,
       phone_type: phoneType,
       invoice_id: invoiceId,
+      address1: address1,
+      address2: address2,
+      country: country,
+      state: state,
+      city: city,
+      postal_code: postalCode,
+      anonymous: anonymous,
     })
     .select('id')
     .single();

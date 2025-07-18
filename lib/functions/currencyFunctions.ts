@@ -6,8 +6,7 @@ export function convertToSubcurrency(amount: number, factor = 100) {
 
 export function calcTransactionFee(
   formData: DonateFormData,
-  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>,
-  setCheckboxDisabled: React.Dispatch<React.SetStateAction<boolean>>
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>
 ) {
   const { donationAmount, paymentMethod, feeCovered } = formData;
   const cardFee = (amount: number) => (0.029 * amount + 0.3).toFixed(2);
@@ -33,5 +32,4 @@ export function calcTransactionFee(
     feeAmount: feeAmount.toFixed(2),
     totalCharged: String(newAmount),
   }));
-  setCheckboxDisabled(false);
 }

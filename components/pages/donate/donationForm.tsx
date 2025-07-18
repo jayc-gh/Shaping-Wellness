@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import DonationAmt from '@/components/pages/donate/donationAmt';
 import DonorInfo from '@/components/pages/donate/donorInfo';
 import PaymentInfo from '@/components/pages/donate/paymentInfo';
+import ConfirmDetails from './confirmDetails';
 import Summary from '@/components/pages/donate/summary';
 import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
@@ -14,11 +15,11 @@ import {
   calcTransactionFee,
 } from '@/lib/functions/currencyFunctions';
 import Spinner from '../../spinner';
-import SmallSpinner from '../../smallSpinner';
 import {
   handleSubmitStepOne,
   handleSubmitStepTwo,
   handleSubmitStepThree,
+  handleSubmitStepFour,
 } from '@/lib/functions/donateHandleSubmit';
 import { useOutsideClick, useStopScroll } from '@/lib/functions/useFunctions';
 import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
@@ -41,6 +42,7 @@ export default function DonateForm() {
     feeCovered: false,
     feeAmount: '',
     paymentMethod: '',
+    paymentReady: false,
     totalCharged: '50',
     monthly: false,
     firstName: '',
@@ -63,7 +65,6 @@ export default function DonateForm() {
     orgName: '',
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [checkboxDisabled, setCheckboxDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [stripeCtx, setStripeCtx] = useState<StripeCtx>({
@@ -96,6 +97,11 @@ export default function DonateForm() {
 
   const handleSubmitParams3 = {
     formData,
+    nextStep,
+  };
+
+  const handleSubmitParams4 = {
+    formData,
     stripeCtx,
     setShowErrors,
     nextStep,
@@ -114,6 +120,8 @@ export default function DonateForm() {
       handleSubmitStepTwo(handleSubmitParams2);
     } else if (step === 3) {
       handleSubmitStepThree(handleSubmitParams3);
+    } else if (step === 4) {
+      handleSubmitStepFour(handleSubmitParams4);
     }
   };
 
@@ -151,19 +159,13 @@ export default function DonateForm() {
                     ${formData.totalCharged}
                     {formData.monthly ? '/month' : ''}
                   </p>
-                  {step > 1 && checkboxDisabled ? (
-                    <SmallSpinner />
-                  ) : step > 1 ? (
+                  {step > 1 ? (
                     <button
                       className="custom-text-3 p-neutral !cursor-pointer"
                       onClick={() => {
                         setStep(1);
                         if (formData.feeCovered) {
-                          calcTransactionFee(
-                            formData,
-                            setFormData,
-                            setCheckboxDisabled
-                          );
+                          calcTransactionFee(formData, setFormData);
                         }
                       }}
                       type="button"
@@ -185,43 +187,47 @@ export default function DonateForm() {
                   setShowErrors={setShowErrors}
                 />
               )}
-              {step === 3 && (
-                <div className="w-full">
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: formData.monthly ? 'subscription' : 'payment',
+                  amount: convertToSubcurrency(Number(formData.totalCharged)),
+                  currency: 'usd',
+                  appearance,
+                  fonts,
+                }}
+              >
+                {/* Always mounted, but only visible at step 3 */}
+                <div
+                  style={{ display: step === 3 ? 'block' : 'none' }}
+                  className="w-full"
+                >
                   {(!stripe || !elements) && !errorMessage && <Spinner />}
-                  {errorMessage && (
-                    <div className="error-text text-center w-full">
-                      {errorMessage}
-                    </div>
-                  )}
                   {!errorMessage && (
-                    <Elements
-                      stripe={stripePromise}
-                      options={{
-                        mode: formData.monthly ? 'subscription' : 'payment',
-                        amount: convertToSubcurrency(
-                          Number(formData.totalCharged)
-                        ),
-                        currency: 'usd',
-                        appearance: appearance,
-                        fonts: fonts,
-                      }}
-                    >
+                    <>
                       <StripeHandler setStripeCtx={setStripeCtx} />
-
                       <PaymentInfo
                         formData={formData}
                         setFormData={setFormData}
                       />
-                    </Elements>
+                    </>
                   )}
                 </div>
-              )}
+
+                {/* Confirm screen visible only at step 4 */}
+                {step === 4 && !errorMessage && (
+                  <ConfirmDetails formData={formData} setStep={setStep} />
+                )}
+                {errorMessage && (
+                  <div className="error-text text-center w-full">
+                    {errorMessage}
+                  </div>
+                )}
+              </Elements>
             </div>
             <TermsContainer
               formData={formData}
               setFormData={setFormData}
-              checkboxDisabled={checkboxDisabled}
-              setCheckboxDisabled={setCheckboxDisabled}
               step={step}
               errorMessage={errorMessage}
               loading={loading}
