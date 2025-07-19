@@ -29,7 +29,7 @@ export default function ProgressBar({
   return (
     <div className="back-and-progress-bar-container">
       <div
-        className={`w-[24px] h-[24px] ${step > 1 && 'cursor-pointer'}`}
+        className={`w-[1.5rem] h-[1.5rem] ${step > 1 && 'cursor-pointer'}`}
         onClick={handleClick}
       >
         {step > 1 && step < 5 && <Back className="check" />}
@@ -46,7 +46,7 @@ export default function ProgressBar({
         {step >= 5 ? <DotCheckFilled /> : <DotCheck />}
         {/* <DotCheck className={`dot ${step >= 4 ? 'filled' : ''}`} /> */}
       </div>
-      <div className="w-[24px] h-[24px]"></div>
+      <div className="w-[1.5rem] h-[1.5rem]"></div>
     </div>
   );
 }

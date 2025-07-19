@@ -48,7 +48,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   useOutsideClick(popupRef, () => setPopup(false));
 
   return (
-    <div className="flex items-center gap-[8px] self-start">
+    <div className="flex items-center gap-[0.5rem] self-start">
       <label
         htmlFor={id}
         className={`checkbox-container !pr-0 ${
@@ -81,11 +81,11 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
           <div
             className={`absolute ${
               id === 'anonymous-checkbox'
-                ? 'top-[-13px]'
+                ? 'top-[-0.8125rem]'
                 : id === 'orgDonate-checkbox'
-                ? 'top-[-18px]'
+                ? 'top-[-1.125rem]'
                 : id === 'cover-fee-checkbox'
-                ? 'top-[-20px]'
+                ? 'top-[-1.25rem]'
                 : ''
             } left-4 z-50`}
           >

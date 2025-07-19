@@ -55,7 +55,7 @@ export default function Email<T extends EmailFields>({
             }`}
           />
           {!showErrors.email && formType !== 'donate' ? (
-            <p className="p6 s-neutral !font-[400] self-start justify-center pt-[4px]">
+            <p className="p6 s-neutral !font-[400] self-start justify-center pt-[0.25rem]">
               We will use this email to contact you.
             </p>
           ) : null}

@@ -37,7 +37,7 @@ export default function Donor() {
         </div>
       </div>
       <div className="two-col-section">
-        <div className="two-col-section-content !items-start py-[40px]">
+        <div className="two-col-section-content !items-start py-[2.5rem]">
           <div className="two-col-section-subtitle-container w-1/2">
             <h4>WHY DONATE?</h4>
             <h3 className="sec-coral w-[500px]">
@@ -57,7 +57,7 @@ export default function Donor() {
           </p>
         </div>
       </div>
-      <div className="relative top-[1px]">
+      <div className="relative top-[0.0625rem]">
         <TopCurveColor />
       </div>
       <div className="three-col-section bg-soft-coral">
@@ -113,10 +113,10 @@ export default function Donor() {
           </div>
         </div>
       </div>
-      <div className="relative bottom-[1px]">
+      <div className="relative bottom-[0.0625rem]">
         <BotCurveColor />
       </div>
-      <div className="flex justify-center items-center py-[40px]">
+      <div className="flex justify-center items-center py-[2.5rem]">
         <Graphic />
       </div>
       <div className="two-col-section bg-soft-coral">
@@ -151,7 +151,7 @@ export default function Donor() {
               that works best for you:
             </p>
           </div>
-          <div className="four-col-section-icons-wrapper py-[40px]">
+          <div className="four-col-section-icons-wrapper py-[2.5rem]">
             <div className="four-col-section-icon !p-0">
               <Calendar />
               <h5 className="sec-coral">Monthly Donations</h5>

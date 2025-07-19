@@ -62,7 +62,7 @@ export default function Address<T extends AddressFields>({
         )}
         <div className="form-sub-container">
           <div className="input-container">
-            <div className="flex flex-col w-full gap-[8px]">
+            <div className="flex flex-col w-full gap-[0.5rem]">
               <input
                 type="address1"
                 value={formData.address.address1}

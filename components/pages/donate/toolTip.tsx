@@ -26,8 +26,8 @@ const SvgTooltip: React.FC<SvgTooltipProps> = ({ text }) => {
       <div className="flex relative pl-6 pr-3 py-3 p6 !font-[400] p-neutral whitespace-pre-wrap text-start items-center">
         {isBulletBlock ? (
           <div>
-            <p className="mb-[2px]">{text.title}</p>
-            <ul className="list-disc pl-5 space-y-[2px]">
+            <p className="mb-[0.125rem]">{text.title}</p>
+            <ul className="list-disc pl-5 space-y-[0.125rem]">
               {text.bullets.map((item, idx) => (
                 <li key={idx}>{item}</li>
               ))}

@@ -31,7 +31,7 @@ export default function TermsContainer({
     <div className="terms-container">
       {(step < 4 || (step === 4 && !errorMessage)) && (
         <>
-          <div className="flex flex-col gap-[10px] justify-center items-center">
+          <div className="flex flex-col gap-[0.625rem] justify-center items-center">
             {step === 3 && !errorMessage && (
               <Checkbox
                 id={'cover-fee-checkbox'}
@@ -65,7 +65,7 @@ export default function TermsContainer({
                   {step === 4 && loading ? (
                     <span className="btn flex items-center justify-center w-full">
                       Processing
-                      <div className="translate-y-[8px] translate-x-[6px]">
+                      <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
                         <LoadingDots />
                       </div>
                     </span>
@@ -78,7 +78,7 @@ export default function TermsContainer({
               </button>
             </div>
 
-            <div className="flex justify-center items-center gap-[5px]">
+            <div className="flex justify-center items-center gap-[0.3125rem]">
               <Lock />
               <p className="custom-text-3 s-neutral !font-[500] !no-underline">
                 Your donation is secure and facilitated by Stripe.

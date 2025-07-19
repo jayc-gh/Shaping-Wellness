@@ -16,7 +16,7 @@
 
   .main-container {
     display: flex;
-    padding: 80px 108px;
+    padding: 5rem 6.75rem;
     width: 1440px;
     justify-content: center;
     align-items: flex-start;
@@ -36,20 +36,20 @@
     justify-content: center;
     align-items: flex-start;
     align-self: flex-start;
-    gap: 24px;
+    gap: 1.5rem;
     /* position: sticky;
-    top: 40px; */
+    top: 2.5rem; */
   }
 
   .form-box {
     display: flex;
-    width: 704px;
+    width: 44rem;
     min-height: 773px;
-    padding: 80px 104px;
+    padding: 5rem 6.5rem;
     justify-content: center;
     align-items: flex-start;
-    gap: 24px;
-    border-radius: 10px;
+    gap: 1.5rem;
+    border-radius: 0.625rem;
     background: #fff;
   }
 
@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 1.5rem;
   }
 
   .form-sub-container {
@@ -65,24 +65,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 8px;
+    gap: 0.5rem;
     align-self: stretch;
   }
 
   .form-desc-wrapper {
     display: flex;
-    padding: 10px 0px;
+    padding: 0.625rem 0px;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 10px;
+    gap: 0.625rem;
     align-self: stretch;
   }
 
   .input-container {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
+    gap: 0.5rem;
     width: 100%;
   }
 
@@ -91,17 +91,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 4px;
+    gap: 0.25rem;
     flex: 1 0 0;
     min-width: 0;
   }
 
   .input-field {
     display: flex;
-    height: 44px;
-    padding: 8px 12px;
+    height: 2.75rem;
+    padding: 0.5rem 0.75rem;
     align-items: center;
-    gap: 4px;
+    gap: 0.25rem;
     width: 100%;
     border-radius: 6px;
     border: 1px solid var(--Field-line);
@@ -109,10 +109,10 @@
     color: var(--Primary-Neutral);
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 20px; /* 125% */
+    line-height: 1.25rem; /* 125% */
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
     transition: border 0.15s ease, box-shadow 0.15s ease;
   }
@@ -137,18 +137,18 @@
 
   .checkbox-container {
     display: flex;
-    height: 28px;
+    height: 1.75rem;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
     border-radius: 4px;
     cursor: pointer;
   }
 
   .checkbox {
     position: absolute;
-    width: 26px;
-    height: 26px;
-    margin: -1px;
+    width: 1.625rem;
+    height: 1.625rem;
+    margin: -0.0625rem;
     padding: 0;
     border: 0;
     clip: rect(0, 0, 0, 0);
@@ -160,7 +160,7 @@
     color: var(--danger-color);
     align-self: flex-start;
     justify-self: center;
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-top: 0.25rem;
     font-weight: 400;
   }
@@ -174,17 +174,17 @@
   }
 
   .error-text-container.transition {
-    max-height: 30px;
+    max-height: 1.875rem;
     opacity: 1;
   }
 
   .confirm-container {
     display: flex;
-    padding: 10px 0px;
+    padding: 0.625rem 0px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    gap: 24px;
+    gap: 1.5rem;
   }
 }

@@ -36,7 +36,7 @@ export default function FAQItem({ question, answer }: FAQItemProps) {
         <div
           className="faq-a-container"
           style={{
-            height: `${height}px`,
+            height: `${height / 16}rem`,
           }}
         >
           <div ref={contentRef} className="faq-a-inner">

@@ -146,7 +146,7 @@ export default function PartnerForm() {
                         details: false,
                       }));
                     }}
-                    className={`input-field !h-[100px] resize-none !whitespace-pre-wrap !overflow-y-auto ${
+                    className={`input-field !h-[6.25rem] resize-none !whitespace-pre-wrap !overflow-y-auto ${
                       showErrors.details && !formData.details.trim()
                         ? 'show-invalid'
                         : ''
@@ -171,7 +171,7 @@ export default function PartnerForm() {
                 {loading ? (
                   <span className="btn flex items-center justify-center w-full">
                     Processing
-                    <div className="translate-y-[8px] translate-x-[6px]">
+                    <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
                       <LoadingDots />
                     </div>
                   </span>

@@ -26,7 +26,7 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
             width={299}
             height={276}
             alt="Picture of Founder"
-            style={{ aspectRatio: '13/12', borderRadius: '100px 0px' }}
+            style={{ aspectRatio: '13/12', borderRadius: '6.25rem 0px' }}
           />
           <div className="popup-contact-wrapper">
             <div className="popup-contact">

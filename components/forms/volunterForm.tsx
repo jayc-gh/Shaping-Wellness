@@ -212,7 +212,7 @@ export default function VolunteerForm() {
                   </label>
                 </div>
                 <div
-                  className={`error-text-container mt-[-6px] ${
+                  className={`error-text-container mt-[-0.375rem] ${
                     showErrors.AoI ? 'transition' : ''
                   }`}
                 >
@@ -239,7 +239,7 @@ export default function VolunteerForm() {
                 {loading ? (
                   <span className="btn flex items-center justify-center w-full">
                     Processing
-                    <div className="translate-y-[8px] translate-x-[6px]">
+                    <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
                       <LoadingDots />
                     </div>
                   </span>

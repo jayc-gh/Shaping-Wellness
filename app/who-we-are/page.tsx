@@ -107,7 +107,7 @@ export default function WhoWeAre() {
           </div>
         </div>
       </div>
-      <div className="relative top-[1px]">
+      <div className="relative top-[0.0625rem]">
         <TopCurveColor />
       </div>
       <div className="four-col-section bg-soft-coral">
@@ -154,7 +154,7 @@ export default function WhoWeAre() {
           </div>
         </div>
       </div>
-      <div className="relative bottom-[1px]">
+      <div className="relative bottom-[0.0625rem]">
         <BotCurveColor />
       </div>
       <div className="two-col-section">
@@ -219,7 +219,7 @@ export default function WhoWeAre() {
           <p className="p1 c7">
             Have questions or want to get involved? We&apos;re here to help!
           </p>
-          <Link href="/contact-us" className="filled-btn w-[184px]">
+          <Link href="/contact-us" className="filled-btn w-[11.5rem]">
             <p className="btn background-color">Send a message</p>
           </Link>
         </div>

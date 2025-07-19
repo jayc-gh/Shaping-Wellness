@@ -17,10 +17,10 @@
   }
 
   .dot {
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     fill: none;
-    stroke-width: 1px;
+    stroke-width: 0.0625rem;
     stroke: var(--Primary-Coral);
   }
 
@@ -30,8 +30,8 @@
   }
 
   .line {
-    width: 52px;
-    height: 1px;
+    width: 3.25rem;
+    height: 0.0625rem;
     background: var(--Primary-Coral);
   }
 
@@ -44,27 +44,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0.625rem;
     align-self: stretch;
   }
 
   .toggle-btn-container {
     display: flex;
-    height: 44px;
+    height: 2.75rem;
     align-items: center;
-    border-radius: 100px;
+    border-radius: 6.25rem;
     border: 1px solid var(--Primary-Coral);
   }
 
   .toggle-btn {
     display: flex;
-    height: 44px;
-    min-width: 184px;
-    padding: 16px 20px;
+    height: 2.75rem;
+    min-width: 11.5rem;
+    padding: 1rem 1.25rem;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border-radius: 100px;
+    gap: 0.625rem;
+    border-radius: 6.25rem;
     background: linear-gradient(180deg, #d9764e 0%, #dd6d5c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -89,21 +89,21 @@
     display: flex;
     width: 600px;
     min-height: 788px;
-    padding: 40px 104px;
+    padding: 2.5rem 6.5rem;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background: #fff;
-    gap: 24px;
+    gap: 1.5rem;
   }
 
   .donate-form-content-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 0.75rem;
     align-self: stretch;
   }
 
@@ -112,7 +112,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 12px;
+    gap: 0.75rem;
     flex: 1 0 0;
     width: 100%;
   }
@@ -124,8 +124,8 @@
       'btn1 btn2 btn3'
       'btn4 btn5 btn6'
       'customBtn customInput customInput';
-    row-gap: 12px;
-    column-gap: 24px;
+    row-gap: 0.75rem;
+    column-gap: 1.5rem;
     width: 100%;
   }
 
@@ -138,13 +138,13 @@
 
   .donation-amt-btn {
     display: flex;
-    height: 44px;
-    padding: 16px 20px;
+    height: 2.75rem;
+    padding: 1rem 1.25rem;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 1.5rem;
     flex: 1 0 0;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     background: var(--Soft-Coral);
   }
 
@@ -156,17 +156,17 @@
   .donation-amt-input-container {
     display: flex;
     width: 100%;
-    height: 44px;
-    padding: 16px 24px;
+    height: 2.75rem;
+    padding: 1rem 1.5rem;
     justify-content: space-between;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     border: 1px solid var(--Field-line);
   }
 
   .donation-input-text {
     color: var(--Primary-Neutral);
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
@@ -177,20 +177,20 @@
     border: none;
     outline: none;
     background: transparent;
-    width: 50px;
+    width: 3.125rem;
   }
 
   .terms-container {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 1.5rem;
     width: 100%;
   }
 
   .terms-text {
     color: var(--Secondary-Neutral);
     text-align: center;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-style: normal;
     font-weight: 500;
     line-height: 140%; /* 16.8px */
@@ -200,7 +200,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 1.5rem;
     align-self: stretch;
   }
 
@@ -208,7 +208,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 0.625rem;
     align-self: stretch;
     width: 100%;
   }
@@ -221,10 +221,10 @@
 
   .confirm-details-subsection {
     display: flex;
-    padding: 10px 0px;
+    padding: 0.625rem 0px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 0.625rem;
     align-self: stretch;
     width: 100%;
   }
@@ -239,7 +239,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 1.875rem;
     width: 100%;
   }
 
@@ -252,7 +252,7 @@
 
   .gray-line {
     width: 100%;
-    height: 1px;
+    height: 0.0625rem;
     background: #e0e0e0;
   }
 }

@@ -21,20 +21,20 @@ export default function StripeHandler({ setStripeCtx }: StepProps) {
 export const appearance: Appearance = {
   theme: 'stripe',
   variables: {
-    borderRadius: '6px',
+    borderRadius: '0.375rem',
     fontFamily: 'Figtree',
     colorText: '#2f2f2f',
-    fontLineHeight: '20px',
+    fontLineHeight: '1.25rem',
     colorPrimary: '#66afe9',
     colorDanger: '#da1e28',
-    fontSizeSm: '14px',
+    fontSizeSm: '0.875rem',
   },
   rules: {
     '.Input': {
       border: '1px solid rgba(47, 47, 47, 0.3)',
-      padding: '11px 12px',
-      height: '44px',
-      lineHeight: '20px',
+      padding: '0.6875rem 0.75rem',
+      height: '2.75rem',
+      lineHeight: '1.25rem',
     },
     '.Input:focus': {
       border: '1px solid #66afe9',

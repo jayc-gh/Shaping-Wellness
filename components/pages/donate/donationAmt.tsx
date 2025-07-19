@@ -127,7 +127,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
               className="donation-amt-input-container"
               style={{ gridArea: 'customInput' }}
             >
-              <span className="donation-input-text pr-[10px] !select-none">
+              <span className="donation-input-text pr-[0.625rem] !select-none">
                 $
               </span>
               <input
@@ -140,7 +140,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
                 title="Minimum donation amount is $1.00"
                 className="donation-input-text"
               />
-              <div className="flex items-center justify-end gap-[10px]">
+              <div className="flex items-center justify-end gap-[0.625rem]">
                 <span className="field-line p4 !font-[300] select-none">|</span>
                 <span className="donation-input-text select-none">USD</span>
               </div>

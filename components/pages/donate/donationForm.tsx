@@ -153,7 +153,7 @@ export default function DonateForm() {
                 setErrorMessage={setErrorMessage}
               />
               {(step < 3 || (step === 3 && !errorMessage)) && (
-                <div className="flex h-[22px] justify-center items-center gap-[10px] self-stretch">
+                <div className="flex h-[1.375rem] justify-center items-center gap-[0.625rem] self-stretch">
                   <h4>You are donating:</h4>
                   <p className="custom-text-2 sec-coral">
                     ${formData.totalCharged}

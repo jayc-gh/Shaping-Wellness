@@ -49,7 +49,7 @@ export default function YesNo<T extends YesNoFields>({
         {title} <span className="required">*</span>
       </p>
       <div className="flex flex-col">
-        <div className="input-container !gap-[13px]">
+        <div className="input-container !gap-[0.8125rem]">
           <label htmlFor="yes" className="checkbox-container">
             <input
               type="radio"
@@ -81,7 +81,7 @@ export default function YesNo<T extends YesNoFields>({
           </label>
         </div>
         <div
-          className={`error-text-container mt-[-6px] ${
+          className={`error-text-container mt-[-0.375rem] ${
             showErrors.volunteerHours ? 'transition' : ''
           }`}
         >

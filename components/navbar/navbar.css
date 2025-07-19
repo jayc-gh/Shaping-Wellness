@@ -7,7 +7,7 @@
 
   .nav-dropdown-wrapper.active .nav-dropdown-items-container {
     display: block;
-    transform: translateX(-23px) translateY(0);
+    transform: translateX(1.4375rem) translateY(0);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -15,14 +15,14 @@
 
   .mobile-visible {
     display: block;
-    transform: translateX(-23px) translateY(0);
+    transform: translateX(1.4375rem) translateY(0);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
 
   .nav-dropdown-wrapper:hover .nav-dropdown-items-container {
-    transform: translateX(-23px) translateY(0);
+    transform: translateX(1.4375rem) translateY(0);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -32,7 +32,7 @@
 @layer utilities {
   .navbar-container {
     display: flex;
-    padding: 18px 108px;
+    padding: 1.125rem 6.75rem;
     justify-content: center;
     align-items: center;
   }
@@ -47,28 +47,28 @@
 
   .links-container {
     display: flex;
-    height: 50px;
+    height: 3.125rem;
     justify-content: flex-end;
     align-items: center;
-    gap: 24px;
+    gap: 1.5rem;
   }
 
   .nav-dropdown-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-bottom: 31px;
-    margin-top: 31px;
+    padding-bottom: 1.9375rem;
+    margin-top: 1.9375rem;
   }
 
   .nav-dropdown-container {
     display: flex;
-    width: 125px;
-    height: 24px;
+    width: 7.8125rem;
+    height: 1.5rem;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    gap: 2px;
+    gap: 0.125rem;
     cursor: default;
   }
 
@@ -78,12 +78,12 @@
     flex-direction: column;
     align-items: flex-start;
     width: 210px;
-    padding: 10px 0;
-    border-radius: 0 0 10px 10px;
+    padding: 0.625rem 0;
+    border-radius: 0 0 0.625rem 0.625rem;
     background: #fff;
     box-shadow: 0px 4px 6px rgba(243, 1, 1, 0.1);
     top: 100%;
-    transform: translateX(-23px) translateY(-10px);
+    transform: translateX(1.4375rem) translateY(-0.625rem);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -92,7 +92,7 @@
   }
 
   .nav-dropdown-wrapper:hover .nav-dropdown-items-container {
-    transform: translateX(-23px) translateY(0);
+    transform: translateX(1.4375rem) translateY(0);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -100,10 +100,10 @@
 
   .nav-dropdown-item {
     display: flex;
-    padding: 10px 30px;
+    padding: 0.625rem 1.875rem;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 1.5rem;
     align-self: stretch;
     background: #fff;
   }

@@ -3,7 +3,7 @@
 @layer utilities {
   .top-footer-container {
     display: flex;
-    padding: 64px 0px;
+    padding: 4rem 0px;
     color: #fff;
     justify-content: center;
     align-items: center;
@@ -32,49 +32,49 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .top-footer-right-container {
     display: flex;
     align-items: flex-start;
-    gap: 24px;
+    gap: 1.5rem;
   }
 
   .top-footer-connect {
     display: flex;
-    width: 80px;
+    width: 5rem;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 1rem;
   }
 
   .top-footer-connect-logos {
     display: flex;
     align-items: flex-end;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   .top-footer-get-involved {
     display: flex;
-    width: 184px;
+    width: 11.5rem;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 1rem;
   }
 
   .top-footer-learn-more {
     display: flex;
-    width: 184px;
+    width: 11.5rem;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 1rem;
   }
 
   .bot-footer-container {
     color: #fff;
     display: flex;
-    height: 70px;
+    height: 4.375rem;
     justify-content: center;
     align-items: center;
     background: #dd6d5b;
@@ -91,13 +91,13 @@
   .bot-footer-right-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .footer-line {
     width: 1224px;
-    height: 1px;
-    border-radius: 10px;
+    height: 0.0625rem;
+    border-radius: 0.625rem;
     position: absolute;
     bottom: 0;
     z-index: 999;

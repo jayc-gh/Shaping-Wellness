@@ -45,12 +45,12 @@ export default function PaymentConfirm() {
           <div className="donate-form-box">
             {valid && (
               <>
-                <div className="!gap-[32px] form-container">
+                <div className="!gap-[2rem] form-container">
                   {/* Back button and Progress bar */}
                   <ProgressBar step={5} prevStep={() => undefined} />
                   <h4 className="self-center">Thank you for your donation!</h4>
                   <div className="thank-you-container">
-                    <div className="text-left p4 primary-2 gap-[24px] flex flex-col">
+                    <div className="text-left p4 primary-2 gap-[1.5rem] flex flex-col">
                       <p>{message}</p>
                       <p>
                         Because of you, more girls will have access to the
@@ -62,7 +62,7 @@ export default function PaymentConfirm() {
                 </div>
                 <Link
                   href="../get-involved/donor"
-                  className="link-btn !px-[10px]"
+                  className="link-btn !px-[0.625rem]"
                 >
                   <h4 className="link-btn-text sec-coral">
                     SEE HOW YOUR DONATION WILL BE USED

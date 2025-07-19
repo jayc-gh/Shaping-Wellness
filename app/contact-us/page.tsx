@@ -47,7 +47,7 @@ export default function Contact() {
               <Email className="absolute" />
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content h-[91px]">
+                <div className="three-col-section-box-content h-[5.6875rem]">
                   <h3 className="p-coral">Email</h3>
                   <p className="p3">info@shapingwellness.com</p>
                 </div>
@@ -57,7 +57,7 @@ export default function Contact() {
               <Phone className="absolute" />
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content h-[91px]">
+                <div className="three-col-section-box-content h-[5.6875rem]">
                   <h3 className="p-coral">Phone</h3>
                   <p className="p3">555-555-5555</p>
                 </div>
@@ -67,7 +67,7 @@ export default function Contact() {
               <Globe className="absolute" />
               <div className="three-col-section-box">
                 <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content h-[91px]">
+                <div className="three-col-section-box-content h-[5.6875rem]">
                   <h3 className="p-coral">Socials</h3>
                   <div className="flex items-center">
                     <Link href="" className="cursor-pointer z-10">
@@ -86,18 +86,18 @@ export default function Contact() {
           </div>
         </div>
       </div>
-      <div className="relative top-[1px]">
+      <div className="relative top-[0.0625rem]">
         <TopCurveColor />
       </div>
       <div className="two-col-section bg-soft-coral">
         <div className="two-col-section-content !items-start">
-          <div className="two-col-section-text-container pt-[80px] pb-[80px] !w-[496px]">
+          <div className="two-col-section-text-container pt-[5rem] pb-[5rem] !w-[496px]">
             <p className="p0">We are looking forward to hearing from you!</p>
           </div>
           <ContactForm />
         </div>
       </div>
-      <div className="relative bottom-[1px]">
+      <div className="relative bottom-[0.0625rem]">
         <BotCurveColor />
       </div>
       <FAQSection />

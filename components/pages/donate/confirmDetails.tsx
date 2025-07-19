@@ -8,7 +8,7 @@ interface StepProps {
 
 export default function ConfirmDetails({ formData, setStep }: StepProps) {
   return (
-    <div className="flex flex-col gap-[24px] w-full">
+    <div className="flex flex-col gap-[1.5rem] w-full">
       <div className="flex items-center justify-center">
         <h4>Confirm Details</h4>
       </div>

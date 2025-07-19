@@ -43,7 +43,7 @@ export default function Partner() {
         </div>
       </div>
       <div className="two-col-section">
-        <div className="two-col-section-content !items-start py-[40px]">
+        <div className="two-col-section-content !items-start py-[2.5rem]">
           <div className="two-col-section-subtitle-container w-1/2">
             <h4>WHY PARTNER WITH US?</h4>
             <h3 className="sec-coral w-[500px]">
@@ -122,7 +122,7 @@ export default function Partner() {
           </div>
         </div>
       </div>
-      <div className="relative top-[1px]">
+      <div className="relative top-[0.0625rem]">
         <TopCurveColor />
       </div>
       <div className="three-col-section bg-soft-coral">
@@ -177,14 +177,14 @@ export default function Partner() {
             </div>
           </div>
         </div>
-        <Link href="/programs" className="link-btn mt-[27px]">
+        <Link href="/programs" className="link-btn mt-[1.6875rem]">
           <h4 className="p3 link-btn-text sec-coral !font-semibold">
             LEARN MORE ABOUT OUR PROGRAMS
           </h4>
           <RightArrow />
         </Link>
       </div>
-      <div className="relative bottom-[1px]">
+      <div className="relative bottom-[0.0625rem]">
         <BotCurveColor />
       </div>
       <div className="three-col-section ">

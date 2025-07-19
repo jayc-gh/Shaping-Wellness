@@ -45,7 +45,7 @@ export default function DonorInfo({
         )}
 
         {/* checkboxes */}
-        <div className="flex flex-col items-start gap-[4px] flex-1">
+        <div className="flex flex-col items-start gap-[0.25rem] flex-1">
           <Checkbox
             id={'anonymous-checkbox'}
             checked={formData.anonymous}

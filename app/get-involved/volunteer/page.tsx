@@ -50,13 +50,13 @@ export default function Volunteer() {
           </p>
         </div>
       </div>
-      <div className="p-section bg-soft-coral !py-[20px]">
+      <div className="p-section bg-soft-coral !py-[1.25rem]">
         <div className="p-section-content">
           <h4 className="sec-coral">FALL 2025 VOLUNTEER ROLES</h4>
           <p className="p3">Applications Now Open · Ages 18+ · Houston, TX</p>
         </div>
       </div>
-      <div className="two-col-section !py-[60px]">
+      <div className="two-col-section !py-[3.75rem]">
         <div className="two-col-section-content">
           <div
             className="two-col-section-img !h-[350px]"
@@ -146,7 +146,7 @@ export default function Volunteer() {
           </div>
         </div>
       </div>
-      <div className="relative top-[1px]">
+      <div className="relative top-[0.0625rem]">
         <TopCurveColor />
       </div>
       <div className="two-col-section bg-soft-coral">
@@ -179,7 +179,7 @@ export default function Volunteer() {
           </div>
         </div>
       </div>
-      <div className="relative bottom-[1px]">
+      <div className="relative bottom-[0.0625rem]">
         <BotCurveColor />
       </div>
       <div className="three-col-section ">

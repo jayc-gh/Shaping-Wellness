@@ -9,34 +9,28 @@ import Link from 'next/link';
 import React from 'react';
 import BottomCurveWhite from '../app/icons/bottom-curve-white.svg';
 import TopCurveWhite from '../app/icons/top-curve-white.svg';
+import MainSection from '@/components/sections/headerSection';
 
 export default function Home() {
   return (
     <main className="flex flex-col w-full">
-      <div
-        className="main-section !h-[600px]"
-        style={
-          {
-            '--bg-image': 'url("/images/DonationForm.webp")',
-          } as React.CSSProperties
+      <MainSection
+        heading={
+          <>
+            Healthy Futures, <span className="p-color">Stronger</span>{' '}
+            Communities
+          </>
         }
-      >
-        <div className="main-section-wrapper">
-          <div className="main-section-content !w-[550px]">
-            <h1>
-              Healthy Futures, <span className="p-color">Stronger </span>
-              Communities
-            </h1>
-            <p className="p3">
-              Join us in creating opportunities for girls to grow stronger, more
-              confident, and healthier. Partner today and be part of the change.
-            </p>
-            <Link href="/get-involved/partner" className="filled-btn">
-              <p className="btn">Become a partner</p>
-            </Link>
-          </div>
-        </div>
-      </div>
+        description="Join us in creating opportunities for girls to grow stronger, more
+              confident, and healthier. Partner today and be part of the change."
+        buttonText="Become a partner"
+        buttonHref="/get-involved/partner"
+        buttonVariant="orange"
+        bgImageUrl="/images/DonationForm.webp"
+        minHeight="md:min-h-[600px]"
+        contentMaxWidth="md:max-w-[34.375rem]"
+      ></MainSection>
+
       <div className="p-section">
         <div className="p-section-content">
           <h4 className="sec-coral">WHO WE ARE</h4>
@@ -70,7 +64,7 @@ export default function Home() {
         }
       >
         <div className="picture-section-blank"></div>
-        <div className="picture-section-curve top-[1px]">
+        <div className="picture-section-curve top-[0.0625rem]">
           <BottomCurveWhite />
         </div>
       </div>
@@ -89,7 +83,7 @@ export default function Home() {
       <div className="divider-section">
         <Divider />
       </div>
-      <div className="two-col-section !py-[60px]">
+      <div className="two-col-section !py-[3.75rem]">
         <div className="two-col-section-content">
           <div
             className="two-col-section-img !h-[350px]"
@@ -176,7 +170,7 @@ export default function Home() {
           } as React.CSSProperties
         }
       >
-        <div className="picture-section-curve bottom-[1px]">
+        <div className="picture-section-curve bottom-[0.0625rem]">
           <TopCurveWhite />
         </div>
         <div className="picture-section-blank"></div>
@@ -248,7 +242,7 @@ export default function Home() {
           <p className="p1 c7">
             Have questions or want to get involved? We&apos;re here to help!
           </p>
-          <Link href="/contact-us" className="filled-btn w-[184px]">
+          <Link href="/contact-us" className="filled-btn w-[11.5rem]">
             <p className="btn background-color">Send a message</p>
           </Link>
         </div>
