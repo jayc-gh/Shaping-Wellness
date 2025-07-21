@@ -17,8 +17,8 @@ export default function Home() {
       <MainSection
         heading={
           <>
-            Healthy Futures, <span className="p-color">Stronger</span>{' '}
-            Communities
+            Healthy Futures, <br />
+            <span className="p-color">Stronger</span> Communities
           </>
         }
         description="Join us in creating opportunities for girls to grow stronger, more
@@ -27,8 +27,8 @@ export default function Home() {
         buttonHref="/get-involved/partner"
         buttonVariant="orange"
         bgImageUrl="/images/DonationForm.webp"
-        minHeight="md:min-h-[600px]"
-        contentMaxWidth="md:max-w-[34.375rem]"
+        minHeight="lg:min-h-[600px]"
+        contentMaxWidth="lg:max-w-[34.375rem]"
       ></MainSection>
 
       <div className="p-section">

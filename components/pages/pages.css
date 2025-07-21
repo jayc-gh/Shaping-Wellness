@@ -20,12 +20,6 @@
 }
 
 @layer utilites {
-  @media (min-width: 768px) and (max-width: 1224px) {
-    .between768and1224-px {
-      padding-left: 6.75rem;
-      padding-right: 6.75rem;
-    }
-  }
   .main-section {
     display: flex;
     min-height: 500px;

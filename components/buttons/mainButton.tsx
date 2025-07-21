@@ -5,14 +5,16 @@ type MainButtonProps = {
   color: 'orange' | 'white';
   text: string;
   href: string;
-  main: boolean;
+  width: 'auto' | 'fill' | 'main';
+  onClick?: () => void;
 };
 
 export default function MainButton({
   color,
   text,
   href,
-  main,
+  width,
+  onClick,
 }: MainButtonProps) {
   const baseClasses =
     'flex h-[3.125rem] px-5 py-4 justify-center items-center gap-[0.625rem] rounded-[0.625rem] border text-sm font-medium';
@@ -32,11 +34,13 @@ export default function MainButton({
     baseClasses,
     color === 'orange' ? orangeClasses : whiteClasses,
     'cursor-pointer',
-    { 'w-full md:w-auto': main }
+    { 'w-[21.25rem] lg:w-auto': width === 'main' },
+    { 'w-full': width === 'fill' },
+    { 'w-auto': width === 'auto' }
   );
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} onClick={onClick}>
       <span className="font-bold text-base">{text}</span>
     </Link>
   );

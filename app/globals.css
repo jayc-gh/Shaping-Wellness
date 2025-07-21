@@ -67,12 +67,6 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-h1 {
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
 
 h2 {
   font-size: 2.5rem;
