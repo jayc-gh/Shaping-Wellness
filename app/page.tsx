@@ -10,6 +10,7 @@ import React from 'react';
 import BottomCurveWhite from '../app/icons/bottom-curve-white.svg';
 import TopCurveWhite from '../app/icons/top-curve-white.svg';
 import MainSection from '@/components/sections/headerSection';
+import PSection from '@/components/sections/pSection';
 
 export default function Home() {
   return (
@@ -30,14 +31,13 @@ export default function Home() {
         minHeight="lg:min-h-[600px]"
         contentMaxWidth="lg:max-w-[34.375rem]"
       ></MainSection>
-
-      <div className="p-section">
-        <div className="p-section-content">
-          <h4 className="sec-coral">WHO WE ARE</h4>
-          <p className="p3">
+      <PSection
+        header="WHO WE ARE"
+        text={
+          <>
             Shaping Wellness Foundation is a new nonprofit dedicated to
             supporting the{' '}
-            <span className="coral-4">
+            <span className="text-[#8e463b]">
               health, well-being, and personal growth of young girls in
               underserved communities.
             </span>{' '}
@@ -46,41 +46,37 @@ export default function Home() {
             focused on building inclusive, thoughtful initiatives that help
             girls develop confidence, stay active, and make informed choices for
             lifelong wellness.
-          </p>
-          <Link href="who-we-are" className="link-btn">
-            <p className="p3 link-btn-text sec-coral !font-semibold">
-              LEARN MORE ABOUT OUR MISSION
-            </p>
-            <RightArrow />
-          </Link>
-        </div>
-      </div>
-      <div
-        className="picture-section"
-        style={
-          {
-            '--bg-image': 'url("/images/DonationForm.webp")',
-          } as React.CSSProperties
+          </>
         }
+        link={{ href: '/who-we-are', label: 'LEARN MORE ABOUT OUR MISSION' }}
+      />
+      <div
+        className="relative z-0 aspect-[2416/900] lg:aspect-[2416/600] w-full flex flex-col items-center"
+        style={{
+          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(/images/home-img-no-text.jpg)`,
+          backgroundSize: 'cover, cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center 40%, center 50%',
+        }}
       >
-        <div className="picture-section-blank"></div>
-        <div className="picture-section-curve top-[0.0625rem]">
-          <BottomCurveWhite />
+        <div className="flex-grow" />
+        <div className="absolute bottom-[-1px] left-0 w-full">
+          <BottomCurveWhite className="w-full h-auto" />
         </div>
       </div>
-      <div className="p-section">
-        <div className="p-section-content">
-          <h4 className="sec-coral">PROGRAMS</h4>
-          <p className="p3">
+      <PSection
+        header="PROGRAMS"
+        text={
+          <>
             We&apos;re developing a year-round wellness curriculum for 6th -
             12th grade girls in Houston, launching in Fall 2025. Our programming
             focuses on nutrition, self-confidence, and health education,
             equipping girls with practical tools, peer support, and guidance
             from trusted community educators to build lifelong healthy habits.
-          </p>
-        </div>
-      </div>
-      <div className="divider-section">
+          </>
+        }
+      />
+      <div className="flex py-[1.25rem] flex-col justify-center items-center">
         <Divider />
       </div>
       <div className="two-col-section !py-[3.75rem]">

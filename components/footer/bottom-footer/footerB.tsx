@@ -15,27 +15,36 @@ export default function FooterB() {
   useStopScroll(popup);
 
   return (
-    <div className="bot-footer-container">
-      <div className="bot-footer-content-container">
-        <p className="p6">
-          © 2025 Shaping Wellness Foundation. All rights reserved. Shaping
-          Wellness Foundation is a 501(c)(3) tax-exempt nonprofit organization.
+    <div className="flex justify-center text-white w-full pt-[1.875rem] lg:h-[4.375rem] lg:items-center lg:py-0">
+      <div className="flex flex-col text-[0.75rem] font-base text-center items-center gap-[1.875rem] self-stretch lg:flex-row lg:max-w-[76.5rem] lg:justify-between lg:w-full">
+        <p className="lg:font-[500]">
+          <span className="block lg:hidden">
+            © 2025 Shaping Wellness Foundation. All rights reserved. <br />
+            Shaping Wellness Foundation is a 501(c)(3) tax-exempt nonprofit
+            organization.
+          </span>
+          <span className="hidden lg:block">
+            © 2025 Shaping Wellness Foundation. All rights reserved. Shaping
+            Wellness Foundation is a 501(c)(3) tax-exempt nonprofit
+            organization.
+          </span>
         </p>
-        <div className="bot-footer-right-container">
+
+        <div className="flex items-center gap-[0.5rem]">
           <button onClick={() => setPopup(!popup)}>
-            <span className="p6 thin underline cursor-pointer">
+            <span className="thin underline cursor-pointer">
               Privacy Policy
             </span>
           </button>
-          <p className="p6 thin">|</p>
-          <p className="p6 thin">
+          <p className="">|</p>
+          <p className="">
             Images by{' '}
             <Link href="https://www.freepik.com/" className="underline">
               Freepik
             </Link>
           </p>
-          <p className="p6 thin">|</p>
-          <p className="p6 thin">
+          <p className="">|</p>
+          <p className="">
             Design:{' '}
             <Link
               href="https://brendanarvaez.framer.website/"
@@ -44,8 +53,8 @@ export default function FooterB() {
               BN
             </Link>
           </p>
-          <p className="p6 thin">|</p>
-          <p className="p6 thin">
+          <p className="">|</p>
+          <p className="">
             Dev:{' '}
             <Link href="https://github.com/jayc-gh" className="underline">
               JC
@@ -54,7 +63,7 @@ export default function FooterB() {
         </div>
       </div>
       {popup ? (
-        <div className="popup-bg">
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-[linear-gradient(0deg,rgba(0,0,0,0.5),rgba(0,0,0,0.5))]">
           <div ref={popupRef}>
             <PrivacyPolicy setPopup={setPopup} />
           </div>

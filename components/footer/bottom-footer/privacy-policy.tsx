@@ -12,9 +12,9 @@ interface StepProps {
 
 export default function PrivacyPolicy({ setPopup }: StepProps) {
   return (
-    <div className="popup-container !w-[800px]">
-      <div className="popup-header-wrapper">
-        <h5 className="sec-coral">Privacy Policy</h5>
+    <div className="flex overflow-y-auto bg-[#ffece4] w-[22.5rem] h-[35.875rem] px-[1.25rem] pt-[1.25rem] pb-[2.5rem] flex-col items-start gap-[0.625rem] rounded-[0.625rem] lg:px-[3rem] lg:pb-[3rem] lg:pt-[1.875rem] lg:gap-[0.75rem] lg:rounded-[0.75rem] lg:w-[800px] lg:h-auto">
+      <div className="flex justify-between items-center self-stretch">
+        <h5 className="text-[#b1574a]">Privacy Policy</h5>
         <button className="cursor-pointer" onClick={() => setPopup(false)}>
           <Close />
         </button>

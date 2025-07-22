@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import './navbar.css';
+import { useState } from 'react';
 import Link from 'next/link';
 import LogoSvg from '../../app/icons/LogoSVG.svg';
 import Logo from '../../app/icons/logo.svg';
@@ -24,12 +23,12 @@ const dropdownItems = [
 
 export default function NavBar() {
   const [dropdown, setDropdown] = useState<string | null>(null);
-  const [hovered, setHovered] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const hoverAnimation =
+    'transition duration-150 hover:scale-96 active:scale-96 hover:text-[#b1574a] pb-[2px] border-b-1 border-transparent hover:border-[#b1574a]';
 
   return (
     <nav className="relative flex justify-center items-center w-full px-[1.5625rem] py-[1.125rem]">
-      <div className="flex flex-1 justify-between items-center min-w-[21.25rem] lg:max-w-[76.5rem]">
+      <div className="flex flex-1 justify-between items-center lg:max-w-[76.5rem]">
         {/* left/logo side of navbar */}
         <Link href="/">
           {/* Mobile logo */}
@@ -49,40 +48,22 @@ export default function NavBar() {
         {/* right/links side of navbar */}
         <div className="hidden lg:flex justify-end items-center gap-[1.5rem] h-[3.125rem]">
           {dropdownItems.map(({ id, label, links }) => (
-            <div
-              key={id}
-              className={`nav-dropdown-wrapper ${
-                dropdown === id ? 'active' : ''
-              }`}
-              ref={dropdownRef}
-              onMouseEnter={() => setHovered(id)}
-              onMouseLeave={() => setHovered(null)}
-            >
-              <div className="nav-dropdown-container p4 !font-[400] p-neutral">
-                <p className="links">{label}</p>
-                {hovered === id ? (
-                  <ArrowDownColor
-                    className={`transform duration-100 ease-in-out ${
-                      dropdown === id ? '-rotate-180' : ''
-                    }`}
-                  />
-                ) : (
-                  <ArrowDown />
-                )}
+            <div key={id} className="flex flex-col relative pb-8 mt-8 group">
+              <div className="flex w-32 h-6 justify-center items-center gap-0.5 text-base leading-[1.4] cursor-default">
+                <p className="transition duration-150 group-hover:scale-105 active:scale-95 group-hover:text-[#b1574a] pb-0.5 border-b border-transparent group-hover:border-[#b1574a]">
+                  {label}
+                </p>
+                <div className="pb-0.5">
+                  <ArrowDown className="block group-hover:hidden" />
+                  <ArrowDownColor className="hidden group-hover:block" />
+                </div>
               </div>
-
-              <div
-                className={`nav-dropdown-items-container`}
-                onClick={e => e.stopPropagation()}
-              >
+              <div className="absolute top-full left-0 -mt-1 z-10 bg-white shadow-lg rounded-b-lg w-[13.125rem] py-2 flex flex-col items-start opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
                 {links.map(({ href, text }) => (
                   <Link
                     key={href}
                     href={href}
-                    className="nav-dropdown-item p4 !font-[400]"
-                    onClick={() => {
-                      setDropdown(null);
-                    }}
+                    className="flex px-[1.875rem] py-[0.625rem] w-full text-left font-normal whitespace-nowrap hover:bg-[#f4a488]"
                   >
                     {text}
                   </Link>
@@ -91,22 +72,22 @@ export default function NavBar() {
             </div>
           ))}
 
-          <Link href="/who-we-are" className="links">
+          <Link href="/who-we-are" className={hoverAnimation}>
             Who We Are
           </Link>
-          <Link href="/programs" className="links">
+          <Link href="/programs" className={hoverAnimation}>
             Programs
           </Link>
-          <Link href="/contact-us" className="links">
+          <Link href="/contact-us" className={hoverAnimation}>
             Contact
           </Link>
           <button
-            className="filled-btn"
+            className="flex h-[3.125rem] px-[1.25rem] py-[1rem] justify-center items-center rounded-[0.625rem] cursor-pointer border-[1px] border-[#d9764e] bg-gradient-to-b from-[#d9764e] to-[#dd6d5c] hover:bg-[linear-gradient(0deg,rgba(0,0,0,0.1),rgba(0,0,0,0.1)),linear-gradient(to_bottom,#d9764e,#dd6d5c)] hover:border-transparent"
             onClick={() => {
               window.location.href = '/donate';
             }}
           >
-            <span className="btn text-white">Donate</span>
+            <span className="text-base font-bold text-white">Donate</span>
           </button>
         </div>
       </div>

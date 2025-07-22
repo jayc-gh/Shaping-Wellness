@@ -32,7 +32,7 @@ export default function RootLayout({
           <NavBar />
         </nav>
         <div className="flex flex-col flex-1 items-center">{children}</div>
-        <footer>
+        <footer className="bg-[linear-gradient(180deg,_#D9764E_0%,_#DD6D5C_100%)] py-[2.5rem] px-[1.5625rem] lg:py-0 lg:px-[6.75rem]">
           <ConditionalFooter />
           <FooterB />
         </footer>

@@ -24,8 +24,7 @@ export default function MainSection({
   return (
     <div
       className={`flex 
-        flex-col justify-center items-center gap-[0.625rem] self-stretch
-        py-[3.125rem] px-[1.5625rem]
+        flex-col justify-center items-center gap-[0.625rem] py-[3.125rem] px-[1.5625rem]
         lg:flex-row
         ${minHeight}
         lg:py-[3.875rem]
@@ -33,7 +32,7 @@ export default function MainSection({
         lg:gap-0
         lg:self-auto
         lg:justify-center lg:items-center
-        between768and1224-px`}
+        `}
       style={{
         backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bgImageUrl})`,
         backgroundSize: 'cover, cover',
@@ -42,7 +41,7 @@ export default function MainSection({
       }}
     >
       <div
-        className={`flex items-center justify-left w-full min-w-[21.25rem]
+        className={`flex items-center justify-center w-full
         lg:justify-start lg:max-w-[76.5rem]`}
       >
         <div

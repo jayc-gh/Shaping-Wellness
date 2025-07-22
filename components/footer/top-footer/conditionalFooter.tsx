@@ -16,7 +16,7 @@ export default function ConditionalFooter() {
   return (
     <div className="relative flex justify-center">
       <FooterT />
-      <div className="footer-line"></div>
+      <div className="w-full h-[1px] absolute bottom-0 z-[999] bg-[#ffece4] lg:max-w-[1224px]"></div>
     </div>
   );
 }

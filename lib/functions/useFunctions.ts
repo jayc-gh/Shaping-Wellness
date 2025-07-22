@@ -22,15 +22,27 @@ export function useOutsideClick(
 
 export function useStopScroll(state: boolean) {
   useEffect(() => {
-    if (state) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!state) return;
 
-    // reset overflow if unmounted before popup updates
+    // Save scroll position
+    const scrollY = window.scrollY;
+    const body = document.body;
+
+    // Lock scroll
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    body.style.overflowY = 'scroll';
+
     return () => {
-      document.body.style.overflow = '';
+      // Restore scroll
+      body.style.position = '';
+      body.style.top = '';
+      body.style.width = '';
+      body.style.overflowY = '';
+
+      // Restore scroll position
+      window.scrollTo(0, scrollY);
     };
   }, [state]);
 }

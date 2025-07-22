@@ -72,11 +72,10 @@
 
   .divider-section {
     display: flex;
-    padding: 1.25rem 17.375rem;
+    padding: 1.25rem 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    align-self: stretch;
   }
 
   .two-col-section {

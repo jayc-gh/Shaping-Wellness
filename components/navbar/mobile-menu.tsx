@@ -83,7 +83,7 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
         <div
           id="get-involved"
           className="flex items-center justify-between
-              px-[1.5625rem] py-[1.56rem]
+              px-[1.5625rem] py-[0.9375rem]
               w-full active:bg-[#f4a488]"
           onClick={() => {
             setInnerDropdown(!innerDropdown ? 'get-involved' : null);
