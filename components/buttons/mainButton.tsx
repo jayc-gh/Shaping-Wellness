@@ -5,7 +5,7 @@ type MainButtonProps = {
   color: 'orange' | 'white';
   text: string;
   href: string;
-  width: 'auto' | 'fill' | 'main';
+  width: 'auto' | 'fill' | 'main' | 'responsive';
   onClick?: () => void;
 };
 

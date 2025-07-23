@@ -24,10 +24,10 @@ const dropdownItems = [
 export default function NavBar() {
   const [dropdown, setDropdown] = useState<string | null>(null);
   const hoverAnimation =
-    'transition duration-150 hover:scale-96 active:scale-96 hover:text-[#b1574a] pb-[2px] border-b-1 border-transparent hover:border-[#b1574a]';
+    'transition duration-150 hover:scale-96 active:scale-96 hover:text-[#b1574a] pb-[2px] border-b-2 border-transparent hover:border-[#b1574a]';
 
   return (
-    <nav className="relative flex justify-center items-center w-full px-[1.5625rem] py-[1.125rem]">
+    <nav className="relative flex justify-center items-center w-full px-[1.5625rem] py-[1.125rem] lg:px-[6.75rem]">
       <div className="flex flex-1 justify-between items-center lg:max-w-[76.5rem]">
         {/* left/logo side of navbar */}
         <Link href="/">
@@ -50,7 +50,7 @@ export default function NavBar() {
           {dropdownItems.map(({ id, label, links }) => (
             <div key={id} className="flex flex-col relative pb-8 mt-8 group">
               <div className="flex w-32 h-6 justify-center items-center gap-0.5 text-base leading-[1.4] cursor-default">
-                <p className="transition duration-150 group-hover:scale-105 active:scale-95 group-hover:text-[#b1574a] pb-0.5 border-b border-transparent group-hover:border-[#b1574a]">
+                <p className="transition duration-150 group-hover:scale-105 active:scale-95 group-hover:text-[#b1574a] pb-0.5 border-b-2 border-transparent group-hover:border-[#b1574a]">
                   {label}
                 </p>
                 <div className="pb-0.5">

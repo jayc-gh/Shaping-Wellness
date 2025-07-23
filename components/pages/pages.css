@@ -80,17 +80,17 @@
 
   .two-col-section {
     display: flex;
-    padding: 2.5rem 0px;
+    padding: 2.5rem 6.75rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3.75rem;
-    align-self: stretch;
   }
 
   .two-col-section-content {
     display: flex;
-    width: 1224px;
+    width: 100%;
+    max-width: 1224px;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;

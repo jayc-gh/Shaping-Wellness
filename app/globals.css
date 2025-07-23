@@ -24,11 +24,7 @@
   --focus-highlight: #66afe9;
   --focus-box-shadow: 0px 0px 6px 0px rgba(56, 167, 255, 0.8);
   --Dark-Gradient: #ffdfd1;
-  --Light-Gradient: linear-gradient(
-    180deg,
-    var(--Soft-Coral, #ffece4) 0%,
-    #ffd1be 100%
-  );
+  --Light-Gradient: linear-gradient(180deg, #ffece4 0%, #ffd1be 100%);
 }
 
 select,

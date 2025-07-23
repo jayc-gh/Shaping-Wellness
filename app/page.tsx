@@ -1,16 +1,18 @@
 'use client';
 
-import RightArrow from '../app/icons/right-arrow.svg';
-import Divider from '../app/icons/divider-line.svg';
 import HandHeart from '../app/icons/home/hand-heart.svg';
 import Users from '../app/icons/home/users-heart.svg';
 import Handshake from '../app/icons/home/handshake.svg';
-import Link from 'next/link';
 import React from 'react';
 import BottomCurveWhite from '../app/icons/bottom-curve-white.svg';
 import TopCurveWhite from '../app/icons/top-curve-white.svg';
 import MainSection from '@/components/sections/headerSection';
 import PSection from '@/components/sections/pSection';
+import PictureTextSection from '@/components/sections/pictureText';
+import HyperLink from '@/components/buttons/hyperLink';
+import GrayBorderCard from '@/components/sections/grayBorderCard';
+import ContactSection from '@/components/sections/contactSection';
+import DividerSection from '@/components/sections/dividerSection';
 
 export default function Home() {
   return (
@@ -22,14 +24,14 @@ export default function Home() {
             <span className="p-color">Stronger</span> Communities
           </>
         }
-        description="Join us in creating opportunities for girls to grow stronger, more
-              confident, and healthier. Partner today and be part of the change."
+        description="Join us in creating opportunities for girls to grow stronger, more confident, and healthier. Partner today and be part of the change."
         buttonText="Become a partner"
         buttonHref="/get-involved/partner"
         buttonVariant="orange"
-        bgImageUrl="/images/DonationForm.webp"
-        minHeight="lg:min-h-[600px]"
+        bgImageUrl="/images/HomeHeader.jpg"
+        aspectRatio="2400/750"
         contentMaxWidth="lg:max-w-[34.375rem]"
+        backgroundPosition="center 30%, center 30%"
       ></MainSection>
       <PSection
         header="WHO WE ARE"
@@ -51,9 +53,9 @@ export default function Home() {
         link={{ href: '/who-we-are', label: 'LEARN MORE ABOUT OUR MISSION' }}
       />
       <div
-        className="relative z-0 aspect-[2416/900] lg:aspect-[2416/600] w-full flex flex-col items-center"
+        className="relative z-0 aspect-[2416/900] lg:aspect-[2416/500] w-full flex flex-col items-center"
         style={{
-          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(/images/home-img-no-text.jpg)`,
+          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/HomeIMG2.jpg)`,
           backgroundSize: 'cover, cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center 40%, center 50%',
@@ -76,173 +78,106 @@ export default function Home() {
           </>
         }
       />
-      <div className="flex py-[1.25rem] flex-col justify-center items-center">
-        <Divider />
-      </div>
-      <div className="two-col-section !py-[3.75rem]">
-        <div className="two-col-section-content">
-          <div
-            className="two-col-section-img !h-[350px]"
-            style={
-              {
-                '--bg-image': 'url("/images/DonationForm.webp")',
-              } as React.CSSProperties
-            }
-          ></div>{' '}
-          <div className="two-col-section-text-container">
-            <div className="two-col-section-subtitle-container">
-              <h4 className="p-neutral">FITNESS PROGRAMS</h4>
-              <h3 className="sec-coral">Staying active and strong</h3>
-            </div>
-            <p className="p3">
+      <DividerSection />
+      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2rem] lg:px-[6.75rem] lg:py-[3.75rem] lg:gap-[3.75rem]">
+        <PictureTextSection
+          title="FITNESS PROGRAMS"
+          subtitle="Staying active and strong"
+          content={
+            <>
               We&apos;re designing accessible and engaging fitness sessions
               tailored to middle and high school girls, with a focus on
               movement, strength-building, and positive body image. These
               sessions will be led by certified instructors and adapted to
               different skill levels.
-            </p>
-          </div>
-        </div>
-        <div className="two-col-section-content">
-          <div className="two-col-section-text-container">
-            <div className="two-col-section-subtitle-container">
-              <h4 className="p-neutral">WORKSHOPS</h4>
-              <h3 className="sec-coral">Inspiring healthy choices</h3>
-            </div>
-            <p className="p3">
+            </>
+          }
+          imageUrl="/images/HomeIMG3.jpg"
+        />
+        <PictureTextSection
+          title="WORKSHOPS"
+          subtitle="Inspiring healthy choices"
+          content={
+            <>
               Our upcoming workshops will cover key health topics - including
               nutrition, mental wellness, and self-care - through interactive
               sessions led by professionals in youth health and education. Each
               module will be developed with input from community experts and
               aligned with age-appropriate wellness standards.
-            </p>
-          </div>
-          <div
-            className="two-col-section-img !h-[350px]"
-            style={
-              {
-                '--bg-image': 'url("/images/DonationForm.webp")',
-              } as React.CSSProperties
-            }
-          ></div>{' '}
-        </div>
-        <div className="two-col-section-content">
-          <div
-            className="two-col-section-img !h-[350px]"
-            style={
-              {
-                '--bg-image': 'url("/images/DonationForm.webp")',
-              } as React.CSSProperties
-            }
-          ></div>{' '}
-          <div className="two-col-section-text-container">
-            <div className="two-col-section-subtitle-container">
-              <h4 className="p-neutral">MENTORSHIPS</h4>
-              <h3 className="sec-coral">Guiding girls to thrive</h3>
-            </div>
-            <p className="p3">
+            </>
+          }
+          imageUrl="/images/HomeIMG4.jpg"
+          reverse={true}
+        />
+        <PictureTextSection
+          title="MENTORSHIPS"
+          subtitle="Guiding girls to thrive"
+          content={
+            <>
               We&apos;re building a mentorship network that will pair girls with
               vetted female mentors from diverse backgrounds in health,
               education, and leadership. Mentors will offer consistent guidance
               through structured meetups, check-ins, and shared goal-setting
               around personal wellness and growth.
-            </p>
-          </div>
-        </div>
+            </>
+          }
+          imageUrl="/images/HomeIMG5.jpg"
+        />
       </div>
-      <div className="link-button-section">
-        <Link href="programs" className="link-btn">
-          <p className="p3 link-btn-text sec-coral !font-semibold">
-            LEARN MORE ABOUT OUR PROGRAMS
-          </p>
-          <RightArrow />
-        </Link>
+      <div className="flex justify-center items-center pb-[2.5rem]">
+        <HyperLink
+          href="/programs"
+          text="LEARN MORE ABOUT OUR PROGRAMS"
+          arrow={true}
+        />
+      </div>
+      <div className="relative w-full">
+        <div className="absolute top-[-1px] left-0 w-full z-10">
+          <TopCurveWhite className="w-full h-auto" />
+        </div>
+        <div
+          className="relative z-0 aspect-[2416/900] lg:aspect-[2416/500] w-full flex flex-col items-center"
+          style={{
+            backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/HomeIMG6.jpg)`,
+            backgroundSize: 'cover, cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center 35%, center 35%',
+          }}
+        />
       </div>
       <div
-        className="picture-section"
-        style={
-          {
-            '--bg-image': 'url("/images/DonationForm.webp")',
-          } as React.CSSProperties
-        }
+        id="get-involved"
+        className="flex flex-col py-[4.375rem] px-[1.5625rem] justify-center items-center gap-[0.625rem] text-center lg:py-[2.5rem] lg:px-[6.75rem]"
       >
-        <div className="picture-section-curve bottom-[0.0625rem]">
-          <TopCurveWhite />
-        </div>
-        <div className="picture-section-blank"></div>
-      </div>
-      <div id="get-involved" className="three-col-section">
-        <div className="three-col-section-content">
-          <div className="three-col-section-p-container">
-            <h4 className="sec-coral">GET INVOLVED</h4>
-          </div>
-          <div className="three-col-section-boxes-container">
-            <div className="three-col-section-link-box-wrapper">
-              <div className="three-col-section-link-box-content">
-                <Handshake />
-                <h3 className="sec-coral">Partner with us</h3>
-                <p className="p3">
-                  Help bring fitness, wellness, and mentorship to more girls.
-                </p>
-                <div className="three-col-section-link-container">
-                  <div className="three-col-section-link-wrapper">
-                    <Link href="/get-involved/partner" className="link-btn">
-                      <p className="p5 link-btn-text sec-coral">LEARN MORE</p>
-                      <RightArrow />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="three-col-section-link-box-wrapper">
-              <div className="three-col-section-link-box-content">
-                <HandHeart />
-                <h3 className="sec-coral">Become a donor</h3>
-                <p className="p3">
-                  Your support helps girls build confidence and lifelong
-                  well-being.
-                </p>
-                <div className="three-col-section-link-container">
-                  <div className="three-col-section-link-wrapper">
-                    <Link href="/get-involved/donor" className="link-btn">
-                      <p className="p5 link-btn-text sec-coral">LEARN MORE</p>
-                      <RightArrow />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="three-col-section-link-box-wrapper">
-              <div className="three-col-section-link-box-content">
-                <Users />
-                <h3 className="sec-coral">Volunteer your time</h3>
-                <p className="p3">
-                  From mentoring to workshops, everyone can make a difference.
-                </p>
-                <div className="three-col-section-link-container">
-                  <div className="three-col-section-link-wrapper">
-                    <Link href="/get-involved/volunteer" className="link-btn">
-                      <p className="p5 link-btn-text sec-coral">LEARN MORE</p>
-                      <RightArrow />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="flex flex-col justify-center items-center gap-[2rem] lg:max-w-[1224px]">
+          <h4 className="sec-coral !text-base !font-bold">GET INVOLVED</h4>
+          <div className="grid gap-[1.5rem] grid-cols-1 lg:grid-cols-3 justify-center">
+            <GrayBorderCard
+              icon={<Handshake />}
+              title={'Partner with us'}
+              text="Help bring fitness, wellness, and mentorship to more girls."
+              href={'/get-involved/partner'}
+            />
+            <GrayBorderCard
+              icon={<HandHeart />}
+              title={'Become a donor'}
+              text="Your support helps girls build confidence and lifelong
+                  well-being."
+              href={'/get-involved/donor'}
+            />
+            <GrayBorderCard
+              icon={<Users />}
+              title={'Volunteer your time'}
+              text="From mentoring to workshops, everyone can make a difference."
+              href={'/get-involved/volunteer'}
+            />
           </div>
         </div>
       </div>
-      <div className="last-section">
-        <div className="last-section-content">
-          <h4 className="coral-3">CONTACT US</h4>
-          <p className="p1 c7">
-            Have questions or want to get involved? We&apos;re here to help!
-          </p>
-          <Link href="/contact-us" className="filled-btn w-[11.5rem]">
-            <p className="btn background-color">Send a message</p>
-          </Link>
-        </div>
-      </div>
+      <ContactSection
+        header="CONTACT US"
+        text="Have questions or want to get involved? We're here to help!"
+      />
     </main>
   );
 }

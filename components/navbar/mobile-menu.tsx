@@ -80,21 +80,24 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
         `}
         ref={menuRef}
       >
-        <div
-          id="get-involved"
-          className="flex items-center justify-between
-              px-[1.5625rem] py-[0.9375rem]
-              w-full active:bg-[#f4a488]"
-          onClick={() => {
-            setInnerDropdown(!innerDropdown ? 'get-involved' : null);
-          }}
-        >
-          <p>Get Involved</p>
-          <ArrowDown
-            className={`transform transition-transform duration-200 ease-in-out ${
-              innerDropdown === 'get-involved' ? 'rotate-180' : null
-            }`}
-          />
+        <div className="w-full px-[1.5625rem] active:bg-[#f4a488]">
+          <div
+            id="get-involved"
+            className="relative flex items-center justify-between
+          py-[0.9375rem] w-full"
+            onClick={() => {
+              setInnerDropdown(!innerDropdown ? 'get-involved' : null);
+            }}
+          >
+            <p>Get Involved</p>
+            <ArrowDown
+              className={`transform transition-transform duration-200 ease-in-out ${
+                innerDropdown === 'get-involved' ? 'rotate-180' : ''
+              }`}
+            />
+          </div>
+
+          {!innerDropdown && <div className="h-[1px] bg-[#ffece4] w-full" />}
         </div>
         <div
           className={`flex flex-col w-full transition-all duration-300 ease-in-out overflow-hidden
@@ -105,33 +108,43 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
                   }`}
         >
           {getInvolvedItems.map(item => (
-            <Link
+            <div
               key={item.href}
-              href={item.href}
-              onClick={() => {
-                setDropdown(null);
-              }}
-              className={`flex items-center bg-[#ffece4] px-[3.125rem] py-[1.25rem]`}
+              className="w-full px-[1.5625rem] bg-[#ffece4] active:bg-[#f4a488]"
             >
-              {item.text}
-            </Link>
+              <Link
+                href={item.href}
+                onClick={() => {
+                  setDropdown(null);
+                }}
+                className={`relative flex items-center px-[1.5625rem] py-[1.25rem]`}
+              >
+                {item.text}
+              </Link>
+              <div className="h-[1px] opacity-[0.1] bg-[#8e463b] w-full" />
+            </div>
           ))}
         </div>
         {dropdownItems.map(item => (
-          <Link
+          <div
             key={item.href}
-            href={item.href}
-            className="
-              flex items-center
-              px-[1.5625rem] py-[1.56rem]
-              w-full active:bg-[#f4a488]
-            "
-            onClick={() => {
-              setDropdown(null);
-            }}
+            className="w-full px-[1.5625rem] active:bg-[#f4a488]"
           >
-            {item.text}
-          </Link>
+            <Link
+              href={item.href}
+              className="
+            flex items-center
+            py-[1.56rem]
+            w-full
+            "
+              onClick={() => {
+                setDropdown(null);
+              }}
+            >
+              {item.text}
+            </Link>
+            <div className="h-[1px] bg-[#ffece4] w-full" />
+          </div>
         ))}
         <div className="flex w-full px-[1.5625rem] py-[0.625rem]">
           <MainButton
