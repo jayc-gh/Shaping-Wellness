@@ -53,9 +53,9 @@ export default function PictureTextSection({
             {subtitle}
           </h3>
         </div>
-        <p className="text-[#3c3c3c] text-base font-[500] leading-[160%] lg:text-[1.125rem]">
+        <div className="text-[#3c3c3c] text-base font-[500] leading-[160%] lg:text-[1.125rem]">
           {content}
-        </p>
+        </div>
         {link && <HyperLink href={link.href} text={link.label} small={true} />}
         {setPopup && (
           <button

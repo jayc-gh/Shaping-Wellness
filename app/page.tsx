@@ -79,7 +79,7 @@ export default function Home() {
         }
       />
       <DividerSection />
-      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2rem] lg:px-[6.75rem] lg:py-[3.75rem] lg:gap-[3.75rem]">
+      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2.5rem] lg:px-[6.75rem] lg:gap-[3.75rem]">
         <PictureTextSection
           title="FITNESS PROGRAMS"
           subtitle="Staying active and strong"

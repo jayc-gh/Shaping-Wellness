@@ -47,7 +47,7 @@ export default function WhoWeAre() {
         }
       />
       <DividerSection />
-      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2rem] lg:px-[6.75rem] lg:py-[3.75rem] lg:gap-[3.75rem]">
+      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2.5rem] lg:px-[6.75rem] lg:gap-[3.75rem]">
         <PictureTextSection
           title="OUR VISION"
           subtitle="Empowering girls, shaping futures"
@@ -62,14 +62,14 @@ export default function WhoWeAre() {
               <div>
                 Our vision is grounded in long-term impact:
                 <br />
-                <ul className="list-disc pl-6">
-                  <li className="pl-1">
+                <ul className="list-disc pl-6 leading-[160%]">
+                  <li className="">
                     Girls gaining the confidence to stay active and healthy
                   </li>
-                  <li className="pl-1">
+                  <li className="">
                     Communities seeing improved health outcomes over time
                   </li>
-                  <li className="pl-1">
+                  <li className="">
                     Future leaders emerging with the resilience and
                     self-awareness to uplift others
                   </li>
@@ -156,7 +156,7 @@ export default function WhoWeAre() {
         }
       />
       <DividerSection />
-      <div className="flex w-full py-[2.5rem] px-[1.5625rem] lg:px-[6.75rem]">
+      <div className="flex w-full py-[2.5rem] px-[1.5625rem] lg:px-[6.75rem] items-center justify-center">
         <PictureTextSection
           title="MEET OUR FOUNDER"
           subtitle="Luciana N Gearing"

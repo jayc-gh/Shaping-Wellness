@@ -22,7 +22,7 @@ export default function HyperLink({
       <p
         className={`${
           small ? 'text-[0.875rem]' : 'text-base lg:text-[1.125rem]'
-        } text-[#b1574a] font-semibold pb-[2px] border-b-2 border-transparent group-hover:border-[#b1574a] transition duration-150 group-hover:scale-96 active:scale-96`}
+        } text-[#b1574a] font-bold pb-[2px] border-b-2 border-transparent group-hover:border-[#b1574a] transition duration-150 group-hover:scale-96 active:scale-96`}
       >
         {text}
       </p>

@@ -15,7 +15,7 @@ type PSectionTypes = {
 
 export default function PSection({ header, text, link }: PSectionTypes) {
   return (
-    <div className="flex w-full items-center justify-center py-[2rem] px-[1.5625rem] lg:px-[6.75rem]">
+    <div className="flex w-full items-center justify-center py-[2.5rem] px-[1.5625rem] lg:px-[6.75rem]">
       <div className="flex gap-[1.5rem] flex-col justify-center items-center lg:max-w-[55.625rem]">
         <div className="flex flex-col justify-center items-center gap-[1.5rem] lg:text-center lg:max-w-[1224px]">
           <h4 className="text-[#b1574a] !font-base !font-bold">{header}</h4>
