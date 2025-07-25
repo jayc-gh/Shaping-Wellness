@@ -3,10 +3,12 @@ import Link from 'next/link';
 
 export default function FAQSection() {
   return (
-    <div className="faq-section">
-      <h4 className="sec-coral">FREQUENTLY ASKED QUESTIONS (FAQs)</h4>
-      <div className="faq-section-content-container">
-        <div className="faq-column">
+    <div className="flex flex-col py-[2.5rem] px-[1.5rem] lg:px-[6.75rem] w-full justify-center items-center gap-[1.5rem] text-center">
+      <h4 className="text-base font-bold text-[#b1574a]">
+        FREQUENTLY ASKED QUESTIONS (FAQs)
+      </h4>
+      <div className="flex flex-col w-full py-[1.25rem] items-center gap-[1.25rem] lg:flex-row lg:max-w-[1224px]">
+        <div className="flex flex-col items-start justify-start h-full gap-[1.25rem] lg:w-[50%]">
           <FAQItem
             question="You are a new nonprofit. How can I trust this will make an impact?"
             answer={
@@ -61,7 +63,7 @@ export default function FAQSection() {
             }
           />
         </div>
-        <div className="faq-column">
+        <div className="flex flex-col items-start justify-start h-full gap-[1.25rem] lg:w-[50%]">
           <FAQItem
             question="How can I donate?"
             answer={
@@ -93,34 +95,29 @@ export default function FAQSection() {
             question="Is my donation tax-deductible?"
             answer={
               <>
-                Is this donation tax deductible? Yes. Shaping Wellness
-                Foundation is a 501(c)3 tax-exempt organization and your
-                donation is tax-deductible within the guidelines of U.S. law. To
-                claim a donation as a deduction on your U.S. taxes, please keep
-                your email donation receipt as your official record. We&apos;ll
-                send it to you upon successful completion of your donation.
+                Yes. Shaping Wellness Foundation is a 501(c)3 tax-exempt
+                organization and your donation is tax-deductible within the
+                guidelines of U.S. law. To claim a donation as a deduction on
+                your U.S. taxes, please keep your email donation receipt as your
+                official record. We&apos;ll send it to you after your donation
+                is successfully processed.
+                <ul className="list-disc pl-6 leading-[1.25rem]">
+                  <li>Tax ID (EIN): 33-3441832</li>
+                  <li>
+                    No goods or services are provided in exchange for donations.
+                  </li>
+                </ul>
               </>
             }
           />
           <FAQItem
-            question="How do I cancel my recurring donation?"
+            question="How do I update my recurring donation?"
             answer={
               <>
                 We&apos;re so grateful for your support. If you&apos;d like to
-                stop your monthly donations, you can do so at any time by
-                visiting our{' '}
-                <Link href="/">
-                  <span className="font-bold underline">
-                    Cancel Recurring Donation page.
-                  </span>
-                </Link>{' '}
-                You&apos;ll have the option to pause or adjust your gift if that
-                works better for you, or to cancel it entirely. If you need
-                help, feel free to{' '}
-                <Link href="/contact-us#contact">
-                  <span className="font-bold underline">contact us</span>
-                </Link>{' '}
-                and we&apos;ll be happy to assist.
+                update your payment method, change your donation amount, or
+                cancel your monthly gift, please contact us at EMAIL or fill out
+                the form above - we&apos;ll be happy to assist.
               </>
             }
           />

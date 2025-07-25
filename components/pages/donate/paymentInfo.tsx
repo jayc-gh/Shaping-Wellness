@@ -36,7 +36,12 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
   };
 
   useEffect(() => {
-    if (!elements) return;
+    if (
+      !elements ||
+      Number(formData.totalCharged) < 1 ||
+      !formData.totalCharged
+    )
+      return;
     elements.update({
       amount: convertToSubcurrency(Number(formData.totalCharged)),
     });
@@ -62,9 +67,9 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
   }, [elements, setFormData, formData.totalCharged]);
 
   return (
-    <div className="donate-form-content-container !w-full">
-      <div className="form-sub-container !w-full">
-        <h4>PAYMENT DETAILS</h4>
+    <div className="flex flex-col items-start gap-[0.75rem] w-full">
+      <div className="flex flex-col justify-center items-start gap-[0.5rem] w-full">
+        <h4 className="text-base font-bold">PAYMENT DETAILS</h4>
         <div className="w-full">
           <PaymentElement options={paymentElementOptions} />
         </div>

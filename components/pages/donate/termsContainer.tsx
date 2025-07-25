@@ -1,8 +1,8 @@
 import { DonateFormData } from '@/declarations';
 import Lock from '../../../app/icons/donate/lock.svg';
-import LoadingDots from '../../loadingDots';
 import Checkbox from './donateCheckbox';
 import { calcTransactionFee } from '@/lib/functions/currencyFunctions';
+import MainButton from '@/components/buttons/mainButton';
 
 interface StepProps {
   formData: DonateFormData;
@@ -28,7 +28,7 @@ export default function TermsContainer({
   };
 
   return (
-    <div className="terms-container">
+    <div className="flex flex-col gap-[1.5rem] w-full">
       {(step < 4 || (step === 4 && !errorMessage)) && (
         <>
           <div className="flex flex-col gap-[0.625rem] justify-center items-center">
@@ -44,50 +44,32 @@ export default function TermsContainer({
               />
             )}
 
-            <div className="continue-container">
-              <button
-                className="continue-btn"
-                type="submit"
-                title={
-                  step === 1 && Number(formData.donationAmount) < 1
-                    ? 'Minimum donation amount is $1.00'
-                    : undefined
-                }
-                disabled={
+            <MainButton
+              color="orange"
+              width="fill"
+              submit={{
+                disabled:
                   (step === 4 && loading) ||
                   (step === 1 && Number(formData.donationAmount) < 1) ||
                   errorMessage !== '' ||
                   (step === 3 && !formData.paymentReady) ||
-                  (step === 4 && !formData.paymentReady)
-                }
-              >
-                <span className="btn flex items-center justify-center w-full">
-                  {step === 4 && loading ? (
-                    <span className="btn flex items-center justify-center w-full">
-                      Processing
-                      <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
-                        <LoadingDots />
-                      </div>
-                    </span>
-                  ) : step === 4 ? (
-                    `Donate $${formData.totalCharged}`
-                  ) : (
-                    'Continue'
-                  )}
-                </span>
-              </button>
-            </div>
+                  (step === 4 && !formData.paymentReady),
+                label:
+                  step === 4 ? `Donate $${formData.totalCharged}` : 'Continue',
+                loading: loading,
+              }}
+            />
 
             <div className="flex justify-center items-center gap-[0.3125rem]">
               <Lock />
-              <p className="custom-text-3 s-neutral !font-[500] !no-underline">
+              <p className="text-[0.75rem] italic text-[#6b6461] !font-[500]">
                 Your donation is secure and facilitated by Stripe.
               </p>
             </div>
           </div>
 
           {step === 4 && (
-            <p className="terms-text">
+            <p className="text-center text-[0.75rem] font-[500] leading-[140%] text-[#6b6461]">
               By clicking Donate, I agree to receive communications from Shaping
               Wellness Foundation and their{' '}
               <span

@@ -4,6 +4,18 @@ import React from 'react';
 import type { ErrorMap, Address } from '@/declarations';
 import { Country, State } from 'country-state-city';
 import Dropdown from './dropDown';
+import {
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputContainer,
+  inputFieldDefaultColors,
+  inputFieldDefaults,
+  inputFieldErrorColors,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 type AddressFields = {
   orgDonate?: boolean;
@@ -49,19 +61,19 @@ export default function Address<T extends AddressFields>({
 
   return (
     <div className="flex flex-col w-full">
-      <div className="input-sub-container">
+      <div className={inputSubContainer}>
         {formData.orgDonate &&
         (formType === 'donate' || formType === 'partner') ? (
-          <p className="custom-text">
-            Organization Address <span className="required">*</span>
+          <p className={inputLabelText}>
+            Organization Address <span className={required}>*</span>
           </p>
         ) : (
-          <p className="custom-text">
-            Address <span className="required">*</span>
+          <p className={inputLabelText}>
+            Address <span className={required}>*</span>
           </p>
         )}
-        <div className="form-sub-container">
-          <div className="input-container">
+        <div className="flex flex-col w-full justify-center items-start gap-[0.5rem]">
+          <div className={inputContainer}>
             <div className="flex flex-col w-full gap-[0.5rem]">
               <input
                 type="address1"
@@ -77,10 +89,10 @@ export default function Address<T extends AddressFields>({
                   }));
                 }}
                 placeholder="Address 1"
-                className={`input-field ${
+                className={`${inputFieldDefaults} ${
                   showErrors.address1 && !formData.address.address1.trim()
-                    ? 'show-invalid'
-                    : ''
+                    ? inputFieldErrorColors
+                    : inputFieldDefaultColors
                 }`}
               />
 
@@ -94,12 +106,12 @@ export default function Address<T extends AddressFields>({
                   }));
                 }}
                 placeholder="Address 2 (apt, suite, etc)"
-                className="input-field"
+                className={`${inputFieldDefaults} ${inputFieldDefaultColors}`}
               />
             </div>
           </div>
 
-          <div className="input-container">
+          <div className="flex items-start gap-[0.5rem] w-full">
             <Dropdown
               id="country"
               title="Country"
@@ -147,19 +159,19 @@ export default function Address<T extends AddressFields>({
                     }));
                   }}
                   placeholder="State/Province/Region"
-                  className={`input-field ${
+                  className={`${inputFieldDefaults} ${
                     showErrors.state &&
                     !formData.address.state.trim() &&
                     formData.address.country === 'CA'
-                      ? 'show-invalid'
-                      : ''
+                      ? inputFieldErrorColors
+                      : inputFieldDefaultColors
                   }`}
                 />
               </div>
             )}
           </div>
 
-          <div className="input-container">
+          <div className="flex items-start gap-[0.5rem] w-full">
             <input
               type="text"
               value={formData.address.city}
@@ -174,10 +186,10 @@ export default function Address<T extends AddressFields>({
                 }));
               }}
               placeholder="City"
-              className={`input-field ${
+              className={`${inputFieldDefaults} ${
                 showErrors.city && !formData.address.city.trim()
-                  ? 'show-invalid'
-                  : ''
+                  ? inputFieldErrorColors
+                  : inputFieldDefaultColors
               }`}
             />
             <input
@@ -194,30 +206,30 @@ export default function Address<T extends AddressFields>({
                 }));
               }}
               placeholder="Zip/Postal Code"
-              className={`input-field ${
+              className={`${inputFieldDefaults} ${
                 showErrors.postalCode &&
                 !formData.address.postalCode.trim() &&
                 (formData.address.country === 'US' ||
                   formData.address.country === 'CA')
-                  ? 'show-invalid'
-                  : ''
+                  ? inputFieldErrorColors
+                  : inputFieldDefaultColors
               }`}
             />
           </div>
         </div>
       </div>
       <div
-        className={`error-text-container ${
+        className={`${errorTextContainer} ${
           (showErrors.address1 && !formData.address.address1.trim()) ||
           (showErrors.country && !formData.address.country.trim()) ||
           (showErrors.state && !formData.address.state.trim()) ||
           (showErrors.postalCode && !formData.address.postalCode.trim()) ||
           (showErrors.city && !formData.address.city.trim())
-            ? 'transition'
+            ? errorTextTransition
             : ''
         }`}
       >
-        <p className="error-text">Address is incomplete</p>
+        <p className={errorText}>Address is incomplete</p>
       </div>
     </div>
   );

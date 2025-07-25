@@ -1,13 +1,23 @@
 'use client';
 
-import './contactForm.css';
-import '../../forms/forms.css';
 import { useState } from 'react';
 import { validateEmailFormat } from '@/lib/functions/validateFunctions';
 import { handleSubmitContact } from '@/lib/functions/formHandleSubmit';
 import { ContactFormData } from '@/declarations';
-import LoadingDots from '@/components/loadingDots';
 import FormConfirm from '@/components/forms/formConfirm';
+import Name from '@/components/input-fields/name';
+import { ErrorMap } from '@/declarations';
+import Email from '@/components/input-fields/email';
+import {
+  errorText,
+  inputContainer,
+  inputFieldDefaultColors,
+  inputFieldDefaults,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
+import MainButton from '@/components/buttons/mainButton';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -16,7 +26,7 @@ export default function ContactForm() {
     email: '',
     details: '',
   });
-  const [emailError, setEmailError] = useState<boolean>(false);
+  const [showErrors, setShowErrors] = useState<ErrorMap>({});
   const [confirm, setConfirm] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,7 +34,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="contact-form-box"
+      className="flex py-[2.5rem] px-[1.5rem] justify-center items-start bg-white gap-[1.5rem] rounded-[0.625rem] lg:max-w-[44rem] lg:py-[5rem] lg:px-[6.5rem]"
       onSubmit={async e => {
         const contactData = await handleSubmitContact(e, formData, setLoading);
         if (!contactData) return;
@@ -36,96 +46,34 @@ export default function ContactForm() {
       }}
     >
       {!confirm && !errorMessage && (
-        <div className="contact-form-wrapper">
-          <h4>CONTACT FORM</h4>
-          <p className="p4">
+        <div className="flex flex-col justify-center items-start gap-[1.5rem]">
+          <h4 className="text-base font-bold text-base">CONTACT FORM</h4>
+          <p className="text-base font-[500] leading-[170%] lg:leading-[140%]">
             Have a question or need more information? Fill out the form, and our
             team will get back to you as soon as possible.
           </p>
-          <div className="form-sub-container">
-            <div className="input-container">
-              <label className="input-sub-container">
-                <p className="custom-text">
-                  First name <span className="required">*</span>
-                </p>
-                <input
-                  value={formData.firstName}
-                  className="input-field"
-                  onChange={e => {
-                    setFormData(prev => ({
-                      ...prev,
-                      firstName: e.target.value,
-                    }));
-                  }}
-                />
-              </label>
-              <label className="input-sub-container">
-                <p className="custom-text">
-                  Last name <span className="required">*</span>
-                </p>
-                <input
-                  value={formData.lastName}
-                  className="input-field"
-                  onChange={e => {
-                    setFormData(prev => ({
-                      ...prev,
-                      lastName: e.target.value,
-                    }));
-                  }}
-                />
-              </label>
-            </div>
-            <div className="input-container">
-              <label className="input-sub-container">
-                <p className="custom-text">
-                  Email <span className="required">*</span>
-                </p>
-                <div className="flex flex-col w-full">
-                  <input
-                    value={formData.email}
-                    className={`input-field ${
-                      emailError &&
-                      !validateEmailFormat(formData.email) &&
-                      formData.email
-                        ? 'show-invalid'
-                        : ''
-                    }`}
-                    onChange={e => {
-                      setFormData(prev => ({
-                        ...prev,
-                        email: e.target.value,
-                      }));
-                      setEmailError(false);
-                    }}
-                    onBlur={() => {
-                      if (formData.email)
-                        setEmailError(!validateEmailFormat(formData.email));
-                    }}
-                  />
-                  <div
-                    className={`error-text-container ${
-                      emailError && !validateEmailFormat(formData.email)
-                        ? 'transition'
-                        : ''
-                    }`}
-                  >
-                    {formData.email ? (
-                      <p className="error-text">
-                        Please enter in the format: email@domain.com
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </label>
-            </div>
-            <div className="input-container">
-              <label className="input-sub-container">
-                <p className="custom-text">
-                  How can we help? <span className="required">*</span>
+          <div className="flex flex-col justify-center items-start gap-[0.5rem] w-full">
+            <Name
+              formData={formData}
+              setFormData={setFormData}
+              formType="contact"
+            />
+            <Email
+              formData={formData}
+              setFormData={setFormData}
+              showErrors={showErrors}
+              setShowErrors={setShowErrors}
+              formType="contact"
+            />
+
+            <div className={inputContainer}>
+              <label className={inputSubContainer}>
+                <p className={inputLabelText}>
+                  How can we help? <span className={required}>*</span>
                 </p>
                 <textarea
                   value={formData.details}
-                  className="input-field !h-[4.75rem] resize-none !whitespace-pre-wrap !overflow-y-auto"
+                  className={`${inputFieldDefaults} ${inputFieldDefaultColors} !h-[4.75rem] resize-none !whitespace-pre-wrap !overflow-y-auto`}
                   rows={3}
                   onChange={e => {
                     setFormData(prev => ({
@@ -137,38 +85,26 @@ export default function ContactForm() {
               </label>
             </div>
           </div>
-          <div className="continue-container">
-            <button
-              className="continue-btn"
-              type="submit"
-              disabled={
+          <MainButton
+            color="orange"
+            width="fill"
+            submit={{
+              disabled:
                 !formData.firstName ||
                 !formData.lastName ||
                 !formData.email ||
                 !formData.details ||
                 !validateEmailFormat(formData.email) ||
-                loading
-              }
-            >
-              <span className="btn flex items-center justify-center w-full">
-                {loading ? (
-                  <span className="btn flex items-center justify-center w-full">
-                    Processing
-                    <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
-                      <LoadingDots />
-                    </div>
-                  </span>
-                ) : (
-                  'Submit'
-                )}
-              </span>{' '}
-            </button>
-          </div>
+                loading,
+              label: 'Submit',
+              loading: loading,
+            }}
+          />
         </div>
       )}
       {confirm && <FormConfirm formType={formType} />}
       {errorMessage && (
-        <div className="error-text text-center w-full">{errorMessage}</div>
+        <div className={`${errorText} text-center w-full`}>{errorMessage}</div>
       )}
     </form>
   );

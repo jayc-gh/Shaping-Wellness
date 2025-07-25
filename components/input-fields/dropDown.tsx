@@ -3,6 +3,11 @@ import ArrowDown from '../../app/icons/Arrow-down.svg';
 import { useOutsideClick } from '@/lib/functions/useFunctions';
 import { formatDate } from '@/lib/functions/validateFunctions';
 import { ErrorMap } from '@/declarations';
+import {
+  inputFieldDefaultColors,
+  inputFieldDefaults,
+  inputFieldErrorColors,
+} from '@/lib/classes/input-fields';
 
 interface DropdownItem {
   id: string;
@@ -103,8 +108,8 @@ export default function Dropdown({
           setIsOpen(false);
           autocompleteInput();
         }}
-        className={`input-field justify-between ${
-          showErrors[id] ? 'show-invalid' : ''
+        className={`${inputFieldDefaults} justify-between ${
+          showErrors[id] ? inputFieldErrorColors : inputFieldDefaultColors
         }`}
       />
       <ArrowDown

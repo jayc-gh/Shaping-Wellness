@@ -1,5 +1,13 @@
 import type { ErrorMap, DOB } from '@/declarations';
 import Dropdown from './dropDown';
+import {
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 type DOBFields = {
   DOB: DOB;
@@ -48,11 +56,11 @@ export default function DOB<T extends DOBFields>({
 }: StepProps<T>) {
   return (
     <div className="flex flex-col">
-      <div className="input-sub-container">
-        <p className="custom-text">
-          Date of Birth <span className="required">*</span>
+      <div className={inputSubContainer}>
+        <p className={inputLabelText}>
+          Date of Birth <span className={required}>*</span>
         </p>
-        <div className="input-container">
+        <div className="flex w-full gap-[0.5rem]">
           <Dropdown
             id="month"
             title="Month"
@@ -107,17 +115,17 @@ export default function DOB<T extends DOBFields>({
         </div>
       </div>
       <div
-        className={`error-text-container ${
+        className={`${errorTextContainer} ${
           formType !== 'donate' &&
           ((showErrors.month && !formData.DOB.month.trim()) ||
             (showErrors.day && !formData.DOB.day.trim()) ||
             (showErrors.year && !formData.DOB.year.trim()) ||
             showErrors.DOB)
-            ? 'transition'
+            ? errorTextTransition
             : ''
         }`}
       >
-        <p className="error-text">
+        <p className={errorText}>
           {(showErrors.month && !formData.DOB.month.trim()) ||
           (showErrors.day && !formData.DOB.day.trim()) ||
           (showErrors.year && !formData.DOB.year.trim())

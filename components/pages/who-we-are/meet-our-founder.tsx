@@ -14,7 +14,9 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
   return (
     <div className="flex overflow-y-auto bg-[#ffece4] w-[22.5rem] h-[35.875rem] px-[1.25rem] pt-[1.25rem] pb-[2.5rem] flex-col items-start gap-[0.625rem] rounded-[0.625rem] lg:px-[3rem] lg:pb-[3rem] lg:pt-[1.875rem] lg:gap-[0.75rem] lg:rounded-[0.75rem] lg:w-[1024px] lg:h-auto">
       <div className="flex justify-between items-center self-stretch">
-        <h5 className="text-[#b1574a]">Luciana N Gearing</h5>
+        <h5 className="text-[#b1574a] text-[1.25rem] font-bold">
+          Luciana N Gearing
+        </h5>
         <button className="cursor-pointer" onClick={() => setPopup(false)}>
           <Close />
         </button>

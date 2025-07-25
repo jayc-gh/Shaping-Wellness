@@ -1,4 +1,16 @@
 import { ErrorMap } from '@/declarations';
+import {
+  inputContainer,
+  inputSubContainer,
+  inputLabelText,
+  required,
+  inputFieldDefaults,
+  inputFieldErrorColors,
+  inputFieldDefaultColors,
+  errorTextContainer,
+  errorText,
+  errorTextTransition,
+} from '@/lib/classes/input-fields';
 import { validateEmailFormat } from '@/lib/functions/validateFunctions';
 
 type EmailFields = {
@@ -22,15 +34,15 @@ export default function Email<T extends EmailFields>({
   formType,
 }: StepProps<T>) {
   return (
-    <div className="input-container">
-      <label className="input-sub-container">
+    <div className={inputContainer}>
+      <label className={inputSubContainer}>
         {formData.orgDonate && formType === 'donate' ? (
-          <p className="custom-text">
-            Contact Email <span className="required">*</span>
+          <p className={inputLabelText}>
+            Contact Email <span className={required}>*</span>
           </p>
         ) : (
-          <p className="custom-text">
-            Email <span className="required">*</span>
+          <p className={inputLabelText}>
+            Email <span className={required}>*</span>
           </p>
         )}
         <div className="flex flex-col w-full">
@@ -47,32 +59,38 @@ export default function Email<T extends EmailFields>({
                 email: false,
               }));
             }}
-            className={`input-field ${
+            onBlur={e => {
+              if ((formType = 'contact') && e.target.value) {
+                const valid = !validateEmailFormat(e.target.value);
+                if (valid) setShowErrors({ email: true });
+              }
+            }}
+            className={`${inputFieldDefaults} ${
               (showErrors.email || showErrors.emailCheckFailed) &&
               !validateEmailFormat(formData.email)
-                ? 'show-invalid'
-                : ''
+                ? inputFieldErrorColors
+                : inputFieldDefaultColors
             }`}
           />
           {!showErrors.email && formType !== 'donate' ? (
-            <p className="p6 s-neutral !font-[400] self-start justify-center pt-[0.25rem]">
+            <p className="text-[0.75rem] text-[#6b6461] font-[400] self-start justify-center pt-[0.25rem]">
               We will use this email to contact you.
             </p>
           ) : null}
           <div
-            className={`error-text-container ${
+            className={`${errorTextContainer} ${
               (showErrors.email || showErrors.emailCheckFailed) &&
               !validateEmailFormat(formData.email)
-                ? 'transition'
+                ? errorTextTransition
                 : ''
             }`}
           >
             {formData.email ? (
-              <p className="error-text">
+              <p className={errorText}>
                 Please enter in the format: email@domain.com
               </p>
             ) : !formData.email ? (
-              <p className="error-text">Email is required</p>
+              <p className={errorText}>Email is required</p>
             ) : null}
           </div>
         </div>

@@ -5,7 +5,6 @@ import BotCurveColor from '../../app/icons/bottom-curve-color.svg';
 import Empowerment from '../../app/icons/programs/empowerment.svg';
 import Knowledge from '../../app/icons/programs/knowledge.svg';
 import Support from '../../app/icons/programs/support.svg';
-import GradientRectangle from '../../app/icons/gradient-rectangle.svg';
 import MainSection from '@/components/sections/headerSection';
 import PictureTextSection from '@/components/sections/pictureText';
 import DividerSection from '@/components/sections/dividerSection';
@@ -22,8 +21,8 @@ export default function Programs() {
         heading="Inspiring girls to build healthy, confident futures."
         description="If your organization is dedicated to giving girls the tools to lead healthier, more confident lives, we're here to help."
         bgImageUrl="/images/ProgramsHeader.jpg"
-        aspectRatio="2400/750"
-        contentMaxWidth=""
+        aspectRatio="2600/750"
+        contentMaxWidth="lg:max-w-[37.5rem]"
         backgroundPosition="center 50%, center 50%"
       />
       <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2.5rem] lg:px-[6.75rem] lg:gap-[3.75rem]">
@@ -57,24 +56,30 @@ export default function Programs() {
       <div className="flex justify-center items-center py-[2rem] px-[1.5625rem] lg:px-[6.75rem] w-full">
         <div className="flex flex-col justify-center items-center lg:items-stretch gap-[1.5rem] max-w-[1224px] w-full lg:flex-row">
           <GradientBox
-            BoxSvg={GradientRectangle}
             Icon={Empowerment}
             title="Empowerment"
-            text="Empowering girls to stay active and build lifelong fitness habits."
+            content={
+              <>
+                Empowering girls to stay active and build lifelong fitness
+                habits.
+              </>
+            }
             classString="relative w-full min-h-[11.125rem]"
           />
           <GradientBox
-            BoxSvg={GradientRectangle}
             Icon={Knowledge}
             title="Knowledge"
-            text="Providing the knowledge to make informed health choices."
+            content={
+              <>Providing the knowledge to make informed health choices.</>
+            }
             classString="relative w-full min-h-[11.125rem]"
           />
           <GradientBox
-            BoxSvg={GradientRectangle}
             Icon={Support}
             title="Support"
-            text="Mentorship and guidance to inspire confidence and growth."
+            content={
+              <>Mentorship and guidance to inspire confidence and growth.</>
+            }
             classString="relative w-full min-h-[11.125rem]"
           />
         </div>
@@ -203,6 +208,8 @@ export default function Programs() {
       <ContactSection
         header="CONTACT US"
         text="Have questions or want to get involved? We're here to help!"
+        href="/contact-us"
+        buttonLabel="Send a message"
       />
     </main>
   );

@@ -1,4 +1,16 @@
 import { ErrorMap } from '@/declarations';
+import {
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputContainer,
+  inputFieldDefaultColors,
+  inputFieldDefaults,
+  inputFieldErrorColors,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 type OrgNameFields = {
   orgName: string;
@@ -19,10 +31,10 @@ export default function OrgName<T extends OrgNameFields>({
   setShowErrors,
 }: StepProps<T>) {
   return (
-    <div className="input-container">
-      <label className="input-sub-container">
-        <p className="custom-text">
-          Organization Name <span className="required">*</span>
+    <div className={inputContainer}>
+      <label className={inputSubContainer}>
+        <p className={inputLabelText}>
+          Organization Name <span className={required}>*</span>
         </p>
         <div className="flex flex-col w-full">
           <input
@@ -38,18 +50,20 @@ export default function OrgName<T extends OrgNameFields>({
                 orgName: false,
               }));
             }}
-            className={`input-field ${
+            className={`${inputFieldDefaults} ${
               showErrors.orgName && !formData.orgName.trim()
-                ? 'show-invalid'
-                : ''
+                ? inputFieldErrorColors
+                : inputFieldDefaultColors
             }`}
           />
           <div
-            className={`error-text-container ${
-              showErrors.orgName && !formData.orgName.trim() ? 'transition' : ''
+            className={`${errorTextContainer} ${
+              showErrors.orgName && !formData.orgName.trim()
+                ? errorTextTransition
+                : ''
             }`}
           >
-            <p className="error-text">Organization Name is required</p>
+            <p className={errorText}>Organization Name is required</p>
           </div>
         </div>
       </label>

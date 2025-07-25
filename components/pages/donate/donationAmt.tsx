@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { DonateFormData } from '@/declarations';
+import {
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  required,
+} from '@/lib/classes/input-fields';
 
 interface StepProps {
   formData: DonateFormData;
@@ -8,6 +14,7 @@ interface StepProps {
 
 export default function DonationAmt({ formData, setFormData }: StepProps) {
   const [customAmt, setCustomAmt] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const toggleDonationType = (type: string) => {
     setFormData(prev => ({
       ...prev,
@@ -28,18 +35,15 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
   const handleCustomAmountChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    // auto add 0 if starting with .
     let value = e.target.value;
     if (value.startsWith('.')) {
       value = '0' + value;
     }
 
-    // auto add . if starting with 0
     if (/^0\d{1,2}$/.test(value)) {
       value = `0.${value.slice(1)}`;
     }
 
-    // remove $ sign
     if (value.startsWith('$')) {
       value = value.slice(1);
     }
@@ -47,9 +51,19 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
     // decimal check
     if (!/^\d*\.?\d{0,2}$/.test(value)) return;
 
-    const numericValue = parseFloat(value);
+    // Allow empty input (user clearing the field)
+    if (value === '') {
+      setFormData(prev => ({
+        ...prev,
+        donationAmount: '',
+        totalCharged: '',
+        feeCovered: false,
+      }));
+      return;
+    }
 
-    // max value of 999999.99
+    const numericValue = parseFloat(value);
+    if (isNaN(numericValue)) return;
     if (numericValue > 999999.99) return;
 
     setFormData(prev => ({
@@ -61,34 +75,51 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
   };
 
   return (
-    <div className="donate-form-content-container">
-      <h4>SELECT AN AMOUNT</h4>
-      <div className="toggle-container">
-        <div className="toggle-btn-container">
+    <div className="flex flex-col items-start gap-[0.75rem] w-full">
+      <h4 className="text-[1rem] font-bold leading-normal">SELECT AN AMOUNT</h4>
+      <div className="flex flex-col w-full justify-center items-center gap-[0.625rem]">
+        <div className="flex h-[2.75rem] items-center justify-center rounded-full border border-[#dd6d5c] cursor-pointer w-full">
           <div
             onClick={() => toggleDonationType('one-time')}
-            className={`toggle-btn ${!formData.monthly && 'filled'} btn `}
+            className={
+              'flex text-base font-bold h-[2.75rem] w-full py-[1rem] justify-center items-center rounded-full hover:cursor-pointer ' +
+              (!formData.monthly
+                ? 'text-white bg-gradient-to-b from-[#d9764e] to-[#dd6d5c] shadow-[inset_0px_6px_7px_rgba(0,0,0,0.07)]'
+                : 'bg-gradient-to-b from-[#d9764e] to-[#dd6d5c] bg-clip-text text-transparent')
+            }
           >
             One-time
           </div>
           <div
             onClick={() => toggleDonationType('monthly')}
-            className={`toggle-btn ${formData.monthly && 'filled'} btn `}
+            className={
+              'flex text-base font-bold h-[2.75rem] w-full py-[1rem] justify-center items-center rounded-full hover:cursor-pointer ' +
+              (formData.monthly
+                ? 'text-white bg-gradient-to-b from-[#d9764e] to-[#dd6d5c] shadow-[inset_0px_6px_7px_rgba(0,0,0,0.07)]'
+                : 'bg-gradient-to-b from-[#d9764e] to-[#dd6d5c] bg-clip-text text-transparent')
+            }
           >
             Monthly
           </div>
         </div>
       </div>
-      <div className="donation-amt-container">
-        <p className="custom-text">
+      <div className="flex flex-col justify-center items-start gap-[0.75rem] flex-1 w-full">
+        <p className="text-[0.9375rem] lg:text-base font-normal leading-[1.25rem]">
           Choose your{' '}
           <span className="font-bold">
             {formData.monthly ? 'monthly' : 'one-time'}
           </span>{' '}
-          gift: <span className="required">*</span>
+          gift: <span className={required}>*</span>
         </p>
         {/* Donation Amount Buttons */}
-        <div className="donation-amt-btn-grid">
+        <div
+          className="grid w-full gap-x-[0.9375rem] lg:gap-x-[1.5rem] gap-y-[0.75rem]"
+          style={{
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gridTemplateAreas:
+              "'btn1 btn2 btn3' 'btn4 btn5 btn6' 'customBtn customInput customInput'",
+          }}
+        >
           {[25, 50, 75, 100, 150, 200].map((value, i) => (
             <button
               type="button"
@@ -96,16 +127,17 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
               onClick={() => {
                 handleAmountSelection(String(value));
                 setCustomAmt(false);
+                setError(false);
               }}
-              className={`donation-amt-btn !cursor-pointer ${
-                formData.donationAmount === String(value) && 'filled'
-              }`}
+              className={
+                'flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center rounded-[0.625rem] font-semibold text-[1rem] transition-colors cursor-pointer ' +
+                (formData.donationAmount === String(value)
+                  ? 'bg-[#dd6d5c] text-white'
+                  : 'bg-[#ffece4] text-[#2f2f2f]')
+              }
               style={{ gridArea: `btn${i + 1}` }}
             >
-              <span className="p4 !font-[600]">
-                ${value}
-                {formData.monthly ? '' : ''}
-              </span>
+              <span className="font-semibold text-[1rem]">${value}</span>
             </button>
           ))}
           <button
@@ -115,38 +147,63 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
               setCustomAmt(true);
               handleAmountSelection('');
             }}
-            className={`donation-amt-btn !cursor-pointer ${
-              customAmt ? 'filled' : ''
-            }`}
+            className={
+              'flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center gap-[1.5rem] rounded-[0.625rem] font-semibold text-[1rem] transition-colors hover:cursor-pointer ' +
+              (customAmt
+                ? 'bg-[#dd6d5c] text-white'
+                : 'bg-[#ffece4] text-[#2f2f2f]')
+            }
             style={{ gridArea: 'customBtn' }}
           >
-            <span className="p4 !font-[600]">Other</span>
+            <span className="font-semibold hover:cursor-pointer text-[1rem]">
+              Other
+            </span>
           </button>
           {customAmt ? (
             <div
-              className="donation-amt-input-container"
+              className="flex w-full h-[2.75rem] px-[1rem] py-[1rem] justify-between items-center rounded-[0.625rem] border border-[rgba(47,47,47,0.3)]"
               style={{ gridArea: 'customInput' }}
             >
-              <span className="donation-input-text pr-[0.625rem] !select-none">
+              <span className="text-[#2f2f2f] text-[1rem] font-medium select-none mr-[0.625rem]">
                 $
               </span>
+
               <input
                 type="text"
                 value={
                   formData.donationAmount ? `${formData.donationAmount}` : ''
                 }
-                onChange={handleCustomAmountChange}
+                onChange={e => {
+                  handleCustomAmountChange(e);
+                  setError(false);
+                }}
+                onBlur={e => {
+                  if (!e.target.value || Number(e.target.value) < 1) {
+                    setError(true);
+                  }
+                }}
                 placeholder="Enter amount"
-                title="Minimum donation amount is $1.00"
-                className="donation-input-text"
+                className="flex-1 bg-transparent border-none outline-none text-[#2f2f2f] text-[1rem] font-medium min-w-0"
               />
-              <div className="flex items-center justify-end gap-[0.625rem]">
-                <span className="field-line p4 !font-[300] select-none">|</span>
-                <span className="donation-input-text select-none">USD</span>
+
+              <div className="flex items-center justify-center gap-[0.625rem] shrink-0">
+                <span className="text-[rgba(47,47,47,0.3)] text-[1rem] font-light select-none">
+                  |
+                </span>
+                <span className="text-[#2f2f2f] text-[1rem] font-medium select-none">
+                  USD
+                </span>
               </div>
             </div>
           ) : null}
         </div>
+      </div>
+      <div
+        className={`${errorTextContainer} w-full text-center ${
+          error ? errorTextTransition : ''
+        }`}
+      >
+        <p className={errorText}>Minimum donation amount is $1.00</p>
       </div>
     </div>
   );

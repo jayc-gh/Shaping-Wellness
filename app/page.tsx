@@ -21,7 +21,7 @@ export default function Home() {
         heading={
           <>
             Healthy Futures, <br />
-            <span className="p-color">Stronger</span> Communities
+            <span className="text-[#d9764e]">Stronger</span> Communities
           </>
         }
         description="Join us in creating opportunities for girls to grow stronger, more confident, and healthier. Partner today and be part of the change."
@@ -150,7 +150,7 @@ export default function Home() {
         className="flex flex-col py-[4.375rem] px-[1.5625rem] justify-center items-center gap-[0.625rem] text-center lg:py-[2.5rem] lg:px-[6.75rem]"
       >
         <div className="flex flex-col justify-center items-center gap-[2rem] lg:max-w-[1224px]">
-          <h4 className="sec-coral !text-base !font-bold">GET INVOLVED</h4>
+          <h4 className="text-[#b1574a] !text-base !font-bold">GET INVOLVED</h4>
           <div className="grid gap-[1.5rem] grid-cols-1 lg:grid-cols-3 justify-center">
             <GrayBorderCard
               icon={<Handshake />}
@@ -177,6 +177,8 @@ export default function Home() {
       <ContactSection
         header="CONTACT US"
         text="Have questions or want to get involved? We're here to help!"
+        href="/contact-us"
+        buttonLabel="Send a message"
       />
     </main>
   );

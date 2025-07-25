@@ -2,7 +2,6 @@
 
 import { ErrorMap, PartnerFormData } from '@/declarations';
 import { handleSubmitPartner } from '@/lib/functions/formHandleSubmit';
-import '../forms/forms.css';
 import { useState } from 'react';
 import Name from '../input-fields/name';
 import Phone from '../input-fields/phone';
@@ -10,8 +9,19 @@ import Email from '../input-fields/email';
 import Address from '../input-fields/address';
 import YesNo from '../input-fields/yes-no';
 import OrgName from '../input-fields/orgName';
-import LoadingDots from '../loadingDots';
+import MainButton from '../buttons/mainButton';
 import FormConfirm from './formConfirm';
+import {
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputContainer,
+  inputFieldDefaultColors,
+  inputFieldDefaults,
+  inputFieldErrorColors,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 export default function PartnerForm() {
   const [formData, setFormData] = useState<PartnerFormData>({
@@ -44,7 +54,11 @@ export default function PartnerForm() {
 
   return (
     <form
-      className="form-box"
+      className="lg:max-w-[44rem] flex justify-center items-start gap-[1.5rem] py-[2.5rem] lg:py-[5rem] bg-white rounded-[0.625rem]"
+      style={{
+        paddingLeft: 'clamp(1.5625rem, 5vw, 6.5rem)',
+        paddingRight: 'clamp(1.5625rem, 5vw, 6.5rem)',
+      }}
       onSubmit={async e => {
         const partnerData = await handleSubmitPartner(
           e,
@@ -61,16 +75,16 @@ export default function PartnerForm() {
       }}
     >
       {!confirm && !errorMessage && (
-        <div className="form-container">
-          <div className="form-desc-wrapper">
-            <h4>PARTNERSHIP INQUIRY</h4>
-            <p className="p4 primary-2">
+        <div className="flex flex-col items-start gap-[1.5rem]">
+          <div className="flex flex-col justify-center items-start gap-[0.625rem]">
+            <h4 className="text-base font-bold">PARTNERSHIP INQUIRY</h4>
+            <p className="text-base font-[500] leading-[140%] text-[#3c3c3c]">
               Please tell us a bit more about your organization and the type of
               partnership(s) you are interested in through the form below.
             </p>
           </div>
-          <div className="form-sub-container">
-            <h4>ORGANIZATION INFORMATION</h4>
+          <div className="flex w-full flex-col justify-center items-start gap-[0.5rem]">
+            <h4 className="text-base font-bold">ORGANIZATION INFORMATION</h4>
             <OrgName
               formData={formData}
               setFormData={setFormData}
@@ -98,8 +112,8 @@ export default function PartnerForm() {
               formType={formType}
             />
           </div>
-          <div className="form-sub-container">
-            <h4>PRIMARY CONTACT PERSON</h4>
+          <div className="flex w-full flex-col justify-center items-start gap-[0.5rem]">
+            <h4 className="text-base font-bold">PRIMARY CONTACT PERSON</h4>
             <Name
               formData={formData}
               setFormData={setFormData}
@@ -124,12 +138,12 @@ export default function PartnerForm() {
               formType={formType}
             />
           </div>
-          <div className="form-sub-container">
-            <h4>DETAILS</h4>
-            <div className="input-container">
-              <label className="input-sub-container">
-                <p className="custom-text">
-                  Tell us more <span className="required">*</span>
+          <div className="flex w-full flex-col justify-center items-start gap-[0.5rem]">
+            <h4 className="text-base font-bold">DETAILS</h4>
+            <div className={inputContainer}>
+              <label className={inputSubContainer}>
+                <p className="text-[0.9375rem] font-[400] leading-[1.25rem]">
+                  Tell us more <span className={required}>*</span>
                 </p>
                 <div className="flex flex-col w-full">
                   <textarea
@@ -146,46 +160,41 @@ export default function PartnerForm() {
                         details: false,
                       }));
                     }}
-                    className={`input-field !h-[6.25rem] resize-none !whitespace-pre-wrap !overflow-y-auto ${
+                    className={`${inputFieldDefaults} !h-[6.25rem] resize-none !whitespace-pre-wrap !overflow-y-auto ${
                       showErrors.details && !formData.details.trim()
-                        ? 'show-invalid'
-                        : ''
+                        ? inputFieldErrorColors
+                        : inputFieldDefaultColors
                     }`}
                   />
                   <div
-                    className={`error-text-container ${
+                    className={`${errorTextContainer} ${
                       showErrors.details && !formData.details.trim()
-                        ? 'transition'
+                        ? { errorTextTransition }
                         : ''
                     }`}
                   >
-                    <p className="error-text">This field is required</p>
+                    <p className={errorText}>This field is required</p>
                   </div>
                 </div>
               </label>
             </div>
           </div>
-          <div className="continue-container">
-            <button className="continue-btn" type="submit" disabled={loading}>
-              <span className="btn flex items-center justify-center w-full">
-                {loading ? (
-                  <span className="btn flex items-center justify-center w-full">
-                    Processing
-                    <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
-                      <LoadingDots />
-                    </div>
-                  </span>
-                ) : (
-                  'Submit'
-                )}
-              </span>{' '}
-            </button>
-          </div>
+          <MainButton
+            color="orange"
+            width="fill"
+            submit={{
+              disabled: loading,
+              label: 'Submit',
+              loading: loading,
+            }}
+          />
         </div>
       )}
       {confirm && <FormConfirm formType={formType} />}
       {errorMessage && (
-        <div className="error-text text-center w-full">{errorMessage}</div>
+        <div className={`${errorText} error-text text-center w-full`}>
+          {errorMessage}
+        </div>
       )}
     </form>
   );

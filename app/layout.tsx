@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import './globals.css';
-import '../components/pages/pages.css';
 import NavBar from '@/components/navbar/navbar';
 import FooterB from '@/components/footer/bottom-footer/footerB';
 import ConditionalFooter from '@/components/footer/top-footer/conditionalFooter';
@@ -32,7 +31,7 @@ export default function RootLayout({
           <NavBar />
         </nav>
         <div className="flex flex-col flex-1 items-center">{children}</div>
-        <footer className="bg-[linear-gradient(180deg,_#D9764E_0%,_#DD6D5C_100%)] py-[2.5rem] px-[1.5625rem] lg:py-0 lg:px-[6.75rem]">
+        <footer className="flex flex-col bg-[linear-gradient(180deg,_#D9764E_0%,_#DD6D5C_100%)] py-[2.5rem] gap-[1.875rem] px-[1.5625rem] lg:py-0 lg:px-[6.75rem] lg:gap-0">
           <ConditionalFooter />
           <FooterB />
         </footer>

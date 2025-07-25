@@ -1,17 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import ProgressBar from '@/components/pages/donate/progressBar';
-import Summary from '@/components/pages/donate/summary';
-import '../../donate/donate.css';
-import '../../../components/forms/forms.css';
 import Link from 'next/link';
-import RightArrow from '../../icons/right-arrow.svg';
 import {
   useOneTimePayment,
   useSubscription,
 } from '@/lib/functions/useFunctions';
+import MainSection from '@/components/sections/headerSection';
+import FormSummary from '@/components/sections/formSummary';
+import ConfirmationBox from '@/components/sections/confirmationBox';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -23,63 +21,97 @@ export default function PaymentConfirm() {
   const [valid, setValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const [message, setMessage] = useState<string>('');
+  const [isMobile, setIsMobile] = useState(false);
 
   const searchParams = useSearchParams();
   const monthlyUrl = searchParams.get('monthly');
 
   useSubscription(setValid, setMessage, setErrorMessage, monthlyUrl);
   useOneTimePayment(setValid, setMessage, setErrorMessage, monthlyUrl);
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   return (
     <main
-      className="background"
-      style={
-        {
-          '--bg-image': 'url("/images/DonationForm.webp")',
-        } as React.CSSProperties
-      }
+      className="flex flex-col w-full lg:flex-row"
+      style={{
+        backgroundImage: isMobile
+          ? undefined
+          : `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(/images/DonateForm.jpg)`,
+        backgroundRepeat: isMobile ? undefined : 'no-repeat',
+        backgroundPosition: isMobile ? undefined : 'center 10%, center 10%',
+        backgroundSize: isMobile ? undefined : 'cover, cover',
+      }}
     >
-      <div className="main-container">
-        <div className="content-container">
-          <Summary />
-          <div className="donate-form-box">
-            {valid && (
+      {isMobile && (
+        <>
+          <MainSection
+            flagText="DONATE"
+            heading="Thank you for choosing to support Shaping Wellness Foundation."
+            description={
               <>
-                <div className="!gap-[2rem] form-container">
-                  {/* Back button and Progress bar */}
-                  <ProgressBar step={5} prevStep={() => undefined} />
-                  <h4 className="self-center">Thank you for your donation!</h4>
-                  <div className="thank-you-container">
-                    <div className="text-left p4 primary-2 gap-[1.5rem] flex flex-col">
-                      <p>{message}</p>
-                      <p>
-                        Because of you, more girls will have access to the
-                        resources they need to grow up strong, healthy, and
-                        confident. You&apos;ve truly made a difference.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <Link
-                  href="../get-involved/donor"
-                  className="link-btn !px-[0.625rem]"
-                >
-                  <h4 className="link-btn-text sec-coral">
-                    SEE HOW YOUR DONATION WILL BE USED
-                  </h4>
-                  <span className="icon-wrapper">
-                    <RightArrow />
-                  </span>
-                </Link>
+                Your donation directly funds school-based fitness programs,
+                health education workshops, and mentorship opportunities for
+                girls in underserved communities. Together, we can build a
+                future where every girl has the tools, support, and confidence
+                to lead a healthy, empowered life. <br />
+                <br />
+                Curious about the difference you&apos;re making? Visit our{' '}
+                <Link href="/get-involved/donor" className="cursor-pointer">
+                  <span className="underline">Become a Donor page</span>
+                </Link>{' '}
+                to see how your support changes lives.
               </>
-            )}
+            }
+            bgImageUrl="/images/DonateForm.jpg"
+            aspectRatio="15/13"
+            backgroundPosition="10% center, 10% center"
+          />
+          <ConfirmationBox
+            valid={valid}
+            message={message}
+            errorMessage={errorMessage}
+          />
+        </>
+      )}
 
-            {errorMessage && (
-              <p className="error-text text-center">{errorMessage}</p>
-            )}
+      {!isMobile && (
+        <div className="flex w-full px-[1.5625rem] py-[3.125rem] lg:py-[5rem] lg:px-[6.75rem] justify-center items-center">
+          <div className="flex w-full max-w-[1224px] justify-between items-start gap-[1.5rem]">
+            <FormSummary
+              flagText="DONATE"
+              header="Thank you for choosing to support Shaping Wellness Foundation."
+              description={
+                <>
+                  Your donation directly funds school-based fitness programs,
+                  health education workshops, and mentorship opportunities for
+                  girls in underserved communities. Together, we can build a
+                  future where every girl has the tools, support, and confidence
+                  to lead a healthy, empowered life. <br />
+                  <br />
+                  Curious about the difference you&apos;re making? Visit our{' '}
+                  <Link href="/get-involved/donor" className="cursor-pointer">
+                    <span className="underline">Become a Donor page</span>
+                  </Link>{' '}
+                  to see how your support changes lives.
+                </>
+              }
+            />
+            <ConfirmationBox
+              valid={valid}
+              message={message}
+              errorMessage={errorMessage}
+            />
           </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }

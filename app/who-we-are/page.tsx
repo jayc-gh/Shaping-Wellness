@@ -32,7 +32,8 @@ export default function WhoWeAre() {
         heading={<>Transforming lives, one girl at a time.</>}
         description="We are dedicated to fostering the health, well-being, and empowerment of young girls in underserved communities."
         bgImageUrl="/images/WhoWeAreHeader.jpg"
-        aspectRatio="2400/750"
+        aspectRatio="2600/750"
+        contentMaxWidth="max-w-[43.75rem]"
         backgroundPosition="center 50%, center 50%"
       />
       <PSection
@@ -85,7 +86,6 @@ export default function WhoWeAre() {
             </>
           }
           imageUrl="/images/WhoWeAreIMG1.jpg"
-          big={true}
         />
       </div>
       <div className="relative top-[0.0625rem]">
@@ -101,32 +101,40 @@ export default function WhoWeAre() {
             </p>
           </div>
           <div className="flex flex-col justify-center items-center pt-[2.5rem] gap-[3.5rem] lg:flex-row lg:gap-[1.5rem] lg:pt-0">
-            <div className="four-col-section-icon">
+            <div className="flex flex-col justify-center items-center gap-[1.5rem] px-[1.5rem]">
               <EarthHeart />
-              <h5 className="sec-coral">Inclusivity</h5>
+              <h5 className="text-[#b1574a] font-bold text-[1.25rem]">
+                Inclusivity
+              </h5>
               <p className="text-base font-[500] leading-[160%] text-center lg:text-[1.125rem]">
                 Creating affirming spaces where identity is seen as strength.
               </p>
             </div>
-            <div className="four-col-section-icon">
+            <div className="flex flex-col justify-center items-center gap-[1.5rem] px-[1.5rem]">
               <Thumb />
-              <h5 className="sec-coral">Encouragement</h5>
+              <h5 className="text-[#b1574a] font-bold text-[1.25rem]">
+                Encouragement
+              </h5>
               <p className="text-base font-[500] leading-[160%] text-center lg:text-[1.125rem]">
                 Offering tools, guidance, and accessible opportunities unique to
                 every girl.
               </p>
             </div>
-            <div className="four-col-section-icon">
+            <div className="flex flex-col justify-center items-center gap-[1.5rem] px-[1.5rem]">
               <HeartShake />
-              <h5 className="sec-coral">Collaboration</h5>
+              <h5 className="text-[#b1574a] font-bold text-[1.25rem]">
+                Collaboration
+              </h5>
               <p className="text-base font-[500] leading-[160%] text-center lg:text-[1.125rem]">
                 Working together to build programs that reflect real needs and
                 voices.
               </p>
             </div>
-            <div className="four-col-section-icon">
+            <div className="flex flex-col justify-center items-center gap-[1.5rem] px-[1.5rem]">
               <Improvement />
-              <h5 className="sec-coral">Improvement</h5>
+              <h5 className="text-[#b1574a] font-bold text-[1.25rem]">
+                Improvement
+              </h5>
               <p className="text-base font-[500] leading-[160%] text-center lg:text-[1.125rem]">
                 We listen, learn, and improve - always evolving to better serve
                 the community.
@@ -176,9 +184,11 @@ export default function WhoWeAre() {
       <ContactSection
         header="CONTACT US"
         text="Have questions or want to get involved? We're here to help!"
+        href="/contact-us"
+        buttonLabel="Send a message"
       />
       {popup ? (
-        <div className="popup-bg">
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)]">
           <div ref={popupRef}>
             <MeetOurFounder setPopup={setPopup} />
           </div>

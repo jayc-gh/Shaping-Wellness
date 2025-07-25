@@ -5,7 +5,6 @@ import DonationAmt from '@/components/pages/donate/donationAmt';
 import DonorInfo from '@/components/pages/donate/donorInfo';
 import PaymentInfo from '@/components/pages/donate/paymentInfo';
 import ConfirmDetails from './confirmDetails';
-import Summary from '@/components/pages/donate/summary';
 import ProgressBar from './progressBar';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -23,10 +22,10 @@ import {
 } from '@/lib/functions/donateHandleSubmit';
 import { useOutsideClick, useStopScroll } from '@/lib/functions/useFunctions';
 import { DonateFormData, ErrorMap, StripeCtx } from '@/declarations';
-import '../../forms/forms.css';
 import PrivacyPolicy from '@/components/footer/bottom-footer/privacy-policy';
 import { useRouter } from 'next/navigation';
 import TermsContainer from './termsContainer';
+import { errorText } from '@/lib/classes/input-fields';
 
 const stripePublicKey: string = process.env
   .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
@@ -126,124 +125,112 @@ export default function DonateForm() {
   };
 
   return (
-    <main
-      className="background"
-      style={
-        {
-          '--bg-image': 'url("/images/DonationForm.webp")',
-        } as React.CSSProperties
-      }
+    <form
+      className="flex flex-col lg:w-[37.5rem] lg:min-h-[49.25rem] justify-between items-start py-[2.5rem] bg-white rounded-[0.625rem] gap-[3.0625rem] w-full"
+      style={{
+        paddingLeft: 'clamp(1.5625rem, 5vw, 6.5rem)',
+        paddingRight: 'clamp(1.5625rem, 5vw, 6.5rem)',
+      }}
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit(step);
+      }}
     >
-      <div className="main-container">
-        <div className="content-container">
-          <Summary />
-          <form
-            className="donate-form-box"
-            onSubmit={e => {
-              e.preventDefault();
-              handleSubmit(step);
+      <div className="flex flex-col items-center gap-[1.5rem] w-full">
+        {/* Back button and Progress bar */}
+        <ProgressBar
+          step={step}
+          prevStep={prevStep}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
+        {(step < 3 || (step === 3 && !errorMessage)) && (
+          <div className="flex h-[1.375rem] justify-center items-center gap-[0.625rem] self-stretch">
+            <h4 className="text-base font-bold text-base">You are donating:</h4>
+            <p className="text-[1.125rem] font-bold text-[#b1574a]">
+              ${formData.totalCharged}
+              {formData.monthly ? '/month' : ''}
+            </p>
+            {step > 1 ? (
+              <button
+                className="text-[0.75rem] cursor-pointer font-[400] underline italic"
+                onClick={() => {
+                  setStep(1);
+                  if (formData.feeCovered) {
+                    calcTransactionFee(formData, setFormData);
+                  }
+                }}
+                type="button"
+              >
+                change
+              </button>
+            ) : null}
+          </div>
+        )}
+
+        {step === 1 && (
+          <DonationAmt formData={formData} setFormData={setFormData} />
+        )}
+        {step === 2 && (
+          <DonorInfo
+            formData={formData}
+            setFormData={setFormData}
+            showErrors={showErrors}
+            setShowErrors={setShowErrors}
+          />
+        )}
+        {step > 1 && (
+          <Elements
+            stripe={stripePromise}
+            options={{
+              mode: formData.monthly ? 'subscription' : 'payment',
+              amount: convertToSubcurrency(Number(formData.totalCharged)),
+              currency: 'usd',
+              appearance,
+              fonts,
             }}
           >
-            <div className="form-container w-full">
-              {/* Back button and Progress bar */}
-              <ProgressBar
-                step={step}
-                prevStep={prevStep}
-                errorMessage={errorMessage}
-                setErrorMessage={setErrorMessage}
-              />
-              {(step < 3 || (step === 3 && !errorMessage)) && (
-                <div className="flex h-[1.375rem] justify-center items-center gap-[0.625rem] self-stretch">
-                  <h4>You are donating:</h4>
-                  <p className="custom-text-2 sec-coral">
-                    ${formData.totalCharged}
-                    {formData.monthly ? '/month' : ''}
-                  </p>
-                  {step > 1 ? (
-                    <button
-                      className="custom-text-3 p-neutral !cursor-pointer"
-                      onClick={() => {
-                        setStep(1);
-                        if (formData.feeCovered) {
-                          calcTransactionFee(formData, setFormData);
-                        }
-                      }}
-                      type="button"
-                    >
-                      change
-                    </button>
-                  ) : null}
-                </div>
+            <div
+              style={{ display: step === 3 ? 'block' : 'none' }}
+              className="w-full"
+            >
+              {(!stripe || !elements) && !errorMessage && <Spinner />}
+              {!errorMessage && (
+                <>
+                  <StripeHandler setStripeCtx={setStripeCtx} />
+                  <PaymentInfo formData={formData} setFormData={setFormData} />
+                </>
               )}
-
-              {step === 1 && (
-                <DonationAmt formData={formData} setFormData={setFormData} />
-              )}
-              {step === 2 && (
-                <DonorInfo
-                  formData={formData}
-                  setFormData={setFormData}
-                  showErrors={showErrors}
-                  setShowErrors={setShowErrors}
-                />
-              )}
-              <Elements
-                stripe={stripePromise}
-                options={{
-                  mode: formData.monthly ? 'subscription' : 'payment',
-                  amount: convertToSubcurrency(Number(formData.totalCharged)),
-                  currency: 'usd',
-                  appearance,
-                  fonts,
-                }}
-              >
-                {/* Always mounted, but only visible at step 3 */}
-                <div
-                  style={{ display: step === 3 ? 'block' : 'none' }}
-                  className="w-full"
-                >
-                  {(!stripe || !elements) && !errorMessage && <Spinner />}
-                  {!errorMessage && (
-                    <>
-                      <StripeHandler setStripeCtx={setStripeCtx} />
-                      <PaymentInfo
-                        formData={formData}
-                        setFormData={setFormData}
-                      />
-                    </>
-                  )}
-                </div>
-
-                {/* Confirm screen visible only at step 4 */}
-                {step === 4 && !errorMessage && (
-                  <ConfirmDetails formData={formData} setStep={setStep} />
-                )}
-                {errorMessage && (
-                  <div className="error-text text-center w-full">
-                    {errorMessage}
-                  </div>
-                )}
-              </Elements>
             </div>
-            <TermsContainer
-              formData={formData}
-              setFormData={setFormData}
-              step={step}
-              errorMessage={errorMessage}
-              loading={loading}
-              popup={popup}
-              setPopup={setPopup}
-            />
-          </form>
-        </div>
+
+            {/* Confirm screen visible only at step 4 */}
+            {step === 4 && !errorMessage && (
+              <ConfirmDetails formData={formData} setStep={setStep} />
+            )}
+            {errorMessage && (
+              <div className={`${errorText} text-center w-full`}>
+                {errorMessage}
+              </div>
+            )}
+          </Elements>
+        )}
       </div>
+      <TermsContainer
+        formData={formData}
+        setFormData={setFormData}
+        step={step}
+        errorMessage={errorMessage}
+        loading={loading}
+        popup={popup}
+        setPopup={setPopup}
+      />
       {popup ? (
-        <div className="popup-bg">
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-[linear-gradient(0deg,rgba(0,0,0,0.5),rgba(0,0,0,0.5))]">
           <div ref={popupRef}>
             <PrivacyPolicy setPopup={setPopup} />
           </div>
         </div>
       ) : null}
-    </main>
+    </form>
   );
 }

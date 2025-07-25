@@ -1,9 +1,10 @@
+import React from 'react';
 import MainButton from '../buttons/mainButton';
 
 type MainSectionProps = {
   flagText?: string;
   heading: React.ReactNode;
-  description: string;
+  description: string | React.ReactNode;
   buttonText?: string;
   buttonHref?: string;
   buttonVariant?: 'orange' | 'white';
@@ -11,6 +12,7 @@ type MainSectionProps = {
   aspectRatio: string;
   contentMaxWidth?: string;
   backgroundPosition: string;
+  backgroundSize?: string;
 };
 
 export default function MainSection({
@@ -23,7 +25,8 @@ export default function MainSection({
   bgImageUrl,
   aspectRatio,
   backgroundPosition,
-  contentMaxWidth = 'lg:max-w-[43.75rem]',
+  backgroundSize = 'cover, cover',
+  contentMaxWidth = 'lg:max-w-[37.5rem]',
 }: MainSectionProps) {
   return (
     <div
@@ -38,20 +41,19 @@ export default function MainSection({
       style={{
         aspectRatio: aspectRatio,
         backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bgImageUrl})`,
-        backgroundSize: 'cover, cover',
+        backgroundSize: backgroundSize,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: backgroundPosition,
       }}
     >
       <div
-        className={`flex items-center justify-center w-full
+        className={`flex items-center justify-start w-full
         lg:justify-start lg:max-w-[76.5rem]`}
       >
         <div
           className={`flex flex-col justify-center ${
             !flagText ? 'text-center items-center' : 'text-start items-start'
           } ${!flagText ? 'gap-[2rem]' : 'gap-[1.5rem]'} lg:text-left
-        ${contentMaxWidth}
         lg:items-start
         lg:gap-[1.5rem]`}
         >
@@ -61,7 +63,7 @@ export default function MainSection({
             </div>
           )}
           <h1
-            className={`text-white font-bold ${
+            className={`text-white font-bold ${contentMaxWidth} ${
               flagText
                 ? 'text-[1.75rem] lg:text-[2.5rem]'
                 : 'text-[2rem] lg:text-[3rem]'
@@ -69,15 +71,14 @@ export default function MainSection({
           >
             {heading}
           </h1>
-          <p className="text-white text-base lg:text-[1.125rem]">
+          <p className="text-white text-base lg:text-[1.125rem] lg:max-w-[37.5rem]">
             {description}
           </p>
 
           {buttonText && buttonHref && (
             <MainButton
               color={buttonVariant}
-              text={buttonText}
-              href={buttonHref}
+              link={{ href: buttonHref, label: buttonText }}
               width="main"
             />
           )}

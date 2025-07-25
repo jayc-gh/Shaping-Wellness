@@ -1,20 +1,32 @@
 import Link from 'next/link';
 import clsx from 'clsx';
+import LoadingDots from '../loadingDots';
+
+type LinkProps = {
+  href: string;
+  label: string;
+};
+
+type SubmitProps = {
+  disabled: boolean;
+  label: string;
+  loading: boolean;
+};
 
 type MainButtonProps = {
   color: 'orange' | 'white';
-  text: string;
-  href: string;
+  link?: LinkProps;
   width: 'auto' | 'fill' | 'main' | 'responsive';
   onClick?: () => void;
+  submit?: SubmitProps;
 };
 
 export default function MainButton({
   color,
-  text,
-  href,
+  link,
   width,
   onClick,
+  submit,
 }: MainButtonProps) {
   const baseClasses =
     'flex h-[3.125rem] px-5 py-4 justify-center items-center gap-[0.625rem] rounded-[0.625rem] border text-sm font-medium';
@@ -39,9 +51,24 @@ export default function MainButton({
     { 'w-auto': width === 'auto' }
   );
 
-  return (
-    <Link href={href} className={className} onClick={onClick}>
-      <span className="font-bold text-base">{text}</span>
+  return link && !submit ? (
+    <Link href={link.href} className={className} onClick={onClick}>
+      <span className="font-bold text-base">{link.label}</span>
     </Link>
-  );
+  ) : submit && !link ? (
+    <button
+      className={`${className} disabled:opacity-70 disabled:bg-[linear-gradient(0deg,_rgba(255,255,255,0.2)_0%,_rgba(255,255,255,0.2)_100%),linear-gradient(180deg,_#d9764e_0%,_#dd6d5c_100%)] disabled:cursor-not-allowed`}
+      type="submit"
+      disabled={submit.disabled}
+    >
+      <span className="text-base font-bold flex items-center justify-center w-full">
+        {submit.loading === true ? 'Processing' : submit.label}
+        {submit.loading === true && (
+          <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
+            <LoadingDots />
+          </div>
+        )}
+      </span>
+    </button>
+  ) : null;
 }

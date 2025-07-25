@@ -1,6 +1,15 @@
 import { ErrorMap } from '@/declarations';
 import CircleChecked from '../../app/icons/circle-checkbox=yes.svg';
 import CircleUnchecked from '../../app/icons/circle-checkbox=no.svg';
+import {
+  checkboxContainer,
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 type YesNoFields = {
   volunteerHours?: 'yes' | 'no' | '';
@@ -44,19 +53,19 @@ export default function YesNo<T extends YesNoFields>({
       : '';
 
   return (
-    <div className="input-sub-container">
-      <p className="custom-text">
-        {title} <span className="required">*</span>
+    <div className={inputSubContainer}>
+      <p className={inputLabelText}>
+        {title} <span className={required}>*</span>
       </p>
       <div className="flex flex-col">
-        <div className="input-container !gap-[0.8125rem]">
-          <label htmlFor="yes" className="checkbox-container">
+        <div className={`flex w-full gap-[0.8125rem]`}>
+          <label htmlFor="yes" className={checkboxContainer}>
             <input
               type="radio"
               name="yes-no"
               id="yes"
               value="yes"
-              className="checkbox"
+              className="sr-only"
               checked={yesNo === 'yes'}
               onChange={() => {
                 handleSelectionChange('yes');
@@ -64,28 +73,35 @@ export default function YesNo<T extends YesNoFields>({
               }}
             />
             {yesNo === 'yes' ? <CircleChecked /> : <CircleUnchecked />}
-            <span className="custom-text-4 p-neutral">Yes</span>
+            <span className="text-[0.875rem] font-[500] leading-[1.25rem]">
+              Yes
+            </span>
           </label>
-          <label htmlFor="no" className="checkbox-container">
+          <label htmlFor="no" className={checkboxContainer}>
             <input
               type="radio"
               name="yes-no"
               id="no"
               value="no"
-              className="checkbox"
+              className="sr-only"
               checked={yesNo === 'no'}
               onChange={() => handleSelectionChange('no')}
             />
             {yesNo === 'no' ? <CircleChecked /> : <CircleUnchecked />}
-            <span className="custom-text-4 p-neutral">No</span>
+            <span className="text-[0.875rem] font-[500] leading-[1.25rem]">
+              No
+            </span>
           </label>
         </div>
         <div
-          className={`error-text-container mt-[-0.375rem] ${
-            showErrors.volunteerHours ? 'transition' : ''
+          className={`${errorTextContainer} ${
+            (formType === 'volunteer' && showErrors.volunteerHours) ||
+            (formType === 'partner' && showErrors.school)
+              ? errorTextTransition
+              : ''
           }`}
         >
-          <p className="error-text">This field is required</p>
+          <p className={errorText}>This field is required</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,3 @@
-import '../forms/forms.css';
-
 interface StepProps {
   formType: string;
 }
@@ -45,10 +43,16 @@ export default function FormConfirm({ formType }: StepProps) {
   };
 
   return (
-    <div className="confirm-container">
-      <h4>{content.header}</h4>
-      <p className="p4 primary-2">{content.p1}</p>
-      {formType !== 'contact' && <p className="p4 primary-2">{content.p2}</p>}
+    <div className="flex py-[0.625rem] flex-col justify-between items-center text-center gap-[1.5rem]">
+      <h4 className="text-base font-bold">{content.header}</h4>
+      <p className="text-base font-[500] leading-[140%] text-[#3c3c3c]">
+        {content.p1}
+      </p>
+      {formType !== 'contact' && (
+        <p className="text-base font-[500] leading-[140%] text-[#3c3c3c]">
+          {content.p2}
+        </p>
+      )}
     </div>
   );
 }

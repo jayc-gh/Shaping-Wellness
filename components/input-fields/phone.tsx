@@ -1,6 +1,18 @@
 import { formatPhoneNumber } from '@/lib/functions/validateFunctions';
 import type { ErrorMap, Phone } from '@/declarations';
 import Dropdown from '../input-fields/dropDown';
+import {
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputContainer,
+  inputFieldDefaultColors,
+  inputFieldDefaults,
+  inputFieldErrorColors,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 type PhoneFields = {
   orgDonate?: boolean;
@@ -28,15 +40,15 @@ export default function Phone<T extends PhoneFields>({
   ];
 
   return (
-    <div className="input-container">
-      <label className="input-sub-container">
+    <div className={inputContainer}>
+      <label className={inputSubContainer}>
         {
-          <p className="custom-text">
+          <p className={inputLabelText}>
             Phone Number{' '}
             {formType === 'donate' ? (
               '(optional)'
             ) : (
-              <span className="required">*</span>
+              <span className={required}>*</span>
             )}
           </p>
         }
@@ -56,35 +68,35 @@ export default function Phone<T extends PhoneFields>({
               }));
             }}
             placeholder="(000) 000-0000"
-            className={`input-field ${
+            className={`${inputFieldDefaults} ${
               showErrors.number &&
               !formData.phone.number.trim() &&
               formType !== 'donate'
-                ? 'show-invalid'
-                : ''
+                ? inputFieldErrorColors
+                : inputFieldDefaultColors
             }`}
           />
           <div
-            className={`error-text-container ${
+            className={`${errorTextContainer} ${
               showErrors.number &&
               !formData.phone.number.trim() &&
               formType !== 'donate'
-                ? 'transition'
+                ? errorTextTransition
                 : ''
             }`}
           >
-            <p className="error-text">Phone Number is required</p>
+            <p className={errorText}>Phone Number is required</p>
           </div>
         </div>
       </label>
-      <label className="input-sub-container">
+      <label className={inputSubContainer}>
         {
-          <p className="custom-text">
+          <p className={inputLabelText}>
             Phone Type{' '}
             {formType === 'donate' ? (
               '(optional)'
             ) : (
-              <span className="required">*</span>
+              <span className={required}>*</span>
             )}
           </p>
         }
@@ -106,15 +118,15 @@ export default function Phone<T extends PhoneFields>({
             showErrors={showErrors}
           />
           <div
-            className={`error-text-container ${
+            className={`${errorTextContainer} ${
               showErrors.type &&
               !formData.phone.type.trim() &&
               formType !== 'donate'
-                ? 'transition'
+                ? errorTextTransition
                 : ''
             }`}
           >
-            <p className="error-text">Phone Type is required</p>
+            <p className={errorText}>Phone Type is required</p>
           </div>
         </div>
       </label>

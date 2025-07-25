@@ -9,90 +9,70 @@ import Globe from '../../app/icons/contact/globe.svg';
 import Facebook from '../../app/icons/contact/facebook.svg';
 import XLogo from '../../app/icons/contact/x-logo.svg';
 import Linkedin from '../../app/icons/contact/linkedin.svg';
-import GradientRectangle from '../../app/icons/gradient-rectangle.svg';
 import ContactForm from '@/components/pages/contact/contactForm';
 import FAQSection from '@/components/pages/contact/faqSection';
+import MainSection from '@/components/sections/headerSection';
+import GradientBox from '@/components/sections/gradientBox';
+import ContactSection from '@/components/sections/contactSection';
 
 export default function Contact() {
   return (
     <main className="flex flex-col w-full">
-      <div
-        className="main-section"
-        style={
-          {
-            '--bg-image': 'url("/images/DonationForm.webp")',
-          } as React.CSSProperties
-        }
-      >
-        <div className="main-section-wrapper">
-          <div className="main-section-content">
-            <div className="flag">
-              <h4>CONTACT US</h4>
-            </div>
-            <h2>Reach out, we&apos;re ready to help.</h2>
-            <p className="p3">
-              Have a question or want to get involved? We&apos;re here to help.
-              Check out our FAQs below or reach out directly.
-            </p>
-          </div>
-        </div>
+      <MainSection
+        flagText="CONTACT US"
+        heading="Reach out, we're ready to help."
+        description="Have a question or want to get involved? We're here to help. Check out our FAQs below or reach out directly."
+        bgImageUrl="/images/ContactHeader.jpg"
+        aspectRatio="2600/750"
+        contentMaxWidth="lg:max-w-[37.5rem]"
+        backgroundPosition="center 60%, center 60%"
+      />
+      <div className="flex justify-center items-center pt-[2.5rem] pb-[1.5rem] px-[1.5625rem] lg:px-[6.75rem]">
+        <h4 className="text-[#b1574a] !text-base !font-bold">GET IN TOUCH</h4>
       </div>
-      <div className="three-col-section" id="contact">
-        <div className="three-col-section-p-container">
-          <h4 className="sec-coral">GET IN TOUCH</h4>
-        </div>
-        <div className="three-col-section-content">
-          <div className="three-col-section-boxes-container">
-            <div className="three-col-section-box-wrapper">
-              <Email className="absolute" />
-              <div className="three-col-section-box">
-                <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content h-[5.6875rem]">
-                  <h3 className="p-coral">Email</h3>
-                  <p className="p3">info@shapingwellness.com</p>
-                </div>
+      <div className="flex justify-center items-center py-[2rem] px-[1.5625rem] lg:px-[6.75rem] w-full">
+        <div className="flex flex-col justify-center items-center lg:items-stretch gap-[1.5rem] max-w-[1224px] w-full lg:flex-row">
+          <GradientBox
+            Icon={Email}
+            title="Email"
+            content={<>info@shapingwellness.com</>}
+            classString="relative w-full"
+          />
+          <GradientBox
+            Icon={Phone}
+            title="Phone"
+            content={<>555-555-5555</>}
+            classString="relative w-full"
+          />
+          <GradientBox
+            Icon={Globe}
+            title="Socials"
+            content={
+              <div className="flex items-center justify-center">
+                <Link href="" className="cursor-pointer z-10">
+                  <Facebook />
+                </Link>
+                <Link href="" className="cursor-pointer mr-3 ml-2 z-10">
+                  <XLogo />
+                </Link>
+                <Link href="" className="cursor-pointer z-10">
+                  <Linkedin />
+                </Link>
               </div>
-            </div>
-            <div className="three-col-section-box-wrapper">
-              <Phone className="absolute" />
-              <div className="three-col-section-box">
-                <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content h-[5.6875rem]">
-                  <h3 className="p-coral">Phone</h3>
-                  <p className="p3">555-555-5555</p>
-                </div>
-              </div>
-            </div>
-            <div className="three-col-section-box-wrapper">
-              <Globe className="absolute" />
-              <div className="three-col-section-box">
-                <GradientRectangle className="absolute" />
-                <div className="three-col-section-box-content h-[5.6875rem]">
-                  <h3 className="p-coral">Socials</h3>
-                  <div className="flex items-center">
-                    <Link href="" className="cursor-pointer z-10">
-                      <Facebook />
-                    </Link>
-                    <Link href="" className="cursor-pointer mr-3 ml-2 z-10">
-                      <XLogo />
-                    </Link>
-                    <Link href="" className="cursor-pointer z-10">
-                      <Linkedin />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            }
+            classString="relative w-full"
+          />
         </div>
       </div>
       <div className="relative top-[0.0625rem]">
         <TopCurveColor />
       </div>
-      <div className="two-col-section bg-soft-coral">
-        <div className="two-col-section-content !items-start">
-          <div className="two-col-section-text-container pt-[5rem] pb-[5rem] !w-[496px]">
-            <p className="p0">We are looking forward to hearing from you!</p>
+      <div className="flex flex-col justify-center items-center px-[1.5625rem] py-[2.5rem] w-full lg:px-[6.75rem] bg-[#ffece4]">
+        <div className="flex flex-col justify-center items-center gap-[2rem] lg:flex-row lg:gap-[1.5rem] lg:max-w-[1224px] lg:w-full lg:items-start">
+          <div className="lg:max-w-[31rem] lg:py-[5rem]">
+            <p className="text-[1.25rem] lg:text-[2rem] font-bold leading-[140%] text-[#b1574a]">
+              We are looking forward to hearing from you!
+            </p>
           </div>
           <ContactForm />
         </div>
@@ -101,6 +81,12 @@ export default function Contact() {
         <BotCurveColor />
       </div>
       <FAQSection />
+      <ContactSection
+        header="CONTACT US"
+        text="Have questions or want to get involved? We're here to help!"
+        href="/contact-us"
+        buttonLabel="Send a message"
+      />
     </main>
   );
 }

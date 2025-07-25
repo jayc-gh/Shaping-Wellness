@@ -13,7 +13,6 @@ type PictureTextSectionProps = {
   content: React.ReactNode;
   imageUrl: string;
   reverse?: boolean;
-  big?: boolean;
   link?: Link;
   setPopup?: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -24,20 +23,17 @@ export default function PictureTextSection({
   content,
   imageUrl,
   reverse,
-  big,
   link,
   setPopup,
 }: PictureTextSectionProps) {
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-[1.5rem] ${
+      className={`flex flex-1 flex-col justify-center items-center gap-[1.5rem] ${
         reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'
       } lg:w-full lg:max-w-[1224px]`}
     >
       <div
-        className={`w-full max-h-[400px] rounded-tl-[6.25rem] rounded-br-[6.25rem] aspect-[340/227] lg:rounded-tl-[9.375rem] lg:rounded-br-[9.375rem] lg:w-[50%] ${
-          big ? 'lg:max-w-[600px]' : 'lg:max-h-[350px]'
-        }`}
+        className={`w-full min-w-[21.3125rem] max-w-[32rem] lg:max-w-[37.5rem] rounded-tl-[6.25rem] rounded-br-[6.25rem] aspect-[340/227] lg:rounded-tl-[9.375rem] lg:rounded-br-[9.375rem] lg:w-[50%]`}
         style={{
           backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${imageUrl})`,
           backgroundSize: 'cover, cover',
@@ -48,8 +44,8 @@ export default function PictureTextSection({
       />
       <div className="w-full flex flex-col gap-[1rem] items-start justify-center lg:w-[50%]">
         <div className="flex flex-col items-start gap-[0.5rem] justify-center">
-          <h4 className="p-neutral !text-[1rem]">{title}</h4>
-          <h3 className="sec-coral !text-[1.25rem] lg:text-[1.5rem] !leading-[140%]">
+          <h4 className="text-[#2f2f2f] text-[1rem] font-bold">{title}</h4>
+          <h3 className="text-[#b1574a] text-[1.25rem] lg:text-[1.5rem] leading-[140%] font-bold">
             {subtitle}
           </h3>
         </div>

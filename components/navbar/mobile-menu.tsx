@@ -71,7 +71,7 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
           bg-white shadow-[0px_4px_6px_rgba(243,1,1,0.1)]
           flex flex-col items-start
           transition-all duration-300 ease-in-out
-          z-[999] text-[1.25rem] p-neutral
+            z-[999] text-[1.25rem] text-[#2f2f2f]
           ${
             dropdown === 'menu'
               ? 'opacity-100 visible pointer-events-auto translate-y-0'
@@ -149,8 +149,7 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
         <div className="flex w-full px-[1.5625rem] py-[0.625rem]">
           <MainButton
             color="orange"
-            text="Donate"
-            href="/donate"
+            link={{ href: '/donate', label: 'Donate' }}
             width="fill"
             onClick={() => setDropdown(null)}
           />

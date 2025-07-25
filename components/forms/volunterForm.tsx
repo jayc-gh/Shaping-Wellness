@@ -2,7 +2,6 @@
 
 import { ErrorMap, VolunteerFormData } from '@/declarations';
 import { handleSubmitVolunteer } from '@/lib/functions/formHandleSubmit';
-import '../forms/forms.css';
 import { useState } from 'react';
 import Name from '../input-fields/name';
 import Phone from '../input-fields/phone';
@@ -13,7 +12,17 @@ import Unchecked from '../../app/icons/checked=no.svg';
 import Checked from '../../app/icons/checked=yes.svg';
 import YesNo from '../input-fields/yes-no';
 import FormConfirm from './formConfirm';
-import LoadingDots from '../loadingDots';
+import MainButton from '../buttons/mainButton';
+import {
+  checkboxContainer,
+  errorText,
+  errorTextContainer,
+  errorTextTransition,
+  inputContainer,
+  inputLabelText,
+  inputSubContainer,
+  required,
+} from '@/lib/classes/input-fields';
 
 export default function VolunteerForm() {
   const [formData, setFormData] = useState<VolunteerFormData>({
@@ -52,7 +61,11 @@ export default function VolunteerForm() {
   const formType = 'volunteer';
   return (
     <form
-      className="form-box"
+      className="lg:max-w-[44rem] flex justify-center items-start gap-[1.5rem] py-[2.5rem] lg:py-[5rem] bg-white rounded-[0.625rem]"
+      style={{
+        paddingLeft: 'clamp(1.5625rem, 5vw, 6.5rem)',
+        paddingRight: 'clamp(1.5625rem, 5vw, 6.5rem)',
+      }}
       onSubmit={async e => {
         const volunteerData = await handleSubmitVolunteer(
           e,
@@ -69,15 +82,15 @@ export default function VolunteerForm() {
       }}
     >
       {!confirm && !errorMessage && (
-        <div className="form-container">
-          <div className="form-desc-wrapper">
-            <h4>VOLUNTEER APPLICATION</h4>
-            <p className="p4 primary-2">
+        <div className="flex flex-col items-start gap-[1.5rem]">
+          <div className="flex flex-col py-[0.625rem] justify-center items-start gap-[0.625rem]">
+            <h4 className="text-base font-bold">VOLUNTEER APPLICATION</h4>
+            <p className="text-base font-[500] leading-[140%] text-[#3c3c3c]">
               Please complete the form below to tell us more about yourself and
               how you&apos;d like to get involved.
             </p>
           </div>
-          <div className="form-sub-container">
+          <div className="flex flex-col w-full justify-center items-start gap-[0.5rem]">
             <Name
               formData={formData}
               setFormData={setFormData}
@@ -118,20 +131,20 @@ export default function VolunteerForm() {
               formType={formType}
             />
             {/* area of interest checkboxes */}
-            <div className="input-sub-container">
-              <p className="custom-text">
-                Area of Interest <span className="required">*</span>
+            <div className={inputSubContainer}>
+              <p className={inputLabelText}>
+                Area of Interest <span className={required}>*</span>
               </p>
               <div className="flex flex-col">
-                <div className="input-container">
+                <div className={inputContainer}>
                   <label
-                    className="checkbox-container !pr-0"
+                    className={checkboxContainer}
                     htmlFor="program-coordination-checkbox"
                   >
                     <input
                       type="checkbox"
                       id="program-coordination-checkbox"
-                      className="checkbox"
+                      className="sr-only"
                       checked={formData.AoI.programCoord === 'yes'}
                       onChange={() => {
                         setShowErrors(prev => ({
@@ -149,18 +162,18 @@ export default function VolunteerForm() {
                       }}
                     />
                     {!formData.AoI.programCoord ? <Unchecked /> : <Checked />}
-                    <span className="custom-text-4 p-neutral">
+                    <span className="text-[0.875rem] font-[500] leading-[1.25rem]">
                       Program Coordination
                     </span>
                   </label>
                   <label
-                    className="checkbox-container !pr-0"
+                    className={checkboxContainer}
                     htmlFor="expert-workshop-checkbox"
                   >
                     <input
                       type="checkbox"
                       id="expert-workshop-checkbox"
-                      className="checkbox"
+                      className="sr-only"
                       checked={formData.AoI.expertWorkshop === 'yes'}
                       onChange={() => {
                         setShowErrors(prev => ({
@@ -180,18 +193,18 @@ export default function VolunteerForm() {
                       }}
                     />
                     {!formData.AoI.expertWorkshop ? <Unchecked /> : <Checked />}
-                    <span className="custom-text-4 p-neutral">
+                    <span className="text-[0.875rem] font-[500] leading-[1.25rem]">
                       Expert Workshop
                     </span>
                   </label>
                   <label
-                    className="checkbox-container !pr-0"
+                    className={checkboxContainer}
                     htmlFor="mentor-checkbox"
                   >
                     <input
                       type="checkbox"
                       id="mentor-checkbox"
-                      className="checkbox"
+                      className="sr-only"
                       checked={formData.AoI.mentor === 'yes'}
                       onChange={() => {
                         setShowErrors(prev => ({
@@ -208,17 +221,17 @@ export default function VolunteerForm() {
                       }}
                     />
                     {!formData.AoI.mentor ? <Unchecked /> : <Checked />}
-                    <span className="custom-text-4 p-neutral">Mentor</span>
+                    <span className="text-[0.875rem] font-[500] leading-[1.25rem]">
+                      Mentor
+                    </span>
                   </label>
                 </div>
                 <div
-                  className={`error-text-container mt-[-0.375rem] ${
-                    showErrors.AoI ? 'transition' : ''
+                  className={`${errorTextContainer} mt-[-0.375rem] ${
+                    showErrors.AoI ? { errorTextTransition } : ''
                   }`}
                 >
-                  <p className="error-text">
-                    Please select an area of interest
-                  </p>
+                  <p className={errorText}>Please select an area of interest</p>
                 </div>
               </div>
             </div>
@@ -233,27 +246,20 @@ export default function VolunteerForm() {
               />
             </div>
           </div>
-          <div className="continue-container">
-            <button className="continue-btn" type="submit" disabled={loading}>
-              <span className="btn flex items-center justify-center w-full">
-                {loading ? (
-                  <span className="btn flex items-center justify-center w-full">
-                    Processing
-                    <div className="translate-y-[0.5rem] translate-x-[0.375rem]">
-                      <LoadingDots />
-                    </div>
-                  </span>
-                ) : (
-                  'Submit'
-                )}
-              </span>{' '}
-            </button>
-          </div>
+          <MainButton
+            color="orange"
+            width="fill"
+            submit={{
+              disabled: loading,
+              label: 'Submit',
+              loading: loading,
+            }}
+          />
         </div>
       )}
       {confirm && <FormConfirm formType={formType} />}
       {errorMessage && (
-        <div className="error-text text-center w-full">{errorMessage}</div>
+        <div className={`${errorText} text-center w-full`}>{errorMessage}</div>
       )}
     </form>
   );

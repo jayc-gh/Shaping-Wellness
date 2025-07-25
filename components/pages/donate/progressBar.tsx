@@ -27,24 +27,25 @@ export default function ProgressBar({
   };
 
   return (
-    <div className="back-and-progress-bar-container">
+    <div className="flex justify-between items-center w-full">
       <div
         className={`w-[1.5rem] h-[1.5rem] ${step > 1 && 'cursor-pointer'}`}
         onClick={handleClick}
       >
-        {step > 1 && step < 5 && <Back className="check" />}
+        {step > 1 && step < 5 && <Back />}
       </div>
       {/* Dots + lines */}
-      <div className="progress-bar-container">
+      <div className="flex items-center flex-wrap content-center">
         {[1, 2, 3, 4].map(dot => (
           <React.Fragment key={dot}>
             {step >= dot ? <DotFilled /> : <Dot />}
-            {/* <Dot className={`dot ${step >= dot ? 'filled' : ''}`} /> */}
-            <div key={dot} className="line"></div>
+            <div
+              key={dot}
+              className="h-[0.0625rem] bg-[#dd6d5c] w-[2.5rem] lg:w-[3.25rem]"
+            ></div>
           </React.Fragment>
         ))}
         {step >= 5 ? <DotCheckFilled /> : <DotCheck />}
-        {/* <DotCheck className={`dot ${step >= 4 ? 'filled' : ''}`} /> */}
       </div>
       <div className="w-[1.5rem] h-[1.5rem]"></div>
     </div>

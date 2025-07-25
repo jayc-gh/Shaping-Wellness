@@ -9,7 +9,7 @@ type Link = {
 
 type PSectionTypes = {
   header: string;
-  text: React.ReactNode;
+  text?: React.ReactNode;
   link?: Link;
 };
 
@@ -19,9 +19,11 @@ export default function PSection({ header, text, link }: PSectionTypes) {
       <div className="flex gap-[1.5rem] flex-col justify-center items-center lg:max-w-[55.625rem]">
         <div className="flex flex-col justify-center items-center gap-[1.5rem] lg:text-center lg:max-w-[1224px]">
           <h4 className="text-[#b1574a] !font-base !font-bold">{header}</h4>
-          <p className="text-[1rem] leading-[1.7rem] font-[500] lg:text-[1.125rem] lg:leading-[1.8rem]">
-            {text}
-          </p>
+          {text && (
+            <p className="text-[1rem] leading-[1.7rem] font-[500] lg:text-[1.125rem] lg:leading-[1.8rem]">
+              {text}
+            </p>
+          )}
         </div>
         {link && <HyperLink href={link.href} text={link.label} arrow={true} />}
       </div>
