@@ -108,6 +108,16 @@ export async function handleSubmitPartner(
     ],
     customValidations: [
       data => (!validateEmailFormat(data.email) ? { email: true } : {}),
+      data =>
+        data.school === 'yes' && !data.districtName
+          ? { districtName: true }
+          : {},
+      data =>
+        data.school === 'yes' &&
+        !data.gradesServed.highSchool &&
+        !data.gradesServed.middleSchool
+          ? { gradesServed: true }
+          : {},
     ],
   });
 
@@ -129,6 +139,8 @@ export async function handleSubmitPartner(
     phone: formData.phone,
     email: formData.email,
     details: formData.details,
+    districtName: formData.districtName,
+    gradesServed: formData.gradesServed,
   };
 
   // Clear previous show errors if none found

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MainButton from '../buttons/mainButton';
 
 type MainSectionProps = {
@@ -14,6 +14,7 @@ type MainSectionProps = {
   backgroundPosition: string;
   backgroundSize?: string;
   transparent?: boolean;
+  showBg?: boolean;
 };
 
 export default function MainSection({
@@ -29,25 +30,8 @@ export default function MainSection({
   backgroundSize = 'cover, cover',
   contentMaxWidth = 'lg:max-w-[37.5rem]',
   transparent,
+  showBg = true,
 }: MainSectionProps) {
-  const [showBg, setShowBg] = useState(true);
-
-  useEffect(() => {
-    function updateShowBg() {
-      if (transparent) {
-        // Show background only if screen smaller than lg (1024px)
-        setShowBg(window.innerWidth < 1024);
-      } else {
-        // Always show if transparent false
-        setShowBg(true);
-      }
-    }
-
-    updateShowBg();
-    window.addEventListener('resize', updateShowBg);
-    return () => window.removeEventListener('resize', updateShowBg);
-  }, [transparent]);
-
   return (
     <div
       className={`flex flex-col gap-[0.625rem] px-[1.5625rem] py-[3.125rem] ${

@@ -53,7 +53,7 @@ export default function Address<T extends AddressFields>({
       ...prev,
       address: {
         ...prev.address,
-        country: country,
+        country: country.trim(),
         state: '',
       },
     }));
@@ -81,7 +81,10 @@ export default function Address<T extends AddressFields>({
                 onChange={e => {
                   setFormData(prev => ({
                     ...prev,
-                    address: { ...prev.address, address1: e.target.value },
+                    address: {
+                      ...prev.address,
+                      address1: e.target.value,
+                    },
                   }));
                   setShowErrors(prev => ({
                     ...prev,
@@ -102,7 +105,10 @@ export default function Address<T extends AddressFields>({
                 onChange={e => {
                   setFormData(prev => ({
                     ...prev,
-                    address: { ...prev.address, address2: e.target.value },
+                    address: {
+                      ...prev.address,
+                      address2: e.target.value,
+                    },
                   }));
                 }}
                 placeholder="Address 2 (apt, suite, etc)"
@@ -152,7 +158,10 @@ export default function Address<T extends AddressFields>({
                   onChange={e => {
                     setFormData(prev => ({
                       ...prev,
-                      address: { ...prev.address, state: e.target.value },
+                      address: {
+                        ...prev.address,
+                        state: e.target.value,
+                      },
                     }));
                     setShowErrors(prev => ({
                       ...prev,
@@ -199,7 +208,10 @@ export default function Address<T extends AddressFields>({
               onChange={e => {
                 setFormData(prev => ({
                   ...prev,
-                  address: { ...prev.address, postalCode: e.target.value },
+                  address: {
+                    ...prev.address,
+                    postalCode: e.target.value,
+                  },
                 }));
                 setShowErrors(prev => ({
                   ...prev,

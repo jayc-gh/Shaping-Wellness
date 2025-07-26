@@ -25,7 +25,7 @@ export const appearance: Appearance = {
     fontFamily: 'Figtree',
     colorText: '#2f2f2f',
     fontLineHeight: '1.25rem',
-    colorPrimary: '#66afe9',
+    colorPrimary: '#4573D4',
     colorDanger: '#da1e28',
     fontSizeSm: '0.875rem',
   },

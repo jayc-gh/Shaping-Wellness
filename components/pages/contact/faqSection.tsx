@@ -26,7 +26,7 @@ export default function FAQSection() {
               <>
                 You can volunteer, donate, or partner with us! Explore ways to
                 support us in the{' '}
-                <Link href="/#get-involved">
+                <Link href="/#getInvolved">
                   <span className="font-bold underline">Get Involved</span>
                 </Link>{' '}
                 section on our homepage.

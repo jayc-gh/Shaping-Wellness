@@ -26,7 +26,7 @@ export const formatPhoneNumber = (value: string) => {
 
 export const validateEmailFormat = (email: string) => {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return regex.test(email);
+  return regex.test(email.trim());
 };
 
 export const validateDate = (month: string, day: string, year: string) => {

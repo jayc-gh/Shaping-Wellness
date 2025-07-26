@@ -1,4 +1,4 @@
-import { ErrorMap } from '@/declarations';
+import { ErrorMap, PartnerFormData } from '@/declarations';
 import {
   errorText,
   errorTextContainer,
@@ -12,57 +12,53 @@ import {
   required,
 } from '@/lib/classes/input-fields';
 
-type OrgNameFields = {
-  orgName: string;
-};
-
-interface StepProps<T extends OrgNameFields> {
-  formData: T;
-  setFormData: React.Dispatch<React.SetStateAction<T>>;
+interface StepProps {
+  formData: PartnerFormData;
+  setFormData: React.Dispatch<React.SetStateAction<PartnerFormData>>;
   showErrors: ErrorMap;
   setShowErrors: React.Dispatch<React.SetStateAction<ErrorMap>>;
 }
 
-export default function OrgName<T extends OrgNameFields>({
+export default function DistrictName({
   formData,
   setFormData,
   showErrors,
   setShowErrors,
-}: StepProps<T>) {
+}: StepProps) {
   return (
     <div className={inputContainer}>
       <label className={inputSubContainer}>
         <p className={inputLabelText}>
-          Organization Name <span className={required}>*</span>
+          District Name <span className={required}>*</span>
         </p>
         <div className="flex flex-col w-full">
           <input
             type="text"
-            value={formData.orgName}
+            value={formData.districtName}
             onChange={e => {
               setFormData(prev => ({
                 ...prev,
-                orgName: e.target.value,
+                districtName: e.target.value,
               }));
               setShowErrors(prev => ({
                 ...prev,
-                orgName: false,
+                districtName: false,
               }));
             }}
             className={`${inputFieldDefaults} ${
-              showErrors.orgName && !formData.orgName.trim()
+              showErrors.districtName && !formData.districtName.trim()
                 ? inputFieldErrorColors
                 : inputFieldDefaultColors
             }`}
           />
           <div
             className={`${errorTextContainer} ${
-              showErrors.orgName && !formData.orgName.trim()
+              showErrors.districtName && !formData.districtName.trim()
                 ? errorTextTransition
                 : ''
             }`}
           >
-            <p className={errorText}>Organization Name is required</p>
+            <p className={errorText}>District Name is required</p>
           </div>
         </div>
       </label>

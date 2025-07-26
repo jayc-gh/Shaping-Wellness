@@ -2,12 +2,28 @@
 
 import VolunteerForm from '@/components/forms/volunterForm';
 import MainSection from '@/components/sections/headerSection';
+import { useState, useEffect } from 'react';
 
 export default function VolunteerFormPage() {
+  const [showBg, setShowBg] = useState(true);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    function updateShowBg() {
+      setShowBg(window.innerWidth < 1024);
+    }
+    updateShowBg();
+    setHasMounted(true);
+
+    window.addEventListener('resize', updateShowBg);
+    return () => window.removeEventListener('resize', updateShowBg);
+  }, []);
+
+  if (!hasMounted) return null;
   return (
     <main
       className="flex flex-col w-full items-center justify-center lg:flex-row
-             bg-no-repeat bg-cover bg-[center_10%] lg:bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/VolForm.jpg')] lg:bg-[center_10%]"
+             bg-no-repeat bg-cover bg-[center_10%] lg:bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/VolForm.jpg')]"
     >
       <div className="flex lg:py-[5rem] lg:px-[6.75rem] w-full justify-center">
         <div className="flex w-full flex-col lg:flex-row lg:gap-[1.5rem] lg:max-w-[1224px]">
@@ -30,6 +46,7 @@ export default function VolunteerFormPage() {
             aspectRatio="21/15"
             backgroundPosition="10% 20%, 10% 20%"
             transparent={true}
+            showBg={showBg}
           />
           <VolunteerForm />
         </div>

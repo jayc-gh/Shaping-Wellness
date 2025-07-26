@@ -13,7 +13,9 @@ type InfoType =
   | 'cover-fee-checkbox'
   | 'program-coordination-checkbox'
   | 'expert-workshop-checkbox'
-  | 'mentor-checkbox';
+  | 'mentor-checkbox'
+  | 'middle-school-checkbox'
+  | 'high-school-checkbox';
 
 type CustomCheckboxProps = {
   id: InfoType;
@@ -42,6 +44,8 @@ const tooltipTextMap: Record<
   'expert-workshop-checkbox': '',
   'program-coordination-checkbox': '',
   'mentor-checkbox': '',
+  'middle-school-checkbox': '',
+  'high-school-checkbox': '',
 };
 
 const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
@@ -97,25 +101,26 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
           />
           {popup && (
             <div
+              // positioning tooltip
               className={`absolute z-50 ${
                 !isMobile
                   ? id === 'anonymous-checkbox'
-                    ? 'top-[-0.8125rem]'
+                    ? 'top-[-1rem] left-4'
                     : id === 'orgDonate-checkbox'
-                    ? 'top-[-1.125rem]'
+                    ? 'top-[-1.55rem] left-4'
                     : id === 'cover-fee-checkbox'
-                    ? 'top-[-1.25rem]'
+                    ? 'top-[-6.4rem] right-[-1.3rem]'
                     : ''
                   : id === 'anonymous-checkbox'
-                  ? 'top-[-3.25rem]'
+                  ? 'top-[-5rem] right-[-1.3rem]'
                   : id === 'orgDonate-checkbox'
-                  ? 'top-[-4.125rem]'
+                  ? 'top-[-6.2rem] right-[-1.3rem]'
                   : id === 'cover-fee-checkbox'
-                  ? 'top-[-4.5rem]'
+                  ? 'top-[-6.5rem] right-[-1.3rem]'
                   : ''
-              } ${!isMobile ? 'left-4' : 'right-[-1.3rem]'}`}
+              }`}
             >
-              {isMobile ? (
+              {isMobile || id === 'cover-fee-checkbox' ? (
                 <SvgTooltipMobile text={tooltipTextMap[id]} />
               ) : (
                 <SvgTooltip text={tooltipTextMap[id]} />

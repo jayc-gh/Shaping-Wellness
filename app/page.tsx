@@ -79,7 +79,10 @@ export default function Home() {
         }
       />
       <DividerSection />
-      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2.5rem] lg:px-[6.75rem] lg:gap-[3.75rem]">
+      <div
+        className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2.5rem] lg:px-[6.75rem] lg:gap-[3.75rem]"
+        id="programs"
+      >
         <PictureTextSection
           title="FITNESS PROGRAMS"
           subtitle="Staying active and strong"
@@ -146,7 +149,7 @@ export default function Home() {
         />
       </div>
       <div
-        id="get-involved"
+        id="getInvolved"
         className="flex flex-col py-[4.375rem] px-[1.5625rem] justify-center items-center gap-[0.625rem] text-center lg:py-[2.5rem] lg:px-[6.75rem]"
       >
         <div className="flex flex-col justify-center items-center gap-[2rem] lg:max-w-[1224px]">

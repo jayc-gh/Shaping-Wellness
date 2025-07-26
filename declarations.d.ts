@@ -71,6 +71,11 @@ export interface VolunteerFormData {
 
 export interface PartnerFormData {
   orgName: string;
+  districtName: string;
+  gradesServed: {
+    middleSchool: 'yes' | '';
+    highSchool: 'yes' | '';
+  };
   school: 'yes' | 'no' | '';
   address: Address;
   firstName: string;
