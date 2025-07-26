@@ -145,7 +145,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
             key="custom"
             onClick={() => {
               setCustomAmt(true);
-              handleAmountSelection('');
+              handleAmountSelection('1');
             }}
             className={
               'flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center gap-[1.5rem] rounded-[0.625rem] font-semibold text-[1rem] transition-colors hover:cursor-pointer ' +

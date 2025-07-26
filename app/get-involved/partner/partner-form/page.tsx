@@ -2,49 +2,18 @@
 
 import PartnerForm from '@/components/forms/partnerForm';
 import MainSection from '@/components/sections/headerSection';
-import FormSummary from '@/components/sections/formSummary';
 
 export default function PartnerFormPage() {
   return (
     <main
-      className="flex flex-col w-full lg:flex-row bg-cover bg-no-repeat bg-center"
-      style={{
-        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(/images/PartnerForm.jpg)`,
-        backgroundPosition: 'center center, center center',
-      }}
+      className="flex flex-col w-full items-center justify-center lg:flex-row
+             bg-no-repeat bg-cover bg-[center_10%] lg:bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/PartnerForm.jpg')] lg:bg-[center_10%]"
     >
-      {/* Mobile Layout */}
-      <div className="block lg:hidden">
-        <MainSection
-          flagText="PARTNER"
-          heading="Build brighter futures with us"
-          description={
-            <>
-              Thank you for your interest in partnering with Shaping Wellness
-              Foundation.
-              <br />
-              <br /> We&apos;re excited to work together to expand access to
-              wellness education, fitness opportunities, and mentorship for
-              girls in your school, organization, or community center. Your
-              partnership helps us create safe, supportive spaces where girls
-              can grow stronger - physically, mentally, and emotionally.
-            </>
-          }
-          bgImageUrl="/images/PartnerForm.jpg"
-          aspectRatio="15/13"
-          backgroundPosition="10% center, 10% center"
-        />
-        <div className="flex justify-center">
-          <PartnerForm />
-        </div>
-      </div>
-
-      {/* Desktop Layout */}
-      <div className="hidden lg:flex w-full px-[1.5625rem] py-[3.125rem] lg:py-[5rem] lg:px-[6.75rem] justify-center items-center">
-        <div className="flex w-full max-w-[1224px] justify-between items-start gap-[1.5rem]">
-          <FormSummary
+      <div className="flex lg:py-[5rem] lg:px-[6.75rem] w-full justify-center">
+        <div className="flex w-full flex-col lg:flex-row lg:gap-[1.5rem] lg:max-w-[1224px]">
+          <MainSection
             flagText="PARTNER"
-            header="Build brighter futures with us"
+            heading="Build brighter futures with us"
             description={
               <>
                 Thank you for your interest in partnering with Shaping Wellness
@@ -57,6 +26,10 @@ export default function PartnerFormPage() {
                 can grow stronger - physically, mentally, and emotionally.
               </>
             }
+            bgImageUrl="/images/PartnerForm.jpg"
+            aspectRatio="21/10"
+            backgroundPosition="10% 20%, 10% 20%"
+            transparent={true}
           />
           <PartnerForm />
         </div>

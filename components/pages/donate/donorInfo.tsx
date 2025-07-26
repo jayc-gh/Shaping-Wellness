@@ -21,8 +21,8 @@ export default function DonorInfo({
   setShowErrors,
 }: StepProps) {
   return (
-    <div className="flex flex-col items-start gap-[0.75rem]">
-      <div className="flex flex-col justify-center items-start gap-[0.5rem]">
+    <div className="flex flex-col items-start gap-[0.75rem] w-full">
+      <div className="flex flex-col justify-center items-start gap-[0.5rem] w-full">
         <h4 className="text-base font-bold">YOUR INFORMATION</h4>
         {!formData.orgDonate && (
           <Name
@@ -55,7 +55,7 @@ export default function DonorInfo({
                 anonymous: !formData.anonymous,
               }))
             }
-            label={'Hide my name from the public'}
+            label={'Hide my name from the public.'}
             help={true}
           />
           <Checkbox
@@ -68,7 +68,7 @@ export default function DonorInfo({
                 orgName: '',
               }))
             }
-            label={'Donate as an organization'}
+            label={'This is a business or organization organization.'}
             help={true}
           />
         </div>

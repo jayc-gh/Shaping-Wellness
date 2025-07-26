@@ -118,7 +118,7 @@ export default function Address<T extends AddressFields>({
               data={countriesData}
               selectedId={formData.address.country}
               onSelect={item => {
-                handleCountryChange(item);
+                handleCountryChange(item.id);
                 setShowErrors(prev => ({
                   ...prev,
                   country: false,
@@ -131,10 +131,11 @@ export default function Address<T extends AddressFields>({
                 id="state"
                 title="State"
                 data={UStatesData}
+                selectedId={formData.address.state}
                 onSelect={item => {
                   setFormData(prev => ({
                     ...prev,
-                    address: { ...prev.address, state: item },
+                    address: { ...prev.address, state: item.id },
                   }));
                   setShowErrors(prev => ({
                     ...prev,

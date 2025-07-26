@@ -20,7 +20,7 @@ interface DropdownProps {
   data: DropdownItem[];
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   selectedId?: string;
-  onSelect?: (id: string) => void;
+  onSelect?: (item: DropdownItem) => void;
   showErrors: ErrorMap;
 }
 
@@ -38,15 +38,23 @@ export default function Dropdown({
   const [selectedItem, setSelectedItem] = useState<DropdownItem | undefined>(
     selectedId ? data?.find(item => item.id === selectedId) : undefined
   );
+
   useEffect(() => {
-    if (selectedItem) {
-      setInputValue(selectedItem.name);
+    if (selectedId) {
+      const item = data.find(item => item.id === selectedId);
+      setSelectedItem(item);
+      if (item) {
+        setInputValue(item.name);
+      }
+    } else {
+      setSelectedItem(undefined);
+      setInputValue('');
     }
-  }, [selectedItem, id]);
+  }, [selectedId, data]);
 
   const handleChange = (item: DropdownItem) => {
     setSelectedItem(item);
-    onSelect?.(item.id);
+    onSelect?.(item);
     setIsOpen(false);
   };
 

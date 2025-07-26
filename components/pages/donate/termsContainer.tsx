@@ -31,7 +31,7 @@ export default function TermsContainer({
     <div className="flex flex-col gap-[1.5rem] w-full">
       {(step < 4 || (step === 4 && !errorMessage)) && (
         <>
-          <div className="flex flex-col gap-[0.625rem] justify-center items-center">
+          <div className="flex flex-col gap-[1rem] justify-center items-center">
             {step === 3 && !errorMessage && (
               <Checkbox
                 id={'cover-fee-checkbox'}
@@ -41,6 +41,7 @@ export default function TermsContainer({
                   "I'd like to cover the transaction fee for this donation"
                 }
                 disabled={loading}
+                help={true}
               />
             )}
 

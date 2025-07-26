@@ -120,6 +120,7 @@ export default function ConfirmDetails({ formData, setStep }: StepProps) {
               edit
             </button>
           </div>
+          <div className="w-full h-[0.0625rem] bg-[#e0e0e0]"></div>
           <div className="w-full h-[0.0625rem] bg-["></div>
           <div className="flex flex-col items-start gap-[1.875rem] w-full">
             <div className="flex items-start w-full">

@@ -20,7 +20,9 @@ export default function ConfirmationBox({
           <div className="gap-[2rem] flex flex-col items-center w-full">
             {/* Back button and Progress bar */}
             <ProgressBar step={5} prevStep={() => undefined} />
-            <h4 className="self-center">Thank you for your donation!</h4>
+            <h4 className="self-center text-base font-bold">
+              Thank you for your donation!
+            </h4>
             <div className="flex flex-col items-center gap-[1.5rem]">
               <div className="text-left text-base font-[500] leading-[140%] text-[#3c3c3c] gap-[1.5rem] flex flex-col">
                 <p>{message}</p>

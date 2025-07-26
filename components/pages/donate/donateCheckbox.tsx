@@ -3,7 +3,9 @@ import Unchecked from '../../../app/icons/checked=no.svg';
 import Checked from '../../../app/icons/checked=yes.svg';
 import Help from '../../../app/icons/help.svg';
 import SvgTooltip from './toolTip';
+import SvgTooltipMobile from './toolTipMobile';
 import { useOutsideClick } from '@/lib/functions/useFunctions';
+import { useIsMobile } from '@/lib/functions/useFunctions';
 
 type InfoType =
   | 'anonymous-checkbox'
@@ -52,6 +54,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
 }) => {
   const [popup, setPopup] = useState<boolean>(false);
   const popupRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile(660);
 
   useOutsideClick(popupRef, () => setPopup(false));
 
@@ -75,7 +78,11 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
         {checked ? <Checked /> : <Unchecked />}
 
         <span
-          className={`text-[0.875rem] font-[500] leading-[1.25rem] ${
+          className={`${
+            id === 'cover-fee-checkbox'
+              ? 'text-[0.75rem] lg:text-[0.875rem]'
+              : 'text-[0.875rem]'
+          } font-[500] leading-[1.25rem] ${
             disabled ? 'text-[#6b6461]' : 'text-[#2f2f2f]'
           }`}
         >
@@ -90,17 +97,29 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
           />
           {popup && (
             <div
-              className={`absolute ${
-                id === 'anonymous-checkbox'
-                  ? 'top-[-0.8125rem]'
+              className={`absolute z-50 ${
+                !isMobile
+                  ? id === 'anonymous-checkbox'
+                    ? 'top-[-0.8125rem]'
+                    : id === 'orgDonate-checkbox'
+                    ? 'top-[-1.125rem]'
+                    : id === 'cover-fee-checkbox'
+                    ? 'top-[-1.25rem]'
+                    : ''
+                  : id === 'anonymous-checkbox'
+                  ? 'top-[-3.25rem]'
                   : id === 'orgDonate-checkbox'
-                  ? 'top-[-1.125rem]'
+                  ? 'top-[-4.125rem]'
                   : id === 'cover-fee-checkbox'
-                  ? 'top-[-1.25rem]'
+                  ? 'top-[-4.5rem]'
                   : ''
-              } left-4 z-50`}
+              } ${!isMobile ? 'left-4' : 'right-[-1.3rem]'}`}
             >
-              <SvgTooltip text={tooltipTextMap[id]} />
+              {isMobile ? (
+                <SvgTooltipMobile text={tooltipTextMap[id]} />
+              ) : (
+                <SvgTooltip text={tooltipTextMap[id]} />
+              )}
             </div>
           )}
         </div>

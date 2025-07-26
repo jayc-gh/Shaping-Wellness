@@ -146,7 +146,7 @@ export default function DonateForm() {
         />
         {(step < 3 || (step === 3 && !errorMessage)) && (
           <div className="flex h-[1.375rem] justify-center items-center gap-[0.625rem] self-stretch">
-            <h4 className="text-base font-bold text-base">You are donating:</h4>
+            <h4 className="text-base font-bold">You are donating:</h4>
             <p className="text-[1.125rem] font-bold text-[#b1574a]">
               ${formData.totalCharged}
               {formData.monthly ? '/month' : ''}
@@ -179,7 +179,7 @@ export default function DonateForm() {
             setShowErrors={setShowErrors}
           />
         )}
-        {step > 1 && (
+        {Number(formData.totalCharged) >= 1 && (
           <Elements
             stripe={stripePromise}
             options={{

@@ -41,7 +41,7 @@ export default function ProgressBar({
             {step >= dot ? <DotFilled /> : <Dot />}
             <div
               key={dot}
-              className="h-[0.0625rem] bg-[#dd6d5c] w-[2.5rem] lg:w-[3.25rem]"
+              className="h-[0.0625rem] bg-[#dd6d5c] w-[2.5rem]"
             ></div>
           </React.Fragment>
         ))}

@@ -105,6 +105,7 @@ export default function Phone<T extends PhoneFields>({
             id="type"
             title="Select Phone Type"
             data={phoneType}
+            selectedId={formData.phone.type}
             onSelect={item => {
               setShowErrors(prev => ({
                 ...prev,
@@ -112,7 +113,7 @@ export default function Phone<T extends PhoneFields>({
               }));
               setFormData(prev => ({
                 ...prev,
-                phone: { ...prev.phone, type: item },
+                phone: { ...prev.phone, type: item.id },
               }));
             }}
             showErrors={showErrors}

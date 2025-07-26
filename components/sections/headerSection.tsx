@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainButton from '../buttons/mainButton';
 
 type MainSectionProps = {
@@ -13,6 +13,7 @@ type MainSectionProps = {
   contentMaxWidth?: string;
   backgroundPosition: string;
   backgroundSize?: string;
+  transparent?: boolean;
 };
 
 export default function MainSection({
@@ -27,27 +28,54 @@ export default function MainSection({
   backgroundPosition,
   backgroundSize = 'cover, cover',
   contentMaxWidth = 'lg:max-w-[37.5rem]',
+  transparent,
 }: MainSectionProps) {
+  const [showBg, setShowBg] = useState(true);
+
+  useEffect(() => {
+    function updateShowBg() {
+      if (transparent) {
+        // Show background only if screen smaller than lg (1024px)
+        setShowBg(window.innerWidth < 1024);
+      } else {
+        // Always show if transparent false
+        setShowBg(true);
+      }
+    }
+
+    updateShowBg();
+    window.addEventListener('resize', updateShowBg);
+    return () => window.removeEventListener('resize', updateShowBg);
+  }, [transparent]);
+
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-[0.625rem] py-[3.125rem] px-[1.5625rem]
-        lg:flex-row
-        lg:py-[3.875rem]
-        lg:px-[6.75rem]
+      className={`flex flex-col gap-[0.625rem] px-[1.5625rem] py-[3.125rem] ${
+        transparent
+          ? 'justify-center items-start lg:px-0 lg:py-0 lg:justify-start'
+          : 'justify-center items-center lg:px-[6.75rem] lg:py-[3.875rem]'
+      } lg:flex-row
         lg:gap-0
         lg:self-auto
-        lg:justify-center lg:items-center
         `}
       style={{
-        aspectRatio: aspectRatio,
-        backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bgImageUrl})`,
+        aspectRatio: showBg
+          ? transparent
+            ? aspectRatio
+            : aspectRatio
+          : undefined,
+        backgroundImage: showBg
+          ? transparent
+            ? `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bgImageUrl})`
+            : `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bgImageUrl})`
+          : undefined,
         backgroundSize: backgroundSize,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: backgroundPosition,
       }}
     >
       <div
-        className={`flex items-center justify-start w-full
+        className={`flex items-start justify-start w-full
         lg:justify-start lg:max-w-[76.5rem]`}
       >
         <div
@@ -65,13 +93,19 @@ export default function MainSection({
           <h1
             className={`text-white font-bold ${contentMaxWidth} ${
               flagText
-                ? 'text-[1.75rem] lg:text-[2.5rem]'
+                ? transparent
+                  ? 'text-[1.75rem] lg:text-[1.5rem]'
+                  : 'text-[1.75rem] lg:text-[2.5rem]'
                 : 'text-[2rem] lg:text-[3rem]'
             }`}
           >
             {heading}
           </h1>
-          <p className="text-white text-base lg:text-[1.125rem] lg:max-w-[37.5rem]">
+          <p
+            className={`text-white font-[500] text-base ${
+              !transparent ? 'lg:text-[1.125rem]' : ''
+            } lg:max-w-[37.5rem] leading-[140%]`}
+          >
             {description}
           </p>
 

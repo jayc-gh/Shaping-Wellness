@@ -64,11 +64,12 @@ export default function DOB<T extends DOBFields>({
           <Dropdown
             id="month"
             title="Month"
+            selectedId={formData.DOB.month}
             data={months}
             onSelect={item => {
               setFormData(prev => ({
                 ...prev,
-                DOB: { ...prev.DOB, month: item },
+                DOB: { ...prev.DOB, month: item.id },
               }));
               setShowErrors(prev => ({
                 ...prev,
@@ -82,10 +83,11 @@ export default function DOB<T extends DOBFields>({
             id="day"
             title="Day"
             data={days}
+            selectedId={formData.DOB.day}
             onSelect={item => {
               setFormData(prev => ({
                 ...prev,
-                DOB: { ...prev.DOB, day: item },
+                DOB: { ...prev.DOB, day: item.id },
               }));
               setShowErrors(prev => ({
                 ...prev,
@@ -99,10 +101,11 @@ export default function DOB<T extends DOBFields>({
             id="year"
             title="Year"
             data={years}
+            selectedId={formData.DOB.year}
             onSelect={item => {
               setFormData(prev => ({
                 ...prev,
-                DOB: { ...prev.DOB, year: item },
+                DOB: { ...prev.DOB, year: item.id },
               }));
               setShowErrors(prev => ({
                 ...prev,
