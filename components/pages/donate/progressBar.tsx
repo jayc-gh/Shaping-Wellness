@@ -38,14 +38,30 @@ export default function ProgressBar({
       <div className="flex items-center flex-wrap content-center">
         {[1, 2, 3, 4].map(dot => (
           <React.Fragment key={dot}>
-            {step >= dot ? <DotFilled /> : <Dot />}
+            {step >= dot ? (
+              <span className="py-[5px]">
+                <DotFilled />
+              </span>
+            ) : (
+              <span className="py-[5px]">
+                <Dot />
+              </span>
+            )}
             <div
-              key={dot}
-              className="h-[0.0625rem] bg-[#dd6d5c] w-[2.5rem]"
-            ></div>
+              className="flex-grow h-[1px] bg-[#dd6d5c]"
+              style={{ minWidth: '40px', maxWidth: '50px' }}
+            />
           </React.Fragment>
         ))}
-        {step >= 5 ? <DotCheckFilled /> : <DotCheck />}
+        {step >= 5 ? (
+          <span className="py-[5px]">
+            <DotCheckFilled />
+          </span>
+        ) : (
+          <span className="py-[5px]">
+            <DotCheck />
+          </span>
+        )}
       </div>
       <div className="w-[1.5rem] h-[1.5rem]"></div>
     </div>

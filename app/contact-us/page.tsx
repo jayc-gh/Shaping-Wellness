@@ -13,7 +13,6 @@ import ContactForm from '@/components/pages/contact/contactForm';
 import FAQSection from '@/components/pages/contact/faqSection';
 import MainSection from '@/components/sections/headerSection';
 import GradientBox from '@/components/sections/gradientBox';
-import ContactSection from '@/components/sections/contactSection';
 
 export default function Contact() {
   return (
@@ -81,12 +80,6 @@ export default function Contact() {
         <BotCurveColor />
       </div>
       <FAQSection />
-      <ContactSection
-        header="CONTACT US"
-        text="Have questions or want to get involved? We're here to help!"
-        href="/contact-us"
-        buttonLabel="Send a message"
-      />
     </main>
   );
 }

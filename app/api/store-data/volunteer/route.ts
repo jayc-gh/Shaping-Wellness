@@ -65,8 +65,7 @@ const storeData = async (formData: VolunteerFormData) => {
 
   const AoI = Object.entries(formData.AoI)
     .filter(([, value]) => value === 'yes')
-    .map(([key]) => AoIMap[key])
-    .join(', ');
+    .map(([key]) => AoIMap[key]);
 
   const { data, error } = await supabaseServer
     .from(volunteersTable)

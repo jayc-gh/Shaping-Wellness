@@ -14,7 +14,7 @@ export const errorText =
   'text-[#c72a2a] self-start justify-center text-[0.75rem] top-[0.25rem] text-base';
 
 export const inputSubContainer =
-  'flex flex-col items-start gap-[0.25rem] flex-1 justify-center w-full';
+  'flex flex-col items-start gap-[0.5rem] flex-1 justify-center w-full';
 
 export const inputLabelText = 'text-[0.9375rem] leading-[1.25rem]';
 

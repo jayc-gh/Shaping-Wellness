@@ -22,8 +22,8 @@ const SvgTooltipMobile: React.FC<SvgTooltipProps> = ({ text }) => {
         />
       </svg>
 
-      {/* Text content */}
-      <div className="flex relative pl-5 pr-3 pt-2 pb-4 text-[0.75rem] font-[400] text-[#2f2f2f] whitespace-pre-wrap text-start items-center">
+      {/* positioning text content inside tooltip bubble */}
+      <div className="flex relative pl-5 pr-3 pt-[14px] pb-[22px] text-[0.75rem] leading-[20px] font-[400] text-[#2f2f2f] whitespace-pre-wrap text-start items-center">
         {isBulletBlock ? (
           <div>
             <p className="mb-[0.125rem]">{text.title}</p>

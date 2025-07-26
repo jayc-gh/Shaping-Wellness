@@ -14,6 +14,8 @@ export async function POST(request: NextRequest) {
       phone,
       email,
       details,
+      districtName,
+      gradesServed,
     } = body;
 
     const formData: PartnerFormData = {
@@ -25,6 +27,8 @@ export async function POST(request: NextRequest) {
       phone,
       email,
       details,
+      districtName,
+      gradesServed,
     };
 
     const partnerFormId = await storeData(formData);
@@ -57,6 +61,15 @@ export async function POST(request: NextRequest) {
 }
 
 const storeData = async (formData: PartnerFormData) => {
+  const gradesMap: Record<string, string> = {
+    middleSchool: '6_to_8',
+    highSchool: '9_to_12',
+  };
+
+  const gradesServed = Object.entries(formData.gradesServed)
+    .filter(([, value]) => value === 'yes')
+    .map(([key]) => gradesMap[key]);
+
   const { data, error } = await supabaseServer
     .from(partnersTable)
     .insert({
@@ -74,6 +87,8 @@ const storeData = async (formData: PartnerFormData) => {
       details: formData.details,
       phone_number: formData.phone.number,
       phone_type: formData.phone.type,
+      grades_served: gradesServed,
+      district_name: formData.districtName,
     })
     .select('id')
     .single();

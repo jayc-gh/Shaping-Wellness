@@ -58,7 +58,6 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
           paymentReady: event.complete,
         }));
       }
-      console.log('payment method', selectedType);
     };
 
     paymentElement.on('change', handleChange);

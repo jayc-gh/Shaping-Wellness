@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={figtree.className}>
-      <body className={`antialiased flex flex-col h-screen`}>
+      <body className={`antialiased flex flex-col h-screen text-[#2f2f2f]`}>
         <nav>
           <NavBar />
         </nav>

@@ -219,6 +219,7 @@ export const storeContactData = async ({
 
 export const storePartnerData = async ({
   orgName,
+  districtName,
   school,
   address,
   firstName,
@@ -226,6 +227,7 @@ export const storePartnerData = async ({
   phone,
   email,
   details,
+  gradesServed,
 }: PartnerFormData) => {
   try {
     const response = await fetch('/api/store-data/partner', {
@@ -235,6 +237,7 @@ export const storePartnerData = async ({
       },
       body: JSON.stringify({
         orgName,
+        districtName,
         school,
         address,
         firstName,
@@ -242,6 +245,7 @@ export const storePartnerData = async ({
         phone,
         email,
         details,
+        gradesServed,
       }),
     });
 

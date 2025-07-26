@@ -69,7 +69,6 @@ export default function YesNo<T extends YesNoFields>({
               checked={yesNo === 'yes'}
               onChange={() => {
                 handleSelectionChange('yes');
-                console.log('hi');
               }}
             />
             {yesNo === 'yes' ? <CircleChecked /> : <CircleUnchecked />}

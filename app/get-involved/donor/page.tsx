@@ -36,11 +36,11 @@ export default function Donor() {
           description={
             <>
               Girls in underserved communities often lack access to the wellness
-              resources they need to thrive.
+              resources they need to thrive.{' '}
               <span className="text-[#8e463b]">
                 Your donation will help us fund the first pilot of our
                 school-based wellness programs.
-              </span>
+              </span>{' '}
               Every donation helps us provide fitness programs, health
               education, and mentorship to underserved girls, giving them the
               tools to build healthy habits and lifelong well-being.

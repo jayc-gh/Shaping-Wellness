@@ -31,7 +31,7 @@ export default function HoverCard({
 
   return (
     <div
-      className="flex-1 group relative flex flex-col justify-center items-center gap-[4.1875rem] py-[3.125rem] px-[1.875rem] lg:px-3.125rem rounded-[0.625rem] shadow-md transition-all duration-300 ease-in-out overflow-hidden aspect-[15/18] lg:aspect-[16/18] w-[21.25rem] max-w-[392px]"
+      className="flex-1 group relative flex flex-col justify-center items-center gap-[4.1875rem] rounded-[0.625rem] shadow-md transition-all duration-300 ease-in-out overflow-hidden aspect-[15/18] lg:aspect-[16/18] w-[21.25rem] max-w-[392px]"
       style={{
         backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${imageUrl})`,
         backgroundSize: 'cover, cover',
@@ -53,7 +53,7 @@ export default function HoverCard({
 
       {/* Title */}
       <h3
-        className={`z-[2] text-white !text-[1.25rem] lg:!text-[1.5rem] !font-bold leading-[140%] transition-opacity duration-300 ease-in-out lg:group-hover:opacity-0 ${
+        className={`z-[2] text-white !text-[1.25rem] text-center py-[3.125rem] px-[1.875rem] lg:px-3.125rem lg:!text-[1.5rem] !font-bold leading-[140%] transition-opacity duration-300 ease-in-out lg:group-hover:opacity-0 ${
           !isClicked ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -62,7 +62,7 @@ export default function HoverCard({
 
       {/* Hover/Click Text */}
       <p
-        className={`text-[#2c2c2c] text-base font-[500] lg:text-[1.125rem] absolute z-[2] transition-opacity duration-300 ease-in-out lg:group-hover:opacity-100 ${
+        className={`text-[#2c2c2c] text-base text-center font-[500] lg:text-[1.125rem] py-[3.125rem] px-[1.875rem] lg:px-3.125rem absolute z-[2] transition-opacity duration-300 ease-in-out lg:group-hover:opacity-100 ${
           isClicked ? 'opacity-100' : 'opacity-0'
         }`}
       >
