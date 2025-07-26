@@ -33,7 +33,7 @@ export default function PictureTextSection({
       } lg:w-full lg:max-w-[1224px]`}
     >
       <div
-        className={`w-full min-w-[21.3125rem] max-w-[32rem] lg:max-w-[37.5rem] rounded-tl-[6.25rem] rounded-br-[6.25rem] aspect-[340/227] lg:rounded-tl-[9.375rem] lg:rounded-br-[9.375rem] lg:w-[50%]`}
+        className={`w-full min-w-[21.25rem] max-w-[30rem] lg:max-w-[37.5rem] rounded-tl-[6.25rem] rounded-br-[6.25rem] aspect-[3/2] lg:rounded-tl-[9.375rem] lg:rounded-br-[9.375rem] lg:w-[50%]`}
         style={{
           backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${imageUrl})`,
           backgroundSize: 'cover, cover',
