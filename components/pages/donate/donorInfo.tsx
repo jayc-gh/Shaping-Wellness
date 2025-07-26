@@ -40,7 +40,6 @@ export default function DonorInfo({
             setFormData={setFormData}
             showErrors={showErrors}
             setShowErrors={setShowErrors}
-            formType="donate"
           />
         )}
 
