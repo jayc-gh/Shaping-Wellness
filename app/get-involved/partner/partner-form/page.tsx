@@ -43,7 +43,6 @@ export default function PartnerFormPage() {
               </>
             }
             bgImageUrl="/images/PartnerForm.jpg"
-            aspectRatio="21/10"
             backgroundPosition="10% 20%, 10% 20%"
             transparent={true}
             showBg={showBg}

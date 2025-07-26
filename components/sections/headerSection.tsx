@@ -9,7 +9,7 @@ type MainSectionProps = {
   buttonHref?: string;
   buttonVariant?: 'orange' | 'white';
   bgImageUrl: string;
-  aspectRatio: string;
+  aspectRatio?: string;
   contentMaxWidth?: string;
   backgroundPosition: string;
   backgroundSize?: string;
@@ -34,7 +34,7 @@ export default function MainSection({
 }: MainSectionProps) {
   return (
     <div
-      className={`flex flex-col gap-[0.625rem] px-[1.5625rem] py-[3.125rem] ${
+      className={`flex flex-col gap-[0.625rem] px-[1.5625rem] py-[3.125rem] ${aspectRatio} ${
         transparent
           ? 'justify-center items-start lg:px-0 lg:py-0 lg:justify-start'
           : 'justify-center items-center lg:px-[6.75rem] lg:py-[3.875rem]'
@@ -43,11 +43,6 @@ export default function MainSection({
         lg:self-auto
         `}
       style={{
-        aspectRatio: showBg
-          ? transparent
-            ? aspectRatio
-            : aspectRatio
-          : undefined,
         backgroundImage: showBg
           ? transparent
             ? `linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${bgImageUrl})`
