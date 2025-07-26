@@ -19,7 +19,7 @@ export default function Donor() {
     <main className="flex flex-col w-full">
       <MainSection
         flagText="BECOME A DONOR"
-        heading="Support. Inspire. Give"
+        heading="Support. Inspire. Give."
         description="Your support makes our mission possible. See the impact you create. Explore our budget and plans below."
         bgImageUrl="/images/DonateHeader.jpg"
         aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
