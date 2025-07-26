@@ -19,7 +19,7 @@ export default function Volunteer() {
         heading="Inspire and make a difference"
         description="Volunteer applications are now open for our Fall 2025 pilot programs in Houston."
         bgImageUrl="/images/VolunteerHeader.jpg"
-        aspectRatio="2600/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
         contentMaxWidth="max-w-[37.5rem]"
         backgroundPosition="center 40%, center 40%"
         buttonHref="/get-involved/volunteer/volunteer-form"

@@ -29,7 +29,7 @@ export default function Home() {
         buttonHref="/get-involved/partner"
         buttonVariant="orange"
         bgImageUrl="/images/HomeHeader.jpg"
-        aspectRatio="2400/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[16/5]"
         contentMaxWidth="lg:max-w-[34.375rem]"
         backgroundPosition="center 30%, center 30%"
       ></MainSection>

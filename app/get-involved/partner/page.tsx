@@ -24,7 +24,7 @@ export default function Partner() {
         heading="Unite to make a difference"
         description="If your school or organization is interested in hosting one of our programs or collaborating on future wellness initiatives, we'd love to connect."
         bgImageUrl="/images/PartnerHeader.jpg"
-        aspectRatio="2600/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
         contentMaxWidth="lg:max-w-[37.5rem]"
         backgroundPosition="center 40%, center 40%"
         buttonHref="/get-involved/partner/partner-form"

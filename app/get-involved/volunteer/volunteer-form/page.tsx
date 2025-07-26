@@ -43,7 +43,6 @@ export default function VolunteerFormPage() {
               </>
             }
             bgImageUrl="/images/VolForm.jpg"
-            aspectRatio="21/15"
             backgroundPosition="10% 20%, 10% 20%"
             transparent={true}
             showBg={showBg}

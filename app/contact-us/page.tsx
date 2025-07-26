@@ -22,7 +22,7 @@ export default function Contact() {
         heading="Reach out, we're ready to help."
         description="Have a question or want to get involved? We're here to help. Check out our FAQs below or reach out directly."
         bgImageUrl="/images/ContactHeader.jpg"
-        aspectRatio="2600/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
         contentMaxWidth="lg:max-w-[37.5rem]"
         backgroundPosition="center 60%, center 60%"
       />

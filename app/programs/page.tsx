@@ -21,7 +21,7 @@ export default function Programs() {
         heading="Inspiring girls to build healthy, confident futures."
         description="If your organization is dedicated to giving girls the tools to lead healthier, more confident lives, we're here to help."
         bgImageUrl="/images/ProgramsHeader.jpg"
-        aspectRatio="2600/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
         contentMaxWidth="lg:max-w-[37.5rem]"
         backgroundPosition="center 50%, center 50%"
       />

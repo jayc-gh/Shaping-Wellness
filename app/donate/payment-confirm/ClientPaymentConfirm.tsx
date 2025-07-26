@@ -53,7 +53,7 @@ export default function PaymentConfirm() {
               </>
             }
             bgImageUrl="/images/DonateForm.jpg"
-            aspectRatio="21/10"
+            aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
             backgroundPosition="10% 20%, 10% 20%"
             transparent={true}
           />

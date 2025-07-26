@@ -22,7 +22,7 @@ export default function Donor() {
         heading="Support. Inspire. Give"
         description="Your support makes our mission possible. See the impact you create. Explore our budget and plans below."
         bgImageUrl="/images/DonateHeader.jpg"
-        aspectRatio="2600/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
         contentMaxWidth="lg:max-w-[37.5rem]"
         backgroundPosition="center 30%, center 30%"
         buttonHref="/donate"

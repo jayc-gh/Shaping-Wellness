@@ -32,7 +32,7 @@ export default function WhoWeAre() {
         heading={<>Transforming lives, one girl at a time.</>}
         description="We are dedicated to fostering the health, well-being, and empowerment of young girls in underserved communities."
         bgImageUrl="/images/WhoWeAreHeader.jpg"
-        aspectRatio="2600/750"
+        aspectRatio="aspect-[1/1] lg:aspect-[18/5]"
         contentMaxWidth="max-w-[43.75rem]"
         backgroundPosition="center 50%, center 50%"
       />
