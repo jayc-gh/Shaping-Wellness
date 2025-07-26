@@ -24,7 +24,7 @@ export default function HyperLink({
       <p
         className={`${
           small
-            ? 'text-[0.875rem]'
+            ? 'text-[0.8125rem] lg:text-[0.875rem]'
             : medium
             ? 'text-[0.9375rem] lg:text-base'
             : 'text-base lg:text-[1.125rem]'

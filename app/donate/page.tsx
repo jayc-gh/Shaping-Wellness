@@ -21,6 +21,7 @@ export default function DonatePage() {
   }, []);
 
   if (!hasMounted) return null;
+
   return (
     <main
       className="flex flex-col w-full items-center justify-center lg:flex-row

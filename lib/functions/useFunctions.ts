@@ -51,12 +51,16 @@ export function useOneTimePayment(
   setValid: React.Dispatch<React.SetStateAction<boolean>>,
   setMessage: React.Dispatch<React.SetStateAction<string>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>,
-  monthly: string | null
+  monthly: string | null,
+  hasMounted: boolean,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    if (!hasMounted) return;
+    setLoading(true);
     const paymentId = searchParams.get('payment_intent');
     const fetchUrl = `/api/payment-status?payment_intent=${paymentId}`;
     if (monthly !== 'false') return;
@@ -88,15 +92,15 @@ export function useOneTimePayment(
           setMessage(
             `We've received your gift of $${(donation.amount / 100).toFixed(
               2
-            )}. Thank you for your generosity! You should receive an email receipt shortly.`
+            )}. Thank you for your generosity! You'll receive an email receipt shortly.`
           );
           break;
         case 'processing':
           setValid(true);
           setMessage(
-            `Your donation of $${(donation.amount / 100).toFixed(
+            `Your $${(donation.amount / 100).toFixed(
               2
-            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. If it's successful, we'll email you a receipt.`
+            )} donation is being processed. If you donated via bank transfer, please allow 3-5 business days for completion. A receipt will be emailed to you once the payment is confirmed. `
           );
           break;
         case 'canceled':
@@ -112,19 +116,33 @@ export function useOneTimePayment(
     };
 
     fetchData();
-  }, [router, searchParams, setErrorMessage, setMessage, setValid, monthly]);
+    setLoading(false);
+  }, [
+    router,
+    searchParams,
+    setErrorMessage,
+    setMessage,
+    setValid,
+    monthly,
+    hasMounted,
+    setLoading,
+  ]);
 }
 
 export function useSubscription(
   setValid: React.Dispatch<React.SetStateAction<boolean>>,
   setMessage: React.Dispatch<React.SetStateAction<string>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>,
-  monthly: string | null
+  monthly: string | null,
+  hasMounted: boolean,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    if (!hasMounted) return;
+    setLoading(true);
     const subscriptionId = searchParams.get('subscriptionId');
     const fetchUrl = `/api/subscription-status?subscriptionId=${subscriptionId}`;
     if (monthly !== 'true') return;
@@ -156,9 +174,7 @@ export function useSubscription(
         case 'succeeded':
           setValid(true);
           setMessage(
-            `Your recurring monthly donation of $${(
-              subscription.amount / 100
-            ).toFixed(
+            `Your monthly donation of $${(subscription.amount / 100).toFixed(
               2
             )} is now active. Thank you for your generosity! You should receive an email receipt shortly.`
           );
@@ -166,11 +182,9 @@ export function useSubscription(
         case 'processing':
           setValid(true);
           setMessage(
-            `Your recurring monthly donation of $${(
-              subscription.amount / 100
-            ).toFixed(
+            `Your monthly donation of $${(subscription.amount / 100).toFixed(
               2
-            )} is currently being processed. If you used bank transfer, please allow 3-5 business days for it to complete. If it's successful, we'll email you a receipt.`
+            )} is being processed. If you donated via bank transfer, please allow 3-5 business days for completion. A receipt will be emailed to you once the payment is confirmed. `
           );
           break;
         case 'canceled':
@@ -186,7 +200,17 @@ export function useSubscription(
     };
 
     fetchData();
-  }, [router, searchParams, setErrorMessage, setMessage, setValid, monthly]);
+    setLoading(false);
+  }, [
+    router,
+    searchParams,
+    setErrorMessage,
+    setMessage,
+    setValid,
+    monthly,
+    hasMounted,
+    setLoading,
+  ]);
 }
 
 export function useIsMobile(breakpoint = 660): boolean {

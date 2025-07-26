@@ -1,20 +1,24 @@
 import { errorText } from '@/lib/classes/input-fields';
 import HyperLink from '../buttons/hyperLink';
 import ProgressBar from '../pages/donate/progressBar';
+import Spinner from '../spinner';
 
 type ConfirmationBoxProps = {
   valid: boolean;
   message: string;
   errorMessage: string | undefined;
+  loading: boolean;
 };
 
 export default function ConfirmationBox({
   valid,
   message,
   errorMessage,
+  loading,
 }: ConfirmationBoxProps) {
   return (
     <div className="flex flex-col lg:w-[37.5rem] lg:min-h-[49.25rem] justify-between items-center py-[2.5rem] px-[1.5625rem] lg:px-[6.5rem] bg-white rounded-[0.625rem] gap-[3.0625rem] w-full">
+      {loading && <Spinner />}
       {valid && (
         <>
           <div className="gap-[2rem] flex flex-col items-center w-full">
