@@ -1,101 +1,185 @@
-import Image from "next/image";
+'use client';
+
+import HandHeart from '../app/icons/home/hand-heart.svg';
+import Users from '../app/icons/home/users-heart.svg';
+import Handshake from '../app/icons/home/handshake.svg';
+import React from 'react';
+import BottomCurveWhite from '../app/icons/bottom-curve-white.svg';
+import TopCurveWhite from '../app/icons/top-curve-white.svg';
+import MainSection from '@/components/sections/headerSection';
+import PSection from '@/components/sections/pSection';
+import PictureTextSection from '@/components/sections/pictureText';
+import HyperLink from '@/components/buttons/hyperLink';
+import GrayBorderCard from '@/components/sections/grayBorderCard';
+import ContactSection from '@/components/sections/contactSection';
+import DividerSection from '@/components/sections/dividerSection';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="flex flex-col w-full">
+      <MainSection
+        heading={
+          <>
+            Healthy Futures, <br />
+            <span className="text-[#d9764e]">Stronger</span> Communities
+          </>
+        }
+        description="Join us in creating opportunities for girls to grow stronger, more confident, and healthier. Partner today and be part of the change."
+        buttonText="Become a partner"
+        buttonHref="/get-involved/partner"
+        buttonVariant="orange"
+        bgImageUrl="/images/HomeHeader.jpg"
+        aspectRatio="2400/750"
+        contentMaxWidth="lg:max-w-[34.375rem]"
+        backgroundPosition="center 30%, center 30%"
+      ></MainSection>
+      <PSection
+        header="WHO WE ARE"
+        text={
+          <>
+            Shaping Wellness Foundation is a new nonprofit dedicated to
+            supporting the{' '}
+            <span className="text-[#8e463b]">
+              health, well-being, and personal growth of young girls in
+              underserved communities.
+            </span>{' '}
+            While our programs are still taking shape, our commitment is
+            grounded in transparency, research, and community input. We&apos;re
+            focused on building inclusive, thoughtful initiatives that help
+            girls develop confidence, stay active, and make informed choices for
+            lifelong wellness.
+          </>
+        }
+        link={{ href: '/who-we-are', label: 'LEARN MORE ABOUT OUR MISSION' }}
+      />
+      <div
+        className="relative z-0 aspect-[2416/900] lg:aspect-[2416/500] w-full flex flex-col items-center"
+        style={{
+          backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/HomeIMG2.jpg)`,
+          backgroundSize: 'cover, cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center 40%, center 50%',
+        }}
+      >
+        <div className="flex-grow" />
+        <div className="absolute bottom-[-1px] left-0 w-full">
+          <BottomCurveWhite className="w-full h-auto" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+      <PSection
+        header="PROGRAMS"
+        text={
+          <>
+            We&apos;re developing a year-round wellness curriculum for 6th -
+            12th grade girls in Houston, launching in Fall 2025. Our programming
+            focuses on nutrition, self-confidence, and health education,
+            equipping girls with practical tools, peer support, and guidance
+            from trusted community educators to build lifelong healthy habits.
+          </>
+        }
+      />
+      <DividerSection />
+      <div className="flex flex-col justify-center items-center gap-[2.5rem] px-[1.5625rem] py-[2.5rem] lg:px-[6.75rem] lg:gap-[3.75rem]">
+        <PictureTextSection
+          title="FITNESS PROGRAMS"
+          subtitle="Staying active and strong"
+          content={
+            <>
+              We&apos;re designing accessible and engaging fitness sessions
+              tailored to middle and high school girls, with a focus on
+              movement, strength-building, and positive body image. These
+              sessions will be led by certified instructors and adapted to
+              different skill levels.
+            </>
+          }
+          imageUrl="/images/HomeIMG3.jpg"
+        />
+        <PictureTextSection
+          title="WORKSHOPS"
+          subtitle="Inspiring healthy choices"
+          content={
+            <>
+              Our upcoming workshops will cover key health topics - including
+              nutrition, mental wellness, and self-care - through interactive
+              sessions led by professionals in youth health and education. Each
+              module will be developed with input from community experts and
+              aligned with age-appropriate wellness standards.
+            </>
+          }
+          imageUrl="/images/HomeIMG4.jpg"
+          reverse={true}
+        />
+        <PictureTextSection
+          title="MENTORSHIPS"
+          subtitle="Guiding girls to thrive"
+          content={
+            <>
+              We&apos;re building a mentorship network that will pair girls with
+              vetted female mentors from diverse backgrounds in health,
+              education, and leadership. Mentors will offer consistent guidance
+              through structured meetups, check-ins, and shared goal-setting
+              around personal wellness and growth.
+            </>
+          }
+          imageUrl="/images/HomeIMG5.jpg"
+        />
+      </div>
+      <div className="flex justify-center items-center pb-[2.5rem]">
+        <HyperLink
+          href="/programs"
+          text="LEARN MORE ABOUT OUR PROGRAMS"
+          arrow={true}
+        />
+      </div>
+      <div className="relative w-full">
+        <div className="absolute top-[-1px] left-0 w-full z-10">
+          <TopCurveWhite className="w-full h-auto" />
+        </div>
+        <div
+          className="relative z-0 aspect-[2416/900] lg:aspect-[2416/500] w-full flex flex-col items-center"
+          style={{
+            backgroundImage: `linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/HomeIMG6.jpg)`,
+            backgroundSize: 'cover, cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center 35%, center 35%',
+          }}
+        />
+      </div>
+      <div
+        id="get-involved"
+        className="flex flex-col py-[4.375rem] px-[1.5625rem] justify-center items-center gap-[0.625rem] text-center lg:py-[2.5rem] lg:px-[6.75rem]"
+      >
+        <div className="flex flex-col justify-center items-center gap-[2rem] lg:max-w-[1224px]">
+          <h4 className="text-[#b1574a] !text-base !font-bold">GET INVOLVED</h4>
+          <div className="grid gap-[1.5rem] grid-cols-1 lg:grid-cols-3 justify-center">
+            <GrayBorderCard
+              icon={<Handshake />}
+              title={'Partner with us'}
+              text="Help bring fitness, wellness, and mentorship to more girls."
+              href={'/get-involved/partner'}
+            />
+            <GrayBorderCard
+              icon={<HandHeart />}
+              title={'Become a donor'}
+              text="Your support helps girls build confidence and lifelong
+                  well-being."
+              href={'/get-involved/donor'}
+            />
+            <GrayBorderCard
+              icon={<Users />}
+              title={'Volunteer your time'}
+              text="From mentoring to workshops, everyone can make a difference."
+              href={'/get-involved/volunteer'}
+            />
+          </div>
+        </div>
+      </div>
+      <ContactSection
+        header="CONTACT US"
+        text="Have questions or want to get involved? We're here to help!"
+        href="/contact-us"
+        buttonLabel="Send a message"
+      />
+    </main>
   );
 }

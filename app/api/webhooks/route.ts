@@ -1,0 +1,150 @@
+import type Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
+import { headers } from 'next/headers';
+import { NextResponse } from 'next/server';
+import {
+  updateSubscription,
+  updatePaymentStatus,
+  createSubscriptionPayment,
+} from '@/lib/functions/webhookFunctions';
+
+export async function POST(req: Request) {
+  const body = await req.text();
+  const signature = (await headers()).get('Stripe-Signature') as string;
+
+  let event: Stripe.Event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err) {
+    console.error('Webhook signature verification failed.', err);
+    return NextResponse.json(
+      { message: 'Webhook signature verification failed.' },
+      { status: 400 }
+    );
+  }
+
+  // Respond immediately to Stripe before processing event
+  const response = NextResponse.json({ received: true }, { status: 200 });
+
+  // Fire and forget processing
+  processEvent(event).catch(err => {
+    console.error('Error processing webhook event:', err);
+  });
+
+  return response;
+}
+
+async function processEvent(event: Stripe.Event) {
+  switch (event.type) {
+    // first time subscription webhooks
+    case 'customer.subscription.deleted':
+    case 'customer.subscription.updated': {
+      console.log('Subscription updated');
+      const subscription = event.data.object as Stripe.Subscription;
+      if (
+        typeof subscription.latest_invoice === 'object' &&
+        subscription.latest_invoice?.payment_intent &&
+        typeof subscription.latest_invoice.payment_intent === 'object'
+      ) {
+        const paymentIntent = subscription.latest_invoice
+          .payment_intent as Stripe.PaymentIntent;
+        console.log(paymentIntent.status);
+      }
+      await updateSubscription(subscription, stripe);
+      break;
+    }
+
+    // one time payment webhooks
+    case 'payment_intent.succeeded': {
+      console.log('Payment intent succeeded');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'succeeded');
+      break;
+    }
+    case 'payment_intent.processing': {
+      console.log('Payment intent processing');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'processing');
+      break;
+    }
+    case 'payment_intent.payment_failed': {
+      console.log('Payment intent failed');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'failed');
+      break;
+    }
+    case 'payment_intent.canceled': {
+      console.log('Payment intent canceled');
+      const intent = event.data.object as Stripe.PaymentIntent;
+      await updatePaymentStatus(intent.id, 'canceled');
+      break;
+    }
+
+    // recurring subscription webhooks
+    case 'invoice.created': {
+      const invoice = event.data.object as Stripe.Invoice;
+      const subscriptionId =
+        typeof invoice.subscription === 'string'
+          ? invoice.subscription
+          : invoice.subscription?.id;
+
+      if (!subscriptionId) {
+        throw new Error(`Invoice ${invoice.id} has no subscription ID.`);
+      }
+      const customer = await stripe.customers.retrieve(
+        invoice.customer as string
+      );
+
+      const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+      const { donation_amount, charged_amount } = subscription.metadata ?? {};
+
+      if (customer.deleted) {
+        throw new Error(`Customer ${invoice.customer} was deleted`);
+      }
+      console.log('Invoice created');
+      await createSubscriptionPayment(
+        // Pull data from customer metadata
+        customer.metadata.firstName || '',
+        customer.metadata.lastName || '',
+        customer.metadata.orgName || '',
+        customer.email || invoice.customer_email || '',
+        customer.metadata.phoneNumber || '',
+        customer.metadata.phoneType || '',
+        Number(charged_amount),
+        Number(donation_amount),
+        subscriptionId,
+        invoice.id,
+        invoice.status ?? 'pending',
+        customer.address?.line1,
+        customer.address?.line2,
+        customer.address?.country,
+        customer.address?.state,
+        customer.address?.city,
+        customer.address?.postal_code,
+        customer.metadata.anonymous === 'true'
+      );
+      break;
+    }
+    // case 'invoice.paid':
+    case 'invoice.payment_succeeded': {
+      console.log('Invoice paid');
+      const invoice = event.data.object as Stripe.Invoice;
+      await updatePaymentStatus(invoice.id, 'succeeded');
+      break;
+    }
+    case 'invoice.payment_failed': {
+      console.log('Invoice payment failed');
+      const invoice = event.data.object as Stripe.Invoice;
+      await updatePaymentStatus(invoice.id, 'failed');
+      break;
+    }
+    default:
+      console.log(`Unhandled event type: ${event.type}`);
+      break;
+  }
+}
