@@ -161,49 +161,51 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
           </button>
           {customAmt ? (
             <div
-              className="flex w-full h-[2.75rem] px-[1rem] py-[1rem] justify-between items-center rounded-[0.625rem] border border-[rgba(47,47,47,0.3)]"
+              className="flex flex-col w-full"
               style={{ gridArea: 'customInput' }}
             >
-              <span className="text-[#2f2f2f] text-[1rem] font-medium select-none mr-[0.625rem]">
-                $
-              </span>
+              <div className="flex w-full h-[2.75rem] px-[1rem] py-[1rem] justify-between items-center rounded-[0.625rem] border border-[rgba(47,47,47,0.3)]">
+                <span className="text-[#2f2f2f] text-[1rem] font-medium select-none mr-[0.625rem]">
+                  $
+                </span>
 
-              <input
-                type="text"
-                value={
-                  formData.donationAmount ? `${formData.donationAmount}` : ''
-                }
-                onChange={e => {
-                  handleCustomAmountChange(e);
-                  setError(false);
-                }}
-                onBlur={e => {
-                  if (!e.target.value || Number(e.target.value) < 1) {
-                    setError(true);
+                <input
+                  type="text"
+                  value={
+                    formData.donationAmount ? `${formData.donationAmount}` : ''
                   }
-                }}
-                placeholder="Enter amount"
-                className="flex-1 bg-transparent border-none outline-none text-[#2f2f2f] text-[1rem] font-medium min-w-0"
-              />
+                  onChange={e => {
+                    handleCustomAmountChange(e);
+                    setError(false);
+                  }}
+                  onBlur={e => {
+                    if (!e.target.value || Number(e.target.value) < 1) {
+                      setError(true);
+                    }
+                  }}
+                  placeholder="Enter amount"
+                  className="flex-1 bg-transparent border-none outline-none text-[#2f2f2f] text-[1rem] font-medium min-w-0"
+                />
 
-              <div className="flex items-center justify-center gap-[0.625rem] shrink-0">
-                <span className="text-[rgba(47,47,47,0.3)] text-[1rem] font-light select-none">
-                  |
-                </span>
-                <span className="text-[#2f2f2f] text-[1rem] font-medium select-none">
-                  USD
-                </span>
+                <div className="flex items-center justify-center gap-[0.625rem] shrink-0">
+                  <span className="text-[rgba(47,47,47,0.3)] text-[1rem] font-light select-none">
+                    |
+                  </span>
+                  <span className="text-[#2f2f2f] text-[1rem] font-medium select-none">
+                    USD
+                  </span>
+                </div>
+              </div>
+              <div
+                className={`${errorTextContainer} w-full text-left ${
+                  error ? errorTextTransition : ''
+                }`}
+              >
+                <p className={errorText}>Minimum donation amount is $1.00</p>
               </div>
             </div>
           ) : null}
         </div>
-      </div>
-      <div
-        className={`${errorTextContainer} w-full text-center ${
-          error ? errorTextTransition : ''
-        }`}
-      >
-        <p className={errorText}>Minimum donation amount is $1.00</p>
       </div>
     </div>
   );

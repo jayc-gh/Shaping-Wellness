@@ -24,7 +24,12 @@ export default function TermsContainer({
   popup,
 }: StepProps) {
   const handleCheckboxChange = () => {
-    calcTransactionFee(formData, setFormData);
+    calcTransactionFee(
+      setFormData,
+      formData.donationAmount,
+      !formData.feeCovered,
+      formData.paymentMethod
+    );
   };
 
   return (

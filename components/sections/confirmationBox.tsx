@@ -42,7 +42,7 @@ export default function ConfirmationBox({
             href="/get-involved/donor"
             text="SEE HOW YOUR DONATION WILL BE USED"
             arrow={true}
-            medium={true}
+            size="medium"
           />
         </>
       )}

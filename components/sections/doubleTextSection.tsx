@@ -11,6 +11,7 @@ type DoubleTextSectionProps = {
   subTitle: string;
   description: React.ReactNode;
   link?: Link;
+  pdf?: boolean;
 };
 
 export default function DoubleTextSection({
@@ -18,6 +19,7 @@ export default function DoubleTextSection({
   subTitle,
   description,
   link,
+  pdf,
 }: DoubleTextSectionProps) {
   return (
     <div className="flex flex-col justify-center items-center px-[1.5625rem] py-[2.5rem] gap-[0.625rem] w-full lg:px-[6.75rem] lg:gap-[2rem]">
@@ -36,7 +38,12 @@ export default function DoubleTextSection({
           </div>
           {link && (
             <div className="flex w-full items-center justify-center lg:justify-start">
-              <HyperLink href={link.href} text={link.label} small={true} />
+              <HyperLink
+                href={link.href}
+                text={link.label}
+                size="small"
+                pdf={pdf}
+              />
             </div>
           )}
         </div>
