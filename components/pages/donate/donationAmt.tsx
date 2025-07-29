@@ -20,6 +20,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
       ...prev,
       monthly: type === 'monthly',
       feeCovered: false,
+      totalCharged: formData.donationAmount,
     }));
   };
 
@@ -29,6 +30,7 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
       donationAmount: value,
       feeCovered: false,
       totalCharged: value,
+      feeAmount: '0',
     }));
   };
 

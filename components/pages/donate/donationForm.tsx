@@ -210,7 +210,11 @@ export default function DonateForm() {
 
             {/* Confirm screen visible only at step 4 */}
             {step === 4 && !errorMessage && (
-              <ConfirmDetails formData={formData} setStep={setStep} />
+              <ConfirmDetails
+                formData={formData}
+                setFormData={setFormData}
+                setStep={setStep}
+              />
             )}
             {errorMessage && (
               <div className={`${errorText} text-center w-full`}>

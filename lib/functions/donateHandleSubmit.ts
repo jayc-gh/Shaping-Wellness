@@ -172,7 +172,7 @@ export async function handleSubmitStepFour({
     paymentIntentId: oneTimeIntent?.paymentIntentId,
     paymentStatus: oneTimeIntent?.status,
     receiptSent: false,
-    subscriptionId: formData.monthly ? subscriptionIntent?.subscriptionId : '',
+    subscriberId: formData.monthly ? subscriptionIntent?.subscriberId : '',
     invoiceId: formData.monthly ? subscriptionIntent?.invoiceId : '',
     address1: formData.address.address1,
     address2: formData.address.address2,

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer, donationsTable } from '@/lib/supabaseServer';
 import { DatabaseDonationData } from '@/declarations';
+import { stripe } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
       clientSecret,
       paymentIntentId,
       paymentStatus,
-      subscriptionId,
+      subscriberId,
       address1,
       address2,
       country,
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
       clientSecret,
       paymentIntentId,
       paymentStatus,
-      subscriptionId,
+      subscriberId,
       address1,
       address2,
       country,
@@ -50,6 +51,11 @@ export async function POST(request: NextRequest) {
     };
 
     const donorId = await storeData(formData);
+    await stripe.paymentIntents.update(paymentIntentId, {
+      metadata: {
+        donor_id: donorId,
+      },
+    });
 
     return NextResponse.json({
       donorId,
@@ -90,7 +96,7 @@ const storeData = async (formData: DatabaseDonationData) => {
       charged_amount: formData.charged_amount,
       donation_amount: formData.donation_amount,
       payment_status: formData.paymentStatus,
-      subscription_id: formData.subscriptionId,
+      subscriber_id: formData.subscriberId,
       organization_name: formData.orgName,
       phone_number: formData.phoneNum,
       phone_type: formData.phoneType,
