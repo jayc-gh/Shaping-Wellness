@@ -1,6 +1,6 @@
 import { stripe } from '@/lib/stripe';
 import type Stripe from 'stripe';
-import SendEmail from './brevo';
+import SendEmail from './brevo/brevoDonate';
 
 export type SendEmailProps = {
   idType: string;

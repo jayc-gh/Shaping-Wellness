@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { SendEmailProps } from './emailFunctions';
+import { SendEmailProps } from '../emailFunctions';
 
 export default async function SendEmail(
   props: SendEmailProps,

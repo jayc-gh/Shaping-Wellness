@@ -25,6 +25,8 @@
 *.pem
 .git-*
 *:Zone.Identifier
+schemas.sql
+schemas-test.sql
 
 # debug
 npm-debug.log*
