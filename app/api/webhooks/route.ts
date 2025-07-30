@@ -21,12 +21,12 @@ export async function POST(req: Request) {
 
   let event: Stripe.Event;
 
+  const webhookSecret = process.env.VERCEL_ENV
+    ? process.env.STRIPE_WEBHOOK_SECRET
+    : process.env.STRIPE_WEBHOOK_SECRET_LOCAL;
+
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
+    event = stripe.webhooks.constructEvent(body, signature, webhookSecret!);
   } catch (err) {
     console.error('Webhook signature verification failed.', err);
     return NextResponse.json(
