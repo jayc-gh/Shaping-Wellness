@@ -12,6 +12,9 @@ export const createPaymentIntent = async (formData: DonateFormData) => {
     const convertedChargedAmount = convertToSubcurrency(
       Number(formData.totalCharged)
     );
+    const convertedDonationAmount = convertToSubcurrency(
+      Number(formData.donationAmount)
+    );
     const response = await fetch('/api/create-payment-intent', {
       method: 'POST',
       headers: {
@@ -19,12 +22,19 @@ export const createPaymentIntent = async (formData: DonateFormData) => {
       },
       body: JSON.stringify({
         charged_amount: convertedChargedAmount,
+        donation_amount: convertedDonationAmount,
         email: formData.email.toLowerCase(),
         firstName: formData.firstName,
         lastName: formData.lastName,
         orgName: formData.orgName,
         phoneNumber: formData.phone.number,
         phoneType: formData.phone.type,
+        address1: formData.address.address1,
+        address2: formData.address.address2,
+        city: formData.address.city,
+        state: formData.address.state,
+        postalCode: formData.address.postalCode,
+        country: formData.address.country,
       }),
     });
 
@@ -105,6 +115,7 @@ export const createSubscription = async (
       clientSecret: data.clientSecret,
       customerId: data.customerId,
       subscriptionId: data.subscriptionId,
+      subscriberId: data.subscriberId,
       status: data.status,
       invoiceId: data.invoiceId,
     };
@@ -129,7 +140,7 @@ export const storeDonationData = async ({
   clientSecret,
   paymentIntentId,
   paymentStatus,
-  subscriptionId,
+  subscriberId,
   address1,
   address2,
   country,
@@ -155,7 +166,7 @@ export const storeDonationData = async ({
         clientSecret,
         paymentIntentId,
         paymentStatus,
-        subscriptionId,
+        subscriberId,
         address1,
         address2,
         country,

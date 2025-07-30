@@ -7,12 +7,19 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
       charged_amount,
+      donation_amount,
       email,
       firstName,
       lastName,
       orgName,
       phoneNumber,
       phoneType,
+      address1,
+      address2,
+      city,
+      state,
+      postalCode,
+      country,
     } = body;
     amount = charged_amount;
     if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
@@ -20,9 +27,17 @@ export async function POST(request: NextRequest) {
     }
 
     const customer = await stripe.customers.create({
-      email,
+      email: email.toLowerCase(),
       name: orgName ? orgName : `${firstName} ${lastName}`,
       phone: phoneNumber,
+      address: {
+        line1: address1,
+        line2: address2,
+        country: country,
+        state: state,
+        city: city,
+        postal_code: postalCode,
+      },
       metadata: {
         firstName,
         lastName,
@@ -39,6 +54,10 @@ export async function POST(request: NextRequest) {
       receipt_email: email,
       customer: customer.id,
       description: `One-time donation`,
+      metadata: {
+        charged_amount: amount,
+        donation_amount,
+      },
     });
 
     const clientSecret = paymentIntent.client_secret;

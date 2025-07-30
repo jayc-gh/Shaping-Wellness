@@ -1,12 +1,18 @@
 import React from 'react';
 import { DonateFormData } from '@/declarations';
+import { calcTransactionFee } from '@/lib/functions/currencyFunctions';
 
 interface StepProps {
   formData: DonateFormData;
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function ConfirmDetails({ formData, setStep }: StepProps) {
+export default function ConfirmDetails({
+  formData,
+  setFormData,
+  setStep,
+}: StepProps) {
   return (
     <div className="flex flex-col gap-[1.5rem] w-full">
       <div className="flex items-center justify-center">
@@ -18,7 +24,17 @@ export default function ConfirmDetails({ formData, setStep }: StepProps) {
             <h4 className="text-base font-bold">Donation details</h4>
             <button
               className="italic underline cursor-pointer text-[0.75rem] font-[400]"
-              onClick={() => setStep(1)}
+              onClick={() => {
+                setStep(1);
+                if (formData.feeCovered) {
+                  calcTransactionFee(
+                    setFormData,
+                    formData.donationAmount,
+                    false,
+                    formData.paymentMethod
+                  );
+                }
+              }}
             >
               edit
             </button>
@@ -51,7 +67,17 @@ export default function ConfirmDetails({ formData, setStep }: StepProps) {
             <h4 className="text-base font-bold">Donor details</h4>
             <button
               className="italic underline cursor-pointer text-[0.75rem] font-[400]"
-              onClick={() => setStep(2)}
+              onClick={() => {
+                setStep(2);
+                if (formData.feeCovered) {
+                  calcTransactionFee(
+                    setFormData,
+                    formData.donationAmount,
+                    false,
+                    formData.paymentMethod
+                  );
+                }
+              }}
             >
               edit
             </button>
@@ -123,7 +149,17 @@ export default function ConfirmDetails({ formData, setStep }: StepProps) {
             <h4 className="text-base font-bold">Payment details</h4>
             <button
               className="italic underline cursor-pointer text-[0.75rem] font-[400]"
-              onClick={() => setStep(3)}
+              onClick={() => {
+                setStep(3);
+                if (formData.feeCovered) {
+                  calcTransactionFee(
+                    setFormData,
+                    formData.donationAmount,
+                    false,
+                    formData.paymentMethod
+                  );
+                }
+              }}
             >
               edit
             </button>

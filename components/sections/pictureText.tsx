@@ -15,6 +15,7 @@ type PictureTextSectionProps = {
   reverse?: boolean;
   link?: Link;
   setPopup?: React.Dispatch<React.SetStateAction<boolean>>;
+  pdf?: boolean;
 };
 
 export default function PictureTextSection({
@@ -25,6 +26,7 @@ export default function PictureTextSection({
   reverse,
   link,
   setPopup,
+  pdf,
 }: PictureTextSectionProps) {
   return (
     <div
@@ -52,7 +54,14 @@ export default function PictureTextSection({
         <div className="text-[#3c3c3c] text-base font-[500] leading-[160%] lg:text-[1.125rem]">
           {content}
         </div>
-        {link && <HyperLink href={link.href} text={link.label} small={true} />}
+        {link && (
+          <HyperLink
+            href={link.href}
+            text={link.label}
+            size="small"
+            pdf={pdf}
+          />
+        )}
         {setPopup && (
           <button
             className={`text-[0.875rem] text-[#b1574a] font-[600] pt-[1rem] pb-[2px] border-b-2 border-transparent active:border-[#b1574a] hover:border-[#b1574a] transition duration-150 hover:scale-96 active:scale-96 cursor-pointer`}

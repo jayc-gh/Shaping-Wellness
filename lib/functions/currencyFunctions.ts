@@ -5,10 +5,11 @@ export function convertToSubcurrency(amount: number, factor = 100) {
 }
 
 export function calcTransactionFee(
-  formData: DonateFormData,
-  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>
+  setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>,
+  donationAmount: string,
+  feeCovered: boolean,
+  paymentMethod: string
 ) {
-  const { donationAmount, paymentMethod, feeCovered } = formData;
   const cardFee = (amount: number) => (0.029 * amount + 0.3).toFixed(2);
   const bankFee = (amount: number) => Math.min(amount * 0.008, 5).toFixed(2);
 
@@ -16,20 +17,25 @@ export function calcTransactionFee(
 
   const baseAmount = Number(donationAmount);
   let feeAmount = 0;
-
-  if (paymentMethod === 'card' || paymentMethod === 'cashapp') {
-    feeAmount = Number(cardFee(baseAmount));
-  } else if (paymentMethod === 'us_bank_account') {
-    feeAmount = Number(bankFee(baseAmount));
+  if (feeCovered) {
+    if (
+      paymentMethod === 'card' ||
+      paymentMethod === 'apple_pay' ||
+      paymentMethod === 'google_pay'
+    ) {
+      feeAmount = Number(cardFee(baseAmount));
+    } else if (paymentMethod === 'us_bank_account') {
+      feeAmount = Number(bankFee(baseAmount));
+    }
   }
 
-  const newFeeCovered = !feeCovered;
-  const newAmount = newFeeCovered ? baseAmount + feeAmount : baseAmount;
+  const newAmount = feeCovered ? baseAmount + feeAmount : baseAmount;
 
   setFormData(prev => ({
     ...prev,
-    feeCovered: newFeeCovered,
+    feeCovered,
     feeAmount: feeAmount.toFixed(2),
-    totalCharged: String(newAmount),
+    totalCharged: String(newAmount.toFixed(2)),
+    paymentMethod,
   }));
 }

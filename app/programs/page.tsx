@@ -105,6 +105,7 @@ export default function Programs() {
             href: '/pdfs/SWF2025PilotProgramsOverview.pdf',
             label: 'VIEW OUR 2025 PROGRAMS OVERVIEW (PDF)',
           }}
+          pdf={true}
         />
       </div>
       <div className="relative bottom-[0.0625rem]">
@@ -134,6 +135,7 @@ export default function Programs() {
             href: '/pdfs/2025FitnessProgramPlan.pdf',
             label: 'VIEW OUR 2025 FITNESS PROGRAM PLAN (PDF)',
           }}
+          pdf={true}
         />
         <PictureTextSection
           title="HEALTH EDUCATION WORKSHOPS"
@@ -170,6 +172,7 @@ export default function Programs() {
             href: '/pdfs/2025WorkshopsPlan.pdf',
             label: 'VIEW OUR 2025 WORKSHOP PROGRAM PLAN (PDF)',
           }}
+          pdf={true}
         />
         <PictureTextSection
           title="MENTORSHIP PROGRAM"
@@ -193,6 +196,7 @@ export default function Programs() {
             href: '/pdfs/2025MentorshipPlan.pdf',
             label: 'VIEW OUR 2025 MENTOR PROGRAM PLAN (PDF)',
           }}
+          pdf={true}
         />
       </div>
       <DividerSection />

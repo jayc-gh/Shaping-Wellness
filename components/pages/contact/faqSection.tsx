@@ -1,3 +1,4 @@
+import { orgEmail } from '@/lib/constants';
 import FAQItem from './faqItem';
 import Link from 'next/link';
 
@@ -116,8 +117,8 @@ export default function FAQSection() {
               <>
                 We&apos;re so grateful for your support. If you&apos;d like to
                 update your payment method, change your donation amount, or
-                cancel your monthly gift, please contact us at EMAIL or fill out
-                the form above - we&apos;ll be happy to assist.
+                cancel your monthly gift, please contact us at {orgEmail} or
+                fill out the form above - we&apos;ll be happy to assist.
               </>
             }
           />

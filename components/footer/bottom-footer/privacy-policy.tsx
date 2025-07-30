@@ -3,8 +3,9 @@
 import Close from '../../../app/icons/close-color.svg';
 import Email from '../../../app/icons/privacy-policy/email-nofill-black.svg';
 import Phone from '../../../app/icons/privacy-policy/phone-nofill-black.svg';
-import Mailbox from '../../../app/icons/privacy-policy/mailbox-nofill-black.svg';
+// import Mailbox from '../../../app/icons/privacy-policy/mailbox-nofill-black.svg';
 import React from 'react';
+import { orgEmail, orgPhone } from '@/lib/constants';
 
 interface StepProps {
   setPopup: React.Dispatch<React.SetStateAction<boolean>>;
@@ -62,22 +63,18 @@ export default function PrivacyPolicy({ setPopup }: StepProps) {
         <div className="flex flex-col items-start gap-[0.5rem] text-[#2f2f2f]">
           <div className="flex items-center gap-[0.625rem]">
             <Email />
-            <p className="text-base leading-[140%] #2f2f2f">
-              Email: email@domain.com
-            </p>
+            <p className="text-base leading-[140%] #2f2f2f">{orgEmail}</p>
           </div>
           <div className="flex items-center gap-[0.625rem]">
             <Phone />
-            <p className="text-base leading-[140%] #2f2f2f">
-              Phone: 000-000-0000
-            </p>
+            <p className="text-base leading-[140%] #2f2f2f">{orgPhone}</p>
           </div>
-          <div className="flex items-center gap-[0.625rem]">
+          {/* <div className="flex items-center gap-[0.625rem]">
             <Mailbox />
             <p className="text-base leading-[140%] #2f2f2f">
               P.O. Box: 123 Main St
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

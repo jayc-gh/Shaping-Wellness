@@ -148,7 +148,7 @@ export default function DonateForm() {
           <div className="flex h-[1.375rem] justify-center items-center gap-[0.625rem] self-stretch">
             <h4 className="text-base font-bold">You are donating:</h4>
             <p className="text-[1.125rem] font-bold text-[#b1574a]">
-              ${formData.totalCharged}
+              ${Number(formData.totalCharged).toFixed(2)}
               {formData.monthly ? '/month' : ''}
             </p>
             {step > 1 ? (
@@ -157,7 +157,12 @@ export default function DonateForm() {
                 onClick={() => {
                   setStep(1);
                   if (formData.feeCovered) {
-                    calcTransactionFee(formData, setFormData);
+                    calcTransactionFee(
+                      setFormData,
+                      formData.donationAmount,
+                      false,
+                      formData.paymentMethod
+                    );
                   }
                 }}
                 type="button"
@@ -205,7 +210,11 @@ export default function DonateForm() {
 
             {/* Confirm screen visible only at step 4 */}
             {step === 4 && !errorMessage && (
-              <ConfirmDetails formData={formData} setStep={setStep} />
+              <ConfirmDetails
+                formData={formData}
+                setFormData={setFormData}
+                setStep={setStep}
+              />
             )}
             {errorMessage && (
               <div className={`${errorText} text-center w-full`}>

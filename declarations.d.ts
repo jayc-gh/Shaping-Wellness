@@ -117,7 +117,7 @@ export type DatabaseDonationData = {
   clientSecret: string | null;
   paymentIntentId: string;
   paymentStatus: string;
-  subscriptionId: string;
+  subscriberId: string;
   address1: string;
   address2?: string | undefined;
   country: string;

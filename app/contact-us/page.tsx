@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import TopCurveColor from '../../app/icons/top-curve-color.svg';
 import BotCurveColor from '../../app/icons/bottom-curve-color.svg';
 import Email from '../../app/icons/contact/mail.svg';
@@ -13,6 +12,7 @@ import ContactForm from '@/components/pages/contact/contactForm';
 import FAQSection from '@/components/pages/contact/faqSection';
 import MainSection from '@/components/sections/headerSection';
 import GradientBox from '@/components/sections/gradientBox';
+import { fbLink, igLink, linkedinLink, orgPhone } from '@/lib/constants';
 
 export default function Contact() {
   return (
@@ -40,7 +40,7 @@ export default function Contact() {
           <GradientBox
             Icon={Phone}
             title="Phone"
-            content={<>555-555-5555</>}
+            content={<>{orgPhone}</>}
             classString="relative w-full"
           />
           <GradientBox
@@ -48,15 +48,30 @@ export default function Contact() {
             title="Socials"
             content={
               <div className="flex items-center justify-center">
-                <Link href="" className="cursor-pointer z-10">
+                <a
+                  href={fbLink}
+                  className="cursor-pointer z-10"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Facebook />
-                </Link>
-                <Link href="" className="cursor-pointer mr-3 ml-2 z-10">
+                </a>
+                <a
+                  href={igLink}
+                  className="cursor-pointer mr-3 ml-2 z-10"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <XLogo />
-                </Link>
-                <Link href="" className="cursor-pointer z-10">
+                </a>
+                <a
+                  href={linkedinLink}
+                  className="cursor-pointer z-10"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Linkedin />
-                </Link>
+                </a>
               </div>
             }
             classString="relative w-full"

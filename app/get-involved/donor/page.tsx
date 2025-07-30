@@ -6,13 +6,13 @@ import Mailbox from '../../../app/icons/donate/mailbox.svg';
 import Phone from '../../../app/icons/donate/phone.svg';
 import Building from '../../../app/icons/donate/building.svg';
 import Calendar from '../../../app/icons/donate/calendar-heart.svg';
-import Graphic from '../../../app/icons/donate/graphic.svg';
 import MainSection from '@/components/sections/headerSection';
 import DoubleTextSection from '@/components/sections/doubleTextSection';
 import HoverCard from '@/components/sections/hoverCard';
 import PSection from '@/components/sections/pSection';
 import CardNoBorder from '@/components/sections/cardNoBorder';
 import ContactSection from '@/components/sections/contactSection';
+import ZoomableImage from '@/components/ZoomableImg';
 
 export default function Donor() {
   return (
@@ -78,9 +78,7 @@ export default function Donor() {
         <BotCurveColor />
       </div>
       <div className="flex justify-center w-full px-[1.5625rem] lg:px-[6.75rem] py-[2.5rem]">
-        <div className="flex justify-center items-center lg:max-w-[1224px] w-full">
-          <Graphic />
-        </div>
+        <ZoomableImage path="/images/graphic.jpg" />
       </div>
 
       <div className="relative top-[0.0625rem]">
@@ -102,6 +100,7 @@ export default function Donor() {
             href: '/pdfs/2025FinancialsPlan.pdf',
             label: 'VIEW OUR 2025 FINANCIAL PLAN (PDF)',
           }}
+          pdf={true}
         />
       </div>
       <div className="relative bottom-[0.0625rem]">

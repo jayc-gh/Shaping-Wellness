@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   PaymentElement,
   PaymentElementProps,
   useElements,
 } from '@stripe/react-stripe-js';
 import { DonateFormData } from '@/declarations';
-import { convertToSubcurrency } from '@/lib/functions/currencyFunctions';
+import {
+  calcTransactionFee,
+  convertToSubcurrency,
+} from '@/lib/functions/currencyFunctions';
 
 interface StepProps {
   formData: DonateFormData;
@@ -22,6 +25,7 @@ type PaymentElementChangeEvent = {
 
 export default function PaymentInfo({ formData, setFormData }: StepProps) {
   const elements = useElements();
+  const previousPaymentMethodRef = useRef<string | undefined>(undefined);
 
   const paymentElementOptions: PaymentElementProps['options'] = {
     fields: {
@@ -51,13 +55,20 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
 
     const handleChange = (event: PaymentElementChangeEvent) => {
       const selectedType = event.value?.type;
-      if (selectedType) {
-        setFormData(prev => ({
-          ...prev,
-          paymentMethod: selectedType,
-          paymentReady: event.complete,
-        }));
+      if (selectedType && previousPaymentMethodRef.current !== selectedType) {
+        previousPaymentMethodRef.current = selectedType;
+        calcTransactionFee(
+          setFormData,
+          formData.donationAmount,
+          formData.feeCovered,
+          selectedType
+        );
       }
+
+      setFormData(prev => ({
+        ...prev,
+        paymentReady: event.complete,
+      }));
     };
 
     paymentElement.on('change', handleChange);

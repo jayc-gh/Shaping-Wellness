@@ -25,7 +25,14 @@ export default function PSection({ header, text, link }: PSectionTypes) {
             </p>
           )}
         </div>
-        {link && <HyperLink href={link.href} text={link.label} arrow={true} />}
+        {link && (
+          <HyperLink
+            href={link.href}
+            text={link.label}
+            arrow={true}
+            size="large"
+          />
+        )}
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ export const required = 'text-base leading-[1.25rem] text-[#d9764e]';
 export const errorTextContainer =
   'max-h-0 opacity-0 transition-[max-height,opacity] duration-[0.3s] ease-[ease] overflow-hidden self-start';
 
-export const errorTextTransition = 'max-h-[1.875rem] opacity-100';
+export const errorTextTransition = 'max-h-[2rem] opacity-100';
 
 export const checkboxContainer =
   'flex h-[1.75rem] items-center gap-[0.5rem] rounded-[4px] cursor-pointer pr-0';

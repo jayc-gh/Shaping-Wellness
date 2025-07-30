@@ -5,13 +5,23 @@ import {
 } from '@/lib/supabaseServer';
 import type Stripe from 'stripe';
 
-export async function updatePaymentStatus(invoiceId: string, status: string) {
+export async function updatePaymentStatus(
+  invoiceId: string,
+  status: string,
+  receiptSent: boolean = false,
+  failedReason?: string
+) {
   const column = invoiceId.startsWith('pi_')
     ? 'payment_intent_id'
     : 'invoice_id';
   const { error } = await supabaseServer
     .from(donationsTable)
-    .update({ payment_status: status, updated_at: new Date() })
+    .update({
+      payment_status: status,
+      updated_at: new Date(),
+      failed_reason: failedReason,
+      receipt_sent: receiptSent,
+    })
     .eq(column, invoiceId);
 
   if (error) {
@@ -83,7 +93,7 @@ export async function createSubscriptionPayment(
   phoneType: string,
   charged_amount: number,
   donation_amount: number,
-  subscriptionId: string,
+  subscriberId: string,
   invoiceId: string,
   paymentStatus: string,
   address1: string | undefined | null,
@@ -103,7 +113,7 @@ export async function createSubscriptionPayment(
       charged_amount: charged_amount,
       donation_amount: donation_amount,
       payment_status: paymentStatus,
-      subscription_id: subscriptionId,
+      subscriber_id: subscriberId,
       organization_name: orgName,
       phone_number: phoneNum,
       phone_type: phoneType,

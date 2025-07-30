@@ -70,48 +70,63 @@ export function useOneTimePayment(
     }
 
     const fetchData = async () => {
-      const donation = await fetchPayment(fetchUrl);
-      // if payment intent is missing or not found redirect to donate page
-      if (donation.error) {
-        router.push('/donate');
-        return;
-      }
-      switch (donation.status) {
-        case 'requires_payment_method': {
-          // If the payment intent requires a payment method, it means the payment failed or was canceled
-          if (donation.last_payment_error) {
+      try {
+        const donation = await fetchPayment(fetchUrl);
+        // if payment intent is missing or not found redirect to donate page
+        if (donation.error) {
+          router.push('/donate');
+          throw new Error(donation.error);
+        }
+        switch (donation.status) {
+          case 'requires_payment_method': {
+            // If the payment intent requires a payment method, it means the payment failed or was canceled
+            if (donation.last_payment_error) {
+              setValid(false);
+              setErrorMessage(
+                'Your payment was unsuccessful. Please try again with a different payment method.'
+              );
+            }
+            break;
+          }
+          case 'succeeded':
+            setValid(true);
+            setMessage(
+              `We've received your gift of $${(donation.amount / 100).toFixed(
+                2
+              )}. Thank you for your generosity! You'll receive an email receipt shortly.`
+            );
+            break;
+          case 'processing':
+            setValid(true);
+            setMessage(
+              `Your $${(donation.amount / 100).toFixed(
+                2
+              )} donation is being processed. If you donated via bank transfer, please allow 3-5 business days for completion. A receipt will be emailed to you once the payment is confirmed. `
+            );
+            break;
+          case 'canceled':
+            setValid(false);
+            setErrorMessage('Your payment was canceled or timed out.');
+            break;
+          default:
             setValid(false);
             setErrorMessage(
-              'Your payment was unsuccessful. Please try again with a different payment method.'
+              "An unknown error occured while fetching your donation status. You should still receive a confirmation email (few minutes for card payments or 3-5 business days for bank payments). If you don't, please contact us. We apologize for the inconvenience."
             );
-          }
-          break;
         }
-        case 'succeeded':
-          setValid(true);
-          setMessage(
-            `We've received your gift of $${(donation.amount / 100).toFixed(
-              2
-            )}. Thank you for your generosity! You'll receive an email receipt shortly.`
-          );
-          break;
-        case 'processing':
-          setValid(true);
-          setMessage(
-            `Your $${(donation.amount / 100).toFixed(
-              2
-            )} donation is being processed. If you donated via bank transfer, please allow 3-5 business days for completion. A receipt will be emailed to you once the payment is confirmed. `
-          );
-          break;
-        case 'canceled':
-          setValid(false);
-          setErrorMessage('Your payment was canceled or timed out.');
-          break;
-        default:
-          setValid(false);
+      } catch (error) {
+        setValid(false);
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        } else if (typeof error === 'string') {
+          setErrorMessage(error);
+        } else {
           setErrorMessage(
-            "An unknown error occured while fetching your donation status. You should still receive a confirmation email (few minutes for card payments or 3-5 business days for bank payments). If you don't, please contact us. We apologize for the inconvenience."
+            'Something went wrong while checking your donation status.'
           );
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -152,55 +167,69 @@ export function useSubscription(
     }
 
     const fetchData = async () => {
-      const subscription = await fetchSubscription(fetchUrl);
-      // if payment intent is missing or not found redirect to donate page
-      if (subscription.error) {
-        router.push('/donate');
-        return;
-      }
-      const status = subscription.status;
+      try {
+        const subscription = await fetchSubscription(fetchUrl);
+        // if payment intent is missing or not found redirect to donate page
+        if (subscription.error) {
+          router.push('/donate');
+          throw new Error(subscription.error);
+        }
+        const status = subscription.status;
 
-      switch (status) {
-        case 'requires_payment_method': {
-          // If the payment intent requires a payment method, it means the payment failed or was canceled
-          if (subscription.last_payment_error) {
+        switch (status) {
+          case 'requires_payment_method': {
+            // If the payment intent requires a payment method, it means the payment failed or was canceled
+            if (subscription.last_payment_error) {
+              setValid(false);
+              setErrorMessage(
+                'Your payment was unsuccessful. Please try again with a different payment method.'
+              );
+            }
+            break;
+          }
+          case 'succeeded':
+            setValid(true);
+            setMessage(
+              `Your monthly donation of $${(subscription.amount / 100).toFixed(
+                2
+              )} is now active. Thank you for your generosity! You should receive an email receipt shortly.`
+            );
+            break;
+          case 'processing':
+            setValid(true);
+            setMessage(
+              `Your monthly donation of $${(subscription.amount / 100).toFixed(
+                2
+              )} is being processed. If you donated via bank transfer, please allow 3-5 business days for completion. A receipt will be emailed to you once the payment is confirmed. `
+            );
+            break;
+          case 'canceled':
+            setValid(false);
+            setErrorMessage('Your payment was canceled.');
+            break;
+          default:
             setValid(false);
             setErrorMessage(
-              'Your payment was unsuccessful. Please try again with a different payment method.'
+              "An unknown error occured while fetching your subscription status. You should still receive a confirmation email (few minutes for card payments or 3-5 business days for bank payments). If you don't, please contact us. We apologize for the inconvenience."
             );
-          }
-          break;
         }
-        case 'succeeded':
-          setValid(true);
-          setMessage(
-            `Your monthly donation of $${(subscription.amount / 100).toFixed(
-              2
-            )} is now active. Thank you for your generosity! You should receive an email receipt shortly.`
-          );
-          break;
-        case 'processing':
-          setValid(true);
-          setMessage(
-            `Your monthly donation of $${(subscription.amount / 100).toFixed(
-              2
-            )} is being processed. If you donated via bank transfer, please allow 3-5 business days for completion. A receipt will be emailed to you once the payment is confirmed. `
-          );
-          break;
-        case 'canceled':
-          setValid(false);
-          setErrorMessage('Your payment was canceled.');
-          break;
-        default:
-          setValid(false);
+      } catch (error) {
+        setValid(false);
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        } else if (typeof error === 'string') {
+          setErrorMessage(error);
+        } else {
           setErrorMessage(
-            "An unknown error occured while fetching your subscription status. You should still receive a confirmation email (few minutes for card payments or 3-5 business days for bank payments). If you don't, please contact us. We apologize for the inconvenience."
+            'Something went wrong while checking your subscription.'
           );
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
-    setLoading(false);
   }, [
     router,
     searchParams,

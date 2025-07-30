@@ -1,8 +1,8 @@
 'use client';
 
+import { founderEmail } from '@/lib/constants';
 import Close from '../../../app/icons/close-color.svg';
 import Email from '../../../app/icons/meet-our-founder/email-nofill-black.svg';
-import Phone from '../../../app/icons/meet-our-founder/phone-nofill-black.svg';
 import Image from 'next/image';
 import React from 'react';
 
@@ -35,12 +35,9 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
           <div className="flex flex-col items-start gap-[0.5rem]">
             <div className="flex items-center gap-[0.625rem] text-base font-[500] leading-[170%]">
               <Email />
-              <p>email@domain.com</p>
+              <p>{founderEmail}</p>
             </div>
-            <div className="flex items-center gap-[0.625rem] text-base font-[500] leading-[170%]">
-              <Phone />
-              <p>000-000-0000</p>
-            </div>
+            <div className="flex items-center gap-[0.625rem] text-base font-[500] leading-[170%]"></div>
           </div>
         </div>
         <div className="flex flex-col items-start gap-[0.75rem] text-base leading-[160%]">

@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
         orgName,
         phoneNumber,
         phoneType,
-        anonymous: String(anonymous).toLocaleLowerCase(),
+        anonymous: String(anonymous).toLowerCase(),
       },
     });
     const priceId = await getOrCreateRecurringPrice(
@@ -132,12 +132,20 @@ export async function POST(req: NextRequest) {
         postalCode,
         anonymous,
       };
-      await storeData(formData);
+      const subscriberId = await storeData(formData);
+      await stripe.subscriptions.update(subscription.id, {
+        metadata: {
+          charged_amount: charged_amount,
+          donation_amount: donation_amount,
+          subscriber_id: subscriberId,
+        },
+      });
       return NextResponse.json({
         clientSecret,
         paymentIntent,
         customerId: customer.id,
         subscriptionId: subscription.id,
+        subscriberId: subscriberId,
         status: subscription.status,
       });
     }
@@ -209,7 +217,7 @@ const storeData = async (formData: SubscriptionData) => {
       postal_code: postalCode,
       anonymous: anonymous,
     })
-    .select('subscription_id')
+    .select('id')
     .single();
 
   if (error) {
@@ -219,6 +227,6 @@ const storeData = async (formData: SubscriptionData) => {
     }
     throw new Error(error.message);
   } else {
-    return data.subscription_id;
+    return data.id;
   }
 };

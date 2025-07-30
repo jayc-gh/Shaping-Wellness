@@ -7,6 +7,14 @@ import Linkedin from '../../../app/icons/footer/LinkedIn-filled-white.svg';
 import MobileFooterLogo from '../../../app/icons/footer/mobile-footer-logo.svg';
 import Link from 'next/link';
 import FooterDropdown from './footerDropdown';
+import {
+  EIN,
+  fbLink,
+  igLink,
+  linkedinLink,
+  orgEmail,
+  orgPhone,
+} from '@/lib/constants';
 
 const getInvolved = {
   link1: {
@@ -48,25 +56,21 @@ const connect = {
   link1: {
     key: 'facebook',
     label: 'Facebook',
-    href: '/',
+    href: fbLink,
   },
   link2: {
-    key: 'x',
-    label: 'X',
-    href: '/',
+    key: 'Instagram',
+    label: 'Instagram',
+    href: igLink,
   },
   link3: {
     key: 'linkedin',
     label: 'LinkedIn',
-    href: '/',
+    href: linkedinLink,
   },
 };
 
-const contactInfo = [
-  'info@shapingwellness.com',
-  '123-456-7890',
-  'EIN: 33-3441832',
-];
+const contactInfo = [orgEmail, orgPhone, `EIN: ${EIN}`];
 
 export default function FooterT() {
   return (
@@ -135,15 +139,15 @@ export default function FooterT() {
           <div className="flex flex-col gap-[1rem] w-[5rem]">
             <p className="text-[0.875rem] font-bold">CONNECT</p>
             <div className="flex gap-[0.75rem]">
-              <Link href="/">
+              <a href={fbLink} target="_blank" rel="noopener noreferrer">
                 <Facebook />
-              </Link>
-              <Link href="/">
+              </a>
+              <a href={igLink} target="_blank" rel="noopener noreferrer">
                 <XLogo />
-              </Link>
-              <Link href="/">
+              </a>
+              <a href={linkedinLink} target="_blank" rel="noopener noreferrer">
                 <Linkedin />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -163,9 +167,14 @@ function FooterColumn({
     <div className="flex flex-col gap-[1rem] w-[11.5rem]">
       <p className="text-[0.875rem] font-bold">{title}</p>
       {links.map(link => (
-        <Link key={link.key} href={link.href}>
+        <a
+          key={link.key}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <p className="text-[0.875rem] font-[500]">{link.label}</p>
-        </Link>
+        </a>
       ))}
     </div>
   );

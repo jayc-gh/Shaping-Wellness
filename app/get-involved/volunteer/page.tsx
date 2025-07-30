@@ -140,6 +140,7 @@ export default function Volunteer() {
           href="/programs"
           text="LEARN MORE ABOUT OUR PROGRAMS"
           arrow={true}
+          size="large"
         />
       </div>
       <div className="relative top-[0.0625rem]">
