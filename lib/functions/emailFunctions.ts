@@ -44,7 +44,6 @@ export const GetPaymentInfoOneTime = async (intent: Stripe.PaymentIntent) => {
   if (typeof intent.payment_method === 'string') {
     paymentMethod = await stripe.paymentMethods.retrieve(intent.payment_method);
   }
-  console.log('paymentMethod', paymentMethod);
   const brandMap: Record<string, string> = {
     visa: 'Visa',
     mastercard: 'MasterCard',

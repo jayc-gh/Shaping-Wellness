@@ -11,7 +11,6 @@ export async function updatePaymentStatus(
   receiptSent: boolean = false,
   failedReason?: string
 ) {
-  console.log('inside updatePaymentStatus');
   const column = invoiceId.startsWith('pi_')
     ? 'payment_intent_id'
     : 'invoice_id';
