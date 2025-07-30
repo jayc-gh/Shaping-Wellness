@@ -65,12 +65,10 @@ async function processEvent(event: Stripe.Event) {
       }
       console.log('Payment intent succeeded');
       const emailInfo = await getEmailInfoFromPaymentIntent(intent);
-      console.log('emailInfo', emailInfo);
       if (emailInfo) {
         const emailSent = await sendSuccessEmail(emailInfo);
         const receiptSent =
           emailSent.status == 201 || emailSent.status == 200 ? true : false;
-        console.log('emailSent', emailSent);
         await updatePaymentStatus(intent.id, 'succeeded', receiptSent);
       }
       break;

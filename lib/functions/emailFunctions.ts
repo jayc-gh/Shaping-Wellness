@@ -44,6 +44,7 @@ export const GetPaymentInfoOneTime = async (intent: Stripe.PaymentIntent) => {
   if (typeof intent.payment_method === 'string') {
     paymentMethod = await stripe.paymentMethods.retrieve(intent.payment_method);
   }
+  console.log('paymentMethod', paymentMethod);
   const brandMap: Record<string, string> = {
     visa: 'Visa',
     mastercard: 'MasterCard',
@@ -153,7 +154,6 @@ export async function getEmailInfoFromPaymentIntent(
   const paymentInfo = await GetPaymentInfoOneTime(paymentIntent);
   const { firstName, lastName, orgName, phoneNum, phoneType } =
     customer.metadata;
-  console.log('got past metadata');
   const emailFields: SendEmailProps = {
     idType: 'Donor ID',
     userId: paymentIntent.metadata.donor_id,
@@ -177,7 +177,6 @@ export async function getEmailInfoFromPaymentIntent(
     last4: paymentInfo.last4,
     failedReason,
   };
-  console.log('emailFields', emailFields);
   return emailFields;
 }
 
