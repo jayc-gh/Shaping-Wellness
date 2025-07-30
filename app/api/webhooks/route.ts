@@ -169,7 +169,6 @@ async function processEvent(event: Stripe.Event) {
       );
       break;
     }
-    // case 'invoice.paid':
     case 'invoice.payment_succeeded': {
       console.log('Invoice paid');
       const invoice = event.data.object as Stripe.Invoice;
