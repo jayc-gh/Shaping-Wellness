@@ -34,15 +34,17 @@ export async function POST(req: Request) {
     );
   }
 
-  // Respond immediately to Stripe before processing event
-  const response = NextResponse.json({ received: true }, { status: 200 });
-
-  // Fire and forget processing
-  processEvent(event).catch(err => {
+  try {
+    await processEvent(event);
+  } catch (err) {
     console.error('Error processing webhook event:', err);
-  });
+    return NextResponse.json(
+      { message: 'Webhook processing failed.' },
+      { status: 500 }
+    );
+  }
 
-  return response;
+  return NextResponse.json({ received: true }, { status: 200 });
 }
 
 async function processEvent(event: Stripe.Event) {

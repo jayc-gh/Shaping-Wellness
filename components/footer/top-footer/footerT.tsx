@@ -2,9 +2,9 @@
 
 import WhiteLogo from '../../../app/icons/LogoSVGWhite.svg';
 import Facebook from '../../../app/icons/footer/Facebook-filled-white.svg';
-import XLogo from '../../../app/icons/footer/X-logo-white.svg';
 import Linkedin from '../../../app/icons/footer/LinkedIn-filled-white.svg';
 import MobileFooterLogo from '../../../app/icons/footer/mobile-footer-logo.svg';
+import Instagram from '../../../app/icons/footer/ig.svg';
 import Link from 'next/link';
 import FooterDropdown from './footerDropdown';
 import {
@@ -143,7 +143,7 @@ export default function FooterT() {
                 <Facebook />
               </a>
               <a href={igLink} target="_blank" rel="noopener noreferrer">
-                <XLogo />
+                <Instagram />
               </a>
               <a href={linkedinLink} target="_blank" rel="noopener noreferrer">
                 <Linkedin />

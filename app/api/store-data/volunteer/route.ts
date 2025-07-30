@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer, volunteersTable } from '@/lib/supabaseServer';
 import { VolunteerFormData } from '@/declarations';
+import SendFormEmail from '@/lib/functions/brevo/brevoForms';
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,6 +29,23 @@ export async function POST(request: NextRequest) {
     };
 
     const volunteerFormId = await storeData(formData);
+    const now = new Date();
+    const dateChicagoTime = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(now);
+
+    const emailProps = {
+      firstName,
+      lastName,
+      formType: 'Volunteer',
+      formId: volunteerFormId,
+      email,
+      date: dateChicagoTime,
+    };
+    await SendFormEmail(emailProps);
 
     return NextResponse.json({
       volunteerFormId,

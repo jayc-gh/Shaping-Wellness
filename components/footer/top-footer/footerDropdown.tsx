@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import WhiteArrow from '../../../app/icons/arrow-white.svg';
 import Link from 'next/link';
 import Facebook from '../../../app/icons/footer/fb-mobile-footer.svg';
-import X from '../../../app/icons/footer/x-mobile-footer.svg';
 import Linkedin from '../../../app/icons/footer/linkedin-mobile-footer.svg';
+import Instagram from '../../../app/icons/footer/ig.svg';
 
 type Link = {
   key: string;
@@ -22,7 +22,7 @@ type FooterDropdownProps = {
 
 const logos = [
   <Facebook key="facebook" />,
-  <X key="x" />,
+  <Instagram key="ig" />,
   <Linkedin key="linkedin" />,
 ];
 
