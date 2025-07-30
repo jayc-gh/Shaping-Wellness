@@ -142,9 +142,11 @@ export async function getEmailInfoFromPaymentIntent(
   paymentIntent: Stripe.PaymentIntent,
   failedReason?: string
 ) {
+  console.log('inside getemailinfofrompi');
   const customer = await stripe.customers.retrieve(
     paymentIntent.customer as string
   );
+  console.log('custom', customer);
   if (customer.deleted) {
     throw new Error(`Customer ${paymentIntent.customer} was deleted`);
   }
