@@ -1,6 +1,5 @@
 import type Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
-import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import {
   updateSubscription,
@@ -17,7 +16,7 @@ import {
 
 export async function POST(req: Request) {
   const body = await req.text();
-  const signature = (await headers()).get('Stripe-Signature') as string;
+  const signature = req.headers.get('Stripe-Signature') as string;
 
   let event: Stripe.Event;
 
