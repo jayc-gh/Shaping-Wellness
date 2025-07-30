@@ -5,38 +5,20 @@ export const supabaseServer = createClient(
   process.env.SUPABASE_SECRET_KEY as string
 );
 
-export const donationsTable =
-  process.env.NODE_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production'
-    ? 'donations'
-    : 'donations_test';
+const isProd = process.env.VERCEL_ENV === 'production';
 
-export const messagesTable =
-  process.env.NODE_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production'
-    ? 'messages'
-    : 'messages_test';
+export const donationsTable = isProd ? 'donations' : 'donations_test';
 
-export const volunteersTable =
-  process.env.NODE_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production'
-    ? 'volunteers'
-    : 'volunteers_test';
+export const messagesTable = isProd ? 'messages' : 'messages_test';
 
-export const partnersTable =
-  process.env.NODE_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production'
-    ? 'partners'
-    : 'partners_test';
+export const volunteersTable = isProd ? 'volunteers' : 'volunteers_test';
 
-export const subscriptionPricesTable =
-  process.env.NODE_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production'
-    ? 'subscription_prices'
-    : 'subscription_prices_test';
+export const partnersTable = isProd ? 'partners' : 'partners_test';
 
-export const subscriptionInfoTable =
-  process.env.NODE_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production'
-    ? 'subscription_info'
-    : 'subscription_info_test';
+export const subscriptionPricesTable = isProd
+  ? 'subscription_prices'
+  : 'subscription_prices_test';
+
+export const subscriptionInfoTable = isProd
+  ? 'subscription_info'
+  : 'subscription_info_test';
