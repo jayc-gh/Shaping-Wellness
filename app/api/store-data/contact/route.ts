@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer, messagesTable } from '@/lib/supabaseServer';
 import { ContactFormData } from '@/declarations';
-
+import SendFormEmail from '@/lib/functions/brevo/brevoForms';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -15,6 +15,24 @@ export async function POST(request: NextRequest) {
     };
 
     const messageId = await storeData(formData);
+    const now = new Date();
+    const dateChicagoTime = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(now);
+
+    const emailProps = {
+      firstName,
+      lastName,
+      message: details,
+      formType: 'Contact',
+      formId: messageId,
+      email,
+      date: dateChicagoTime,
+    };
+    await SendFormEmail(emailProps);
 
     return NextResponse.json({
       messageId,

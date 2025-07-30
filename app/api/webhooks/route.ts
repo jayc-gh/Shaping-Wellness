@@ -26,7 +26,6 @@ export async function POST(req: Request) {
 
   try {
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret!);
-    console.log('Received event:', event.id, 'at', new Date().toISOString());
   } catch (err) {
     console.error('Webhook signature verification failed.', err);
     return NextResponse.json(
@@ -49,7 +48,6 @@ export async function POST(req: Request) {
 }
 
 async function processEvent(event: Stripe.Event) {
-  console.log('Processing event:', event.id, 'type:', event.type);
   switch (event.type) {
     // update subscription webhooks
     case 'customer.subscription.deleted':
@@ -70,7 +68,6 @@ async function processEvent(event: Stripe.Event) {
       console.log('Payment intent succeeded');
       const emailInfo = await getEmailInfoFromPaymentIntent(intent);
       if (emailInfo) {
-        console.log('Sending email for payment intent:', intent.id);
         const emailSent = await sendSuccessEmail(emailInfo);
         const receiptSent =
           emailSent.status == 201 || emailSent.status == 200 ? true : false;

@@ -3,29 +3,29 @@ import { NextResponse } from 'next/server';
 type EmailProps = {
   firstName: string;
   lastName: string;
-  details: string;
+  message?: string;
+  formType: string;
+  formId: string;
+  email: string;
+  date: string;
 };
 
-export default async function SendEmail(props: EmailProps, template: string) {
+export default async function SendFormEmail(props: EmailProps) {
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: 'Missing API key' }, { status: 500 });
   }
 
-  const templateMap: Record<string, number | ''> = {
-    success: 2,
-    failed: 6,
-    pending: 5,
-  };
-
-  const templateId = templateMap[template] ?? '';
-
   const payload = {
-    to: [{ email: 'contact@shapingwellness.org' }],
-    templateId: templateId,
+    to: [{ email: 'jay@shapingwellness.org' }],
+    templateId: 8,
     params: {
       name: `${props.firstName} ${props.lastName}`,
-      details: props.details,
+      message: props.message,
+      formType: props.formType,
+      email: props.email,
+      date: props.date,
+      formId: props.formId,
     },
   };
 
