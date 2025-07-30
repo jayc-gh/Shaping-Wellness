@@ -142,11 +142,9 @@ export async function getEmailInfoFromPaymentIntent(
   paymentIntent: Stripe.PaymentIntent,
   failedReason?: string
 ) {
-  console.log('inside getemailinfofrompi');
   const customer = await stripe.customers.retrieve(
     paymentIntent.customer as string
   );
-  console.log('custom', customer);
   if (customer.deleted) {
     throw new Error(`Customer ${paymentIntent.customer} was deleted`);
   }
@@ -155,6 +153,7 @@ export async function getEmailInfoFromPaymentIntent(
   const paymentInfo = await GetPaymentInfoOneTime(paymentIntent);
   const { firstName, lastName, orgName, phoneNum, phoneType } =
     customer.metadata;
+  console.log('got past metadata');
   const emailFields: SendEmailProps = {
     idType: 'Donor ID',
     userId: paymentIntent.metadata.donor_id,
@@ -178,6 +177,7 @@ export async function getEmailInfoFromPaymentIntent(
     last4: paymentInfo.last4,
     failedReason,
   };
+  console.log('emailFields', emailFields);
   return emailFields;
 }
 
