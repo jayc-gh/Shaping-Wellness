@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     const customer = await stripe.customers.create({
-      email: email.toLowerCase(),
+      email: email.toLowerCase().trim(),
       name: orgName ? orgName : `${firstName} ${lastName}`,
       phone: phoneNumber,
       address: {
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
       amount: charged_amount,
       currency: 'usd',
       automatic_payment_methods: { enabled: true },
-      receipt_email: email,
+      receipt_email: email.toLowerCase().trim(),
       customer: customer.id,
       description: `One-time donation`,
       metadata: {

@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const customer = await stripe.customers.create({
-      email: email.toLowerCase(),
+      email: email.toLowerCase().trim(),
       name: orgName ? orgName : `${firstName} ${lastName}`,
       phone: phoneNumber,
       address: {
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
         orgName,
         phoneNumber,
         phoneType,
-        email: email,
+        email: email.toLowerCase().trim(),
         charged_amount: charged_amount,
         donation_amount: donation_amount,
         status: paymentIntent.status,
@@ -221,10 +221,6 @@ const storeData = async (formData: SubscriptionData) => {
     .single();
 
   if (error) {
-    // duplicate unique violation - only one subscription per email
-    if (error.code === '23505') {
-      throw new Error('A subscription with this email already exists.');
-    }
     throw new Error(error.message);
   } else {
     return data.id;

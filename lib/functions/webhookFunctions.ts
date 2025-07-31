@@ -112,7 +112,7 @@ export async function createSubscriptionPayment({
     .insert({
       donor_first_name: firstName.toLowerCase(),
       donor_last_name: lastName.toLowerCase(),
-      donor_email: email.toLowerCase(),
+      donor_email: email.toLowerCase().trim(),
       charged_amount: chargedAmount,
       donation_amount: donationAmount,
       payment_status: status,
