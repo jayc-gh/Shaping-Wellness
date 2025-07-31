@@ -39,11 +39,9 @@ export const sendProcessingEmail = async (props: SendEmailProps) => {
   return SendEmail(props, 'pending');
 };
 
-export const GetPaymentInfoOneTime = async (intent: Stripe.PaymentIntent) => {
-  let paymentMethod;
-  if (typeof intent.payment_method === 'string') {
-    paymentMethod = await stripe.paymentMethods.retrieve(intent.payment_method);
-  }
+export const GetPaymentInfoOneTime = async (
+  paymentMethod: Stripe.PaymentMethod
+) => {
   const brandMap: Record<string, string> = {
     visa: 'Visa',
     mastercard: 'MasterCard',
@@ -87,12 +85,7 @@ export const GetPaymentInfoSubscription = async (invoice: Stripe.Invoice) => {
     };
   }
 
-  const paymentIntent = await stripe.paymentIntents.retrieve(
-    invoice.payment_intent as string,
-    {
-      expand: ['payment_method'],
-    }
-  );
+  const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
   const brandMap: Record<string, string> = {
     visa: 'Visa',
     mastercard: 'MasterCard',
@@ -142,17 +135,18 @@ export async function getEmailInfoFromPaymentIntent(
   paymentIntent: Stripe.PaymentIntent,
   failedReason?: string
 ) {
-  const customer = await stripe.customers.retrieve(
-    paymentIntent.customer as string
-  );
-  if (customer.deleted) {
-    throw new Error(`Customer ${paymentIntent.customer} was deleted`);
-  }
+  const paymentMethod = paymentIntent.payment_method as Stripe.PaymentMethod;
+  const customer = paymentIntent.customer as Stripe.Customer | null;
   const { line1, line2, country, state, city, postal_code } =
-    customer.address as Stripe.Address;
-  const paymentInfo = await GetPaymentInfoOneTime(paymentIntent);
-  const { firstName, lastName, orgName, phoneNum, phoneType } =
-    customer.metadata;
+    customer?.address as Stripe.Address;
+  const paymentInfo = await GetPaymentInfoOneTime(paymentMethod);
+  const {
+    firstName = '',
+    lastName = '',
+    orgName = '',
+    phoneNum = '',
+    phoneType = '',
+  } = customer?.metadata ?? {};
   const emailFields: SendEmailProps = {
     idType: 'Donor ID',
     userId: paymentIntent.metadata.donor_id,
@@ -162,7 +156,7 @@ export async function getEmailInfoFromPaymentIntent(
     orgName,
     firstName,
     lastName,
-    email: customer.email || '',
+    email: customer?.email || '',
     phoneType,
     phoneNum,
     address1: line1 ?? '',

@@ -150,3 +150,26 @@ export type SubscriptionData = {
   postalCode: string;
   anonymous: boolean;
 };
+
+export type CreateSubscriptionPaymentOptions = {
+  firstName: string;
+  lastName: string;
+  orgName: string;
+  email: string;
+  phoneNumber: string;
+  phoneType: string;
+  chargedAmount: number;
+  donationAmount: number;
+  subscriberId: string;
+  invoiceId: string;
+  status?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  postalCode?: string;
+  anonymous?: boolean;
+  receiptSent?: boolean;
+  failedReason?: string;
+};

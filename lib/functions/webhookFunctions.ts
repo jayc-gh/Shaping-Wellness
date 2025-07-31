@@ -4,6 +4,7 @@ import {
   subscriptionInfoTable,
 } from '@/lib/supabaseServer';
 import type Stripe from 'stripe';
+import { CreateSubscriptionPaymentOptions } from '@/declarations';
 
 export async function updatePaymentStatus(
   invoiceId: string,
@@ -84,47 +85,51 @@ export async function getDonorInfo(subscriptionId: string) {
   }
 }
 
-export async function createSubscriptionPayment(
-  firstName: string,
-  lastName: string,
-  orgName: string,
-  email: string,
-  phoneNum: string,
-  phoneType: string,
-  charged_amount: number,
-  donation_amount: number,
-  subscriberId: string,
-  invoiceId: string,
-  paymentStatus: string,
-  address1: string | undefined | null,
-  address2: string | undefined | null,
-  country: string | undefined | null,
-  state: string | undefined | null,
-  city: string | undefined | null,
-  postalCode: string | undefined | null,
-  anonymous: boolean
-) {
+export async function createSubscriptionPayment({
+  firstName,
+  lastName,
+  orgName,
+  email,
+  phoneNumber,
+  phoneType,
+  chargedAmount,
+  donationAmount,
+  subscriberId,
+  invoiceId,
+  status,
+  addressLine1,
+  addressLine2,
+  country,
+  state,
+  city,
+  postalCode,
+  anonymous,
+  receiptSent,
+  failedReason,
+}: CreateSubscriptionPaymentOptions) {
   const { data, error } = await supabaseServer
     .from(donationsTable)
     .insert({
       donor_first_name: firstName.toLowerCase(),
       donor_last_name: lastName.toLowerCase(),
       donor_email: email.toLowerCase(),
-      charged_amount: charged_amount,
-      donation_amount: donation_amount,
-      payment_status: paymentStatus,
+      charged_amount: chargedAmount,
+      donation_amount: donationAmount,
+      payment_status: status,
       subscriber_id: subscriberId,
       organization_name: orgName,
-      phone_number: phoneNum,
+      phone_number: phoneNumber,
       phone_type: phoneType,
       invoice_id: invoiceId,
-      address1: address1,
-      address2: address2,
+      address1: addressLine1,
+      address2: addressLine2,
       country: country,
       state: state,
       city: city,
       postal_code: postalCode,
       anonymous: anonymous,
+      receipt_sent: receiptSent,
+      failed_reason: failedReason,
     })
     .select('id')
     .single();
@@ -147,4 +152,61 @@ export async function updateSubscriptionPaymentStatus(
   if (error) {
     throw new Error(error.message);
   }
+}
+
+export async function getSubscriptionPaymentInfo(
+  fullInvoice: Stripe.Invoice,
+  stripe: Stripe
+) {
+  const subscriptionId =
+    typeof fullInvoice.subscription === 'string'
+      ? fullInvoice.subscription
+      : fullInvoice.subscription?.id;
+
+  if (!subscriptionId) {
+    throw new Error(`Invoice ${fullInvoice.id} has no subscription ID.`);
+  }
+  const customer = fullInvoice.customer as Stripe.Customer | null;
+
+  const {
+    firstName = '',
+    lastName = '',
+    orgName = '',
+    phoneNum = '',
+    phoneType = '',
+    anonymous = '',
+  } = customer?.metadata ?? {};
+  const {
+    line1 = undefined,
+    line2 = undefined,
+    country = undefined,
+    state = undefined,
+    city = undefined,
+    postal_code = undefined,
+  } = customer?.address ?? ({} as Stripe.Address);
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+  const { donation_amount, charged_amount, subscriber_id } =
+    subscription.metadata ?? {};
+
+  const paymentInfo: CreateSubscriptionPaymentOptions = {
+    firstName,
+    lastName,
+    orgName,
+    email: customer?.email || '',
+    phoneNumber: phoneNum,
+    phoneType,
+    chargedAmount: Number(charged_amount),
+    donationAmount: Number(donation_amount),
+    subscriberId: subscriber_id,
+    invoiceId: fullInvoice.id,
+    addressLine1: line1 || undefined,
+    addressLine2: line2 || undefined,
+    country: country || undefined,
+    state: state || undefined,
+    city: city || undefined,
+    postalCode: postal_code || undefined,
+    anonymous: anonymous === 'true',
+  };
+
+  return paymentInfo;
 }

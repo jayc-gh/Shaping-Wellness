@@ -213,7 +213,6 @@ export async function handleSubmitStepFour({
     redirect: 'if_required',
   });
 
-  // handling errors after submission during confirmation (valid card)
   if (confirmError) {
     console.error('Stripe confirmPayment error:', {
       message: confirmError.message,

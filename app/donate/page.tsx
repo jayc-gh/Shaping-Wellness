@@ -42,8 +42,11 @@ export default function DonatePage() {
                   to lead a healthy, empowered life. <br />
                   <br />
                   Curious about the difference you&apos;re making? Visit our{' '}
-                  <Link href="/get-involved/donor" className="cursor-pointer">
-                    <span className="underline">Become a Donor page</span>
+                  <Link
+                    href="/get-involved/donor"
+                    className="underline cursor-pointer"
+                  >
+                    Become a Donor page
                   </Link>{' '}
                   to see how your support changes lives.
                 </>

@@ -1,29 +1,41 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import {
-  useOneTimePayment,
-  useSubscription,
-} from '@/lib/functions/useFunctions';
 import MainSection from '@/components/sections/headerSection';
 import ConfirmationBox from '@/components/sections/confirmationBox';
+import { DonationObject } from './page';
+import {
+  getOneTimeStatus,
+  getSubscriptionStatus,
+} from '@/lib/functions/statusFunctions';
 
-const stripePublicKey: string = process.env
-  .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
+const localHosts = ['localhost', '127.0.0.1'];
+const isLocalhost =
+  typeof window !== 'undefined' &&
+  localHosts.includes(window.location.hostname);
+
+const stripePublicKey: string = isLocalhost
+  ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_LOCAL!
+  : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!;
+
 if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
 }
 
-export default function PaymentConfirm() {
-  const [valid, setValid] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
-  const [message, setMessage] = useState<string>('');
+interface PaymentConfirmProps {
+  donation: DonationObject;
+  monthly: string;
+}
+
+export default function PaymentConfirm({
+  donation,
+  monthly,
+}: PaymentConfirmProps) {
   const [showBg, setShowBg] = useState(true);
   const [hasMounted, setHasMounted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  let message;
+  let errorMessage;
   useEffect(() => {
     function updateShowBg() {
       setShowBg(window.innerWidth < 1024);
@@ -35,26 +47,20 @@ export default function PaymentConfirm() {
     return () => window.removeEventListener('resize', updateShowBg);
   }, []);
 
-  const searchParams = useSearchParams();
-  const monthlyUrl = searchParams.get('monthly');
-
-  useSubscription(
-    setValid,
-    setMessage,
-    setErrorMessage,
-    monthlyUrl,
-    hasMounted,
-    setLoading
-  );
-  useOneTimePayment(
-    setValid,
-    setMessage,
-    setErrorMessage,
-    monthlyUrl,
-    hasMounted,
-    setLoading
-  );
   if (!hasMounted) return null;
+
+  if (donation.last_payment_error) {
+    errorMessage =
+      'Your payment was unsuccessful. Please try again with a different payment method.';
+  } else if (monthly === 'true') {
+    const status = getSubscriptionStatus(donation);
+    message = status.message;
+    errorMessage = status.errorMessage;
+  } else {
+    const status = getOneTimeStatus(donation);
+    message = status.message;
+    errorMessage = status.errorMessage;
+  }
 
   return (
     <main
@@ -88,12 +94,7 @@ export default function PaymentConfirm() {
               showBg={showBg}
             />
           </div>
-          <ConfirmationBox
-            valid={valid}
-            message={message}
-            errorMessage={errorMessage}
-            loading={loading}
-          />
+          <ConfirmationBox message={message} errorMessage={errorMessage} />
         </div>
       </div>
     </main>

@@ -27,8 +27,17 @@ import { useRouter } from 'next/navigation';
 import TermsContainer from './termsContainer';
 import { errorText } from '@/lib/classes/input-fields';
 
-const stripePublicKey: string = process.env
-  .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
+const localHosts = ['localhost', '127.0.0.1'];
+const isLocalhost =
+  typeof window !== 'undefined' &&
+  localHosts.includes(window.location.hostname);
+
+const stripePublicKey: string = isLocalhost
+  ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_LOCAL!
+  : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!;
+
+console.log('stripePublicKey', stripePublicKey);
+
 if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
 }

@@ -17,7 +17,7 @@ export default async function SendFormEmail(props: EmailProps) {
   }
 
   const payload = {
-    to: [{ email: 'contact@shapingwellness.org' }],
+    to: [{ email: 'info@shapingwellness.org' }],
     templateId: 8,
     params: {
       name: `${props.firstName} ${props.lastName}`,

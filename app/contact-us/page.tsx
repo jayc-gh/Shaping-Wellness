@@ -6,7 +6,7 @@ import Email from '../../app/icons/contact/mail.svg';
 import Phone from '../../app/icons/contact/phone.svg';
 import Globe from '../../app/icons/contact/globe.svg';
 import Facebook from '../../app/icons/contact/facebook.svg';
-import XLogo from '../../app/icons/contact/x-logo.svg';
+import Instagram from '../../app/icons/contact/instagram-black.svg';
 import Linkedin from '../../app/icons/contact/linkedin.svg';
 import ContactForm from '@/components/pages/contact/contactForm';
 import FAQSection from '@/components/pages/contact/faqSection';
@@ -62,7 +62,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <XLogo />
+                  <Instagram />
                 </a>
                 <a
                   href={linkedinLink}
