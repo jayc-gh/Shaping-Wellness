@@ -33,11 +33,7 @@ const stripePublicKey: string =
     ? (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string)
     : (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_LOCAL as string);
 
-console.log(
-  'NEXT_PUBLIC_STRIPE_PUBLIC_KEY:',
-  process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY
-);
-console.log('VERCEL_ENV:', process.env.VERCEL_ENV);
+console.log('stripePublicKey', stripePublicKey);
 
 if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
