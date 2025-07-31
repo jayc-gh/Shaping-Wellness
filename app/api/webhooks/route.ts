@@ -5,6 +5,7 @@ import {
   updateSubscription,
   updatePaymentStatus,
   createSubscriptionPayment,
+  getSubscriptionPaymentInfo,
 } from '@/lib/functions/webhookFunctions';
 import {
   getEmailInfoFromInvoice,
@@ -61,35 +62,53 @@ async function processEvent(event: Stripe.Event) {
     // one time payment webhooks
     case 'payment_intent.succeeded': {
       const intent = event.data.object as Stripe.PaymentIntent;
-      if (intent.invoice) {
+      // get full intent because for whatever reason intent from webhook doesn't include invoice
+      const fullIntent = await stripe.paymentIntents.retrieve(intent.id, {
+        expand: ['payment_method', 'customer'],
+      });
+      if (fullIntent.invoice) {
         console.log('Ignoring subscription-related payment intent');
         break;
       }
       console.log('Payment intent succeeded');
-      const emailInfo = await getEmailInfoFromPaymentIntent(intent);
+      const emailInfo = await getEmailInfoFromPaymentIntent(fullIntent);
       if (emailInfo) {
         const emailSent = await sendSuccessEmail(emailInfo);
         const receiptSent =
           emailSent.status == 201 || emailSent.status == 200 ? true : false;
-        await updatePaymentStatus(intent.id, 'succeeded', receiptSent);
+        await updatePaymentStatus(fullIntent.id, 'succeeded', receiptSent);
       }
       break;
     }
 
     case 'payment_intent.payment_failed': {
       const intent = event.data.object as Stripe.PaymentIntent;
+      // get full intent because for whatever reason intent from webhook doesn't include invoice
+      const fullIntent = await stripe.paymentIntents.retrieve(intent.id, {
+        expand: ['payment_method', 'customer'],
+      });
+      if (fullIntent.invoice) {
+        console.log('Ignoring subscription-related payment intent');
+        break;
+      }
       let failedReason;
       if (
         intent.status === 'requires_payment_method' ||
         intent.status === 'canceled' ||
         intent.status === 'requires_action'
       ) {
-        failedReason = intent.last_payment_error?.message || 'Unknown error';
+        failedReason =
+          fullIntent.last_payment_error?.message || 'Unknown error';
         console.error('Payment intent failed.', failedReason);
-        const emailInfo = await getEmailInfoFromPaymentIntent(intent);
+        const emailInfo = await getEmailInfoFromPaymentIntent(fullIntent);
         if (emailInfo) {
           await sendFailedEmail(emailInfo);
-          await updatePaymentStatus(intent.id, 'failed', false, failedReason);
+          await updatePaymentStatus(
+            fullIntent.id,
+            'failed',
+            false,
+            failedReason
+          );
         }
       }
       break;
@@ -97,7 +116,15 @@ async function processEvent(event: Stripe.Event) {
     case 'payment_intent.canceled': {
       console.log('Payment intent canceled');
       const intent = event.data.object as Stripe.PaymentIntent;
-      await updatePaymentStatus(intent.id, 'canceled');
+      // get full intent because for whatever reason intent from webhook doesn't include invoice
+      const fullIntent = await stripe.paymentIntents.retrieve(intent.id, {
+        expand: ['payment_method', 'customer'],
+      });
+      if (fullIntent.invoice) {
+        console.log('Ignoring subscription-related payment intent');
+        break;
+      }
+      await updatePaymentStatus(fullIntent.id, 'canceled');
       break;
     }
 
@@ -105,119 +132,81 @@ async function processEvent(event: Stripe.Event) {
     case 'payment_intent.processing': {
       console.log('Payment intent processing');
       const intent = event.data.object as Stripe.PaymentIntent;
+      const fullIntent = await stripe.paymentIntents.retrieve(intent.id, {
+        expand: ['payment_method', 'customer', 'invoice'],
+      });
       let emailInfo;
 
-      if (intent.invoice) {
-        const invoice =
-          typeof intent.invoice === 'string'
-            ? await stripe.invoices.retrieve(intent.invoice)
-            : intent.invoice;
-
+      if (fullIntent.invoice) {
+        const invoice = fullIntent.invoice as Stripe.Invoice;
         emailInfo = await getEmailInfoFromInvoice(invoice);
       } else {
-        emailInfo = await getEmailInfoFromPaymentIntent(intent);
+        emailInfo = await getEmailInfoFromPaymentIntent(fullIntent);
       }
       if (emailInfo) {
         await sendProcessingEmail(emailInfo);
-        await updatePaymentStatus(intent.id, 'processing', false);
+        await updatePaymentStatus(fullIntent.id, 'processing', false);
       }
       break;
     }
 
     // recurring subscription webhooks
-    case 'invoice.created': {
-      const invoice = event.data.object as Stripe.Invoice;
-      const subscriptionId =
-        typeof invoice.subscription === 'string'
-          ? invoice.subscription
-          : invoice.subscription?.id;
-
-      if (!subscriptionId) {
-        throw new Error(`Invoice ${invoice.id} has no subscription ID.`);
-      }
-      const customer = await stripe.customers.retrieve(
-        invoice.customer as string
-      );
-
-      const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-      const { donation_amount, charged_amount, subscriber_id } =
-        subscription.metadata ?? {};
-
-      if (customer.deleted) {
-        throw new Error(`Customer ${invoice.customer} was deleted`);
-      }
-      console.log('Invoice created');
-      await createSubscriptionPayment(
-        // Pull data from customer metadata
-        customer.metadata.firstName || '',
-        customer.metadata.lastName || '',
-        customer.metadata.orgName || '',
-        customer.email || invoice.customer_email || '',
-        customer.metadata.phoneNumber || '',
-        customer.metadata.phoneType || '',
-        Number(charged_amount),
-        Number(donation_amount),
-        subscriber_id,
-        invoice.id,
-        invoice.status ?? 'pending',
-        customer.address?.line1,
-        customer.address?.line2,
-        customer.address?.country,
-        customer.address?.state,
-        customer.address?.city,
-        customer.address?.postal_code,
-        customer.metadata.anonymous === 'true'
-      );
-      break;
-    }
     case 'invoice.payment_succeeded': {
       console.log('Invoice paid');
       const invoice = event.data.object as Stripe.Invoice;
-      const emailInfo = await getEmailInfoFromInvoice(invoice);
+      const fullInvoice = await stripe.invoices.retrieve(invoice.id, {
+        expand: ['customer'],
+      });
+      const paymentInfo = await getSubscriptionPaymentInfo(fullInvoice, stripe);
+      const emailInfo = await getEmailInfoFromInvoice(fullInvoice);
       if (emailInfo) {
         const emailSent = await sendSuccessEmail(emailInfo);
         const receiptSent =
           emailSent.status == 201 || emailSent.status == 200 ? true : false;
 
-        await updatePaymentStatus(invoice.id, 'succeeded', receiptSent);
+        await createSubscriptionPayment({
+          ...paymentInfo,
+          status: 'succeeded',
+          receiptSent,
+        });
       }
       break;
     }
     case 'invoice.payment_failed': {
       const invoice = event.data.object as Stripe.Invoice;
-      let failedReason: string;
-      if (typeof invoice.payment_intent === 'string') {
-        const paymentIntent = await stripe.paymentIntents.retrieve(
-          invoice.payment_intent
-        );
-        const error = paymentIntent.last_payment_error;
+      const fullInvoice = await stripe.invoices.retrieve(invoice.id, {
+        expand: ['customer', 'payment_intent'],
+      });
+      const paymentInfo = await getSubscriptionPaymentInfo(fullInvoice, stripe);
+      const paymentIntent = fullInvoice.payment_intent as Stripe.PaymentIntent;
+
+      let failedReason = 'Unknown error.';
+      const error = paymentIntent.last_payment_error;
+
+      if (error) {
         console.error(
           'Invoice payment failed:',
-          error?.message,
-          error?.code,
-          error?.decline_code
+          error.message,
+          error.code,
+          error.decline_code
         );
-        failedReason = error?.message || 'Unknown error.';
-        const emailInfo = await getEmailInfoFromInvoice(invoice, failedReason);
-        if (emailInfo) {
-          await sendFailedEmail(emailInfo);
-          await updatePaymentStatus(invoice.id, 'failed', false, failedReason);
-        }
-      } else {
-        const error = invoice.payment_intent?.last_payment_error;
-        console.error(
-          'Invoice payment failed:',
-          error?.message,
-          error?.code,
-          error?.decline_code
-        );
-        failedReason = error?.message || 'Unknown error.';
-        const emailInfo = await getEmailInfoFromInvoice(invoice, failedReason);
-        if (emailInfo) {
-          await sendFailedEmail(emailInfo);
-          await updatePaymentStatus(invoice.id, 'failed', false, failedReason);
-        }
+        failedReason = error.message || failedReason;
       }
+
+      const emailInfo = await getEmailInfoFromInvoice(
+        fullInvoice,
+        failedReason
+      );
+      if (emailInfo) {
+        await sendFailedEmail(emailInfo);
+      }
+
+      await createSubscriptionPayment({
+        ...paymentInfo,
+        status: 'failed',
+        receiptSent: false,
+        failedReason,
+      });
       break;
     }
 

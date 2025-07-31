@@ -35,7 +35,6 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json({
-      subscriptionId: subscription.id,
       amount: subscription.items.data[0].price.unit_amount,
       status: paymentIntentStatus,
       last_payment_error: lastPaymentError,
