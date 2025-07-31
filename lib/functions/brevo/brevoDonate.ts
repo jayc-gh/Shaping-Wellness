@@ -27,7 +27,9 @@ export default async function SendEmail(
       frequency: props.frequency,
       orgName: props.orgName,
       email: props.email,
-      phoneType: props.phoneType || 'Mobile',
+      phoneType:
+        props.phoneType.charAt(0).toUpperCase() + props.phoneType.slice(1) ||
+        'Mobile',
       phoneNum: props.phoneNum || 'N/A',
       address1: props.address1,
       address2: props.address2,
