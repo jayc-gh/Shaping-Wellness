@@ -29,7 +29,7 @@ export default function MainButton({
   submit,
 }: MainButtonProps) {
   const baseClasses =
-    'flex h-[3.125rem] px-5 py-4 justify-center items-center gap-[0.625rem] rounded-[0.625rem] border text-sm font-medium';
+    'flex h-[3.125rem] lg:px-5 lg:py-4 justify-center items-center gap-[0.625rem] rounded-[0.625rem] border font-bold text-base';
 
   const orangeClasses = clsx(
     'border border-[#d9764e] text-white',
@@ -53,7 +53,9 @@ export default function MainButton({
 
   return link && !submit ? (
     <Link href={link.href} className={className} onClick={onClick}>
-      <span className="font-bold text-base">{link.label}</span>
+      <span className="flex w-full h-full items-center justify-center">
+        {link.label}
+      </span>
     </Link>
   ) : submit && !link ? (
     <button
