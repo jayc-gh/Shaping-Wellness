@@ -157,7 +157,7 @@ async function processEvent(event: Stripe.Event) {
       console.log('Invoice paid');
       const invoice = event.data.object as Stripe.Invoice;
       const fullInvoice = await stripe.invoices.retrieve(invoice.id, {
-        expand: ['customer', 'payment_intent'],
+        expand: ['customer', 'payment_intent.payment_method'],
       });
       const paymentInfo = await getSubscriptionPaymentInfo(fullInvoice, stripe);
       const emailInfo = await getEmailInfoFromInvoice(fullInvoice);
@@ -177,7 +177,7 @@ async function processEvent(event: Stripe.Event) {
     case 'invoice.payment_failed': {
       const invoice = event.data.object as Stripe.Invoice;
       const fullInvoice = await stripe.invoices.retrieve(invoice.id, {
-        expand: ['customer', 'payment_intent'],
+        expand: ['customer', 'payment_intent.payment_method'],
       });
       const paymentInfo = await getSubscriptionPaymentInfo(fullInvoice, stripe);
       const paymentIntent = fullInvoice.payment_intent as Stripe.PaymentIntent;

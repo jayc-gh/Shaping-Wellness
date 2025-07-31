@@ -77,6 +77,7 @@ export const GetPaymentInfoOneTime = async (
 };
 
 export const GetPaymentInfoSubscription = async (invoice: Stripe.Invoice) => {
+  console.log('invoice in getpaymentinfosubs', invoice.payment_intent);
   if (!invoice.payment_intent) {
     return {
       last4: 'unknown',

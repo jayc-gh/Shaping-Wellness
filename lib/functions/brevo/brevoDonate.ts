@@ -9,6 +9,11 @@ export default async function SendEmail(
   if (!apiKey) {
     return NextResponse.json({ error: 'Missing API key' }, { status: 500 });
   }
+  let phoneTypeCapitalized;
+  if (props.phoneType) {
+    phoneTypeCapitalized =
+      props.phoneType.charAt(0).toUpperCase() + props.phoneType.slice(1);
+  }
   const templateMap: Record<string, number | ''> = {
     success: 2,
     failed: 6,
@@ -27,9 +32,7 @@ export default async function SendEmail(
       frequency: props.frequency,
       orgName: props.orgName,
       email: props.email,
-      phoneType:
-        props.phoneType.charAt(0).toUpperCase() + props.phoneType.slice(1) ||
-        'Mobile',
+      phoneType: phoneTypeCapitalized || 'Mobile',
       phoneNum: props.phoneNum || 'N/A',
       address1: props.address1,
       address2: props.address2,
