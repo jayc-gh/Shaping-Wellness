@@ -28,7 +28,6 @@ export async function POST(req: Request) {
       : process.env.STRIPE_WEBHOOK_SECRET_LOCAL;
 
   try {
-    console.log('s', signature);
     event = stripe.webhooks.constructEvent(
       body,
       signature,
