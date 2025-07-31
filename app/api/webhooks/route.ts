@@ -17,7 +17,7 @@ import {
 
 export async function POST(req: Request) {
   const body = await req.text();
-  const signature = req.headers.get('Stripe-Signature') as string;
+  const signature = req.headers.get('stripe-signature') as string;
 
   let event: Stripe.Event;
 
@@ -28,11 +28,21 @@ export async function POST(req: Request) {
       : process.env.STRIPE_WEBHOOK_SECRET_LOCAL;
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret!);
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      webhookSecret as string
+    );
+    console.log('Received Stripe event:', {
+      id: event.id,
+      type: event.type,
+    });
   } catch (err) {
-    console.error('Webhook signature verification failed.', err);
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+    // On error, log and return the error message.
+    console.error(`Webhook error: ${err}`);
     return NextResponse.json(
-      { message: 'Webhook signature verification failed.' },
+      { message: `Webhook Error: ${errorMessage}` },
       { status: 400 }
     );
   }
