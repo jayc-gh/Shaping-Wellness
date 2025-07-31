@@ -39,7 +39,7 @@ export const sendProcessingEmail = async (props: SendEmailProps) => {
   return SendEmail(props, 'pending');
 };
 
-export const GetPaymentInfoOneTime = async (
+export const GetPaymentInfo = async (
   paymentMethod: Stripe.PaymentMethod
 ) => {
   const brandMap: Record<string, string> = {
@@ -76,62 +76,6 @@ export const GetPaymentInfoOneTime = async (
   };
 };
 
-export const GetPaymentInfoSubscription = async (invoice: Stripe.Invoice) => {
-  console.log('invoice in getpaymentinfosubs', invoice.payment_intent);
-  if (!invoice.payment_intent) {
-    return {
-      last4: 'unknown',
-      method: 'unknown',
-      brand: 'unknown',
-    };
-  }
-
-  const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
-  const brandMap: Record<string, string> = {
-    visa: 'Visa',
-    mastercard: 'MasterCard',
-    amex: 'American Express',
-    discover: 'Discover',
-    jcb: 'JCB',
-    diners: 'Diners Club',
-    unionpay: 'UnionPay',
-  };
-
-  const paymentMethod =
-    paymentIntent.payment_method as Stripe.PaymentMethod | null;
-
-  if (!paymentMethod) {
-    return {
-      last4: 'unknown',
-      method: 'unknown',
-      brand: 'unknown',
-    };
-  }
-
-  if (paymentMethod.us_bank_account) {
-    return {
-      last4: paymentMethod.us_bank_account.last4 || 'unknown',
-      method: 'US Bank Account',
-      brand: 'Account',
-    };
-  } else if (paymentMethod.card) {
-    const brand = paymentMethod.card.brand;
-    const formattedBrand =
-      brandMap[brand] ?? brand.charAt(0).toUpperCase() + brand.slice(1);
-    return {
-      last4: paymentMethod.card.last4,
-      method: 'Credit Card',
-      brand: formattedBrand,
-    };
-  }
-
-  return {
-    last4: 'unknown',
-    method: 'unknown',
-    brand: 'unknown',
-  };
-};
-
 export async function getEmailInfoFromPaymentIntent(
   paymentIntent: Stripe.PaymentIntent,
   failedReason?: string
@@ -140,7 +84,7 @@ export async function getEmailInfoFromPaymentIntent(
   const customer = paymentIntent.customer as Stripe.Customer | null;
   const { line1, line2, country, state, city, postal_code } =
     customer?.address as Stripe.Address;
-  const paymentInfo = await GetPaymentInfoOneTime(paymentMethod);
+  const paymentInfo = await GetPaymentInfo(paymentMethod);
   const {
     firstName = '',
     lastName = '',
@@ -176,6 +120,8 @@ export async function getEmailInfoFromPaymentIntent(
 
 export async function getEmailInfoFromInvoice(
   invoice: Stripe.Invoice,
+  customer: Stripe.Customer,
+  paymentMethod: Stripe.PaymentMethod,
   failedReason?: string
 ) {
   const subscription = await stripe.subscriptions.retrieve(
@@ -189,14 +135,12 @@ export async function getEmailInfoFromInvoice(
     month: 'long',
     day: 'numeric',
   }).format(nextBillingDate);
-  const customer = await stripe.customers.retrieve(
-    subscription.customer as string
-  );
+
   if (customer.deleted) {
     throw new Error(`Customer ${subscription.customer} was deleted`);
   }
 
-  const paymentInfo = await GetPaymentInfoSubscription(invoice);
+  const paymentInfo = await GetPaymentInfo(paymentMethod);
   const { line1, line2, country, state, city, postal_code } =
     customer.address as Stripe.Address;
   const { firstName, lastName, orgName, phoneNum, phoneType } =

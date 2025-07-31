@@ -36,8 +36,6 @@ const stripePublicKey: string = isLocalhost
   ? process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_LOCAL!
   : process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!;
 
-console.log('stripePublicKey', stripePublicKey);
-
 if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
 }

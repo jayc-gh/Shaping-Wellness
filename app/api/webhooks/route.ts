@@ -139,12 +139,26 @@ async function processEvent(event: Stripe.Event) {
       });
       let emailInfo;
 
-      if (fullIntent.invoice) {
+      if (
+        fullIntent.invoice &&
+        fullIntent.customer &&
+        typeof fullIntent.customer !== 'string' &&
+        !('deleted' in fullIntent.customer)
+      ) {
         const invoice = fullIntent.invoice as Stripe.Invoice;
-        emailInfo = await getEmailInfoFromInvoice(invoice);
+
+        const paymentMethod = fullIntent.payment_method;
+        if (paymentMethod && typeof paymentMethod !== 'string') {
+          emailInfo = await getEmailInfoFromInvoice(
+            invoice,
+            fullIntent.customer,
+            paymentMethod
+          );
+        }
       } else {
         emailInfo = await getEmailInfoFromPaymentIntent(fullIntent);
       }
+
       if (emailInfo) {
         await sendProcessingEmail(emailInfo);
         await updatePaymentStatus(fullIntent.id, 'processing', false);
@@ -160,18 +174,38 @@ async function processEvent(event: Stripe.Event) {
         expand: ['customer', 'payment_intent.payment_method'],
       });
       const paymentInfo = await getSubscriptionPaymentInfo(fullInvoice, stripe);
-      const emailInfo = await getEmailInfoFromInvoice(fullInvoice);
-      if (emailInfo) {
-        const emailSent = await sendSuccessEmail(emailInfo);
-        const receiptSent =
-          emailSent.status == 201 || emailSent.status == 200 ? true : false;
+      if (
+        fullInvoice.customer &&
+        typeof fullInvoice.customer !== 'string' &&
+        !('deleted' in fullInvoice.customer) &&
+        fullInvoice.payment_intent &&
+        typeof fullInvoice.payment_intent !== 'string'
+      ) {
+        const customer = fullInvoice.customer;
+        const paymentIntent = fullInvoice.payment_intent;
 
-        await createSubscriptionPayment({
-          ...paymentInfo,
-          status: 'succeeded',
-          receiptSent,
-        });
+        const paymentMethod = paymentIntent.payment_method;
+
+        if (paymentMethod && typeof paymentMethod !== 'string') {
+          const emailInfo = await getEmailInfoFromInvoice(
+            fullInvoice,
+            customer,
+            paymentMethod
+          );
+          if (emailInfo) {
+            const emailSent = await sendSuccessEmail(emailInfo);
+            const receiptSent =
+              emailSent.status == 201 || emailSent.status == 200 ? true : false;
+
+            await createSubscriptionPayment({
+              ...paymentInfo,
+              status: 'succeeded',
+              receiptSent,
+            });
+          }
+        }
       }
+
       break;
     }
     case 'invoice.payment_failed': {
@@ -195,20 +229,38 @@ async function processEvent(event: Stripe.Event) {
         failedReason = error.message || failedReason;
       }
 
-      const emailInfo = await getEmailInfoFromInvoice(
-        fullInvoice,
-        failedReason
-      );
-      if (emailInfo) {
-        await sendFailedEmail(emailInfo);
-      }
+      if (
+        fullInvoice.customer &&
+        typeof fullInvoice.customer !== 'string' &&
+        !('deleted' in fullInvoice.customer) &&
+        fullInvoice.payment_intent &&
+        typeof fullInvoice.payment_intent !== 'string'
+      ) {
+        const customer = fullInvoice.customer;
+        const paymentIntent = fullInvoice.payment_intent;
 
-      await createSubscriptionPayment({
-        ...paymentInfo,
-        status: 'failed',
-        receiptSent: false,
-        failedReason,
-      });
+        const paymentMethod = paymentIntent.payment_method;
+
+        if (paymentMethod && typeof paymentMethod !== 'string') {
+          const emailInfo = await getEmailInfoFromInvoice(
+            fullInvoice,
+            customer,
+            paymentMethod,
+            failedReason
+          );
+          if (emailInfo) {
+            const emailSent = await sendFailedEmail(emailInfo);
+            const receiptSent =
+              emailSent.status == 201 || emailSent.status == 200 ? true : false;
+
+            await createSubscriptionPayment({
+              ...paymentInfo,
+              status: 'failed',
+              receiptSent,
+            });
+          }
+        }
+      }
       break;
     }
 
