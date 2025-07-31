@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import {
   PaymentElement,
   PaymentElementProps,
@@ -39,21 +39,8 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
     },
   };
 
-  useEffect(() => {
-    if (
-      !elements ||
-      Number(formData.totalCharged) < 1 ||
-      !formData.totalCharged
-    )
-      return;
-    elements.update({
-      amount: convertToSubcurrency(Number(formData.totalCharged)),
-    });
-
-    const paymentElement = elements.getElement('payment');
-    if (!paymentElement) return;
-
-    const handleChange = (event: PaymentElementChangeEvent) => {
+  const handleChange = useCallback(
+    (event: PaymentElementChangeEvent) => {
       const selectedType = event.value?.type;
       if (selectedType && previousPaymentMethodRef.current !== selectedType) {
         previousPaymentMethodRef.current = selectedType;
@@ -69,14 +56,29 @@ export default function PaymentInfo({ formData, setFormData }: StepProps) {
         ...prev,
         paymentReady: event.complete,
       }));
-    };
+    },
+    [setFormData, formData.feeCovered, formData.donationAmount]
+  );
+
+  useEffect(() => {
+    if (
+      !elements ||
+      Number(formData.totalCharged) < 1 ||
+      !formData.totalCharged
+    )
+      return;
+    elements.update({
+      amount: convertToSubcurrency(Number(formData.totalCharged)),
+    });
+
+    const paymentElement = elements.getElement('payment');
+    if (!paymentElement) return;
 
     paymentElement.on('change', handleChange);
     return () => {
       paymentElement.off('change', handleChange);
     };
-  }, [elements, setFormData, formData.totalCharged]);
-
+  }, [elements, formData.totalCharged, handleChange]);
   return (
     <div className="flex flex-col items-start gap-[0.75rem] w-full">
       <div className="flex flex-col justify-center items-start gap-[0.5rem] w-full">

@@ -6,7 +6,7 @@ import ClientPaymentConfirm from './ClientPaymentConfirm';
 import type Stripe from 'stripe';
 
 interface Props {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export type DonationObject = {
