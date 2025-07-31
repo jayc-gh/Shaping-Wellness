@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const customer = await stripe.customers.create({
-      email: email.toLowerCase(),
+      email: email.toLowerCase().trim(),
       name: orgName ? orgName : `${firstName} ${lastName}`,
       phone: phoneNumber,
       address: {

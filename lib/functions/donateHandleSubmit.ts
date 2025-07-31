@@ -137,7 +137,7 @@ export async function handleSubmitStepFour({
     subscriptionIntent = await createSubscription(
       formData.totalCharged,
       formData.donationAmount,
-      formData.email,
+      formData.email.toLowerCase().trim(),
       formData.firstName,
       formData.lastName,
       formData.orgName,
@@ -163,7 +163,7 @@ export async function handleSubmitStepFour({
     firstName: formData.firstName,
     lastName: formData.lastName,
     orgName: formData.orgName,
-    email: formData.email,
+    email: formData.email.toLowerCase().trim(),
     phoneNum: formData.phone.number,
     phoneType: formData.phone.type,
     charged_amount: convertToSubcurrency(Number(formData.totalCharged)),
