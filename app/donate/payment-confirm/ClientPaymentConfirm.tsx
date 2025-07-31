@@ -10,8 +10,9 @@ import {
   getSubscriptionStatus,
 } from '@/lib/functions/statusFunctions';
 
-const stripePublicKey: string = process.env
-  .NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string;
+const stripePublicKey: string = process.env.VERCEL_ENV
+  ? (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string)
+  : (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY_LOCAL as string);
 if (!stripePublicKey) {
   throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLIC_KEY');
 }

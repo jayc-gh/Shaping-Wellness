@@ -14,7 +14,6 @@ export default async function SendEmail(
     failed: 6,
     pending: 5,
   };
-  const uuid = crypto.randomUUID();
   const templateId = templateMap[template] ?? '';
   const payload = {
     to: [{ email: props.email }],
@@ -40,7 +39,6 @@ export default async function SendEmail(
       paymentType: props.paymentType,
       last4: props.last4,
       nextBillingDate: props.nextBillingDate,
-      uuid: uuid,
     },
   };
   const res = await fetch('https://api.brevo.com/v3/smtp/email', {
