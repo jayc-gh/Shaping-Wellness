@@ -110,7 +110,7 @@ export default function ConfirmDetails({
                   {formData.orgDonate ? 'Contact ' : ''}Email
                 </p>
                 <p className="text-base font-[500] text-[#2f2f2f]">
-                  {formData.email}
+                  {formData.email.toLowerCase().trim()}
                 </p>
               </div>
             </div>
