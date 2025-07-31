@@ -21,9 +21,11 @@ export async function POST(req: Request) {
 
   let event: Stripe.Event;
 
-  const webhookSecret = process.env.VERCEL_ENV
-    ? process.env.STRIPE_WEBHOOK_SECRET
-    : process.env.STRIPE_WEBHOOK_SECRET_LOCAL;
+  const webhookSecret =
+    process.env.VERCEL_ENV === 'production' ||
+    process.env.VERCEL_ENV === 'preview'
+      ? process.env.STRIPE_WEBHOOK_SECRET
+      : process.env.STRIPE_WEBHOOK_SECRET_LOCAL;
 
   try {
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret!);
