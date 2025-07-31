@@ -35,6 +35,12 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+a {
+  background-color: black;
+  -webkit-tap-highlight-color: transparent;
+}
+
 a:active {
-  background-color: transparent;
+  background-color: black;
+  -webkit-tap-highlight-color: transparent;
 }
