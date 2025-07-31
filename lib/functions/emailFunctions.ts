@@ -85,12 +85,7 @@ export const GetPaymentInfoSubscription = async (invoice: Stripe.Invoice) => {
     };
   }
 
-  const paymentIntent = await stripe.paymentIntents.retrieve(
-    invoice.payment_intent as string,
-    {
-      expand: ['payment_method'],
-    }
-  );
+  const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
   const brandMap: Record<string, string> = {
     visa: 'Visa',
     mastercard: 'MasterCard',

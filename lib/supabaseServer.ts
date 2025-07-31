@@ -17,7 +17,9 @@ export const partnersTable = isProd ? 'partners' : 'partners_test';
 
 export const subscriptionPricesTable = isProd
   ? 'subscription_prices'
-  : 'subscription_prices_test';
+  : process.env.VERCEL_ENV === 'preview'
+  ? 'subscription_prices_test'
+  : 'subscription_prices_test_local';
 
 export const subscriptionInfoTable = isProd
   ? 'subscription_info'
