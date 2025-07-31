@@ -107,43 +107,46 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
                       : 'max-h-0 opacity-0 invisible pointer-events-none -translate-y-2'
                   }`}
         >
-          {getInvolvedItems.map(item => (
+          {getInvolvedItems.map((item, index) => (
             <div
               key={item.href}
-              className="w-full px-[1.5625rem] bg-[#ffece4] active:bg-[#f4a488]"
+              className="group w-full bg-[#ffece4] active:bg-[#f4a488]"
             >
               <Link
                 href={item.href}
                 onClick={() => {
                   setDropdown(null);
                 }}
-                className={`relative flex items-center px-[1.5625rem] py-[1.25rem]`}
+                className="relative flex items-center"
               >
-                {item.text}
+                <span className="flex w-full py-[1.25rem] px-[3.125rem] items-center justify-start">
+                  {item.text}
+                </span>
               </Link>
-              <div className="h-[1px] opacity-[0.1] bg-[#8e463b] w-full" />
+              {index !== getInvolvedItems.length - 1 && (
+                <div className="px-[1.5625rem]">
+                  <div className="h-[1px] opacity-[0.1] bg-[#8e463b] w-full group-active:opacity-0" />
+                </div>
+              )}
             </div>
           ))}
         </div>
         {dropdownItems.map(item => (
-          <div
-            key={item.href}
-            className="w-full px-[1.5625rem] active:bg-[#f4a488]"
-          >
+          <div key={item.href} className="group w-full active:bg-[#f4a488]">
             <Link
               href={item.href}
-              className="
-            flex items-center
-            py-[1.56rem]
-            w-full
-            "
+              className="flex items-center w-full"
               onClick={() => {
                 setDropdown(null);
               }}
             >
-              {item.text}
+              <span className="flex w-full h-full px-[1.5625rem] py-[1.56rem] items-center justify-start">
+                {item.text}
+              </span>
             </Link>
-            <div className="h-[1px] bg-[#ffece4] w-full" />
+            <div className="px-[1.5625rem]">
+              <div className="h-[1px] bg-[#ffece4] w-full group-active:hidden" />
+            </div>
           </div>
         ))}
         <div className="flex w-full px-[1.5625rem] py-[0.625rem]">
