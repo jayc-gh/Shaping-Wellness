@@ -6,7 +6,6 @@ import Check from '../../../app/icons/partner/check.svg';
 import MainSection from '@/components/sections/headerSection';
 import PSection from '@/components/sections/pSection';
 import PictureTextSection from '@/components/sections/pictureText';
-import HyperLink from '@/components/buttons/hyperLink';
 import DoubleTextSection from '@/components/sections/doubleTextSection';
 import CardNoBorder from '@/components/sections/cardNoBorder';
 import ContactSection from '@/components/sections/contactSection';
@@ -135,12 +134,6 @@ export default function Volunteer() {
             </>
           }
           imageUrl="/images/VolunteerIMG3.jpg"
-        />
-        <HyperLink
-          href="/programs"
-          text="LEARN MORE ABOUT OUR PROGRAMS"
-          arrow={true}
-          size="large"
         />
       </div>
       <div className="relative top-[0.0625rem]">

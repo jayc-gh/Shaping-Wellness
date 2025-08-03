@@ -16,7 +16,7 @@ export default function FooterB() {
 
   return (
     <div className="flex justify-center text-white w-full lg:h-[4.375rem] lg:items-center lg:py-0">
-      <div className="flex flex-col text-[0.75rem] font-base text-center items-center gap-[1.875rem] self-stretch lg:flex-row lg:max-w-[76.5rem] lg:justify-between lg:w-full">
+      <div className="flex flex-col text-[0.75rem] text-base text-center items-center gap-[1.875rem] self-stretch lg:flex-row lg:max-w-[76.5rem] lg:justify-between lg:w-full">
         <p className="lg:font-[500]">
           <span className="block lg:hidden">
             © 2025 Shaping Wellness Foundation. All rights reserved. <br />

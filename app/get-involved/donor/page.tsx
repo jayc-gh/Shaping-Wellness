@@ -138,7 +138,7 @@ export default function Donor() {
           <CardNoBorder
             Icon={Mailbox}
             title="Donate by Mail"
-            content="Checks can be made payable to: Shaping Wellness Foundation 12345 Address, Houston, TX
+            content="Checks can be made payable to: Shaping Wellness Foundation
           "
           />
         </div>

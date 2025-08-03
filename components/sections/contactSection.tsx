@@ -21,7 +21,7 @@ export default function ContactSection({
       }}
     >
       <div className="flex flex-col justify-center items-center text-center gap-[2rem]">
-        <h4 className="text-[#a04e43] !font-base !font-[700]">{header}</h4>
+        <h4 className="text-[#a04e43] !text-base !font-[700]">{header}</h4>
         <p className="text-[1.5rem] font-[600] text-[#49241e] leading-[140%]">
           {text}{' '}
         </p>

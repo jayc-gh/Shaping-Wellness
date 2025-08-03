@@ -2,6 +2,8 @@ export const orgPhone = '281-826-1235';
 
 export const orgEmail = 'info@shapingwellness.org';
 
+export const contactEmail = 'contact@shapingwellness.org';
+
 export const founderEmail = 'luciana.gearing@shapingwellness.org';
 
 export const fbLink =
