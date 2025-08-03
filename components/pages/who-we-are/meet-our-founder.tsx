@@ -21,7 +21,7 @@ export default function MeetOurFounder({ setPopup }: StepProps) {
           <Close />
         </button>
       </div>
-      <div className="flex flex-col items-start gap-[1.5rem] lg:flex-row text-base font-base leading-[160%]">
+      <div className="flex flex-col items-start gap-[1.5rem] lg:flex-row text-base leading-[160%]">
         <div className="flex flex-col w-full items-start gap-[0.75rem] lg:justify-center lg:gap-[1.5rem]">
           <div className="relative rounded-tl-[2.5rem] rounded-br-[2.5rem] w-full aspect-[154/100.55] lg:aspect-[13/12] lg:rounded-tl-[6.25rem] lg:rounded-br-[6.25rem] overflow-hidden lg:w-[299px] lg:h-auto">
             <Image

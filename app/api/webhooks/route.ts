@@ -67,7 +67,10 @@ async function processEvent(event: Stripe.Event) {
     case 'customer.subscription.updated': {
       console.log('Subscription updated');
       const subscription = event.data.object as Stripe.Subscription;
-      await updateSubscription(subscription, stripe);
+      const fullSubscription = await stripe.subscriptions.retrieve(
+        subscription.id
+      );
+      await updateSubscription(fullSubscription, stripe);
       break;
     }
 

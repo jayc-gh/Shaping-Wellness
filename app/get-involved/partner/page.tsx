@@ -138,7 +138,7 @@ export default function Partner() {
           href="/programs"
           text="LEARN MORE ABOUT OUR PROGRAMS"
           arrow={true}
-          size="large"
+          size="text-base lg:text-[1.125rem]"
         />
       </div>
       <div className="relative bottom-[0.0625rem]">

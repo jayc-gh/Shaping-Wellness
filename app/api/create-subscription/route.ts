@@ -193,6 +193,7 @@ const storeData = async (formData: SubscriptionData) => {
     postalCode,
     anonymous,
   } = formData;
+
   const { data, error } = await supabaseServer
     .from(subscriptionInfoTable)
     .insert({

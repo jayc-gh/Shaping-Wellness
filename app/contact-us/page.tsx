@@ -50,7 +50,7 @@ export default function Contact() {
               <div className="flex items-center justify-center">
                 <a
                   href={fbLink}
-                  className="cursor-pointer z-10"
+                  className="cursor-pointer z-10 transition-transform duration-200 transform hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -58,7 +58,7 @@ export default function Contact() {
                 </a>
                 <a
                   href={igLink}
-                  className="cursor-pointer mr-3 ml-2 z-10"
+                  className="cursor-pointer mr-3 ml-2 z-10 transition-transform duration-200 transform hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -66,7 +66,7 @@ export default function Contact() {
                 </a>
                 <a
                   href={linkedinLink}
-                  className="cursor-pointer z-10"
+                  className="cursor-pointer z-10 transition-transform duration-200 transform hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

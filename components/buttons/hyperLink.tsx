@@ -4,7 +4,7 @@ import RightArrow from '../../app/icons/right-arrow.svg';
 type HyperLinkProps = {
   href: string;
   text: string;
-  size: 'small' | 'medium' | 'large' | 'custom';
+  size: string;
   arrow?: boolean;
   pdf?: boolean;
 };
@@ -16,15 +16,7 @@ export default function HyperLink({
   arrow,
   pdf,
 }: HyperLinkProps) {
-  const textClasses = `${
-    size === 'small'
-      ? 'text-[0.8125rem] lg:text-[0.875rem]'
-      : size === 'medium'
-      ? 'text-[0.9375rem] lg:text-base'
-      : size === 'large'
-      ? 'text-base lg:text-[1.125rem]'
-      : ''
-  } text-[#b1574a] font-[700] pb-[2px] border-b-2 border-transparent group-hover:border-[#b1574a] transition duration-150 group-hover:scale-102 group-active:scale-102 group-active:border-[#b1574a]`;
+  const textClasses = `${size} text-[#b1574a] font-[600] pb-[2px] border-b-2 border-transparent group-hover:border-[#b1574a] transition duration-150 group-hover:scale-102 group-active:scale-102 group-active:border-[#b1574a]`;
 
   const containerClasses =
     'group inline-flex h-[3.125rem] py-[1rem] justify-center items-center gap-[0.5rem] cursor-pointer transition-transform duration-150 active:scale-102 lg:hover:scale-102 leading-none';

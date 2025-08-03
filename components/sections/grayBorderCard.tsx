@@ -24,7 +24,12 @@ export default function GrayBorderCard({
         <p className="text-base lg:text-[1.125rem] font-[500] leading-[160%]">
           {text}
         </p>
-        <HyperLink href={href} text="LEARN MORE" size="small" arrow={true} />
+        <HyperLink
+          href={href}
+          text="LEARN MORE"
+          size="text-[0.875rem]"
+          arrow={true}
+        />
       </div>
     </div>
   );

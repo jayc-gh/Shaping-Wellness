@@ -58,7 +58,7 @@ export default function PictureTextSection({
           <HyperLink
             href={link.href}
             text={link.label}
-            size="small"
+            size="text-[0.8125rem] lg:text-[0.875rem]"
             pdf={pdf}
           />
         )}

@@ -132,7 +132,7 @@ export default function Home() {
           href="/programs"
           text="LEARN MORE ABOUT OUR PROGRAMS"
           arrow={true}
-          size="large"
+          size="text-base"
         />
       </div>
       <div className="relative w-full">
