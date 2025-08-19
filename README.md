@@ -13,9 +13,22 @@
   We strive to cultivate a generation of resilient and confident young women equipped with the tools and knowledge to prioritize their health and well-being, ultimately building stronger, healthier communities.
     <br/>
     <br />
-    <a href="https://github.com/jayc-gh/Shaping-Wellness"><strong>Check out our website »</strong></a>
+    <a href="https://shapingwellness.org/"><strong>Check out our website »</strong></a><br/>
   </p>
 </div>
+
+<p align="center"><strong>Follow our socials!</strong></p>
+<p align="center">
+  <a href="https://www.facebook.com/profile.php?id=61576873015418&mibextid=wwXIfr&rdid=zCvH3VpYVPgC8EGH&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16vEm5YoWq%2F%3Fmibextid%3DwwXIfr#">
+    <img src="https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white" alt="Facebook" />
+  </a>
+  <a href="https://www.instagram.com/shapingwellnessfoundation?igsh=MTdva2RlNW5tdXV4cA%3D%3D">
+    <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white" alt="Instagram" />
+  </a>
+  <a href="https://www.linkedin.com/company/shaping-wellness-foundation/">
+    <img src="https://custom-icon-badges.demolab.com/badge/LinkedIn-0A66C2?logo=linkedin-white&logoColor=fff" alt="LinkedIn" />
+  </a>
+</p>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -27,7 +40,6 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#improvements">Future improvements</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -58,9 +70,10 @@
 
 ## Contact
 
-Luciana Gearing [Founder] - email<br/><br/>
-Brenda Narvaez [Designer] - brenda.narvaez28@gmail.com | [LinkedIn](https://www.linkedin.com/in/brenda-narvaez)<br/><br/>
-Jay Cho [Developer] - jaycho1017@gmail.com | [LinkedIn](https://www.linkedin.com/in/jaycho1017/)
+Luciana Gearing [Founder] - luciana.gearing@shapingwellness.org
+<br/><br/>
+Brenda Narvaez [Design] - brenda.narvaez28@gmail.com | [LinkedIn](https://www.linkedin.com/in/brenda-narvaez)<br/><br/>
+Jay Cho [Dev] - jaycho1017@gmail.com | [LinkedIn](https://www.linkedin.com/in/jaycho1017/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,8 +85,6 @@ Jay Cho [Developer] - jaycho1017@gmail.com | [LinkedIn](https://www.linkedin.com
 [issues-url]: https://github.com/github_username/repo_name/issues
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

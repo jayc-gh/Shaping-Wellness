@@ -173,3 +173,9 @@ export type CreateSubscriptionPaymentOptions = {
   receiptSent?: boolean;
   failedReason?: string;
 };
+
+declare global {
+  interface Window {
+    STYLE_NONCE?: string;
+  }
+}

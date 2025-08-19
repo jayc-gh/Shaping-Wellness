@@ -47,10 +47,7 @@ export default function ProgressBar({
                 <Dot />
               </span>
             )}
-            <div
-              className="flex-grow h-[1px] bg-[#dd6d5c]"
-              style={{ minWidth: '40px', maxWidth: '50px' }}
-            />
+            <div className="flex-grow h-[1px] bg-[#dd6d5c] min-w-[40px] max-w-[50px]" />
           </React.Fragment>
         ))}
         {step >= 5 ? (

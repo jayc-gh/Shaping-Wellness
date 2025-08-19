@@ -133,11 +133,7 @@ export default function DonateForm() {
 
   return (
     <form
-      className="flex flex-col lg:w-[37.5rem] lg:min-h-[49.25rem] justify-between items-start py-[2.5rem] bg-white rounded-[0.625rem] gap-[3.0625rem] w-full"
-      style={{
-        paddingLeft: 'clamp(1.5625rem, 5vw, 6.5rem)',
-        paddingRight: 'clamp(1.5625rem, 5vw, 6.5rem)',
-      }}
+      className="flex flex-col lg:w-[37.5rem] lg:min-h-[49.25rem] justify-between items-start py-[2.5rem] bg-white rounded-[0.625rem] gap-[3.0625rem] w-full px-[clamp(1.5625rem,5vw,6.5rem)]"
       onSubmit={e => {
         e.preventDefault();
         handleSubmit(step);
@@ -202,10 +198,7 @@ export default function DonateForm() {
               fonts,
             }}
           >
-            <div
-              style={{ display: step === 3 ? 'block' : 'none' }}
-              className="w-full"
-            >
+            <div className={`w-full ${step === 3 ? 'block' : 'hidden'}`}>
               {(!stripe || !elements) && !errorMessage && <Spinner />}
               {!errorMessage && (
                 <>
