@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Shaping Wellness Foundation',
   description: 'Shaping wellness foundation',
   icons: {
-    icon: '/logo.svg',
+    icon: [{ url: '/logo.svg', type: 'image/svg+xml', sizes: 'any' }],
   },
 };
 
@@ -22,7 +22,7 @@ export const viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

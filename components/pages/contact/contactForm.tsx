@@ -47,7 +47,7 @@ export default function ContactForm() {
     >
       {!confirm && !errorMessage && (
         <div className="flex flex-col justify-center items-start gap-[1.5rem]">
-          <h4 className="text-base font-bold text-base">CONTACT FORM</h4>
+          <h4 className="text-base font-bold">CONTACT FORM</h4>
           <p className="text-base font-[500] leading-[170%] lg:leading-[140%]">
             Have a question or need more information? Fill out the form, and our
             team will get back to you as soon as possible.

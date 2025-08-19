@@ -12,8 +12,12 @@ interface StepProps {
   setFormData: React.Dispatch<React.SetStateAction<DonateFormData>>;
 }
 
+const predefinedAmounts = [25, 50, 75, 100, 150, 200];
+
 export default function DonationAmt({ formData, setFormData }: StepProps) {
-  const [customAmt, setCustomAmt] = useState<boolean>(false);
+  const [customAmt, setCustomAmt] = useState<boolean>(
+    !predefinedAmounts.includes(Number(formData.donationAmount))
+  );
   const [error, setError] = useState<boolean>(false);
   const toggleDonationType = (type: string) => {
     setFormData(prev => ({
@@ -114,15 +118,8 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
           gift: <span className={required}>*</span>
         </p>
         {/* Donation Amount Buttons */}
-        <div
-          className="grid w-full gap-x-[0.9375rem] lg:gap-x-[1.5rem] gap-y-[0.75rem]"
-          style={{
-            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gridTemplateAreas:
-              "'btn1 btn2 btn3' 'btn4 btn5 btn6' 'customBtn customInput customInput'",
-          }}
-        >
-          {[25, 50, 75, 100, 150, 200].map((value, i) => (
+        <div className="grid w-full gap-x-[0.9375rem] lg:gap-x-[1.5rem] gap-y-[0.75rem] grid-cols-3">
+          {predefinedAmounts.map(value => (
             <button
               type="button"
               key={value}
@@ -131,13 +128,11 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
                 setCustomAmt(false);
                 setError(false);
               }}
-              className={
-                'flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center rounded-[0.625rem] font-semibold text-[1rem] transition-colors cursor-pointer ' +
-                (formData.donationAmount === String(value)
+              className={`flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center rounded-[0.625rem] font-semibold text-[1rem] transition-colors cursor-pointer ${
+                formData.donationAmount === String(value)
                   ? 'bg-[#dd6d5c] text-white'
-                  : 'bg-[#ffece4] text-[#2f2f2f]')
-              }
-              style={{ gridArea: `btn${i + 1}` }}
+                  : 'bg-[#ffece4] text-[#2f2f2f]'
+              }`}
             >
               <span className="font-semibold text-[1rem]">${value}</span>
             </button>
@@ -149,23 +144,18 @@ export default function DonationAmt({ formData, setFormData }: StepProps) {
               setCustomAmt(true);
               handleAmountSelection('');
             }}
-            className={
-              'flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center gap-[1.5rem] rounded-[0.625rem] font-semibold text-[1rem] transition-colors hover:cursor-pointer ' +
-              (customAmt
+            className={`flex h-[2.75rem] px-[1.25rem] py-[1rem] justify-center items-center gap-[1.5rem] rounded-[0.625rem] font-semibold text-[1rem] transition-colors hover:cursor-pointer ${
+              customAmt
                 ? 'bg-[#dd6d5c] text-white'
-                : 'bg-[#ffece4] text-[#2f2f2f]')
-            }
-            style={{ gridArea: 'customBtn' }}
+                : 'bg-[#ffece4] text-[#2f2f2f]'
+            } col-span-1`}
           >
             <span className="font-semibold hover:cursor-pointer text-[1rem]">
               Other
             </span>
           </button>
           {customAmt ? (
-            <div
-              className="flex flex-col w-full"
-              style={{ gridArea: 'customInput' }}
-            >
+            <div className="flex flex-col w-full col-span-2">
               <div className="flex w-full h-[2.75rem] px-[1rem] py-[1rem] justify-between items-center rounded-[0.625rem] border border-[rgba(47,47,47,0.3)]">
                 <span className="text-[#2f2f2f] text-[1rem] font-medium select-none mr-[0.625rem]">
                   $

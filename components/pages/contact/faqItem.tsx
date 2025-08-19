@@ -51,9 +51,9 @@ export default function FAQItem({ question, answer }: FAQItemProps) {
           className="w-full"
           style={{ maxWidth: 'calc(100% - 1.75rem)' }}
         >
-          <p className="text-base font-[400] leading-[1.25rem] text-[#6b6461]">
+          <div className="text-base font-[400] leading-[1.25rem] text-[#6b6461]">
             {answer}
-          </p>
+          </div>
         </div>
       </div>
     </div>
