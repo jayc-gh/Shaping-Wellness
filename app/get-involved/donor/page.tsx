@@ -28,6 +28,7 @@ export default function Donor() {
         buttonHref="/donate"
         buttonText="Donate Now"
         buttonVariant="white"
+        ariaLabel="Donate Now"
       />
       <div className="lg:py-[2.5rem]">
         <DoubleTextSection
@@ -99,6 +100,7 @@ export default function Donor() {
           link={{
             href: '/pdfs/2025FinancialsPlan.pdf',
             label: 'VIEW OUR 2025 FINANCIAL PLAN (PDF)',
+            ariaLabel: 'View our 2025 Financial Plan PDF',
           }}
           pdf={true}
         />
@@ -148,6 +150,7 @@ export default function Donor() {
         text="Help us launch programs that support girls across Houston."
         href="/donate"
         buttonLabel="Donate Now"
+        ariaLabel="Donate Now"
       />
     </main>
   );

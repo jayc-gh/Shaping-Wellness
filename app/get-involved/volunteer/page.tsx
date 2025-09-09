@@ -24,6 +24,7 @@ export default function Volunteer() {
         buttonHref="/get-involved/volunteer/volunteer-form"
         buttonText="Volunteer Application Form"
         buttonVariant="white"
+        ariaLabel="Volunteer Application Form"
       />
       <PSection
         header="WAYS TO GET INVOLVED"
@@ -194,6 +195,7 @@ export default function Volunteer() {
         text="Share your time, skills, and heart - become a mentor, leader, or wellness guide."
         href="/get-involved/volunteer/volunteer-form"
         buttonLabel="Volunteer Application Form"
+        ariaLabel="Volunteer Application Form"
       />
     </main>
   );

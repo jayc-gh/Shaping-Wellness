@@ -21,16 +21,19 @@ const getInvolved = {
     key: 'volunteer',
     label: 'Volunteer',
     href: '/get-involved/volunteer',
+    ariaLabel: 'Volunteer',
   },
   link2: {
     key: 'partner',
     label: 'Partner with us',
     href: '/get-involved/partner',
+    ariaLabel: 'Partner with us',
   },
   link3: {
     key: 'donor',
     label: 'Become a donor',
     href: '/get-involved/donor',
+    ariaLabel: 'Become a donor',
   },
 };
 
@@ -39,16 +42,19 @@ const learnMore = {
     key: 'who-we-are',
     label: 'Who we are',
     href: '/who-we-are',
+    ariaLabel: 'Who we are',
   },
   link2: {
     key: 'programs',
     label: 'Programs',
     href: '/programs',
+    ariaLabel: 'Programs',
   },
   link3: {
     key: 'contact',
     label: 'Contact us',
     href: '/contact-us',
+    ariaLabel: 'Contact us',
   },
 };
 
@@ -57,16 +63,19 @@ const connect = {
     key: 'facebook',
     label: 'Facebook',
     href: fbLink,
+    ariaLabel: 'Facebook',
   },
   link2: {
     key: 'Instagram',
     label: 'Instagram',
     href: igLink,
+    ariaLabel: 'Instagram',
   },
   link3: {
     key: 'linkedin',
     label: 'LinkedIn',
     href: linkedinLink,
+    ariaLabel: 'LinkedIn',
   },
 };
 
@@ -101,7 +110,7 @@ export default function FooterT() {
           />
         </div>
         <div className="flex flex-col items-center gap-[1.875rem]">
-          <Link href="/">
+          <Link href="/" aria-label="Home">
             <MobileFooterLogo />
           </Link>
           <div className="text-[0.875rem] font-[500] flex flex-col gap-[0.5rem] items-center">
@@ -116,7 +125,7 @@ export default function FooterT() {
       <div className="hidden lg:flex w-full max-w-[1224px] justify-between">
         {/* Left: Logo + Contact */}
         <div className="flex flex-col gap-[1.875rem] items-start justify-between">
-          <Link href="/">
+          <Link href="/" aria-label="Home">
             <WhiteLogo />
           </Link>
           <div className="text-[0.875rem] font-[500] flex flex-col gap-[0.5rem]">
@@ -139,13 +148,28 @@ export default function FooterT() {
           <div className="flex flex-col gap-[1rem] w-[5rem]">
             <p className="text-[0.875rem] font-bold">CONNECT</p>
             <div className="flex gap-[0.75rem]">
-              <a href={fbLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={fbLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
                 <Facebook />
               </a>
-              <a href={igLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={igLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
                 <Instagram />
               </a>
-              <a href={linkedinLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={linkedinLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <Linkedin />
               </a>
             </div>
@@ -161,7 +185,7 @@ function FooterColumn({
   links,
 }: {
   title: string;
-  links: { key: string; label: string; href: string }[];
+  links: { key: string; label: string; href: string; ariaLabel: string }[];
 }) {
   return (
     <div className="flex flex-col gap-[1rem] w-[11.5rem]">
@@ -170,6 +194,7 @@ function FooterColumn({
         <a
           key={link.key}
           href={link.href}
+          aria-label={link.ariaLabel}
           target="_blank"
           rel="noopener noreferrer"
         >

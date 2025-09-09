@@ -15,6 +15,7 @@ type MainSectionProps = {
   backgroundSize?: string;
   transparent?: boolean;
   showBg?: boolean;
+  ariaLabel?: string;
 };
 
 export default function MainSection({
@@ -31,6 +32,7 @@ export default function MainSection({
   contentMaxWidth = 'lg:max-w-[37.5rem]',
   transparent,
   showBg = true,
+  ariaLabel,
 }: MainSectionProps) {
   return (
     <div
@@ -91,7 +93,11 @@ export default function MainSection({
           {buttonText && buttonHref && (
             <MainButton
               color={buttonVariant}
-              link={{ href: buttonHref, label: buttonText }}
+              link={{
+                href: buttonHref,
+                label: buttonText,
+                ariaLabel: ariaLabel,
+              }}
               width="main"
             />
           )}

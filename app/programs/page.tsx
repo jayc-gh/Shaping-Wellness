@@ -104,6 +104,7 @@ export default function Programs() {
           link={{
             href: '/pdfs/SWF2025PilotProgramsOverview.pdf',
             label: 'VIEW OUR 2025 PROGRAMS OVERVIEW (PDF)',
+            ariaLabel: 'View our 2025 Programs Overview PDF',
           }}
           pdf={true}
         />
@@ -134,6 +135,7 @@ export default function Programs() {
           link={{
             href: '/pdfs/2025FitnessProgramPlan.pdf',
             label: 'VIEW OUR 2025 FITNESS PROGRAM PLAN (PDF)',
+            ariaLabel: 'View our 2025 Fitness Program Plan PDF',
           }}
           pdf={true}
         />
@@ -171,6 +173,7 @@ export default function Programs() {
           link={{
             href: '/pdfs/2025WorkshopsPlan.pdf',
             label: 'VIEW OUR 2025 WORKSHOP PROGRAM PLAN (PDF)',
+            ariaLabel: 'View our 2025 Workshop Program Plan PDF',
           }}
           pdf={true}
         />
@@ -195,6 +198,7 @@ export default function Programs() {
           link={{
             href: '/pdfs/2025MentorshipPlan.pdf',
             label: 'VIEW OUR 2025 MENTOR PROGRAM PLAN (PDF)',
+            ariaLabel: 'View our 2025 Mentor Program Plan PDF',
           }}
           pdf={true}
         />
@@ -214,6 +218,7 @@ export default function Programs() {
         text="Have questions or want to get involved? We're here to help!"
         href="/contact-us"
         buttonLabel="Send a message"
+        ariaLabel="Contact us"
       />
     </main>
   );

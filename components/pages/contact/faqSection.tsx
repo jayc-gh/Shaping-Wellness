@@ -27,7 +27,10 @@ export default function FAQSection() {
               <>
                 You can volunteer, donate, or partner with us! Explore ways to
                 support us in the{' '}
-                <Link href="/#getInvolved">
+                <Link
+                  href="/#getInvolved"
+                  aria-label="Link to Get Involved Section"
+                >
                   <span className="font-bold underline">Get Involved</span>
                 </Link>{' '}
                 section on our homepage.
@@ -53,7 +56,10 @@ export default function FAQSection() {
             answer={
               <>
                 You can reach out by filling out a{' '}
-                <Link href="/get-involved/partner/partner-form">
+                <Link
+                  href="/get-involved/partner/partner-form"
+                  aria-label="Link to Partnership Form"
+                >
                   <span className="font-bold underline">
                     Partnership Inquiry
                   </span>
@@ -70,12 +76,15 @@ export default function FAQSection() {
             answer={
               <>
                 You can donate online through our{' '}
-                <Link href="/donate">
+                <Link href="/donate" aria-label="Donation Form">
                   <span className="font-bold underline">Donation Form</span>
                 </Link>{' '}
                 or mail a check to our PO Box. For more information on how your
                 donation helps and the benefits of giving, visit our{' '}
-                <Link href="/get-involved/donor">
+                <Link
+                  href="/get-involved/donor"
+                  aria-label="Become a donor page"
+                >
                   <span className="font-bold underline">Donor</span>
                 </Link>{' '}
                 page.

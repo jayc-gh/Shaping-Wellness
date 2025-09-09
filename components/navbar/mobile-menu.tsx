@@ -13,15 +13,27 @@ type MenuProps = {
 };
 
 const getInvolvedItems = [
-  { href: '/get-involved/volunteer', text: 'Volunteer' },
-  { href: '/get-involved/partner', text: 'Partner with us' },
-  { href: '/get-involved/donor', text: 'Become a donor' },
+  {
+    href: '/get-involved/volunteer',
+    text: 'Volunteer',
+    ariaLabel: 'Volunteer',
+  },
+  {
+    href: '/get-involved/partner',
+    text: 'Partner with us',
+    ariaLabel: 'Partner with us',
+  },
+  {
+    href: '/get-involved/donor',
+    text: 'Become a donor',
+    ariaLabel: 'Become a donor',
+  },
 ];
 
 const dropdownItems = [
-  { href: '/who-we-are', text: 'Who We Are' },
-  { href: '/programs', text: 'Programs' },
-  { href: '/contact-us', text: 'Contact' },
+  { href: '/who-we-are', text: 'Who We Are', ariaLabel: 'Who we are' },
+  { href: '/programs', text: 'Programs', ariaLabel: 'Programs' },
+  { href: '/contact-us', text: 'Contact', ariaLabel: 'Contact' },
 ];
 
 export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
@@ -114,6 +126,7 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
             >
               <Link
                 href={item.href}
+                aria-label={item.ariaLabel}
                 onClick={() => {
                   setDropdown(null);
                 }}
@@ -135,6 +148,7 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
           <div key={item.href} className="group w-full active:bg-[#f4a488]">
             <Link
               href={item.href}
+              aria-label={item.ariaLabel}
               className="flex items-center w-full"
               onClick={() => {
                 setDropdown(null);
@@ -152,7 +166,7 @@ export default function MobileMenu({ dropdown, setDropdown }: MenuProps) {
         <div className="flex w-full px-[1.5625rem] py-[0.625rem]">
           <MainButton
             color="orange"
-            link={{ href: '/donate', label: 'Donate' }}
+            link={{ href: '/donate', label: 'Donate', ariaLabel: 'Donate' }}
             width="fill"
             onClick={() => setDropdown(null)}
           />

@@ -34,6 +34,7 @@ export default function ConfirmationBox({
           </div>
           <HyperLink
             href="/get-involved/donor"
+            ariaLabel="Link to become a donor page"
             text="SEE HOW YOUR DONATION WILL BE USED"
             arrow={true}
             size="text-base"

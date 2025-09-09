@@ -4,6 +4,7 @@ import HyperLink from '../buttons/hyperLink';
 type Link = {
   href: string;
   label: string;
+  ariaLabel?: string;
 };
 
 type DoubleTextSectionProps = {
@@ -40,6 +41,7 @@ export default function DoubleTextSection({
             <div className="flex w-full items-center justify-center lg:justify-start">
               <HyperLink
                 href={link.href}
+                ariaLabel={link.ariaLabel}
                 text={link.label}
                 size="text-[0.8125rem] lg:text-[0.875rem]"
                 pdf={pdf}

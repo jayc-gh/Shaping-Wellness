@@ -10,6 +10,7 @@ type Link = {
   key: string;
   label: string;
   href: string;
+  ariaLabel?: string;
 };
 
 type FooterDropdownProps = {
@@ -74,6 +75,7 @@ export default function FooterDropdown({
           >
             <Link
               href={item.href}
+              aria-label={item.ariaLabel}
               onClick={() => {
                 setIsOpen(null);
               }}
