@@ -30,6 +30,7 @@ export default function Partner() {
         buttonHref="/get-involved/partner/partner-form"
         buttonText="Partnership Inquiry Form"
         buttonVariant="white"
+        ariaLabel="Partnership Inquiry Form"
       />
       <DoubleTextSection
         title="WHY PARTNER WITH US?"
@@ -139,6 +140,7 @@ export default function Partner() {
           text="LEARN MORE ABOUT OUR PROGRAMS"
           arrow={true}
           size="text-base lg:text-[1.125rem]"
+          ariaLabel="Learn more about our programs"
         />
       </div>
       <div className="relative bottom-[0.0625rem]">
@@ -180,6 +182,7 @@ export default function Partner() {
         text="Ready to bring wellness programs to your school or community?"
         href="/get-involved/partner/partner-form"
         buttonLabel="Partnership Inquiry Form"
+        ariaLabel="Partnership Inquiry Form"
       />
     </main>
   );

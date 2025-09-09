@@ -45,6 +45,7 @@ export default function DonatePage() {
                   <Link
                     href="/get-involved/donor"
                     className="underline cursor-pointer"
+                    aria-label="Become a donor page"
                   >
                     Become a Donor page
                   </Link>{' '}

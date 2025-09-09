@@ -6,6 +6,7 @@ type GrayBorderCardProps = {
   title: string;
   text: string;
   href: string;
+  ariaLabel?: string;
 };
 
 export default function GrayBorderCard({
@@ -13,6 +14,7 @@ export default function GrayBorderCard({
   title,
   text,
   href,
+  ariaLabel,
 }: GrayBorderCardProps) {
   return (
     <div className="flex flex-1 p-[1.5625rem] flex-col justify-center items-center shadow-[0_4px_9px_rgba(0,0,0,0.04)] rounded-[0.625rem] border-[1px] border-[#efefef] lg:py-[1.25rem] lg:px-[1.5rem]">
@@ -29,6 +31,7 @@ export default function GrayBorderCard({
           text="LEARN MORE"
           size="text-[0.875rem]"
           arrow={true}
+          ariaLabel={ariaLabel}
         />
       </div>
     </div>

@@ -5,6 +5,7 @@ import HyperLink from '../buttons/hyperLink';
 type Link = {
   href: string;
   label: string;
+  ariaLabel?: string;
 };
 
 type PictureTextSectionProps = {
@@ -60,6 +61,7 @@ export default function PictureTextSection({
             text={link.label}
             size="text-[0.8125rem] lg:text-[0.875rem]"
             pdf={pdf}
+            ariaLabel={link.ariaLabel}
           />
         )}
         {setPopup && (

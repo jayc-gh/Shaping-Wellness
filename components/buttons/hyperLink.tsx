@@ -7,6 +7,7 @@ type HyperLinkProps = {
   size: string;
   arrow?: boolean;
   pdf?: boolean;
+  ariaLabel?: string;
 };
 
 export default function HyperLink({
@@ -15,6 +16,7 @@ export default function HyperLink({
   size,
   arrow,
   pdf,
+  ariaLabel,
 }: HyperLinkProps) {
   const textClasses = `${size} text-[#b1574a] font-[600] pb-[2px] border-b-2 border-transparent group-hover:border-[#b1574a] transition duration-150 group-hover:scale-102 group-active:scale-102 group-active:border-[#b1574a]`;
 
@@ -38,11 +40,12 @@ export default function HyperLink({
       target="_blank"
       rel="noopener noreferrer"
       className={containerClasses}
+      aria-label={ariaLabel}
     >
       {content}
     </a>
   ) : (
-    <Link href={href} className={containerClasses}>
+    <Link href={href} className={containerClasses} aria-label={ariaLabel}>
       {content}
     </Link>
   );

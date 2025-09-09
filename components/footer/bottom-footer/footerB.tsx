@@ -39,7 +39,11 @@ export default function FooterB() {
           <p className="">|</p>
           <p className="">
             Images by{' '}
-            <Link href="https://www.freepik.com/" className="underline">
+            <Link
+              href="https://www.freepik.com/"
+              className="underline"
+              aria-label="Images by Freepik"
+            >
               Freepik
             </Link>
           </p>
@@ -49,6 +53,7 @@ export default function FooterB() {
             <Link
               href="https://brendanarvaez.framer.website/"
               className="underline"
+              aria-label="Link to our designer Brenda Narvaez's portfolio"
             >
               BN
             </Link>
@@ -56,7 +61,11 @@ export default function FooterB() {
           <p className="">|</p>
           <p className="">
             Dev:{' '}
-            <Link href="https://github.com/jayc-gh" className="underline">
+            <Link
+              href="https://github.com/jayc-gh"
+              className="underline"
+              aria-label="Link to our developer Jay Cho's GitHub"
+            >
               JC
             </Link>
           </p>

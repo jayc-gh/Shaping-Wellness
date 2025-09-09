@@ -5,6 +5,7 @@ import LoadingDots from '../loadingDots';
 type LinkProps = {
   href: string;
   label: string;
+  ariaLabel: string | undefined;
 };
 
 type SubmitProps = {
@@ -52,7 +53,12 @@ export default function MainButton({
   );
 
   return link && !submit ? (
-    <Link href={link.href} className={className} onClick={onClick}>
+    <Link
+      href={link.href}
+      className={className}
+      onClick={onClick}
+      aria-label={link.ariaLabel}
+    >
       <span className="flex w-full h-full items-center justify-center">
         {link.label}
       </span>

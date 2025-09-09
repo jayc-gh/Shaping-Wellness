@@ -14,9 +14,21 @@ const dropdownItems = [
     id: 'get-involved',
     label: 'Get Involved',
     links: [
-      { href: '/get-involved/volunteer', text: 'Volunteer' },
-      { href: '/get-involved/partner', text: 'Partner with us' },
-      { href: '/get-involved/donor', text: 'Become a donor' },
+      {
+        href: '/get-involved/volunteer',
+        text: 'Volunteer',
+        ariaLabel: 'Volunteer',
+      },
+      {
+        href: '/get-involved/partner',
+        text: 'Partner with us',
+        ariaLabel: 'Partner with us',
+      },
+      {
+        href: '/get-involved/donor',
+        text: 'Become a donor',
+        ariaLabel: 'Become a donor',
+      },
     ],
   },
 ];
@@ -30,7 +42,7 @@ export default function NavBar() {
     <nav className="relative flex justify-center items-center w-full px-[1.5625rem] py-[1.125rem] lg:px-[6.75rem]">
       <div className="flex flex-1 justify-between items-center lg:max-w-[76.5rem]">
         {/* left/logo side of navbar */}
-        <Link href="/">
+        <Link href="/" aria-label="Home">
           {/* Mobile logo */}
           <div className="block lg:hidden py-[0.1875em]">
             <Logo alt="Logo" />
@@ -59,9 +71,10 @@ export default function NavBar() {
                 </div>
               </div>
               <div className="absolute top-full left-0 -mt-1 z-10 bg-white shadow-lg rounded-b-lg w-[13.125rem] py-2 flex flex-col items-start opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300">
-                {links.map(({ href, text }) => (
+                {links.map(({ href, text, ariaLabel }) => (
                   <Link
                     key={href}
+                    aria-label={ariaLabel}
                     href={href}
                     className="flex px-[1.875rem] py-[0.625rem] w-full text-left font-normal whitespace-nowrap hover:bg-[#f4a488] hover:font-[500]"
                   >
@@ -72,16 +85,29 @@ export default function NavBar() {
             </div>
           ))}
 
-          <Link href="/who-we-are" className={hoverAnimation}>
+          <Link
+            href="/who-we-are"
+            aria-label="Who we are"
+            className={hoverAnimation}
+          >
             Who We Are
           </Link>
-          <Link href="/programs" className={hoverAnimation}>
+          <Link
+            href="/programs"
+            aria-label="Programs"
+            className={hoverAnimation}
+          >
             Programs
           </Link>
-          <Link href="/contact-us" className={hoverAnimation}>
+          <Link
+            href="/contact-us"
+            aria-label="Contact us"
+            className={hoverAnimation}
+          >
             Contact
           </Link>
           <button
+            aria-label="Donate"
             className="flex h-[3.125rem] px-[1.25rem] py-[1rem] justify-center items-center rounded-[0.625rem] cursor-pointer border-[1px] border-[#d9764e] bg-gradient-to-b from-[#d9764e] to-[#dd6d5c] hover:bg-[linear-gradient(0deg,rgba(0,0,0,0.1),rgba(0,0,0,0.1)),linear-gradient(to_bottom,#d9764e,#dd6d5c)] hover:border-transparent"
             onClick={() => {
               window.location.href = '/donate';

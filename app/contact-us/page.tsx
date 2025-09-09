@@ -53,6 +53,7 @@ export default function Contact() {
                   className="cursor-pointer z-10 transition-transform duration-200 transform hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Facebook link"
                 >
                   <Facebook />
                 </a>
@@ -61,6 +62,7 @@ export default function Contact() {
                   className="cursor-pointer mr-3 ml-2 z-10 transition-transform duration-200 transform hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Instagram link"
                 >
                   <Instagram />
                 </a>
@@ -69,6 +71,7 @@ export default function Contact() {
                   className="cursor-pointer z-10 transition-transform duration-200 transform hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn link"
                 >
                   <Linkedin />
                 </a>

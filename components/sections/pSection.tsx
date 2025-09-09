@@ -5,6 +5,7 @@ import HyperLink from '../buttons/hyperLink';
 type Link = {
   href: string;
   label: string;
+  ariaLabel?: string;
 };
 
 type PSectionTypes = {
@@ -29,6 +30,7 @@ export default function PSection({ header, text, link }: PSectionTypes) {
           <HyperLink
             href={link.href}
             text={link.label}
+            ariaLabel={link.ariaLabel}
             arrow={true}
             size="text-base"
           />

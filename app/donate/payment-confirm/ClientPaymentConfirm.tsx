@@ -82,7 +82,11 @@ export default function PaymentConfirm({
                   to lead a healthy, empowered life. <br />
                   <br />
                   Curious about the difference you&apos;re making? Visit our{' '}
-                  <Link href="/get-involved/donor" className="cursor-pointer">
+                  <Link
+                    href="/get-involved/donor"
+                    className="cursor-pointer"
+                    aria-label="Become a donor page"
+                  >
                     <span className="underline">Become a Donor page</span>
                   </Link>{' '}
                   to see how your support changes lives.

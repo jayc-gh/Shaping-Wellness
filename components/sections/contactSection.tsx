@@ -5,6 +5,7 @@ type ContactSectionProps = {
   text: string;
   href: string;
   buttonLabel: string;
+  ariaLabel?: string;
 };
 
 export default function ContactSection({
@@ -12,6 +13,7 @@ export default function ContactSection({
   text,
   href,
   buttonLabel,
+  ariaLabel,
 }: ContactSectionProps) {
   return (
     <div
@@ -27,7 +29,7 @@ export default function ContactSection({
         </p>
         <MainButton
           color="orange"
-          link={{ href: href, label: buttonLabel }}
+          link={{ href: href, label: buttonLabel, ariaLabel: ariaLabel }}
           width="main"
         />
       </div>

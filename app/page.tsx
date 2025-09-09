@@ -32,6 +32,7 @@ export default function Home() {
         aspectRatio="aspect-[1/1] lg:aspect-[16/5]"
         contentMaxWidth="lg:max-w-[34.375rem]"
         backgroundPosition="center 30%, center 30%"
+        ariaLabel="Become a partner"
       ></MainSection>
       <PSection
         header="WHO WE ARE"
@@ -50,7 +51,11 @@ export default function Home() {
             lifelong wellness.
           </>
         }
-        link={{ href: '/who-we-are', label: 'LEARN MORE ABOUT OUR MISSION' }}
+        link={{
+          href: '/who-we-are',
+          label: 'LEARN MORE ABOUT OUR MISSION',
+          ariaLabel: 'Learn more about our mission',
+        }}
       />
       <div
         className="relative z-0 aspect-[2416/900] lg:aspect-[2416/500] w-full flex flex-col items-center"
@@ -133,6 +138,7 @@ export default function Home() {
           text="LEARN MORE ABOUT OUR PROGRAMS"
           arrow={true}
           size="text-base"
+          ariaLabel="Learn more about our programs"
         />
       </div>
       <div className="relative w-full">
@@ -161,6 +167,7 @@ export default function Home() {
               title={'Partner with us'}
               text="Help bring fitness, wellness, and mentorship to more girls."
               href={'/get-involved/partner'}
+              ariaLabel="Partner with us"
             />
             <GrayBorderCard
               icon={<HandHeart />}
@@ -168,12 +175,14 @@ export default function Home() {
               text="Your support helps girls build confidence and lifelong
                   well-being."
               href={'/get-involved/donor'}
+              ariaLabel="Become a donor"
             />
             <GrayBorderCard
               icon={<Users />}
               title={'Volunteer your time'}
               text="From mentoring to workshops, everyone can make a difference."
               href={'/get-involved/volunteer'}
+              ariaLabel="Volunteer with us"
             />
           </div>
         </div>
@@ -183,6 +192,7 @@ export default function Home() {
         text="Have questions or want to get involved? We're here to help!"
         href="/contact-us"
         buttonLabel="Send a message"
+        ariaLabel="Contact us"
       />
     </main>
   );
