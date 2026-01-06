@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   let amount: number | undefined;
   try {
-    const { paymentIntentId, amount } = await request.json();
+    const { paymentIntentId, amount } = await req.json();
 
     if (!paymentIntentId || typeof amount !== 'number' || amount <= 0) {
       throw new Error('Invalid paymentIntentId or amount');

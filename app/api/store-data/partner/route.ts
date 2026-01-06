@@ -3,9 +3,9 @@ import { supabaseServer, partnersTable } from '@/lib/supabaseServer';
 import { PartnerFormData } from '@/declarations';
 import SendFormEmail from '@/lib/functions/brevo/brevoForms';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await req.json();
     const {
       orgName,
       school,

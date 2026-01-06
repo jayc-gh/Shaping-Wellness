@@ -3,9 +3,9 @@ import { supabaseServer, donationsTable } from '@/lib/supabaseServer';
 import { DatabaseDonationData } from '@/declarations';
 import { stripe } from '@/lib/stripe';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await req.json();
     const {
       firstName,
       lastName,
