@@ -3,9 +3,13 @@ import { supabaseServer, partnersTable } from '@/lib/supabaseServer';
 import { PartnerFormData } from '@/declarations';
 import SendFormEmail from '@/lib/functions/brevo/brevoForms';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
+  if (req.headers.get('server-token') !== process.env.SERVER_KEY) {
+    return NextResponse.json({error: "Unauthorized"}, {status: 401})
+  }
+  
   try {
-    const body = await request.json();
+    const body = await req.json();
     const {
       orgName,
       school,

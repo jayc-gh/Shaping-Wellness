@@ -25,6 +25,7 @@ export default function PaymentIntentHandler({
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'server-token': process.env.SERVER_KEY!,
           },
           body: JSON.stringify({
             amount: convertToSubcurrency(Number(formData.donationAmount)),

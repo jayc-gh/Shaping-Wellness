@@ -2,9 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer, messagesTable } from '@/lib/supabaseServer';
 import { ContactFormData } from '@/declarations';
 import SendFormEmail from '@/lib/functions/brevo/brevoForms';
-export async function POST(request: NextRequest) {
+
+export async function POST(req: NextRequest) {
+  if (req.headers.get('server-token') !== process.env.SERVER_KEY) {
+    return NextResponse.json({error: "Unauthorized"}, {status: 401})
+  }
+
   try {
-    const body = await request.json();
+    const body = await req.json();
     const { firstName, lastName, email, details } = body;
 
     const formData: ContactFormData = {
