@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
+  const url = new URL(req.url);
+
+  // warmup ping
+  if (url.searchParams.get('warmup') === '1') {
+    return NextResponse.json({warm: true})
+  }
+
   let amount: number | undefined;
   try {
-    const body = await request.json();
+    const body = await req.json();
     const {
       charged_amount,
       donation_amount,

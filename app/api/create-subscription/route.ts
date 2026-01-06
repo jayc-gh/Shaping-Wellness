@@ -6,6 +6,13 @@ import { SubscriptionData } from '@/declarations';
 import type Stripe from 'stripe';
 
 export async function POST(req: NextRequest) {
+  const url = new URL(req.url);
+
+  // warmup ping
+  if (url.searchParams.get('warmup') === '1') {
+    return NextResponse.json({warm: true})
+  }
+
   const {
     email,
     charged_amount,
