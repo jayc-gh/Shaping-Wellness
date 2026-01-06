@@ -4,10 +4,6 @@ import { DatabaseDonationData } from '@/declarations';
 import { stripe } from '@/lib/stripe';
 
 export async function POST(req: NextRequest) {
-  if (req.headers.get('server-token') !== process.env.SERVER_KEY) {
-    return NextResponse.json({error: "Unauthorized"}, {status: 401})
-  }
-
   try {
     const body = await req.json();
     const {

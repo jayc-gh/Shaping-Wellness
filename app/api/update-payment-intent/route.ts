@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 export async function POST(req: NextRequest) {
-  if (req.headers.get('server-token') !== process.env.SERVER_KEY) {
-    return NextResponse.json({error: "Unauthorized"}, {status: 401})
-  }
-
   let amount: number | undefined;
   try {
     const { paymentIntentId, amount } = await req.json();

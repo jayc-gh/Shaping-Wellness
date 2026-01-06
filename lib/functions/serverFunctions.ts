@@ -19,7 +19,6 @@ export const createPaymentIntent = async (formData: DonateFormData) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'server-token': process.env.SERVER_KEY!,
       },
       body: JSON.stringify({
         charged_amount: convertedChargedAmount,
@@ -85,7 +84,6 @@ export const createSubscription = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'server-token': process.env.SERVER_KEY!,
       },
       body: JSON.stringify({
         charged_amount: convertedChargedAmount,
@@ -155,7 +153,6 @@ export const storeDonationData = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'server-token': process.env.SERVER_KEY!,
       },
       body: JSON.stringify({
         firstName,
@@ -206,7 +203,6 @@ export const storeContactData = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'server-token': process.env.SERVER_KEY!,
       },
       body: JSON.stringify({
         firstName,
@@ -249,7 +245,6 @@ export const storePartnerData = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'server-token': process.env.SERVER_KEY!,
       },
       body: JSON.stringify({
         orgName,
@@ -296,7 +291,6 @@ export const storeVolunteerData = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'server-token': process.env.SERVER_KEY!,
       },
       body: JSON.stringify({
         firstName,

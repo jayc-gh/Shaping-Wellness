@@ -6,10 +6,6 @@ import { SubscriptionData } from '@/declarations';
 import type Stripe from 'stripe';
 
 export async function POST(req: NextRequest) {
-  if (req.headers.get('server-token') !== process.env.SERVER_KEY) {
-    return NextResponse.json({error: "Unauthorized"}, {status: 401})
-  }
-  
   const url = new URL(req.url);
 
   // warmup ping

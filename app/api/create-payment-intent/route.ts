@@ -2,17 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 export async function POST(req: NextRequest) {
-  if (req.headers.get('server-token') !== process.env.SERVER_KEY) {
-    return NextResponse.json({error: "Unauthorized"}, {status: 401})
-  }
-
   const url = new URL(req.url);
 
   // warmup ping
   if (url.searchParams.get('warmup') === '1') {
     return NextResponse.json({warm: true})
   }
-
 
   let amount: number | undefined;
   try {
