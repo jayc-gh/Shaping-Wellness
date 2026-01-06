@@ -13,7 +13,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({warm: true})
   }
 
-
   const {
     email,
     charged_amount,
